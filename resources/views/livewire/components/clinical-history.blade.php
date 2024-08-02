@@ -244,7 +244,8 @@
             if ($(`#${e.target.id}`).is(':checked')) {
 
                 //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplica") {
+                if (e.target.id == "FB_NA") {
+
                     $('#checkbok-input input[type="checkbox"]').prop('checked', false);
 
                     $('#checkbok-input input[type="checkbox"]').val(null);
@@ -257,9 +258,9 @@
 
                 } else {
 
-                    $('#no_aplica').prop('checked', false);
+                    $('#FB_NA').prop('checked', false);
 
-                    $('#no_aplica').val(null);
+                    $('#FB_NA').val(null);
 
                     $(`#${e.target.id}`).val(1);
 
@@ -339,9 +340,9 @@
                 //cambiar atributo input checkbook cunaod niega
                 if (e.target.id == "NPB_NA") {
 
-                    $('#div_NPB_NA input[type="checkbox"]').prop('checked', false);
+                    $('#div_no_aplica_no_pathology input[type="checkbox"]').prop('checked', false);
 
-                    $('#div_NPB_NA input[type="checkbox"]').val(null);
+                    $('#div_no_aplica_no_pathology input[type="checkbox"]').val(null);
 
                     $(`#${e.target.id}`).prop('checked', true);
 
@@ -377,8 +378,10 @@
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
+                console.log(e.target.id)
+
                 //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplica_mental_healths") {
+                if (e.target.id == "EM_NA") {
 
                     $('#div_mental_healths input[type="checkbox"]').prop('checked', false);
 
@@ -392,9 +395,9 @@
 
                 } else {
 
-                    $('#no_aplica_mental_healths').prop('checked', false);
+                    $('#EM_NA').prop('checked', false);
 
-                    $('#no_aplica_mental_healths').val(null);
+                    $('#EM_NA').val(null);
 
 
                     $(`#${e.target.id}`).val(1);
@@ -425,6 +428,10 @@
                     $('#div_inmunizations input[type="checkbox"]').prop('checked', false);
 
                     $('#div_inmunizations input[type="checkbox"]').val(null);
+
+                    $('#IMC19_dosis').val('');
+                    $('#IMC19_fecha_ultima_dosis').val('');
+                    $('#IMC19_marca').val('');
 
                     $(`#${e.target.id}`).prop('checked', true);
 
@@ -1388,13 +1395,11 @@
 
                                     {{-- Dispositivos medicos --}}
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.dispositivos_medicos')
-                                    </h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.dispositivos_medicos') </h6>
                                     <hr style="margin-bottom: 0;">
                                     <div class="row" id="div_medical_devices">
                                         <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                            <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
                                         @php
                                             $count_medical_devices = 0;

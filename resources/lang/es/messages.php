@@ -577,7 +577,9 @@ return [
         'usuario_registrado'        => 'Usuario registrado exitosamente!',
         'accion'                    => 'Desea realizar esta acción?',
         'no_examenes'               => 'No hay exámenes cargados',
+        'no_orden_examenes'               => 'No hay orden de exámenes para este paciente',
         'no_estudios'               => 'No hay estudios cargados',
+        'no_orden_estudios'               => 'No hay orden de estudios para este paciente',
         'error'                     => 'Ha ocurrido un error!',
         'paciente_registrado'       => 'Paciente registrado exitosamente!',
         'actualizar_paciente'       => 'Debe actualizar la información del paciente!',
@@ -648,6 +650,8 @@ return [
         'habilitar_medico'          => '¿Está seguro que desea habilitar este medico?',
         'deshabilitar_medico'       => '¿Está seguro que desea deshabilitar este medico?',
         'recordatorio_enviado'      => 'Recordatorio enviado satisfactoriamente!!',
+
+        'nom_edf_obligatorio'       => 'Edificio/Casa es obligatorio',
     ],
 
     'graficas' => [
@@ -686,10 +690,10 @@ return [
         'atendidas'             => 'Atendidas',
         'total'                 => 'Total',
         'citas'                 => 'Total de citas',
-        'citas_general'         => 'Citas Atendidas / Agendadas por mes',
-        'citas_general2'        => 'Citas Confirmadas / Atendidas por mes',
-        'consultas_historias'   => 'Total de Consultas / Historias',
-        'pacientes_tipo'        => 'Nro. de Pacientes por Edad/Sexo',
+        'citas_general'         => 'Citas por mes: Atendidas / Agendadas',
+        'citas_general2'        => 'Citas por mes: Confirmadas / Atendidas',
+        'consultas_historias'   => 'Total: Consultas / Historias',
+        'pacientes_tipo'        => 'Nro. de Pacientes: Edad/Sexo',
         'citas_registradas'     => 'Citas Agendadas',
         'doctores_activos'      => 'Doctores Activos',
         'doctores_inactivos'    => 'Doctores Inactivos',
@@ -841,6 +845,8 @@ return [
         'link'                => 'LINK PORTAL DEL PACIENTE',
         'recordatorio_cita'   => 'RECORDATORIO DE CITA MÉDICA',
         'text_cita'           => 'Le informamos que para el día de hoy tiene una cita médica agendada',
+
+        'precio'              => 'Precio de la Consulta'
     ],
 
 ];

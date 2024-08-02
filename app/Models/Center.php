@@ -26,6 +26,7 @@ class Center extends Model
         'state',
         'country',
         'address',
+        'building_house',
         'user_id',
         'city_contrie',
         'state_id',

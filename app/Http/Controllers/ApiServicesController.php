@@ -13,6 +13,7 @@ class ApiServicesController extends Controller
 {
     static public function whatsapp_welcome($phone, $ubicacion, array $data)
     {
+        // dd($data);
         try {
 
             $hora_format = '';
@@ -63,6 +64,7 @@ class ApiServicesController extends Controller
             $piso = __('messages.whatsapp.piso');
             $consultorio = __('messages.whatsapp.consultorio');
             $ubicacion = __('messages.whatsapp.ubicacion');
+            $precio = __('messages.whatsapp.precio');
 
             $body = <<<HTML
             *{$cita_medica}:*
@@ -76,6 +78,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
+            *{$precio}:*  {$data['price']}
 
             *{$ubicacion}:* {$data['ubication']}
             HTML;
@@ -161,7 +164,7 @@ class ApiServicesController extends Controller
             curl_close($curl);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-            dd('Error UtilsController.sms_welcome()', $message);
+            dd('Error UtilsController.whatsapp_register_doctor()', $message);
         }
     }
 
@@ -422,7 +425,7 @@ class ApiServicesController extends Controller
             $cen = Center::where('id', $cita->center_id)->first();
             $patient = Patient::where('id', $cita->patient_id)->first();
             $doctor_center = DoctorCenter::where('user_id', $dr->id)->where('center_id', $cita->center_id)->first();
-
+            
             $hora_format = '';
 
 
@@ -477,6 +480,7 @@ class ApiServicesController extends Controller
             $piso = __('messages.whatsapp.piso');
             $consultorio = __('messages.whatsapp.consultorio');
             $ubicacion = __('messages.whatsapp.ubicacion');
+            $precio = __('messages.whatsapp.precio');
 
             $body = <<<HTML
             *{$cita_medica}:*
@@ -490,6 +494,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$cen->description}
             *{$piso}:* {$doctor_center->number_floor}
             *{$consultorio}:* {$doctor_center->number_consulting_room}
+            *{$precio}:* {$cita->price}
 
             *{$ubicacion}:* {$ubication}
 
@@ -526,7 +531,7 @@ class ApiServicesController extends Controller
             return true;
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-            dd('Error UtilsController.sms_welcome()', $message);
+            dd('Error UtilsController. whatsapp_send_dash()', $message);
         }
     }
 

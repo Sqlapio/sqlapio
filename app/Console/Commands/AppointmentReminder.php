@@ -47,6 +47,7 @@ class AppointmentReminder extends Command
                 $piso = __('messages.whatsapp.piso');
                 $consultorio = __('messages.whatsapp.consultorio');
                 $ubicacion = __('messages.whatsapp.ubicacion');
+                $precio = __('messages.whatsapp.precio');
 
                 $doctor = User::where('id', $appointment->user_id)->first();
                 $center = Center::where('id', $appointment->center_id)->first();
@@ -69,6 +70,7 @@ class AppointmentReminder extends Command
                 *{$centro}:* {$center->description}
                 *{$piso}:* {$doctor_center->number_floor}
                 *{$consultorio}:* {$doctor_center->number_consulting_room}
+                *{$precio}:* {$appointment->precio}
 
                 *{$ubicacion}:* {$ubication}
                 HTML;

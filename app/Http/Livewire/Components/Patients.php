@@ -123,7 +123,26 @@ class Patients extends Component
 
                 $ci = str_replace('-', '', $request->re_ci);
 
+                if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
 
+
+                    $dataCenter = auth()->user()->get_data_corporate_master;
+
+                    $user_doc = $dataCenter->id;
+                    $contrie_doc = $dataCenter->contrie;
+
+                }
+
+
+                if (auth()->user()->role == "secretary") {
+
+                    $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+                    $contrie_doc = auth()->user()->get_data_corporate_master->contrie;
+
+                    foreach($dataCenter as $item){
+                        $user_doc = $item->user_id;
+                    }
+                }
 
                 $patient = Patient::updateOrCreate(
                     ['id' => $request->id],
@@ -136,10 +155,17 @@ class Patients extends Component
                         'phone'             => $request->re_phone,
                         'is_minor'          => 'true',
                         'age'               => $request->age,
-                        'contrie_doc'       => auth()->user()->contrie,
+                        'contrie_doc'       => auth()->user()->role == "secretary" ? $contrie_doc : auth()->user()->contrie,
                         'address'           => $request->address,
                         // 'zip_code'          => $request->zip_code,
-                        'user_id'           => $user_id,
+                        'blood_type'        => $request->blood_type,
+                        'ce_phone'          => $request->ce_phone,
+                        'ce_name'           => $request->ce_name,
+                        'relationship'      => $request->relationship,
+                        'company'           => $request->company,
+                        'validity'          => $request->validity,
+                        'contact'           => $request->contact,
+                        'user_id'           => auth()->user()->role == "secretary" ? $user_doc : $user_id,
                         'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                         'patient_img'       => $nameFile,
                         'verification_code' => Str::random(30)
@@ -151,7 +177,7 @@ class Patients extends Component
                  * Buscamos el ultimo paciente registrado por el medico
                  * @return $id
                  */
-                $patient_id = Patient::where('user_id', $user_id)->get()->last()->id;
+                $patient_id = Patient::where('user_id', auth()->user()->role == "secretary" ? $user_doc : $user_id)->get()->last()->id;
                     $re_patient = Representative::updateOrCreate(
                         ['patient_id' => $patient_id],
                         [
@@ -236,15 +262,52 @@ class Patients extends Component
                     /** Registro del medico con plan 1 2 o 3 */
                     {
                         $type = 'patient_minor';
-                        $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+                        // $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+
+                        if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
+
+                            $center_info = auth()->user();
+
+                            /** cuando es una secretaria de un medico corporativo */
+                        } elseif (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+
+
+                            $dataCenter = auth()->user()->get_data_corporate_master;
+
+                            $numberFloor = $dataCenter->number_floor;
+                            $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                            $numberConsultingRoom = $dataCenter->number_consulting_room;
+                            $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+                            $center_address = $dataCenter->address;
+
+                            /** cuando es una secretaria de un medico natural */
+                        } elseif (auth()->user()->role == "secretary") {
+
+                            $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+
+                            foreach($dataCenter as $item){
+                                $nameDoctor = $item->name . ' ' . $item->last_name;
+                                $numberFloor = $item->number_floor;
+                                $numberConsultingRoom = $item->number_consulting_room;
+                                $phoneConsultingRoom = $item->phone_consulting_room;
+                                $center_address = $item->address;
+                            }
+
+                        } else {
+
+                            // $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+                            $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+
+                        }
+
                         $mailData = [
-                            'dr_name'                => $user->name . ' ' . $user->last_name,
+                            'dr_name'                => auth()->user()->role == "secretary" ? $nameDoctor : $user->name . ' ' . $user->last_name,
                             'specialty'              => $user->specialty,
                             'center'                 => Center::where('id', $request->center_id)->first()->description,
-                            'center_piso'            => $center_info->number_floor,
-                            'center_consulting_room' => $center_info->number_consulting_room,
-                            'center_phone'           => $center_info->phone_consulting_room,
-                            'center_address'         => $center_info->address,
+                            'center_piso'            => auth()->user()->role == "secretary" ? $numberFloor : $center_info->number_floor,
+                            'center_consulting_room' => auth()->user()->role == "secretary" ? $numberConsultingRoom : $center_info->number_consulting_room,
+                            'center_phone'           => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $center_info->phone_consulting_room,
+                            'center_address'         => auth()->user()->role == "secretary" ? $center_address : $center_info->address,
                             'patient_email'          => $user->email,
                             'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                             'patient_code'           => $patient['patient_code'],
@@ -467,7 +530,6 @@ class Patients extends Component
 
 
                         $dataCenter = auth()->user()->get_data_corporate_master;
-                        // dd('1', $dataCenter);
 
                         $numberFloor = $dataCenter->number_floor;
                         $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
@@ -492,6 +554,7 @@ class Patients extends Component
 
                         // $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
                         $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+
                     }
 
                     $type = 'patient';
@@ -566,6 +629,7 @@ class Patients extends Component
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
+            dd($th);
             dd('Error Livewire.Components.Patient.store()', $message);
         }
     }

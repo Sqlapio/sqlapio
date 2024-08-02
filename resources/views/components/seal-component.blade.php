@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div>
-                <label for="seal" class="form-label custom-file-upload" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px; margin-right: 5px">@lang('messages.label.cargar_sello')</label><i onclick="handler();" class="bi bi-info-circle"></i>
+                <label for="seal" class="form-label custom-file-upload" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px; margin-right: 5px; background: #42abe2; color: #fff;">@lang('messages.label.cargar_sello')</label><i onclick="handler();" class="bi bi-info-circle"></i>
                 <br>
                 {{-- <label for="seal_img" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Ingrese una imagen de max 256kb</label> --}}
                 <input type="file" class="form-control" id="seal" name="seal" accept=".jpg, .jpeg, .png">

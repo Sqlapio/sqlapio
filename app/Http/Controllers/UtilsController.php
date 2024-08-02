@@ -627,6 +627,7 @@ class UtilsController extends Controller
 					'id'                     => $val->id,
 					'center'                 => $val->get_center->description,
 					'address'                => $val->address,
+					'building_house'         => $val->building_house,
 					'number_floor'           => $val->number_floor,
 					'phone_consulting_room'  => $val->phone_consulting_room,
 					"number_consulting_room" => $val->number_consulting_room,

@@ -432,7 +432,7 @@
             valid_elements: "p,a[href|target=_blank],div[style]",
             height: 500,
             menubar: false,
-            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            toolbar: 'undo redo | formatselect'
         });
 
         switch_type_plane(user);
@@ -455,12 +455,9 @@
                 new bootstrap.Popover(popover)
             })
 
-
-
         $('#not-exam').hide();
         $('#not-studie').hide();
-
-        if (user.type_plane !== '7' && doctor_centers.length === 0) {
+        if (user.type_plane !== '7' && doctor_centers.length === 0  && user.role == 'medico') {
             Swal.fire({
                 icon: 'warning',
                 title: '@lang('messages.alert.asociar_centro')',
@@ -483,6 +480,18 @@
                 window.location.href = url;
             });
         }
+
+        if (user.role == 'secretary' && user.center_id == null ) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.asociar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                    window.location.href = "{{ route('profile-user-secretary') }}";
+                });
+            }
 
         $('#form-consulta').validate({
             ignore: [],
@@ -898,7 +907,7 @@
                         if (val != null) {
                             $('.non_pathology_back')
                                 .append(
-                                    `<small><strong> ✔ </strong>${value.text}: SI.</small>`
+                                    `<small><strong> ✔ </strong>${value.name === 'NPB_NA' ? value.text : value.text+ ': SI'}.</small>`
                                 );
                         }
                     };
@@ -1012,8 +1021,7 @@
                     };
                 }
             });
-
-            if (patient.get_history.observations_medical_device) {
+            if (patient.get_history.observations_medical_devices) {
                 $('.ob_medical_devices').append(
                     `<li class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
@@ -1021,7 +1029,7 @@
                                 <h6 class="mb-0 text-capitalize">
                                     @lang('messages.label.observaciones'):
                                 </h6>
-                                <small>${patient.get_history.observations_medical_device}</small>
+                                <small>${patient.get_history.observations_medical_devices}</small>
                             </span>
                         </div>
                     </li>`
@@ -1033,6 +1041,7 @@
            // alegias
 
             if (response.allergies.length != 0) {
+                $('#div_allergies').show();
                 response.allergies.map((e, key) => {
 
                     let row = `
@@ -1062,7 +1071,8 @@
             // end
 
             // histoia quirurgica
-            if (response.patient.get_history.history_surgical != null) {
+            if (response.history_surgical.length != 0) {
+                $('#div_cirugias').show();
                 response.history_surgical.map((e, key) => {
 
                     let row = `
@@ -1092,7 +1102,8 @@
             // end
 
              // medicamentos
-            if (response.medications_supplements != null) {
+            if (response.medications_supplements.length != 0) {
+                $('#div_medicamentos').show();
                 response.medications_supplements.map((e, key) => {
 
                 let row = `
@@ -1742,7 +1753,7 @@
         Swal.fire({
             icon: 'warning',
             // iconHtml: `<img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">`,
-            title: '@lang('messages.alert.no_examenes')',
+            title: '@lang('messages.alert.no_orden_examenes')',
             allowOutsideClick: false,
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')',
@@ -1756,7 +1767,7 @@
     const showAlertNotStudy = () => {
         Swal.fire({
             icon: 'warning',
-            title: '@lang('messages.alert.no_estudios')',
+            title: '@lang('messages.alert.no_orden_estudios')',
             allowOutsideClick: false,
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -2297,270 +2308,271 @@
                 </div>
 
                 {{-- historia médica --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingHistory">
-                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseHistory" aria-expanded="false" aria-controls="collapseHistory"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.historia_medica')
-                                </button>
-                            </span>
-                            <div id="collapseHistory" class="accordion-collapse2 collapse " aria-labelledby="headingHistory" data-bs-parent="#accordionExample">
-                                <div class="accordion-body m-mb">
-                                    <div class="row mt-2" style="margin: 0px 16px;">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="family_back"> </div>
-                                                <div class="ob_family_back"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="pathology_back"> </div>
-                                                <div class="ob_pathology_back"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="non_pathology_back"> </div>
-                                                <div class="ob_non_pathology_back"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_salud')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="mental_healths"> </div>
-                                                <div class="ob_mental_healths"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="inmunizations"> </div>
-                                                <hr class="mt-1" style="margin-bottom: 0;">
-                                                @if ($Patient->get_history->IMC19_covid === '1')
-                                                <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                                    @lang('messages.form.IMC19_covid')</h6>
-                                                <hr style="margin-bottom: 0;">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive"  id="table-info-consulta">
-                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_dosis')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_fecha_ultima_dosis')</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_dosis}}</td>
-                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_fecha_ultima_dosis}}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                @endif
-                                                <div class="ob_inmunizations"> </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.dispositivos_medicos')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="medical_device"> </div>
-                                                <hr class="mt-1" style="margin-bottom: 0;">
-                                                <div class="ob_medical_device"> </div>
-                                            </div>
-                                        </div>
-                                        @if ($Patient->genere == 'femenino')
+                @if (Auth::user()->role == 'medico')
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingHistory">
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseHistory" aria-expanded="false" aria-controls="collapseHistory"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.historia_medica')
+                                    </button>
+                                </span>
+                                <div id="collapseHistory" class="accordion-collapse2 collapse " aria-labelledby="headingHistory" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body m-mb">
+                                        <div class="row mt-2" style="margin: 0px 16px;">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="row">
-                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_gine')</h6>
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
                                                     <hr style="margin-top: 5px">
-                                                    <div class="row">
+                                                    <div class="family_back"> </div>
+                                                    <div class="ob_family_back"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="pathology_back"> </div>
+                                                    <div class="ob_pathology_back"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="non_pathology_back"> </div>
+                                                    <div class="ob_non_pathology_back"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_salud')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="mental_healths"> </div>
+                                                    <div class="ob_mental_healths"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="inmunizations"> </div>
+                                                    @if ($Patient->get_history->IMC19_covid === '1')
                                                         <hr class="mt-1" style="margin-bottom: 0;">
                                                         <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                                            @lang('messages.subtitulos.ginecologicos')</h6>
+                                                            @lang('messages.form.IMC19_covid')</h6>
                                                         <hr style="margin-bottom: 0;">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive"  id="table-info-consulta">
+                                                            <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_dosis')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_fecha_ultima_dosis')</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_dosis}}</td>
+                                                                        <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_fecha_ultima_dosis}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    @endif
+                                                    <div class="ob_inmunizations"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.dispositivos_medicos')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="medical_device"> </div>
+                                                    <div class="ob_medical_devices"> </div>
+                                                </div>
+                                            </div>
+                                            @if ($Patient->genere == 'femenino')
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="row">
+                                                        <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_gine')</h6>
+                                                        <hr style="margin-top: 5px">
+                                                        <div class="row">
+                                                            <hr class="mt-1" style="margin-bottom: 0;">
+                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                @lang('messages.subtitulos.ginecologicos')</h6>
+                                                            <hr style="margin-bottom: 0;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                <div id="table-info-consulta">
+                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.edad_mestruacion')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.fecha_periodo')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ciclo_menstrual')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.infecciones')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.exam_previos')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.anticonceptivo')</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_menarquia}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_fecha_ultimo_pe}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_duracion}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_infecciones}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_ex_gine_previos}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_metodo_anti}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                @lang('messages.subtitulos.obstetricos')</h6>
+                                                            <hr style="margin-bottom: 0;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                             <div id="table-info-consulta">
-                                                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.edad_mestruacion')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.fecha_periodo')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ciclo_menstrual')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.infecciones')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.exam_previos')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.anticonceptivo')</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_menarquia}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_fecha_ultimo_pe}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_duracion}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_infecciones}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_ex_gine_previos}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_metodo_anti}}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_embarazos')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_partos')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_cesareas')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_abortos')</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_gravides}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_partos}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_cesareas}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_abortos}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <hr class="mt-3" style="margin-bottom: 0;">
-                                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                                            @lang('messages.subtitulos.obstetricos')</h6>
-                                                        <hr style="margin-bottom: 0;">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                           <div id="table-info-consulta">
-                                                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_embarazos')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_partos')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_cesareas')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_abortos')</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_gravides}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_partos}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_cesareas}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_abortos}}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                @lang('messages.subtitulos.menopausia')</h6>
+                                                            <hr style="margin-bottom: 0;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                <div id="table-info-consulta">
+                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_fecha_ini')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_sintomas')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_fecha_ini}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_sintomas}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <hr class="mt-3" style="margin-bottom: 0;">
-                                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                                            @lang('messages.subtitulos.menopausia')</h6>
-                                                        <hr style="margin-bottom: 0;">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <div id="table-info-consulta">
-                                                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_fecha_ini')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_sintomas')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_fecha_ini}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_sintomas}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                @lang('messages.subtitulos.act_sexual')</h6>
+                                                            <hr style="margin-bottom: 0;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                <div id="table-info-consulta">
+                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
+                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo"}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_enfermedades_ts}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <hr class="mt-3" style="margin-bottom: 0;">
-                                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                                            @lang('messages.subtitulos.act_sexual')</h6>
-                                                        <hr style="margin-bottom: 0;">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <div id="table-info-consulta">
-                                                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
-                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo"}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_enfermedades_ts}}</td>
-                                                                            <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <span class="text-justify mt-3">
+                                                                    <h6 class="mb-0 text-capitalize">
+                                                                        @lang('messages.label.observaciones'):
+                                                                    </h6>
+                                                                    <small>{{ $Patient->get_history->observations_ginecologica }}</small>
+                                                                </span>
                                                             </div>
-                                                        </div>
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <span class="text-justify mt-3">
-                                                                <h6 class="mb-0 text-capitalize">
-                                                                    @lang('messages.label.observaciones'):
-                                                                </h6>
-                                                                <small>{{ $Patient->get_history->observations_ginecologica }}</small>
-                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endif
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_alerg')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-allergies">
-                                                    <table class="table table-striped table-bordered table-info-allergies" id="table-info-allergies">
-                                                         <thead>
-                                                            <tr>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_alergia')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.detalle')</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
+                                            @endif
+                                            <div id="div_allergies" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_alerg')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-allergies">
+                                                        <table class="table table-striped table-bordered table-info-allergies" id="table-info-allergies">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_alergia')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.detalle')</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="ob-alergias"> </div>
                                                 </div>
-                                                <div class="ob-alergias"> </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_qx')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-cirugias">
-                                                    <table class="table table-striped table-bordered table-info-cirugias" id="table-info-cirugias">
-                                                         <thead>
-                                                            <tr>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_cirugia')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.fecha')</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
+                                            <div id="div_cirugias" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_qx')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-cirugias">
+                                                        <table class="table table-striped table-bordered table-info-cirugias" id="table-info-cirugias">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_cirugia')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.fecha')</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="ob-cirugias"> </div>
                                                 </div>
-                                                <div class="ob-cirugias"> </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                            <div class="row">
-                                                <h6 style="font-size: 18px">@lang('messages.acordion.medicamentos')</h6>
-                                                <hr style="margin-top: 5px">
-                                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-medicines">
-                                                    <table class="table table-striped table-bordered table-info-medicines" id="table-info-medicines">
-                                                         <thead>
-                                                            <tr>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.medicamento')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.dosis')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.patologia')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.efectividad')</th>
-                                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.duracion_tratamiento')</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
+                                            <div id="div_medicamentos" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="row">
+                                                    <h6 style="font-size: 18px">@lang('messages.acordion.medicamentos')</h6>
+                                                    <hr style="margin-top: 5px">
+                                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-medicines">
+                                                        <table class="table table-striped table-bordered table-info-medicines" id="table-info-medicines">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.medicamento')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.dosis')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.patologia')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.efectividad')</th>
+                                                                    <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.duracion_tratamiento')</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="ob-medicamentos"> </div>
                                                 </div>
-                                                <div class="ob-medicamentos"> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2568,7 +2580,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 {{-- Examen fisico --}}
                 <div class="row">
@@ -2863,397 +2875,399 @@
                 </div>
 
                 {{-- consulta médica --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
-                                </button>
-                            </span>
-                            <div id="collapseThree" class="accordion-collapse2 collapse " aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body m-mb">
-                                    <form id="form-consulta" method="post" action="/">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="medical_record_id" id="medical_record_id" value="">
-                                        <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
-                                        <div id="input-array"></div>
-                                        <div class="row mt-2" style="margin: 0px 16px;">
-                                            @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
-                                                </div>
-                                            @endif
-                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pl-5">
-                                                    <div class="form-group">
-                                                        <label for="razon" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
-                                                        <textarea id="razon" rows="1" name="razon" class="form-control"></textarea>
-                                                        <pre class="pre-textarea"
-                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                            id="razon-text"></pre>
+                @if (Auth::user()->role == 'medico')
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingThree">
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
+                                    </button>
+                                </span>
+                                <div id="collapseThree" class="accordion-collapse2 collapse " aria-labelledby="headingThree"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body m-mb">
+                                        <form id="form-consulta" method="post" action="/">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="medical_record_id" id="medical_record_id" value="">
+                                            <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
+                                            <div id="input-array"></div>
+                                            <div class="row mt-2" style="margin: 0px 16px;">
+                                                @if (Auth::user()->type_plane !== '7')
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                                     </div>
-                                                </div>
-                                            </div>
-
-                                            <div id='symptoms_card1'
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div id='symptoms_card2'
-                                                    class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div
-                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div class="form-group"
-                                                            style="display: flex; align-items: center;">
-                                                            <label for="search_symptoms"
-                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
-                                                                @lang('messages.form.buscar_sintoma') </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text"
-                                                                style="border-radius: 30px;" class="form-control"
-                                                                id="floatingInput" placeholder="">
-                                                        </div>
-                                                    </div>
-                                                    <div id='diagnosis_div' class="overflow-auto mt-2"
-                                                        style="max-width: 100%; min-height: 35px; position: relative;">
-                                                        <ul id="symptoms_filter" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
-                                                        </ul>
-                                                        <ul id="symptoms" class="symptoms list-mb"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                        </ul>
-                                                    </div>
-                                                    <div id='symptoms_card3'
-                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
+                                                @endif
+                                                <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pl-5">
                                                         <div class="form-group">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
-                                                            <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
+                                                            <label for="razon" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
+                                                            <textarea id="razon" rows="1" name="razon" class="form-control"></textarea>
                                                             <pre class="pre-textarea"
                                                                 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                                id="sintomas-text"></pre>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" id="div_spinner">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div id="spinner2" style="display: none">
-                                                            <div class="container shadow-div">
-                                                                <div class="row justify-content-center form-sq">
-                                                                    <img class="spinnner s-IA"
-                                                                        src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
+                                                                id="razon-text"></pre>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="row mt-2 justify-content-md-end send-ai">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end;">
-                                                        <button onclick="handlerIA()" type="button"
-                                                            class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div class="form-group">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
-                                                    <textarea id="diagnosis" rows="1" name="diagnosis" class="form-control" spellcheck="false"></textarea>
-                                                    <pre class="pre-textarea"
-                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                        id="diagnosis-text"></pre>
-                                                </div>
-                                            </div>
-
-                                            <div id="exam_study" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
-                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id='search_exam'
+                                                <div id='symptoms_card1'
+                                                    class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div id='symptoms_card2'
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                        <div
+                                                            class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <div class="form-group"
                                                                 style="display: flex; align-items: center;">
-                                                                <label for="search_patient"
-                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
-                                                                <input onkeyup="search(event,'exam')" type="text"
-                                                                    style="border-radius: 30px;"
-                                                                    class="form-control inputSearchExamen"
+                                                                <label for="search_symptoms"
+                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
+                                                                    @lang('messages.form.buscar_sintoma') </label>
+                                                                <input onkeyup="search(event,'symptoms')" type="text"
+                                                                    style="border-radius: 30px;" class="form-control"
                                                                     id="floatingInput" placeholder="">
                                                             </div>
-                                                            <label id='search_exam_p'
-                                                                style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes')
-                                                            </label>
                                                         </div>
-                                                        <div id="exam-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                                <div class="form-group">
-                                                                    <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
-                                                                    <textarea id="text_area_exman" rows='2' name="text_area_exman" class="form-control"></textarea>
-                                                                    <pre class="pre-textarea"
-                                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                                        id="exman-text"></pre>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-2 overflow-auto"
-                                                            style="max-width: 100%; position: relative; min-height: 60px;">
-                                                            <ul id="exam_filter" class="exam"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
+                                                        <div id='diagnosis_div' class="overflow-auto mt-2"
+                                                            style="max-width: 100%; min-height: 35px; position: relative;">
+                                                            <ul id="symptoms_filter" class="symptoms"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                             </ul>
-                                                            <div id='not-exam'>
-                                                                <img width="50" height="auto"
-                                                                    src="{{ asset('/img/icons/no-file.png') }}"
-                                                                    alt="avatar">
-                                                                <span>@lang('messages.label.info_3')</span>
-                                                            </div>
-                                                            <ul id="exam" class="exam list-mb"
+                                                            <ul id="symptoms" class="symptoms list-mb"
                                                                 style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                             </ul>
                                                         </div>
+                                                        <div id='symptoms_card3'
+                                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                            style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
+                                                            <div class="form-group">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
+                                                                <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
+                                                                <pre class="pre-textarea"
+                                                                    style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                    id="sintomas-text"></pre>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
-                                                    <div
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="row" id="div_spinner">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id="search_studie"
-                                                                style="display: flex; align-items: center;">
-                                                                <label for="search_patient" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
-                                                                <input onkeyup="search(event,'studie')" type="text"
-                                                                    style="border-radius: 30px;"
-                                                                    class="form-control inputSearchStudi" placeholder=""
-                                                                    id="floatingInputt">
-                                                            </div>
-                                                        </div>
-                                                        <label id='search_studie_p'
-                                                            style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios')
-                                                        </label>
-                                                        <div id="study-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                                id="study-text-area"
-                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                                <div class="form-group">
-                                                                    <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
-                                                                    <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
-                                                                    <pre class="pre-textarea"
-                                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                                        id="studies-text"></pre>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-2 card-study overflow-auto"
-                                                            style="max-width: 100%; min-height: 60px;">
-                                                            <ul id="study_filter" class="studie"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
-                                                            </ul>
-                                                            <div id='not-studie'>
-                                                                <img width="50" height="auto"
-                                                                    src="{{ asset('/img/icons/no-file.png') }}"
-                                                                    alt="avatar">
-                                                                <span>@lang('messages.label.info_4')</span>
-                                                            </div>
-                                                            <ul id="studie" class="studie list-mb"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {{-- Medicacion --}}
-                                            <div id="medicine" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <label style="font-size: 14px">@lang('messages.label.tratamiento')</label>
-                                                <hr style="margin-bottom: 0; margin-top: 5px">
-                                                <div class="row medicine-form">
-                                                    <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med'
-                                                            style="font-size: 14px;margin-right: 10px;"></span>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
-                                                                    <select name="medicines" id="medicines"
-                                                                    placeholder="Seleccione"class="form-control"
-                                                                    class="form-control combo-textbox-input">
-                                                                    <option value="">@lang('messages.label.seleccione')</option>
-                                                                    @foreach ($medicines as $item)
-                                                                    <option value={{ $item->description }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <i class="bi bi-capsule st-icon"></i>
-                                                            </div>
-                                                            <span id="medicine_span" class="text-danger"></span>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-2 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="route" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.via')</label>
-                                                                    <select name="route" id="route"
-                                                                    placeholder="@lang('messages.label.seleccione')" class="form-control"
-                                                                    class="form-control combo-textbox-input">
-                                                                    <option value="">@lang('messages.label.seleccione')</option>
-                                                                    @foreach ($medicines_vias as $item)
-                                                                    <option value={{ $item->description }}>{{ $item->description }} </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <i class="bi bi-capsule st-icon"></i>
-                                                            </div>
-                                                            <span id="medicine_span" class="text-danger"></span>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="indication"
-                                                                    name="indication" type="text" value="">
-                                                                <i class="bi bi-file-medical st-icon"></i>
-                                                            </div>
-                                                            <span id="indication_span" class="text-danger"></span>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.horas')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-number" id="hours"
-                                                                    name="hours" type="text" value="">
-                                                                <i class="bi bi-file-medical st-icon"></i>
-                                                            </div>
-                                                            <span id="hours_span" class="text-danger"></span>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
-                                                                <select name="treatmentDuration" id="treatmentDuration"
-                                                                    placeholder="Seleccione"class="form-control"
-                                                                    class="form-control combo-textbox-input">
-                                                                    <option value="">@lang('messages.label.seleccione')</option>
-                                                                    <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')
-                                                                    </option>
-                                                                </select>
-                                                                <i class="bi bi-calendar-range st-icon"></i>
-                                                                <span id="treatmentDuration_span"
-                                                                    class="text-danger"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2"
-                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
-                                                        <span type="" onclick="addMedacition(event)"
-                                                            class="btn btnSecond addMedacition" id="btn"
-                                                            style="padding: 7px; font-size: 12px; width:100%">
-                                                            <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                {{-- tabla --}}
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                        style="margin-top: 20px; width: 100%;">
-                                                        <table class="table table-striped table-bordered" id="table-medicamento">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
-                                                                    <th class="text-center w-10" scope="col"> @lang('messages.tabla.via') </th>
-                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
-                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.horas') </th>
-                                                                    <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
-                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-                                                        <tfoot>
-                                                            <div class="row mt-2" style="display: none">
-                                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                    <div class="input-group flex-nowrap">
-                                                                        <span
-                                                                            class="input-group-text">@lang('messages.label.info_5')</span>
-                                                                        <input type="text" id="countMedicationAdd"
-                                                                            name="countMedicationAdd" class="form-control"
-                                                                            readonly value="{!! !empty($validateHistory)
-                                                                                ? ($validateHistory->medications_supplements != 'null'
-                                                                                    ? count($medications_supplements)
-                                                                                    : 0)
-                                                                                : '' !!}">
+                                                            <div id="spinner2" style="display: none">
+                                                                <div class="container shadow-div">
+                                                                    <div class="row justify-content-center form-sq">
+                                                                        <img class="spinnner s-IA"
+                                                                            src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}"
+                                                                            alt="">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </tfoot>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mt-2 justify-content-md-end send-ai">
+                                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                            style="display: flex; justify-content: flex-end;">
+                                                            <button onclick="handlerIA()" type="button"
+                                                                class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="form-group">
+                                                        <label for="phone" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
+                                                        <textarea id="diagnosis" rows="1" name="diagnosis" class="form-control" spellcheck="false"></textarea>
+                                                        <pre class="pre-textarea"
+                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                            id="diagnosis-text"></pre>
+                                                    </div>
+                                                </div>
+
+                                                <div id="exam_study" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                        <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                <div class="form-group" id='search_exam'
+                                                                    style="display: flex; align-items: center;">
+                                                                    <label for="search_patient"
+                                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
+                                                                    <input onkeyup="search(event,'exam')" type="text"
+                                                                        style="border-radius: 30px;"
+                                                                        class="form-control inputSearchExamen"
+                                                                        id="floatingInput" placeholder="">
+                                                                </div>
+                                                                <label id='search_exam_p'
+                                                                    style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes')
+                                                                </label>
+                                                            </div>
+                                                            <div id="exam-text-area">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                    <div class="form-group">
+                                                                        <label for="phone" class="form-label"
+                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
+                                                                        <textarea id="text_area_exman" rows='2' name="text_area_exman" class="form-control"></textarea>
+                                                                        <pre class="pre-textarea"
+                                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                            id="exman-text"></pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-2 overflow-auto"
+                                                                style="max-width: 100%; position: relative; min-height: 60px;">
+                                                                <ul id="exam_filter" class="exam"
+                                                                    style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
+                                                                </ul>
+                                                                <div id='not-exam'>
+                                                                    <img width="50" height="auto"
+                                                                        src="{{ asset('/img/icons/no-file.png') }}"
+                                                                        alt="avatar">
+                                                                    <span>@lang('messages.label.info_3')</span>
+                                                                </div>
+                                                                <ul id="exam" class="exam list-mb"
+                                                                    style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
+                                                        <div
+                                                            style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                <div class="form-group" id="search_studie"
+                                                                    style="display: flex; align-items: center;">
+                                                                    <label for="search_patient" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
+                                                                    <input onkeyup="search(event,'studie')" type="text"
+                                                                        style="border-radius: 30px;"
+                                                                        class="form-control inputSearchStudi" placeholder=""
+                                                                        id="floatingInputt">
+                                                                </div>
+                                                            </div>
+                                                            <label id='search_studie_p'
+                                                                style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios')
+                                                            </label>
+                                                            <div id="study-text-area">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                                    id="study-text-area"
+                                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                    <div class="form-group">
+                                                                        <label for="phone" class="form-label"
+                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
+                                                                        <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                                        <pre class="pre-textarea"
+                                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                            id="studies-text"></pre>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-2 card-study overflow-auto"
+                                                                style="max-width: 100%; min-height: 60px;">
+                                                                <ul id="study_filter" class="studie"
+                                                                    style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
+                                                                </ul>
+                                                                <div id='not-studie'>
+                                                                    <img width="60" height="auto"
+                                                                        src="{{ asset('/img/icons/no-file.png') }}"
+                                                                        alt="avatar">
+                                                                    <span>@lang('messages.label.info_4')</span>
+                                                                </div>
+                                                                <ul id="studie" class="studie list-mb"
+                                                                    style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {{-- Medicacion --}}
+                                                <div id="medicine" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <label style="font-size: 14px">@lang('messages.label.tratamiento')</label>
+                                                    <hr style="margin-bottom: 0; margin-top: 5px">
+                                                    <div class="row medicine-form">
+                                                        <div style="display: flex">
+                                                            <span class="text-warning mt-2" id='med'
+                                                                style="font-size: 14px;margin-right: 10px;"></span>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
+                                                                        <select name="medicines" id="medicines"
+                                                                        placeholder="Seleccione"class="form-control"
+                                                                        class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                                        @foreach ($medicines as $item)
+                                                                        <option value={{ $item->description }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <i class="bi bi-capsule st-icon"></i>
+                                                                </div>
+                                                                <span id="medicine_span" class="text-danger"></span>
+                                                            </diV>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="route" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.via')</label>
+                                                                        <select name="route" id="route"
+                                                                        placeholder="@lang('messages.label.seleccione')" class="form-control"
+                                                                        class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                                        @foreach ($medicines_vias as $item)
+                                                                        <option value={{ $item->description }}>{{ $item->description }} </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <i class="bi bi-capsule st-icon"></i>
+                                                                </div>
+                                                                <span id="medicine_span" class="text-danger"></span>
+                                                            </diV>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-only-text" id="indication"
+                                                                        name="indication" type="text" value="">
+                                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                                </div>
+                                                                <span id="indication_span" class="text-danger"></span>
+                                                            </diV>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.horas')</label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-only-number" id="hours"
+                                                                        name="hours" type="text" value="">
+                                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                                </div>
+                                                                <span id="hours_span" class="text-danger"></span>
+                                                            </diV>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="treatmentDuration" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
+                                                                    <select name="treatmentDuration" id="treatmentDuration"
+                                                                        placeholder="Seleccione"class="form-control"
+                                                                        class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')
+                                                                        </option>
+                                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')
+                                                                        </option>
+                                                                    </select>
+                                                                    <i class="bi bi-calendar-range st-icon"></i>
+                                                                    <span id="treatmentDuration_span"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2"
+                                                            style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                            <span type="" onclick="addMedacition(event)"
+                                                                class="btn btnSecond addMedacition" id="btn"
+                                                                style="padding: 7px; font-size: 12px; width:100%">
+                                                                <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    {{-- tabla --}}
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                            style="margin-top: 20px; width: 100%;">
+                                                            <table class="table table-striped table-bordered" id="table-medicamento">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
+                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.via') </th>
+                                                                        <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
+                                                                        <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.horas') </th>
+                                                                        <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
+                                                                        <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                            <tfoot>
+                                                                <div class="row mt-2" style="display: none">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="input-group flex-nowrap">
+                                                                            <span
+                                                                                class="input-group-text">@lang('messages.label.info_5')</span>
+                                                                            <input type="text" id="countMedicationAdd"
+                                                                                name="countMedicationAdd" class="form-control"
+                                                                                readonly value="{!! !empty($validateHistory)
+                                                                                    ? ($validateHistory->medications_supplements != 'null'
+                                                                                        ? count($medications_supplements)
+                                                                                        : 0)
+                                                                                    : '' !!}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </tfoot>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div id="spinner" style="display: none">
-                                                    <x-load-spinner show="true" />
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div id="spinner" style="display: none">
+                                                        <x-load-spinner show="true" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px; align-items: flex-end;">
-                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
-                                                <button style="margin-left: 20px;" type="button" onclick="resetForm();"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
-                                                    title="@lang('messages.label.limpiar')">
-                                                    <img width="60" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
-                                                </button>
+                                            <div class="row mt-2 justify-content-md-end">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
+                                                    <button style="margin-left: 20px;" type="button" onclick="resetForm();"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                        title="@lang('messages.label.limpiar')">
+                                                        <img width="60" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 {{-- ultimas consultas tabla --}}
                 <div class="row">
@@ -3312,7 +3326,7 @@
                                                                     @else
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button type="button" onclick="showAlertNotExam();">
-                                                                                <img width="32" height="auto"
+                                                                                <img width="55" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
                                                                                     alt="avatar">
                                                                             </button>
@@ -3336,7 +3350,7 @@
                                                                     @else
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button type="button" onclick="showAlertNotStudy();">
-                                                                                <img width="32" height="auto"
+                                                                                <img width="55" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
                                                                                     alt="avatar">
                                                                             </button>
@@ -3403,13 +3417,15 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <button style="font-size: 3rem" type="button" onclick="InformaMedico();"
-                                                class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                data-html="true" title="@lang('messages.tooltips.generar_informe')"><i
-                                                    class="bi bi-plus-circle-dotted"></i>
-                                            </button>
-                                        </div>
+                                        @if (Auth::user()->role == 'medico')
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <button style="font-size: 3rem" type="button" onclick="InformaMedico();"
+                                                    class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    data-html="true" title="@lang('messages.tooltips.generar_informe')">
+                                                    <img width="70" height="auto" src="{{ asset('/img/icons/generar-informe.png') }}" alt="avatar">
+                                                </button>
+                                            </div>
+                                        @endif
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
                                             <table id="table-medical-report" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
@@ -3541,24 +3557,8 @@
                             <input type="hidden" id="medical_report_id" name="medical_report_id" value="">
 
                             @if (Auth::user()->type_plane !== '7')
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.centro_salud')</label>
-                                            <select name="center_id" id="center_id"
-                                                placeholder="@lang('messages.placeholder.seleccione')"class="form-control"
-                                                class="form-control combo-textbox-input">
-                                                <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                @foreach ($doctor_centers as $item)
-                                                    <option value="{{ $item->center_id }}">
-                                                        {{ $item->get_center->description }}</option>
-                                                @endforeach
-                                            </select>
-                                            <i class="bi bi-hospital st-icon"></i>
-                                            <span id="type_alergia_span" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                 </div>
                             @endif
 

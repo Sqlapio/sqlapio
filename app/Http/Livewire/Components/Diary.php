@@ -220,6 +220,7 @@ class Diary extends Component
                     'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
                     'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
                     'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                    'price'         => $appointment->price,
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
@@ -243,6 +244,7 @@ class Diary extends Component
                     'piso'          => $data_center->number_floor,
                     'consultorio'   => $data_center->number_consulting_room,
                     'telefono'      => $data_center->phone_consulting_room,
+                    'price'         => $appointment->price,
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
@@ -265,7 +267,7 @@ class Diary extends Component
     {
 
         try {
-            
+
             $cancelled = DB::table('appointments')
                 ->where('id', $id)
                 ->update(['status' => 4]);

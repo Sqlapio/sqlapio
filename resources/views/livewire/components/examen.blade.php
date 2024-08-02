@@ -740,7 +740,7 @@
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         @endif
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                        <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
+                                                        <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
