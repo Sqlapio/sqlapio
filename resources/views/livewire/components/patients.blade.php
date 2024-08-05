@@ -1379,10 +1379,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente') </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.tipo_sangre') </th>
-                                                            <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.codigo_paciente') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.tipo_sangre') </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.fecha_nacimiento') </th>
                                                             <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
                                                             <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
 
