@@ -1379,10 +1379,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente') </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.tipo_sangre') </th>
-                                                            <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.codigo_paciente') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.tipo_sangre') </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.fecha_nacimiento') </th>
                                                             <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
                                                             <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
 
@@ -1435,18 +1435,16 @@
                                                                                 <img width="65" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        @if (Auth::user()->role == 'medico')
-                                                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
-                                                                                    <button type="button"
-                                                                                        data-bs-toggle="tooltip"
-                                                                                        data-bs-placement="bottom"
-                                                                                        title="@lang('messages.tooltips.consulta_medica')">
-                                                                                        <img width="60" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
-                                                                                    </button>
-                                                                                </a>
-                                                                            </div>
-                                                                        @endif
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    title="@lang('messages.tooltips.consulta_medica')">
+                                                                                    <img width="60" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"

@@ -145,9 +145,6 @@
 
             countTableDos = examen_sin_resul.count
 
-
-
-
             new DataTable('.table-pag', {
                 language: {
                     url: url,
@@ -428,8 +425,8 @@
                                         data-bs-placement="bottom"
                                         title="@lang('messages.tooltips.ver_examenes')"
                                         style="margin-rigth: 0">
-                                        <img width="32" height="auto"
-                                        src="{{ asset('/img/icons/doc.png') }}"
+                                        <img width="60" height="auto"
+                                        src="{{ asset('/img/icons/pdf-result-exam.png') }}"
                                         alt="avatar">
                                     </button>
                                     </a>
@@ -488,6 +485,7 @@
                     }
                 },
                 data: data,
+
                 columns: [{
 
                         data: 'img',
@@ -546,7 +544,7 @@
                                 data-bs-custom-class='custom-tooltip' data-html='true'
                                 title="@lang('messages.tooltips.cargar_examen')" type='button'
                                 style="margin-rigth: 0">
-                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-exam.png') }}" alt="avatar">
                             </button>`;
 
 
@@ -728,7 +726,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5>
-                                            <table id="table-info-examen" class="table-pag table-striped table-bordered" style="width:100%; ">
+                                            <table id="table-info-examen" class="table-pag table-info-examen table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-image" scope="col"
@@ -742,7 +740,7 @@
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         @endif
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                        <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
+                                                        <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -775,8 +773,8 @@
                                                                                 data-bs-custom-class="custom-tooltip"
                                                                                 data-html="true"
                                                                                 title="@lang('messages.tooltips.ver_examenes')">
-                                                                                <img width="32" height="auto"
-                                                                                    src="{{ asset('/img/icons/doc.png') }}"
+                                                                                <img width="60" height="auto"
+                                                                                    src="{{ asset('/img/icons/pdf-result-exam.png') }}"
                                                                                     alt="avatar">
                                                                             </button>
                                                                         </a>
@@ -839,7 +837,7 @@
                                                                                     data-html='true' title="@lang('messages.tooltips.cargar_examen')"
                                                                                     type='button'
                                                                                     style="margin-right: 0">
-                                                                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-exam.png') }}" alt="avatar">
                                                                             </button>
                                                                             </a>
                                                                         </div>

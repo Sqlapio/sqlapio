@@ -256,6 +256,11 @@
                                     className: "text-center w-50",
                                 },
                                 {
+                                    data: 'building_house',
+                                    title: '@lang('messages.tabla.edificio')',
+                                    className: "text-center w-5",
+                                },
+                                {
                                     data: 'number_floor',
                                     title: '@lang('messages.tabla.piso')',
                                     className: "text-center w-5",
@@ -340,7 +345,7 @@
                         <tr>
                             <td class="text-center pt-2">{{ $item['center'] }}</td>
                             <td class="text-center">{{ $item['address'] }}</td>
-                            <td class="text-center">{{ $item['address'] }}</td>
+                            <td class="text-center">{{ $item['building_house'] }}</td>
                             <td class="text-center">{{ $item['number_floor'] }}</td>
                             <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                             <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
@@ -413,9 +418,8 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.edificio')</label>
-                                                <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                    id="number_floor" name="number_floor" type="text" value=""
-                                                    maxlength="2">
+                                                <input autocomplete="off" class="form-control"
+                                                    id="building_house" name="building_house" type="text" value="">
                                                 <i class="bi bi-hash st-icon"></i>
                                             </div>
                                         </div>
@@ -425,8 +429,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
                                                 <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                    id="number_floor" name="number_floor" type="text" value=""
-                                                    maxlength="2">
+                                                    id="number_floor" name="number_floor" type="text" value="">
                                                 <i class="bi bi-hash st-icon"></i>
                                             </div>
                                         </div>
@@ -437,7 +440,7 @@
                                                 <label for="name" class="form-label" style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
                                                 <input autocomplete="off" class="form-control mask-alfa-numeric"
                                                     id="number_consulting_room" name="number_consulting_room"
-                                                    type="text" value="" maxlength="5">
+                                                    type="text" value="">
                                                 <i class="bi bi-hash st-icon"></i>
                                             </div>
                                         </div>

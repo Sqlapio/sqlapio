@@ -57,7 +57,7 @@ class MedicalHistory extends Component
                 'FB_TDT'     => (isset($data->FB_TDT) ? $data->FB_TDT : null),
                 'FB_ER'      => (isset($data->FB_ER) ? $data->FB_ER : null),
                 'FB_DM'      => (isset($data->FB_DM) ? $data->FB_DM : null),
-                'no_aplica'  => (isset($data->no_aplica) ? $data->no_aplica : null),
+                'FB_NA'      => (isset($data->FB_NA) ? $data->FB_NA : null),
 
                 //Antecedentes patologicos
                 'PB_HA'    => (isset($data->PB_HA) ? $data->PB_HA : null),
@@ -108,7 +108,7 @@ class MedicalHistory extends Component
                 'EM_TLP'                   => (isset($data->EM_TLP) ? $data->EM_TLP : null),
                 'EM_TAAB'                  => (isset($data->EM_TAAB) ? $data->EM_TAAB : null),
                 'EM_TCS'                   => (isset($data->EM_TCS) ? $data->EM_TCS : null),
-                'no_aplica_mental_healths' => (isset($data->no_aplica_mental_healths) ? $data->no_aplica_mental_healths : null),
+                'EM_NA'                    => (isset($data->EM_NA) ? $data->EM_NA : null),
 
                 //INMUNIZACION
                 'IM_V'                    => (isset($data->IM_V) ? $data->IM_V : null),

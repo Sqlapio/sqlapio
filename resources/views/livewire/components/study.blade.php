@@ -428,7 +428,7 @@
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="bottom"
                                 title="@lang('messages.tooltips.ver_estudios')">
-                                <img width="32" height="auto" src="{{ asset('/img/icons/doc.png') }}" alt="avatar">
+                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-study.png') }}" alt="avatar">
                             </button>
                         </a>
                     </div>
@@ -544,7 +544,7 @@
                             data-bs-custom-class='custom-tooltip' data-html='true'
                             title="@lang('messages.tooltips.cargar_estudio')" type='button'
                             style="margin-right: 0">
-                            <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                            <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-study.png') }}" alt="avatar">
                             </button>`;
 
 
@@ -778,8 +778,8 @@
                                                                             data-bs-custom-class="custom-tooltip"
                                                                             data-html="true"
                                                                             title="@lang('messages.tooltips.ver_estudios')">
-                                                                            <img width="32" height="auto"
-                                                                                src="{{ asset('/img/icons/doc.png') }}"
+                                                                            <img width="60" height="auto"
+                                                                                src="{{ asset('/img/icons/pdf-result-study.png') }}"
                                                                                 alt="avatar">
                                                                         </button>
                                                                     </a>
@@ -843,7 +843,7 @@
                                                                                 type='button'
                                                                                 {{-- class='btn btn-iPrimary rounded-circle' --}}
                                                                                 style="margin-right: 0">
-                                                                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-study.png') }}" alt="avatar">
                                                                                 {{-- <i class='bi bi-info-circle-fill'></i> --}}
                                                                             </button>
                                                                         </a>
