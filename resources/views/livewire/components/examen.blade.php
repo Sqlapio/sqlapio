@@ -382,10 +382,10 @@
             return false;
         }
 
-       
+
 
         function showModal(item) {
-
+            console.log(item)
 
             count = 0;
             $('#count').val('');
@@ -398,11 +398,11 @@
             ///
             $('#ref').text(item.cod_ref);
             $('#id').val(item.id);
-            $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+            $('#ref-pat').text(`${item.get_patients.name} ${item.get_patients.last_name}`);
 
                 let elemData = JSON.stringify(item);
                 let label =
-                    `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData});'></label>`
+                    `<label><input type="checkbox" id="cod_exam_0" onclick='cuontResul(event,${elemData});'></label>`
                 if (Number(item.status) === 2) {
                     $('#div-result').hide();
                     $('#div-btn').hide();
