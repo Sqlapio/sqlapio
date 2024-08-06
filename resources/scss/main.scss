@@ -1550,7 +1550,7 @@ div.ui-jqgrid {
 #div-patients-corp table, #table-one table, #table-ref-examenes table, #table-ref-estudios table, #table-info-examen_wrapper table, #table-info-sin-examen_wrapper table,
 #table-info-estudios_wrapper table, #table-info-sin-estudios_wrapper table, #table-info-examen_info table, #table-info-examen table, #table-examen-fisico table,
 #table-examen-fisico_wrapper table, #table-info-pacientes-portal table, #content-table-patient-portal table, #table-info-consulta table,
-#table-info-allergies table, #table-info-medicines table, #table-info-cirugias table, #table-pag table, #table-info-sin-examen table {
+#table-info-allergies table, #table-info-medicines table, #table-info-cirugias table, #table-pag table, #table-info-estudios table, #table-info-examen table {
     font-size: 12px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -1566,7 +1566,8 @@ div.ui-jqgrid {
 #table-info_length, #table-info-pat_length, #table-info-examen_info, #table-info-estudios_info, #table-examen-fisico_info,
 #table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter,
 #table-show-info-pat_filter, #table-medical-record_filter, #table-ref-examenes_filter, #table-ref-estudios_filter, #table-ref_filter,
-#table-info_filter, #table-info-pat_filter, #table-info-sin-estudios_info, #table-info-examen_info {
+#table-info_filter, #table-info-pat_filter, #table-info-sin-estudios_info, #table-info-examen_info, #table-info-estudios_length, #table-info-estudios_filter,
+#table-medical-report_filter, #table-info-examen_filter {
     font-size: 12px;
     padding-bottom: 25px;
 }
@@ -1582,6 +1583,12 @@ div.ui-jqgrid {
     font-size: 12px;
     padding-top: 25px;
 }
+
+#table-cirugia_filter, #table-alergias_filter, #table-medicamento_filter, #table-info-consulta_filter, #table-info-allergies_filter, #table-info-cirugias_filter, #table-info-medicines_filter,
+#table-examen-fisico_filter, {
+    display: none;
+}
+
 
 .dataTables_wrapper .dataTables_filter input {
     border-radius: 8px;

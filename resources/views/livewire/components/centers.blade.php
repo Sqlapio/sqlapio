@@ -420,7 +420,7 @@
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.edificio')</label>
                                                 <input autocomplete="off" class="form-control"
                                                     id="building_house" name="building_house" type="text" value="">
-                                                <i class="bi bi-hash st-icon"></i>
+                                                <i class="bi bi-building st-icon"></i>
                                             </div>
                                         </div>
                                     </div>

@@ -2612,4 +2612,30 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_medical_device()', $message);
 		}
 	}
+
+    static function get_study()
+    {
+        try {
+			$StudyPatient = StudyPatient::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->get();
+            // dd($StudyPatient);
+			return $StudyPatient;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_study()', $message);
+		}
+    }
+
+    static function get_exam()
+    {
+        try {
+			$ExamPatient = ExamPatient::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->get();
+            // dd($StudyPatient);
+			return $ExamPatient;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_study()', $message);
+		}
+    }
 }

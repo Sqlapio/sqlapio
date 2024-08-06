@@ -3302,7 +3302,7 @@
                                                     @endphp
                                                     @foreach ($comarrSorted as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad" data-orderable="false" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
                                                             <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
                                                             <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
