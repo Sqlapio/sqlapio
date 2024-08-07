@@ -34,8 +34,9 @@ $(document).ready(() => {
         url: url,
     },
     reponsive: true,
-    "searching": false,
+    "searching": true,
     "bLengthChange": false,
+    "bDestroy": true
   });
 });
 

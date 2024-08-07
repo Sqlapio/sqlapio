@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\UtilsController;
 use App\Models\ExamPatient;
 use App\Models\Patient;
 use App\Models\Reference;
@@ -32,7 +33,7 @@ class Examen extends Component
         $data = ExamPatient::where('status', 2)
             ->where('user_id', Auth::user()->id)
             ->skip($skip)         // punto de partida
-            ->take($pageLength)   // limite de resgistro   
+            ->take($pageLength)   // limite de resgistro
             ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
         $res = [
@@ -54,7 +55,7 @@ class Examen extends Component
         $data = ExamPatient::where('status', 2)
             ->where('patient_id', $id)
             ->skip(0)         // punto de partida
-            ->take(10)   // limite de resgistro   
+            ->take(10)   // limite de resgistro
             ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
         $res = [
@@ -84,7 +85,7 @@ class Examen extends Component
 
         $data =  Reference::where('user_id',  Auth::user()->id)
             ->skip($skip)         // punto de partida
-            ->take($pageLength)   // limite de resgistro  
+            ->take($pageLength)   // limite de resgistro
             ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
             ->get();
 
@@ -107,7 +108,7 @@ class Examen extends Component
 
         $data =  Reference::where('patient_id',  $id)
             ->skip(0)         // punto de partida
-            ->take(10)   // limite de resgistro  
+            ->take(10)   // limite de resgistro
             ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
             ->get();
 
@@ -124,6 +125,7 @@ class Examen extends Component
 
     public function render(Request $request, $id = null)
     {
+        $exam = UtilsController::get_exam();
 
         $data = [];
 
@@ -138,6 +140,6 @@ class Examen extends Component
 
             $examen_sin_resul = $this->res_exam_sin_resul($request, true);
         }
-        return view('livewire.components.examen', compact('data', 'examen_sin_resul', 'id'));
+        return view('livewire.components.examen', compact('data', 'examen_sin_resul', 'id', 'exam'));
     }
 }

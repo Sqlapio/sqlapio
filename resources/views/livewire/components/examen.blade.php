@@ -145,51 +145,6 @@
 
             countTableDos = examen_sin_resul.count
 
-            new DataTable('.table-pag', {
-                language: {
-                    url: url,
-                },
-                reponsive: true,
-                searching: false,
-                bLengthChange: false,
-                deferLoading: countTable,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('res_exam') }}",
-                    type: "GET",
-                    data: {
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function(resp) {
-                        setDataTable(resp.data);
-                    }
-                }
-            });
-
-            new DataTable('.table-pag-dos', {
-                language: {
-                    url: url,
-                },
-                reponsive: true,
-                searching: false,
-                bLengthChange: false,
-                deferLoading: countTableDos,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('res_exam_sin_resul') }}",
-                    type: "GET",
-                    data: {
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function(e) {
-
-                        setdataDos(e.data);
-                    }
-                }
-            });
-
             //validar formulario
             $('#form-load-img-examen').validate({
                 ignore: [],
@@ -266,6 +221,23 @@
                         }
                     });
                 }
+            });
+
+            new DataTable('#table-info-examen', {
+                initComplete: function () {
+                    this.api()
+                        .columns()
+                        .every(function () {
+                            let column = this;
+                            let input = document.createElement('input');
+
+                            input.addEventListener('keyup', () => {
+                                if (column.search() !== this.value) {
+                                    column.search(input.value).draw();
+                                }
+                            });
+                        });
+                },
             });
 
         });
@@ -410,230 +382,10 @@
             return false;
         }
 
-        function setDataTable(row) {
 
-            let data = [];
-
-            row.map((elem) => {
-                // let elemData = JSON.stringify(elem);
-                let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
-                elem.btn = `<div class="d-flex" style="justify-content: center;">
-                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                    <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
-                                    <button type="button"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom"
-                                        title="@lang('messages.tooltips.ver_examenes')"
-                                        style="margin-rigth: 0">
-                                        <img width="60" height="auto"
-                                        src="{{ asset('/img/icons/pdf-result-exam.png') }}"
-                                        alt="avatar">
-                                    </button>
-                                    </a>
-                                </div>
-                            </div>`;
-
-
-                elem.full_name = `${elem.get_patients.name } ${elem.get_patients.last_name }`;
-
-                let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
-
-                if (elem.get_patients.patient_img != null) {
-                    imagen = `{{ URL::asset('/imgs/${elem.get_patients.patient_img}') }}`;
-                } else {
-                    if (elem.get_patients.genere == "masculino") {
-                        imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
-                    }
-                }
-
-                elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
-
-                if (user.contrie == '81') {
-                    elem.ci = (elem.get_patients.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  elem.get_patients.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
-                } else {
-                    elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem.get_patients.ci;
-                }
-
-
-
-                elem.description = `${elem.description}`
-
-                data.push(elem);
-            });
-
-            new DataTable('#table-info-examen', {
-                language: {
-                    url: url,
-                },
-                bDestroy: true,
-                reponsive: true,
-                searching: false,
-                bLengthChange: false,
-                deferLoading: countTable,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('res_exam') }}",
-                    type: "GET",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "data": '',
-                    },
-                    success: function(resp) {
-                        countTable = resp.count;
-                        setDataTable(resp.data);
-                    }
-                },
-                data: data,
-
-                columns: [{
-
-                        data: 'img',
-                        title: '@lang('messages.tabla.foto')',
-                        className: "text-center text-capitalize w-image",
-                    },
-                    {
-                        data: 'date',
-                        title: '@lang('messages.tabla.fecha_solicitud')',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'date_result',
-                        title: '@lang('messages.tabla.fecha_resultado')',
-                        className: "text-center",
-                    },
-                    {
-
-                        data: 'full_name',
-                        title: '@lang('messages.tabla.nombre_apellido')',
-                        className: "text-center w-17",
-                    },
-                    {
-                        data: 'ci',
-                        title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'description',
-                        title: '@lang('messages.tabla.descripcion')',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'btn',
-                        title: '@lang('messages.tabla.resultado')',
-                        className: "text-center",
-                    }
-                ],
-            });
-        }
-
-        function setdataDos(data) {
-
-            let dataRef = [];
-
-            data.map((e) => {
-
-                if (e.get_examne_stutus_uno.length > 0) {
-
-                    let target = `{{ URL::asset('/imgs/${e.file}') }}`;
-
-                    let eData = JSON.stringify(e);
-
-                    e.btn = `<button onclick='showModal(${ eData })'
-                                data-bs-toggle='tooltip' data-bs-placement='right'
-                                data-bs-custom-class='custom-tooltip' data-html='true'
-                                title="@lang('messages.tooltips.cargar_examen')" type='button'
-                                style="margin-rigth: 0">
-                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-exam.png') }}" alt="avatar">
-                            </button>`;
-
-
-                    e.full_name = `${e.get_patient.name } ${e.get_patient.last_name }`;
-
-                    let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
-
-                    if (e.get_patient.patient_img != null) {
-                        imagen = `{{ URL::asset('/imgs/${e.get_patient.patient_img}') }}`;
-                    } else {
-                        if (e.get_patient.genere == "masculino") {
-                            imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
-                        }
-                    }
-
-                    e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
-
-                    if (user.contrie == '81') {
-                        e.ci = (e.get_patient.is_minor == "true") ? e.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  e.get_patient.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
-                    } else {
-                        e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e.get_patient.ci;
-                    }
-
-                    e.date = `${e.date}`
-
-                    dataRef.push(e);
-
-                }
-            });
-
-            new DataTable('#table-info-sin-examen', {
-                language: {
-                    url: url,
-                },
-                bDestroy: true,
-                reponsive: true,
-                searching: false,
-                bLengthChange: false,
-                deferLoading: countTableDos,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('res_exam_sin_resul') }}",
-                    type: "GET",
-                    data: {
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function(e) {
-
-                        countTableDos = e.count;
-                        setdataDos(e.data);
-                    }
-                },
-                data: dataRef,
-                columns: [{
-                        data: 'img',
-                        title: '@lang('messages.tabla.foto')',
-                        className: "text-center text-capitalize w-image",
-                    },
-                    {
-                        data: 'date',
-                        title: '@lang('messages.tabla.fecha_solicitud')',
-                        className: "text-center w-10",
-                    },
-                    {
-                        data: 'cod_ref',
-                        title: '@lang('messages.tabla.referencia')',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'full_name',
-                        title: '@lang('messages.tabla.nombre_apellido')',
-                        className: "text-center text-capitalize w-17",
-                    },
-                    {
-                        data: 'ci',
-                        title: '@lang('messages.tabla.cedula')',
-                        className: "text-center text-capitalize w-10",
-                    },
-                    {
-                        data: 'btn',
-                        title: '@lang('messages.tabla.cargar_res')',
-                        className: "text-center",
-                    }
-                ],
-            });
-        }
 
         function showModal(item) {
+            console.log(item)
 
             count = 0;
             $('#count').val('');
@@ -646,36 +398,33 @@
             ///
             $('#ref').text(item.cod_ref);
             $('#id').val(item.id);
-            $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+            $('#ref-pat').text(`${item.get_patients.name} ${item.get_patients.last_name}`);
 
-            item.get_examne_stutus_uno.map((elemt, index) => {
-                let elemData = JSON.stringify(elemt);
+                let elemData = JSON.stringify(item);
                 let label =
-                    `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
-                if (Number(elemt.status) === 2) {
+                    `<label><input type="checkbox" id="cod_exam_0" onclick='cuontResul(event,${elemData});'></label>`
+                if (Number(item.status) === 2) {
                     $('#div-result').hide();
                     $('#div-btn').hide();
                     label =
                         `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
                 }
-                if (Number(elemt.status) === 1) {
+                if (Number(item.status) === 1) {
                     ;
                     $('#div-result').show();
                     $('#div-btn').show();
                 }
                 let row = `
                 <tr>
-                    <td class="text-center">${elemt.cod_exam}</td>
-                    <td class="text-center">${elemt.description}</td>
+                    <td class="text-center">${item.cod_exam}</td>
+                    <td class="text-center">${item.description}</td>
                     <td class="text-center">${label}</td>
                     </tr>`;
                 $('#table-info').find('tbody').append(row);
 
-            });
-
         }
 
-        function cuontResul(e, item, key) {
+        function cuontResul(e, item) {
 
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
@@ -720,19 +469,19 @@
                             <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <x-search-person />
-                                    {{-- examenes con resultados --}}
+                                    {{-- <x-search-person /> --}}
+                                    {{-- examenes --}}
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                            <hr>
-                                            <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5>
-                                            <table id="table-info-examen" class="table-pag table-info-examen table-striped table-bordered" style="width:100%; ">
+                                            {{-- <hr>
+                                            <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5> --}}
+                                            <table id="table-info-examen" class="table table-info-examen table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col"
-                                                            data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         @if (Auth::user()->contrie == '81')
                                                             <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
@@ -744,7 +493,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($data['data'] as $item)
+                                                    @foreach ($exam as $item)
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
@@ -752,7 +501,8 @@
                                                                     alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
-                                                            <td class="text-center"> {{ $item->date_result }} </td>
+                                                            <td class="text-center"> {{!$item->date_result ? "--------" : $item->date_result }} </td> </td>
+                                                            <td class="text-center"> {{ $item->cod_ref }} </td>
                                                             <td class="text-center text-capitalize"> {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }} </td>
                                                             @if (Auth::user()->contrie == '81')
                                                                 <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->get_reprensetative->re_ci) . '  (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->ci) }} </td>
@@ -763,6 +513,20 @@
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        @if ($item->status === '1')
+                                                                        <a style="text-decoration: none; display: flex; justify-content: center;">
+                                                                            <button
+                                                                                onclick='showModal({{ $item }})'
+                                                                                data-bs-toggle='tooltip'
+                                                                                data-bs-placement='right'
+                                                                                data-bs-custom-class='custom-tooltip'
+                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                type='button'
+                                                                                style="margin-right: 0">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-exam.png') }}" alt="avatar">
+                                                                            </button>
+                                                                        </a>
+                                                                    @else
                                                                         <a target="_blank"
                                                                             href="{{ URL::asset('/imgs/' . $item->file) }}"
                                                                             style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
@@ -778,6 +542,7 @@
                                                                                     alt="avatar">
                                                                             </button>
                                                                         </a>
+                                                                    @endif
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -788,7 +553,7 @@
                                         </div>
                                     </div>
                                     {{-- EXAMENES SIN RESULTADOS --}}
-                                    <div class="row mt-3">
+                                    {{-- <div class="row mt-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
 
@@ -849,7 +614,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
