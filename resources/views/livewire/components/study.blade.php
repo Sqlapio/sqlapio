@@ -470,7 +470,7 @@
                                                                                 data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
                                                                                 type='button'
                                                                                 style="margin-right: 0">
-                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-study.png') }}" alt="avatar">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/CARGAR-RESULTADO.png') }}" alt="avatar">
                                                                             </button>
                                                                         </a>
                                                                     @else
@@ -481,7 +481,7 @@
                                                                                 data-bs-custom-class="custom-tooltip"
                                                                                 data-html="true"
                                                                                 title="@lang('messages.tooltips.ver_estudios')">
-                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/pdf-result-study.png') }}" alt="avatar">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/VER-RESULTADO.png') }}" alt="avatar">
                                                                             </button>
                                                                         </a>
                                                                     @endif

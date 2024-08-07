@@ -313,71 +313,26 @@
                                                             <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.hora') </th>
-                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false" > @lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col" data-orderable="false"> @lang('messages.tabla.nombre_apellido') </th>
                                                                         @if (Auth::user()->contrie == '81')
-                                                                            <th class="text-center w-10" scope="col"> @lang('messages.form.CIE')</th>
+                                                                            <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.form.CIE')</th>
                                                                         @else
-                                                                            <th class="text-center w-10" scope="col"> @lang('messages.tabla.cedula')</th>
+                                                                            <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cedula')</th>
                                                                         @endif
-                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.centro_salud')</th>
-                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-17" scope="col"data-orderable="false"> @lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.estatus')</th>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($appointments as $item)
-                                                                        @php
-                                                                            $hora = '';
-
-                                                                                if (substr($item['extendedProps']['data'], 6)) {
-                                                                                    $hora = substr($item['extendedProps']['data'], 6);
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '13:00') {
-                                                                                    $hora = '01:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '14:00') {
-                                                                                    $hora = '02:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '15:00') {
-                                                                                    $hora = '03:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '16:00') {
-                                                                                    $hora = '04:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '17:00') {
-                                                                                    $hora = '05:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '18:00') {
-                                                                                    $hora = '06:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '19:00') {
-                                                                                    $hora = '07:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '20:00') {
-                                                                                    $hora = '08:00';
-                                                                                }
-                                                                        @endphp
+                                                                    @foreach (collect($appointments)->sortBy('start') as $item)
 
                                                                         <tr>
-                                                                            <td class="text-center td-pad">
-                                                                                {{ $hora . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                                            </td>
-                                                                            <td class="text-center td-pad text-capitalize">
-                                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                                            </td>
+                                                                            <td class="text-center td-pad"> {{ Carbon\Carbon::parse($item['start'])->format('H:i') }} </td>
+                                                                            <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
                                                                             @if (Auth::user()->contrie == '81')
-                                                                                <td class="text-center td-pad">
-                                                                                    {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }}
-                                                                                </td>
+                                                                                <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
                                                                             @else
                                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
                                                                             @endif
@@ -396,7 +351,8 @@
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
                                                                                                 $age =  $item['extendedProps']['age'];
                                                                                             @endphp
-                                                                                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
                                                                                             onclick="alertInfoPaciente('{{ $id_patient }}','{{ $age }}', '{{ $status2 }}')">
                                                                                             <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>

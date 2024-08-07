@@ -2268,8 +2268,7 @@
                                     <i class="bi bi-person"></i> @lang('messages.acordion.datos_paciente')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
@@ -2593,11 +2592,9 @@
                                     <i class="bi bi-activity"></i> @lang('messages.acordion.examen_fisico')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <div class="row mt-2" style="margin: 0px 16px;">
-
                                         <form id="form-examen-fisico" method="post" action="">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="patient_id" id="patient_id"

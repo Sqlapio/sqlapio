@@ -1348,7 +1348,7 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" {{-- id="content-search-pat" --}}>
+                                    {{-- <div class="row mt-3">
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group" style="margin-top: 5px;">
                                                 @if (Auth::user()->contrie == '81')
@@ -1371,7 +1371,7 @@
                                                 @lang('messages.botton.buscar')
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row mt-2">
                                         <div class="row" id="table-patients">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
@@ -1389,7 +1389,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($patients as $item)
+                                                        @foreach ($patients->sortByDesc('created_at') as $item)
 
                                                             <tr>
                                                                 <td class="table-avatar">

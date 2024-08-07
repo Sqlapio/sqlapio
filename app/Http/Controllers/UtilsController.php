@@ -422,9 +422,10 @@ class UtilsController extends Controller
 	static function get_appointments_dashboard($id)
 	{
 		try {
-			$appointments = Appointment::where('user_id', $id)
-				->where('date_start', date('Y-m-d'))->get();
+			$appointments = Appointment::where('user_id', $id)->where('date_start', date('Y-m-d'))->get();
+
 			$data = [];
+
 			foreach ($appointments as $key => $val) {
                 $hora = '';
 
@@ -494,6 +495,7 @@ class UtilsController extends Controller
 					],
 				];
 			}
+
 			return $data;
 			//code...
 		} catch (\Throwable $th) {
