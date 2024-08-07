@@ -1389,7 +1389,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($patients as $item)
+                                                        @foreach ($patients->sortByDesc('created_at') as $item)
 
                                                             <tr>
                                                                 <td class="table-avatar">

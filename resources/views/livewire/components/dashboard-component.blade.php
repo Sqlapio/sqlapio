@@ -326,49 +326,10 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($appointments as $item)
-                                                                        @php
-                                                                            $hora = '';
-
-                                                                                if (substr($item['extendedProps']['data'], 6)) {
-                                                                                    $hora = substr($item['extendedProps']['data'], 6);
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '13:00') {
-                                                                                    $hora = '01:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '14:00') {
-                                                                                    $hora = '02:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '15:00') {
-                                                                                    $hora = '03:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '16:00') {
-                                                                                    $hora = '04:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '17:00') {
-                                                                                    $hora = '05:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '18:00') {
-                                                                                    $hora = '06:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '19:00') {
-                                                                                    $hora = '07:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '20:00') {
-                                                                                    $hora = '08:00';
-                                                                                }
-                                                                        @endphp
+                                                                    @foreach (collect($appointments)->sortBy('start') as $item)
 
                                                                         <tr>
-                                                                            <td class="text-center td-pad"> {{ $hora . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                            <td class="text-center td-pad"> {{ Carbon\Carbon::parse($item['start'])->format('H:i') }} </td>
                                                                             <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
                                                                             @if (Auth::user()->contrie == '81')
                                                                                 <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
