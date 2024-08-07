@@ -2318,7 +2318,7 @@
                                         <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.historia_medica')
                                     </button>
                                 </span>
-                                <div id="collapseHistory" class="accordion-collapse2 collapse " aria-labelledby="headingHistory" data-bs-parent="#accordionExample">
+                                <div id="collapseHistory" class="accordion-collapseHistory collapse " aria-labelledby="headingHistory" data-bs-parent="#accordionExample">
                                     <div class="accordion-body m-mb">
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
