@@ -322,6 +322,47 @@
             }
         }
 
+        const deleteStudy = (id) => {
+            Swal.fire({
+                icon: 'warning',
+                title: '@lang('messages.alert.accion')',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
+                showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')'
+            }).then((result) => {
+                $('#spinner').show();
+                let route = '{{ route('delete_file_study', [':id']) }}';
+                    route = route.replace(':id', id);
+                    $.ajax({
+                        url: route,
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            $('#spinner').hide();
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: '@lang('messages.alert.operacion_exitosa')',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
+                            }).then((result) => {
+
+                                let url = "{{ route('Study') }}";
+                                    window.location.href = url;
+
+                            });
+                        },
+                    });
+
+            });
+        }
+
         function showNotStudy() {
             Swal.fire({
                 icon: 'warning',
@@ -436,7 +477,8 @@
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                     @endif
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                    <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
+                                                    <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
+                                                    <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -482,6 +524,28 @@
                                                                                 data-html="true"
                                                                                 title="@lang('messages.tooltips.ver_estudios')">
                                                                                 <img width="60" height="auto" src="{{ asset('/img/icons/VER-RESULTADO.png') }}" alt="avatar">
+                                                                            </button>
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="d-flex" style="justify-content: center;">
+                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    @if ($item->status === '1')
+                                                                        <span>---------</span>
+                                                                    @else
+                                                                        <a style="text-decoration: none; display: flex; justify-content: center;">
+                                                                            <button
+                                                                                onclick="deleteStudy({{ $item->id }})"
+                                                                                data-bs-toggle='tooltip'
+                                                                                data-bs-placement='right'
+                                                                                data-bs-custom-class='custom-tooltip'
+                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                type='button'
+                                                                                style="margin-right: 0">
+                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/ELIMINAR-RESULTADO.png') }}" alt="avatar">
                                                                             </button>
                                                                         </a>
                                                                     @endif

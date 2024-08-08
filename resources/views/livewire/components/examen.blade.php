@@ -242,77 +242,118 @@
 
         });
 
-        function searchPerson() {
-            if ($('#search_person').val() != '') {
-                $('#spinner2').show();
-                let msk_id= $('#search_person').val().replaceAll('-', '',);
-                let route = '{{ route('search_person', [':value', ':row']) }}';
-                route = route.replace(':value', msk_id);
-                route = route.replace(':row', 'ci');
-                $.ajax({
-                    url: route,
-                    type: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        $('#spinner2').hide();
+        // function searchPerson() {
+        //     if ($('#search_person').val() != '') {
+        //         $('#spinner2').show();
+        //         let msk_id= $('#search_person').val().replaceAll('-', '',);
+        //         let route = '{{ route('search_person', [':value', ':row']) }}';
+        //         route = route.replace(':value', msk_id);
+        //         route = route.replace(':row', 'ci');
+        //         $.ajax({
+        //             url: route,
+        //             type: 'GET',
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //             success: function(response) {
+        //                 $('#spinner2').hide();
 
-                        if (response.pat.length === 0) {
+        //                 if (response.pat.length === 0) {
+        //                     Swal.fire({
+        //                         icon: 'warning',
+        //                         title: '@lang('messages.alert.paciente_no')',
+        //                         allowOutsideClick: false,
+        //                         confirmButtonColor: '#42ABE2',
+        //                         confirmButtonText: '@lang('messages.botton.aceptar')'
+        //                     });
+        //                     return false;
+        //                 }
+
+        //                 if (response.data.data.length === 0 && response.reference.data.length === 0) {
+        //                     Swal.fire({
+        //                         icon: 'warning',
+        //                         title: '@lang('messages.alert.paciente_sin_info')',
+        //                         allowOutsideClick: false,
+        //                         confirmButtonColor: '#42ABE2',
+        //                         confirmButtonText: '@lang('messages.botton.aceptar')'
+        //                     });
+        //                     return false;
+        //                 }
+        //                 Swal.fire({
+        //                     icon: 'success',
+        //                     title: '@lang('messages.alert.operacion_exitosa')',
+        //                     allowOutsideClick: false,
+        //                     confirmButtonColor: '#42ABE2',
+        //                     confirmButtonText: '@lang('messages.botton.aceptar')'
+        //                 }).then((result) => {
+        //                     $('#spinner2').hide();
+
+        //                     let countTable = response.data.count;
+
+        //                     setDataTable(response.data.data);
+
+        //                     let countTableDos = response.reference.count;
+
+        //                     setdataDos(response.reference.data);
+        //                 });
+
+        //             },
+        //             error: function(error) {
+        //                 Swal.fire({
+        //                     icon: 'error',
+        //                     title: error.responseJSON.errors,
+        //                     allowOutsideClick: false,
+        //                     confirmButtonColor: '#42ABE2',
+        //                     confirmButtonText: '@lang('messages.botton.aceptar')'
+        //                 }).then((result) => {
+        //                     $('#send').show();
+        //                     $('#spinner2').hide();
+        //                     $(".holder").hide();
+        //                 });
+        //             }
+        //         });
+        //     }
+        // }
+
+        const deleteExam = (id) => {
+            Swal.fire({
+                icon: 'warning',
+                title: '@lang('messages.alert.accion')',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
+                showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')'
+            }).then((result) => {
+                $('#spinner').show();
+                let route = '{{ route('delete_file_exam', [':id']) }}';
+                    route = route.replace(':id', id);
+                    $.ajax({
+                        url: route,
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            $('#spinner').hide();
+
                             Swal.fire({
-                                icon: 'warning',
-                                title: '@lang('messages.alert.paciente_no')',
+                                icon: 'success',
+                                title: '@lang('messages.alert.operacion_exitosa')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
+                            }).then((result) => {
+
+                                let url = "{{ route('Examen') }}";
+                                    window.location.href = url;
+
                             });
-                            return false;
-                        }
+                        },
+                    });
 
-                        if (response.data.data.length === 0 && response.reference.data.length === 0) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: '@lang('messages.alert.paciente_sin_info')',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: '@lang('messages.botton.aceptar')'
-                            });
-                            return false;
-                        }
-                        Swal.fire({
-                            icon: 'success',
-                            title: '@lang('messages.alert.operacion_exitosa')',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        }).then((result) => {
-                            $('#spinner2').hide();
-
-                            let countTable = response.data.count;
-
-                            setDataTable(response.data.data);
-
-                            let countTableDos = response.reference.count;
-
-                            setdataDos(response.reference.data);
-                        });
-
-                    },
-                    error: function(error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: error.responseJSON.errors,
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        }).then((result) => {
-                            $('#send').show();
-                            $('#spinner2').hide();
-                            $(".holder").hide();
-                        });
-                    }
-                });
-            }
+            });
         }
 
         function showExam(item) {
@@ -490,6 +531,7 @@
                                                         @endif
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                         <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
+                                                        <th class="text-center w-10"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -514,35 +556,57 @@
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         @if ($item->status === '1')
-                                                                        <a style="text-decoration: none; display: flex; justify-content: center;">
-                                                                            <button
-                                                                                onclick='showModal({{ $item }})'
-                                                                                data-bs-toggle='tooltip'
-                                                                                data-bs-placement='right'
-                                                                                data-bs-custom-class='custom-tooltip'
-                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
-                                                                                type='button'
-                                                                                style="margin-right: 0">
-                                                                                <img width="60" height="auto" src="{{ asset('/img/icons/CARGAR-RESULTADO-LABORATORIO.png') }}" alt="avatar">
-                                                                            </button>
-                                                                        </a>
-                                                                    @else
-                                                                        <a target="_blank"
-                                                                            href="{{ URL::asset('/imgs/' . $item->file) }}"
-                                                                            style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                            <a style="text-decoration: none; display: flex; justify-content: center;">
+                                                                                <button
+                                                                                    onclick='showModal({{ $item }})'
+                                                                                    data-bs-toggle='tooltip'
+                                                                                    data-bs-placement='right'
+                                                                                    data-bs-custom-class='custom-tooltip'
+                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                    type='button'
+                                                                                    style="margin-right: 0">
+                                                                                    <img width="60" height="auto" src="{{ asset('/img/icons/CARGAR-RESULTADO-LABORATORIO.png') }}" alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        @else
+                                                                            <a target="_blank"
+                                                                                href="{{ URL::asset('/imgs/' . $item->file) }}"
+                                                                                style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
 
-                                                                            <button type="button"
+                                                                                <button type="button"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 data-bs-custom-class="custom-tooltip"
                                                                                 data-html="true"
                                                                                 title="@lang('messages.tooltips.ver_examenes')">
                                                                                 <img width="60" height="auto"
-                                                                                    src="{{ asset('/img/icons/VER-RESULTADO-LABORATORIO.png') }}"
-                                                                                    alt="avatar">
+                                                                                src="{{ asset('/img/icons/VER-RESULTADO-LABORATORIO.png') }}"
+                                                                                alt="avatar">
                                                                             </button>
                                                                         </a>
-                                                                    @endif
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div class="d-flex" style="justify-content: center;">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        @if ($item->status === '1')
+                                                                            <span>---------</span>
+                                                                        @else
+                                                                            <a style="text-decoration: none; display: flex; justify-content: center;">
+                                                                                <button
+                                                                                    onclick="deleteExam({{ $item->id }})"
+                                                                                    data-bs-toggle='tooltip'
+                                                                                    data-bs-placement='right'
+                                                                                    data-bs-custom-class='custom-tooltip'
+                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                    type='button'
+                                                                                    style="margin-right: 0">
+                                                                                    <img width="60" height="auto" src="{{ asset('/img/icons/ELIMINAR-RESULTADO-LABORATORIO.png') }}" alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </td>
