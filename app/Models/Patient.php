@@ -28,6 +28,7 @@ class Patient extends Model
         'patient_code',
         'user_id',
         'center_id',
+        'patient_id',
         'name',
         'last_name',
         'ci',
@@ -56,6 +57,16 @@ class Patient extends Model
         'contact',
 
     ];
+
+    /**
+     * Get all of the comments for the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function consultas(): HasMany
+    {
+        return $this->hasMany(MedicalRecord::class, 'patient_id', 'id');
+    }
 
     public function  get_reprensetative(): HasOne
     {

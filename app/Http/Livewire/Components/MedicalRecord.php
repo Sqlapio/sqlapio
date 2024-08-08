@@ -237,7 +237,7 @@ class MedicalRecord extends Component
             $action = '24';
             ActivityLogController::store_log($action);
 
-            $physical_exams = PhysicalExam::where('patient_id', $request->patient_id)->with('get_center')->orderBy('date', 'desc')->get();
+            $physical_exams = PhysicalExam::where('patient_id', $request->patient_id)->with('get_center')->get();
 
             return  $physical_exams;
 
@@ -299,7 +299,7 @@ class MedicalRecord extends Component
         $user_id = Auth::user()->id;
         $doctor_centers = DoctorCenter::where('user_id', $user_id)->where('status', 1)->get();
         $Patient = UtilsController::get_one_patient($id);
-        $medical_record_user = UtilsController::get_medical_record_user($id);
+        $medical_record_user = ModelsMedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->orderBy('created_at', 'desc')->get();
         $medical_report = UtilsController::get_medical_report($id);
         $validate_histroy = $Patient->get_history;
         $exam = Exam::all();

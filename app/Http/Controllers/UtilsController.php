@@ -581,42 +581,18 @@ class UtilsController extends Controller
 	static function get_medical_record_user($id)
 	{
 		try {
-			$medical_record_user = [];
-			$medical_user = MedicalRecord::where('patient_id', $id)->get();
-			foreach ($medical_user as $key => $val) {
-				$medical_record_user[$key] = [
-					'id' 			=> $val->id,
-					'date' 			=> $val->record_date,
-					'name_patient' 	=> $val->get_paciente->name . " " . $val->get_paciente->last_name,
-					'full_name_doc' => $val->get_doctor->name . " " . $val->get_doctor->last_name,
-					'center' 		=> $val->get_center->description,
-					'genere' 		=> $val->get_paciente->genere,
-					'patient_id' 	=> $val->get_paciente->id,
-					'data' => [
-						'center_id'               => $val->get_center->id,
-						'record_code' 	          => $val->record_code,
-						// 'cod_ref' 	              => $val->get_reference->cod_ref,
-						'record_type' 	          => $val->record_type,
-						// 'background' 	          => $val->background,
-						'razon' 		          => $val->razon,
-						'diagnosis' 	          => $val->diagnosis,
-						'exams' 		          => $val->exams,
-						'studies' 		          => $val->studies,
-						'medications_supplements' => json_decode($val->medications_supplements),
-						'status_exam' 		      => $val->status_exam,
-						'status_study' 		      => $val->status_study,
-						'study' 		          => $val->get_study_medical,
-						'exam' 		              => $val->get_exam_medical,
-						'sintomas' 		          => $val->sintomas,
-					],
-				];
-			}
-			return $medical_record_user;
-			//code...
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medical_record_user()', $message);
-		}
+            $medical_record_user = [];
+            //Sin drogas....
+            $medical_user = MedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->get();
+
+            return $medical_user;
+            //code...
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.get_medical_record_user()', $message);
+        }
+
+
 	}
 
 	static function get_doctor_centers()
@@ -1932,7 +1908,7 @@ class UtilsController extends Controller
 	static function get_medical_report($id)
 	{
 		try {
-			$medical_report = MedicalReport::where('patient_id', $id)->with('get_doctor')->get();
+			$medical_report = MedicalReport::where('patient_id', $id)->with('get_doctor')->orderBy('date', 'desc')->get();
 			return $medical_report;
 			//code...
 		} catch (\Throwable $th) {
