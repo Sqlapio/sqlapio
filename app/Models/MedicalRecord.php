@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Patient;
 use App\Models\Center;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MedicalRecord extends Model
 {
@@ -40,9 +41,9 @@ class MedicalRecord extends Model
         'status_study',
     ];
 
-    public function  get_paciente(): HasOne
+    public function  get_paciente(): BelongsTo
     {
-        return $this->hasOne(Patient::class, 'id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
     public function  get_center(): HasOne
@@ -58,28 +59,28 @@ class MedicalRecord extends Model
     public function  get_doctor(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
-    }    
+    }
     public function  get_reference(): HasOne
     {
         return $this->hasOne(Reference::class, 'medical_record_id', 'id');
-    }  
+    }
     public function  get_study_medical(): HasMany
     {
         return $this->hasMany(StudyPatient::class, 'medical_record_id', 'id');
-    }   
+    }
      public function  get_exam_medical(): HasMany
     {
         return $this->hasMany(ExamPatient::class, 'medical_record_id', 'id');
-    }   
-    
+    }
+
     public function  get_exam_medical_status_two(): HasMany
     {
         return $this->hasMany(ExamPatient::class, 'medical_record_id', 'id')->where('status','2');
-    }  
+    }
 
     public function  get_study_medical_status_two(): HasMany
     {
         return $this->hasMany(StudyPatient::class, 'medical_record_id', 'id')->where('status','2');
-    }   
+    }
 
 }

@@ -496,9 +496,6 @@
         $('#form-consulta').validate({
             ignore: [],
             rules: {
-                // background: {
-                //     required: true,
-                // },
                 razon: {
                     required: true,
                 },
@@ -508,20 +505,11 @@
                 treatment: {
                     required: true,
                 },
-                // sintomas: {
-                //     validateSintoma: true,
-                // },
                 center_id: {
                     required: true,
                 },
-                // countMedicationAdd: {
-                //     required: true,
-                // }
             },
             messages: {
-                // background: {
-                //     required: "@lang('messages.alert.antecedentes_obligatorio')",
-                // },
                 razon: {
                     required: "@lang('messages.alert.razon_obligatorio')",
                 },
@@ -531,15 +519,9 @@
                 treatment: {
                     required: "@lang('messages.alert.tratamiento_obligatorio')",
                 },
-                // sintomas: {
-                //     required: "Sintomas es obligatorio",
-                // },
                 center_id: {
                     required: "@lang('messages.alert.centro_obligatorio')",
                 },
-                // countMedicationAdd: {
-                //     required: "debe agregar un tratamiento",
-                // }
             }
         });
         $.validator.addMethod("onlyText", function(value, element) {
@@ -703,11 +685,9 @@
                 pulse: {
                     required: true,
                 },
-
                 saturation: {
                     required: true,
                 },
-
                 condition: {
                     required: true,
                 },
@@ -743,7 +723,6 @@
                 pulse: {
                     required: "@lang('messages.alert.campo_obligatorio')",
                 },
-
                 saturation: {
                     required: "@lang('messages.alert.campo_obligatorio')",
                 },
@@ -1136,7 +1115,6 @@
 
         }
     }
-
 
     const resetForm = () => {
         Swal.fire({
@@ -1894,10 +1872,6 @@
         });
         new DataTable(
             '#table-medical-report', {
-                // language: {
-                //     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                // },
-                // reponsive: true,
                 bDestroy: true,
                 data: row,
                 "searching": false,
@@ -2025,47 +1999,6 @@
         data.map((item) => {
 
             let elemData = JSON.stringify(item);
-            let signosVitales = '';
-            let eupenio = '';
-            let febril = '';
-            let esfera_neurologica = '';
-            let glasgow = '';
-            let esfera_cardiopulmonar = '';
-            let esfera_abdominal = '';
-            let extremidades = '';
-            let esfera_orl = '';
-            let hidratado = '';
-
-            if (item.hidratado) {
-                hidratado = 'Hidratado';
-            }
-            if (item.eupenio) {
-                eupenio = ',Eupenio';
-            }
-            if (item.febril) {
-                febril = ',Febril';
-            }
-            if (item.esfera_neurologica) {
-                esfera_neurologica = 'Enfera Neurologica';
-            }
-            if (item.glasgow) {
-                glasgow = ',Glasgow';
-            }
-            if (item.esfera_orl) {
-                esfera_orl = ',Esfera oral';
-            }
-            if (item.esfera_cardiopulmonar) {
-                esfera_cardiopulmonar = 'Cardio Pulmorar';
-            }
-            if (item.esfera_abdominal) {
-                esfera_abdominal = ',Esfera Abdominal';
-            }
-            if (item.extremidades) {
-                extremidades = ',Extremidades';
-            }
-
-            item.signos_vitales =
-                `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
 
             item.btn =
                 `<button onclick='handleObservaciones(${elemData})'>
@@ -2078,122 +2011,18 @@
                     title="@lang('messages.tooltips.observaciones')">
                 </button>`;
 
-
-
             row.push(item);
         });
 
         new DataTable(
             '#table-examen-fisico', {
-                // language: {
-                //     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                // },
-                // reponsive: true,
                 bDestroy: true,
                 data: row,
                 "searching": false,
                 "bLengthChange": false,
-                columns: [{
-                        data: 'get_center.description',
-                        title: '@lang('messages.tabla.centro_salud')',
-                        className: "text-center td-pad w-30",
-                    },
-                    {
-                        data: 'date',
-                        title: '@lang('messages.tabla.fecha')',
-                        className: "text-center td-pad w-10",
-                    },
-                    {
-                        data: 'weight',
-                        title: '@lang('messages.tabla.peso')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'height',
-                        title: '@lang('messages.tabla.altura')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'strain',
-                        title: '@lang('messages.tabla.presion_arterial')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'temperature',
-                        title: '@lang('messages.tabla.temperatura')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'breaths',
-                        title: '@lang('messages.tabla.respiraciones')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'pulse',
-                        title: '@lang('messages.tabla.pulso')',
-                        className: "text-center td-pad",
-                    },
-                    {
-                        data: 'saturation',
-                        title: '@lang('messages.tabla.saturacion')',
-                        className: "text-center td-pad",
-                    },
-                    // {
-                    //     data: 'condition',
-                    //     title: 'Condición general',
-                    //     className: "text-center td-pad",
-                    // },
-                    // {
-                    //     data: 'signos_vitales',
-                    //     title: 'Signos vitales',
-                    //     className: "text-center td-pad",
-                    // },
-                    {
-                        data: `btn`,
-                        title: '@lang('messages.tabla.observaciones')',
-                        className: "text-center td-pad",
-                    }
-                ],
-            });
-    }
-
-    const setDatatableConsulta = (data) => {
-
-        let row = []
-
-        data.map((item) => {
-
-            let elemData = JSON.stringify(item);
-
-
-            item.btn =
-                `<button onclick='handleObservaciones(${elemData})'>
-                    <img width="25" height="auto"
-                    src="{{ asset('/img/icons/justify.png') }}"
-                    alt="avatar"
-                    type="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="@lang('messages.tooltips.observaciones')">
-                </button>`;
-
-
-
-            row.push(item);
-        });
-
-        new DataTable(
-            '#table-examen-fisico', {
-                // language: {
-                //     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                // },
-                // reponsive: true,
                 order: [[1, 'desc']],
-                bDestroy: true,
-                data: row,
-                "searching": false,
-                "bLengthChange": false,
-                columns: [{
+                columns: [
+                    {
                         data: 'get_center.description',
                         title: '@lang('messages.tabla.centro_salud')',
                         className: "text-center td-pad w-30",
@@ -2202,7 +2031,6 @@
                         data: 'date',
                         title: '@lang('messages.tabla.fecha')',
                         className: "text-center td-pad w-10",
-                        order: 'desc',
                     },
                     {
                         data: 'weight',
@@ -2246,9 +2074,94 @@
                     }
                 ],
             });
-
-
     }
+
+    // const setDatatableConsulta = (data) => {
+
+    //     let row = []
+
+    //     data.map((item) => {
+
+    //         let elemData = JSON.stringify(item);
+
+
+    //         item.btn =
+    //             `<button onclick='handleObservaciones(${elemData})'>
+    //                 <img width="25" height="auto"
+    //                 src="{{ asset('/img/icons/justify.png') }}"
+    //                 alt="avatar"
+    //                 type="button"
+    //                 data-bs-toggle="tooltip"
+    //                 data-bs-placement="bottom"
+    //                 title="@lang('messages.tooltips.observaciones')">
+    //             </button>`;
+
+
+
+    //         row.push(item);
+    //     });
+
+    //     new DataTable(
+    //         '#table-examen-fisico', {
+    //             bDestroy: true,
+    //             data: row,
+    //             "searching": false,
+    //             "bLengthChange": false,
+    //             columns: [{
+    //                     data: 'get_center.description',
+    //                     title: '@lang('messages.tabla.centro_salud')',
+    //                     className: "text-center td-pad w-30",
+    //                 },
+    //                 {
+    //                     data: 'date',
+    //                     title: '@lang('messages.tabla.fecha')',
+    //                     className: "text-center td-pad w-10",
+    //                 },
+    //                 {
+    //                     data: 'weight',
+    //                     title: '@lang('messages.tabla.peso')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'height',
+    //                     title: '@lang('messages.tabla.altura')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'strain',
+    //                     title: '@lang('messages.tabla.presion_arterial')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'temperature',
+    //                     title: '@lang('messages.tabla.temperatura')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'breaths',
+    //                     title: '@lang('messages.tabla.respiraciones')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'pulse',
+    //                     title: '@lang('messages.tabla.pulso')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: 'saturation',
+    //                     title: '@lang('messages.tabla.saturacion')',
+    //                     className: "text-center td-pad",
+    //                 },
+    //                 {
+    //                     data: `btn`,
+    //                     title: '@lang('messages.tabla.observaciones')',
+    //                     className: "text-center td-pad",
+    //                 }
+    //             ],
+    //         });
+
+
+    // }
 
 </script>
 @endpush
@@ -2810,8 +2723,8 @@
                                                 <table id="table-examen-fisico" class="table table-striped table-bordered" style="width:100%; ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
+                                                            <th class="text-center w-30" scope="col" data-orderable="false">@lang('messages.tabla.centro_salud')</th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.fecha')</th>
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.peso')</th>
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.altura')</th>
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.presion_arterial')</th>
@@ -2823,22 +2736,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @php
-                                                            $signosVitales = '';
-                                                            $eupenio = '';
-                                                            $febril = '';
-                                                            $esfera_neurologica = '';
-                                                            $glasgow = '';
-                                                            $esfera_cardiopulmonar = '';
-                                                            $esfera_abdominal = '';
-                                                            $extremidades = '';
-                                                            $esfera_orl = '';
-                                                        @endphp
 
-                                                        @foreach ($physical_exams as $item)
+                                                        @foreach ($physical_exams->sortByDesc('created_at') as $item)
                                                             <tr>
                                                                 <td class="text-center td-pad"> {{ $item->get_center->description }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->date }} </td>
+                                                                <td class="text-center td-pad"> {{ Carbon\Carbon::parse($item->date)->format('Y-m-d') }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->weight }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->height }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->strain }}</td>
@@ -3284,7 +3186,7 @@
                                             <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
+                                                        {{-- <th data-orderable="false" class="text-center w-8" scope="col" style="display: none">@lang('messages.tabla.id_consulta')</th> --}}
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
                                                         <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
@@ -3293,30 +3195,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @php
-                                                        $comarrSorted = collect($medical_record_user)->sortByDesc('id');
-                                                        // dd($comarrSorted);
-                                                    @endphp
-                                                    @foreach ($comarrSorted as $item)
+                                                    {{-- {{ dd(collect($medical_record_user)->sortBy('id')) }} --}}
+                                                    @foreach ($medical_record_user->sortByDesc('created_at') as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad" data-orderable="false" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ Carbon\Carbon::parse($item->record_date)->format('d-m-Y') }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item->get_doctor->name . " " . $item->get_doctor->last_name }} </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item->get_center->description }}</td>
+                                                            {{-- <td class="text-center td-pad" style="display: none" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item->id }}</td> --}}
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
-                                                                    @if ($item['data']['status_exam'])
+                                                                    @if ($item->status_exam)
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                            <a target="_blank" href="{{ route('pdf_medical_prescription', $item->id) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true"
                                                                                     title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <img width="60" height="auto"
-                                                                                        src="{{ asset('/img/icons/pdf-orden-exam.png') }}"
-                                                                                        alt="avatar">
+                                                                                    <img width="60" height="auto" src="{{ asset('/img/icons/pdf-orden-exam.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
@@ -3329,9 +3226,9 @@
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    @if ($item['data']['status_study'])
+                                                                    @if ($item->status_study)
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                            <a target="_blank" href="{{ route('pdf_medical_prescription', $item->id) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -3354,7 +3251,7 @@
                                                                         </div>
                                                                     @endif
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item->id) }}">
                                                                             <button type="button">
                                                                                 <img width="50" height="auto"
                                                                                     src="{{ asset('/img/icons/pdf-recipe.png') }}"
@@ -3372,7 +3269,7 @@
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item->id) }}">
                                                                             <button type="button">
                                                                                 <img width="60" height="auto"
                                                                                     src="{{ asset('/img/icons/pdf-consulta.png') }}"
