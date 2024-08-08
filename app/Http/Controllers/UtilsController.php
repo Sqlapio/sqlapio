@@ -2616,4 +2616,44 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_study()', $message);
 		}
     }
+
+    static function delete_file_exam($id)
+    {
+        try {
+            $delete = ExamPatient::where('id', $id)->first()->update([
+                'status' => 1,
+                'date_result' => null,
+                'file' => null
+            ]);
+
+            if ($delete) {
+                return response()->json([
+                    'success' => 'true',
+                ], 200);
+            }
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    static function delete_file_study($id)
+    {
+        try {
+            $delete = StudyPatient::where('id', $id)->first()->update([
+                'status' => 1,
+                'date_result' => null,
+                'file' => null
+            ]);
+
+            if ($delete) {
+                return response()->json([
+                    'success' => 'true',
+                ], 200);
+            }
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
 }

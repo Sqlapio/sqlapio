@@ -136,6 +136,10 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::get('/study', [Study::class, 'render'])->name('Study');
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
+            Route::post('/exam/{id}', [UtilsController::class, 'delete_file_exam'])->name('delete_file_exam');
+            Route::post('/study/{id}', [UtilsController::class, 'delete_file_study'])->name('delete_file_study');
+
+
             Route::group(array('prefix' => 'patients'), function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
