@@ -145,20 +145,9 @@ function get_queries_month(queries_month) {
         y: {
           ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
-        x: [{
-            type: 'time',
-            time: {
-                unit: 'month'
-            },
-            scaleLabel: {
-                display: true,
-                labelString: 'Date'
-              }
-        }]
-        // x: {
-        //     ticks: { color: "#596167", beginAtZero: true },
-        //     type: 'time',
-        // }
+        x: {
+            ticks: { color: "#596167", beginAtZero: true },
+        }
       },
       plugins: {
         legend: {
@@ -531,53 +520,80 @@ function get_general_appointments2(appointments_confirmed, appointments_attended
  * Grafica de citas canceladas, atendidas y confirmadas acumuladas
  *
  */
-function get_quotes(appointments_count_all) {
-  const data = {
-    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.confirmadas],
-    datasets: [
-      {
-        label: langJson.graficas.total,
-        data: appointments_count_all,
-        backgroundColor: ["#dc3545", "#198754", "#ffc107"]
-      }
-    ]
-  };
+function get_quotes(appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended) {
+    const data = {
+        // labels: [langJson.graficas.confirmadas, langJson.graficas.canceladas],
+        labels: [langJson.graficas.confirmadas, langJson.graficas.canceladas, langJson.graficas.atendidas],
+        datasets: [
+            {
+                label: langJson.graficas.total,
+                data: [appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended],
+                backgroundColor: ["#ffc107", "#dc3545", "#198754"]
+            },
+            // {
+            //     label: langJson.graficas.confirmadas,
+            //     data: [appointments_count_all_confirmada],
+            //     borderColor: "#ffc107",
+            //     backgroundColor: "#ffc107"
+            // },
+            // {
+            //     label: langJson.graficas.canceladas,
+            //     data: [appointments_count_all_canceled],
+            //     borderColor: "#dc3545",
+            //     backgroundColor: "#dc3545"
+            // },
+            // {
+            //     label: langJson.graficas.atendidas,
+            //     data: [appointments_count_all_attended],
+            //     borderColor: "#198754",
+            //     backgroundColor: "#198754"
+            // }
+        ]
+      };
 
-  const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
-    return sum + currentValue;
-  }, 0);
-
-  new Chart($("#quotes"), {
-    type: "pie",
-    data: data,
-    options: {
+      new Chart($("#quotes"), {
+        type: "bar",
+        data: data,
+        options: {
         responsive: true,
+        barThickness: 70,
+        scales: {
+            y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+            },
+            x: {
+            ticks: { color: "#596167", beginAtZero: true }
+            }
+        },
         plugins: {
             datalabels: {
+                anchor: 'end',
+                align: 'end',
                 labels: {
                     title: {
-                    color: "white",
-                    font: {
-                        weight: "bold",
-                        size: 16
-                    }
+                        color: "#596167",
+                        font: {
+                            weight: "bold",
+                            size: 11
+                        }
                     }
                 },
                 formatter: function(value) {
-                    return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
+                    return value == 0 ? '' : value;
                 }
             },
             legend: {
+                display: false,
                 position: "bottom",
                 align: "start",
                 labels: {
                     color: "#596167"
                 }
-            }
+            },
         }
-    },
-    plugins: [ChartDataLabels]
-  });
+        },
+        plugins: [ChartDataLabels]
+      });
 }
 
 /**

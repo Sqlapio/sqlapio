@@ -1202,29 +1202,32 @@
     }
 
     const showDataEdit = (item, active = true) => {
+
+        console.log(item)
+
         if (active) {
             $(".accordion-collapse2").collapse('show')
         }
-        if(item.data.sintomas === '') {
+        if(item.sintomas === '') {
             $("#symptoms_card1").hide();
         }
-        if(item.data.study.length === 0 && item.data.exam.length === 0){
-            $('#not-studie').show();
-            $('#not-exam').show();
-        }
+        // if(item.study.length === 0 && item.exam.length === 0){
+        //     $('#not-studie').show();
+        //     $('#not-exam').show();
+        // }
 
-        if(item.data.medications_supplements.length === 0){
-            $('#medicine').hide();
-        }
+        // if(item.medications_supplements.length === 0){
+        //     $('#medicine').hide();
+        // }
 
         $("#medical_record_id").val(item.id);
-        $("#center_id").val(item.data.center_id).change().attr('disabled', true);
-        // $("#background").val(item.data.background).attr('disabled', true);
-        $("#razon").val(item.data.razon).attr('disabled', true);
-        $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
-        $("#treatment").val(item.data.treatment).attr('disabled', true);
-        $("#sintomas").val(item.data.sintomas).attr('disabled', true);
-        // $("#studies").val(item.data.studies);
+        $("#center_id").val(item.center_id).change().attr('disabled', true);
+        // $("#background").val(item.background).attr('disabled', true);
+        $("#razon").val(item.razon).attr('disabled', true);
+        $("#diagnosis").val(item.diagnosis).attr('disabled', true);
+        $("#treatment").val(item.treatment).attr('disabled', true);
+        $("#sintomas").val(item.sintomas).attr('disabled', true);
+        // $("#studies").val(item.studies);
         $(".medicine-form").hide();
         // $("#indication").hide();
         // $("#treatmentDuration").hide();
@@ -1256,19 +1259,19 @@
         $("#symptoms_card3").addClass("symptoms_mt-0");
 
         $("#diagnosis").hide();
-        $("#diagnosis-text").show().text(item.data.diagnosis);
+        $("#diagnosis-text").show().text(item.diagnosis);
         // $("#background").hide();
-        // $("#background-text").show().text(item.data.background);
+        // $("#background-text").show().text(item.background);
         $("#razon").hide();
-        $("#razon-text").show().text(item.data.razon);
+        $("#razon-text").show().text(item.razon);
         $("#sintomas").hide();
-        $("#sintomas-text").show().text(item.data.sintomas);
+        $("#sintomas-text").show().text(item.sintomas);
         $("#text_area_exman").hide();
-        $("#exman-text").show().text(item.data.sintomas);
+        $("#exman-text").show().text(item.sintomas);
         $("#text_area_studies").hide();
-        $("#studies-text").show().text(item.data.sintomas);
+        $("#studies-text").show().text(item.sintomas);
 
-        item.data.medications_supplements.map((element, key) => {
+        item.medications_supplements.map((element, key) => {
             countMedicationAdd = countMedicationAdd + 1;
             var row = `
                     <tr id="${countMedicationAdd}">
@@ -1280,7 +1283,7 @@
             $('#table-medicamento').find('tbody').append(row);
 
             //setiar examenes
-            item.data.exam.map((elem, key) => {
+            item.exam.map((elem, key) => {
                 $(`#${elem.cod_exam}`).attr('checked', true);
                 const examFilter = exam_filter.push(elem.description);
             });
@@ -1304,7 +1307,7 @@
             }
 
             //setiar estudios
-            item.data.study.map((elem, key) => {
+            item.study.map((elem, key) => {
                 $(`#${elem.cod_study}`).attr('checked', true);
                 const examStudy = study_filter.push(elem.description);
             });
@@ -2915,7 +2918,10 @@
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>
                                                                         @foreach ($medicines as $item)
-                                                                        <option value={{ $item->description }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
+                                                                            @php
+                                                                                $medication = $item->description.'-'.$item->concentration.'-'.$item->shape
+                                                                            @endphp
+                                                                            <option value={{ $medication }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
                                                                         @endforeach
                                                                     </select>
                                                                     <i class="bi bi-capsule st-icon"></i>

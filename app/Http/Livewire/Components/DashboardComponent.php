@@ -35,7 +35,9 @@ class DashboardComponent extends Component
         $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);
         $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);
         $appointments_unconfirmed = UtilsController::get_appointments_unconfirmed(null,$id);
-        $appointments_count_all = UtilsController::get_appointments_count_all($id);
+        $appointments_count_all_attended = UtilsController::get_appointments_count_all_attended($id);
+        $appointments_count_all_canceled = UtilsController::get_appointments_count_all_canceled($id);
+        $appointments_count_all_confirmada = UtilsController::get_appointments_count_all_confirmada($id);
 
 
         return view(
@@ -61,7 +63,9 @@ class DashboardComponent extends Component
                 "appointments_canceled",
                 "appointments_confirmed",
                 "appointments_unconfirmed",
-                "appointments_count_all"
+                "appointments_count_all_attended",
+                "appointments_count_all_confirmada",
+                "appointments_count_all_canceled",
             )
         );
     }

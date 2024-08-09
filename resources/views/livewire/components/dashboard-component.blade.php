@@ -70,7 +70,12 @@
         let appointments_canceled = @json($appointments_canceled);
         let appointments_confirmed = @json($appointments_confirmed);
         let appointments_unconfirmed = @json($appointments_unconfirmed);
-        let appointments_count_all = @json($appointments_count_all);
+        let appointments_count_all_attended = @json($appointments_count_all_attended);
+        let appointments_count_all_canceled = @json($appointments_count_all_canceled);
+        let appointments_count_all_confirmada = @json($appointments_count_all_confirmada);
+
+
+
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
@@ -144,8 +149,8 @@
 
             get_general(boy_girl, teen, adult, elderly);
             get_general_appointments2(appointments_confirmed, appointments_attended)
-            get_general_appointments( appointments_unconfirmed, appointments_canceled )
-            get_quotes(appointments_count_all);
+            get_general_appointments(appointments_unconfirmed, appointments_canceled)
+            get_quotes(appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended);
             get_queries_month(queries_month);
             get_consultas_history(countMedicalRecordr, countHistoryRegister);
             get_appointments_attended(appointments_attended);
@@ -430,8 +435,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                            <div class="col-xl-12 col-lg-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
                                                 <div class="card" style="background-color: #eee">
                                                     <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general2')</h5>
                                                     <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
@@ -440,20 +444,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="card" style="background-color: #eee; margin-bottom: 25px;">
-                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
-                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                        <canvas id="countGereral2"></canvas>
+                                                <div class="card" style="background-color: #eee">
+                                                    <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
+                                                    <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                        <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                            <canvas id="countGereral2"></canvas>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </div>
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
                                             <div class="row">
-                                                <div class="col-xl-12 col-lg-12">
                                                     <div class="card" style="background-color: #eee">
                                                         <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general')</h5>
                                                         <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
@@ -462,19 +464,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xl-12 col-lg-12" style="display: flex">
-                                                    <div class="col-xl-6 col-lg-6" style="padding-right: 5px">
-                                                        <div class="card " style="background-color: #eee;">
-                                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
-                                                            <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                                <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                    <canvas id="quotes" style="height:auto; width:100vw"></canvas>
-                                                                </div>
+                                                    <div class="card " style="background-color: #eee;">
+                                                        <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
+                                                        <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                                <canvas id="quotes"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6 col-lg-6" style="padding-left: 5px">
+                                                    {{-- <div class="col-xl-6 col-lg-6" style="padding-left: 5px">
                                                         <div class="card " style="background-color: #eee;">
                                                             <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.consultas_historias')</h5>
                                                             <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
@@ -483,7 +481,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
