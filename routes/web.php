@@ -59,9 +59,12 @@ use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
 use Illuminate\Support\Facades\DB;
 use App\Models\DoctorCenter;
-
+use Illuminate\Support\Facades\Auth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\Enums\Format;
 use Spatie\Browsershot\Browsershot;
+use \Spatie\LaravelPdf\Enums\Orientation;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,10 +139,6 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::get('/study', [Study::class, 'render'])->name('Study');
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
-            Route::post('/exam/{id}', [UtilsController::class, 'delete_file_exam'])->name('delete_file_exam');
-            Route::post('/study/{id}', [UtilsController::class, 'delete_file_study'])->name('delete_file_study');
-
-
             Route::group(array('prefix' => 'patients'), function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
@@ -209,7 +208,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
         });
 
         //grupos de rutas fuerzas de venta
-            Route::group(array('prefix' => 'force-sale'), function () {
+        Route::group(array('prefix' => 'force-sale'), function () {
             Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
             Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');
             Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');
@@ -247,6 +246,13 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
      */
     Route::get('/pdf/medical-record/{id}', [PDFController::class, 'PDF_medical_record'])->name('PDF_medical_record');
 
+    /**
+     * @method PDF
+     * @param id
+     * Genera el pdf para las consultas de los pacientes
+     */
+    Route::get('/pdf/medical-prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('PDF_medical_prescription');
+
 
     /**
      * @method PDF
@@ -261,6 +267,19 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
      * Genera el pdf para las consultas de los pacientes
      */
     Route::get('/pdf/informe_medico/{id}', [PDFController::class, 'PDF_informe_medico'])->name('PDF_informe_medico');
+
+    /**
+     * @method PDF
+     * @param id
+     * Genera el pdf para las consultas de los pacientes
+     */
+    Route::get('/pdf/exam/{id}', [PDFController::class, 'PDF_exam'])->name('PDF_exam');
+    /**
+     * @method PDF
+     * @param id
+     * Genera el pdf para las consultas de los pacientes
+     */
+    Route::get('/pdf/study/{id}', [PDFController::class, 'PDF_study'])->name('PDF_study');
 
     /**
      * @method search
@@ -334,7 +353,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profile-user-secretary', [ProfileSecretaryProfile::class, 'render'])->name("profile-user-secretary");
         Route::get('/dashbord-secretary', [DashbordSecretary::class, 'render'])->name("dashbord-secretary");
         Route::post('/dashbord-secretary', [ProfileSecretaryProfile::class, 'update'])->name("profile-secretary-update");
-
     });
 });
 
@@ -364,38 +382,87 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-        // $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
-        // $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-        // $generator = new BarcodeGeneratorPNG();
-        // $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
-        // $data = [
-        //     'date' => date('m/d/Y'),
-        //     'MedicalRecord' => $MedicalRecord,
-        //     'barcode' => $barcode,
-        // ];
+    // $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
+    // $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+    // $generator = new BarcodeGeneratorPNG();
+    // $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+    // $data = [
+    // 'date' => date('m/d/Y'),
+    // 'MedicalRecord' => $MedicalRecord,
+    // 'barcode' => $barcode,
+    // ];
     // return view("pdf.PDF_medical_record2", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
 Route::get('/prueba2', function () {
-        $medical_prescription = ModelsMedicalRecord::where('id', 55)->first();
-        $doctor_center = DoctorCenter::where('user_id', $medical_prescription->user_id)->where('center_id', $medical_prescription->center_id)->first();
-        $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
-        $data = [
-            'date' => date('m/d/Y'),
-            'medical_prescription' => $medical_prescription,
-            'barcode' => $barcode,
-        ];
+    $medical_prescription = ModelsMedicalRecord::where('id', 55)->first();
+    $doctor_center = DoctorCenter::where('user_id', $medical_prescription->user_id)->where('center_id', $medical_prescription->center_id)->first();
+    $generator = new BarcodeGeneratorPNG();
+    $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+    $data = [
+        'date' => date('m/d/Y'),
+        'medical_prescription' => $medical_prescription,
+        'barcode' => $barcode,
+    ];
     return view("pdf.PDF_medical_prescription2", compact('medical_prescription', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
 Route::get('/pp', function () {
-    Browsershot::url('https://system.sqlapio.com/prueba')
-	->setNodeBinary('/usr/bin/node')
-    	->setNpmBinary('/usr/bin/npm')
-	->setChromePath('/usr/bin/chromium')
-	->landscape()
-	->save('example.pdf');
+    $medical_prescription = ModelsMedicalRecord::where('id', 77)->with('get_paciente')->first();
+    $medicamentos = Treatment::where('record_code', $medical_prescription->record_code)->get();
+    $pdf = 'Recipe_' . $medical_prescription->get_paciente->ci . '_' . date('YmdHms') . '.pdf';
+    $doctor_center = DoctorCenter::where('user_id', $medical_prescription->user_id)->where('center_id', $medical_prescription->center_id)->first();
+    $generator = new BarcodeGeneratorPNG();
+    $barcode = base64_encode($generator->getBarcode($medical_prescription->get_paciente->patient_code, $generator::TYPE_CODE_128));
+    $data = [
+        'date' => date('m/d/Y'),
+        'medical_prescription' => $medical_prescription,
+        'barcode' => $barcode,
+    ];
+    return view(
+        'pdf.PDF_medical_prescription',
+        [
+            'data' => $data,
+            'MedicalRecord' => $medical_prescription,
+            'doctor_center' => $doctor_center,
+            'medicamentos' => $medicamentos,
+            'generator' => $generator,
+            'barcode' => $barcode,
+            'bg' => Auth::user()->background_pdf == 'white.png' ? '' : Auth::user()->background_pdf,
+            'nombre' => Auth::user()->name . ' ' . Auth::user()->last_name,
+            'especialidad' => Auth::user()->specialty,
+            'mpps' => Auth::user()->cod_mpps,
+            'ci' => Auth::user()->ci,
+            'direccion' => $doctor_center->address,
+            'piso' => $doctor_center->number_floor,
+            'consultorio_num' => $doctor_center->number_consulting_room,
+            'consultorio_tel' => $doctor_center->phone_consulting_room,
+            'personal_tel' => Auth::user()->phone,
+        ]
+    );
+    // ->withBrowsershot(function (Browsershot $browsershot) {
+    // $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
+    // $browsershot->setNpmBinary('/usr/local/bin/npm');
+    // // $browsershot->setChromePath(env('CHROMIUM'));
+    // })
+    // ->format(Format::Letter)
+    // ->orientation(Orientation::Landscape)
+    // ->margins(2, 2, 2, 2);
+    // ->download();
+    // ->headerView('pdf.header', [
+    // 'nombre' => Auth::user()->name.' '.Auth::user()->last_name,
+    // 'especialidad' => Auth::user()->specialty,
+    // 'mpps' => Auth::user()->cod_mpps,
+    // 'ci' => Auth::user()->ci,
+    // ])
+    // ->footerView('pdf.footer', [
+    // 'direccion' => $doctor_center->address,
+    // 'piso' => $doctor_center->number_floor,
+    // 'consultorio_num' => $doctor_center->number_consulting_room,
+    // 'consultorio_tel' => $doctor_center->phone_consulting_room,
+    // 'personal_tel' => Auth::user()->phone,
+    // ])
+    // ->save($pdf);
 
 
 });

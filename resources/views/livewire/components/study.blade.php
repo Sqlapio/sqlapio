@@ -534,7 +534,7 @@
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                     @if ($item->status === '1')
-                                                                        <span>---------</span>
+                                                                        <span>-----</span>
                                                                     @else
                                                                         <a style="text-decoration: none; display: flex; justify-content: center;">
                                                                             <button

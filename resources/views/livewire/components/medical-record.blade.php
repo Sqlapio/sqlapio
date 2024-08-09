@@ -691,9 +691,9 @@
                 condition: {
                     required: true,
                 },
-                observations: {
-                    required: true,
-                },
+                // observations: {
+                //     required: true,
+                // },
                 center_id: {
                     required: true,
                 }
@@ -729,9 +729,9 @@
                 condition: {
                     required: "@lang('messages.alert.campo_obligatorio')",
                 },
-                observations: {
-                    required: "@lang('messages.alert.campo_obligatorio')",
-                }
+                // observations: {
+                //     required: "@lang('messages.alert.campo_obligatorio')",
+                // }
             }
         });
 
@@ -2666,14 +2666,18 @@
                                                                 <td class="text-center td-pad"> {{ $item->saturation }}
                                                                 </td>
                                                                 <td class="text-center td-pad">
-                                                                    <button onclick='handleObservaciones({{ $item }})'>
-                                                                        <img width="25" height="auto"
-                                                                            src="{{ asset('/img/icons/justify.png') }}"
-                                                                            alt="avatar" type="button"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="@lang('messages.tooltips.observaciones')">
-                                                                    </button>
+                                                                    @if ($item->observations)
+                                                                        <button onclick='handleObservaciones({{ $item }})'>
+                                                                            <img width="25" height="auto"
+                                                                                src="{{ asset('/img/icons/justify.png') }}"
+                                                                                alt="avatar" type="button"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="@lang('messages.tooltips.observaciones')">
+                                                                        </button>
+                                                                    @else
+                                                                        <span>-----</span>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -2981,32 +2985,20 @@
                                                                         placeholder="Seleccione"class="form-control"
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>
-                                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')
-                                                                        </option>
+                                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')</option>
+                                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')</option>
+                                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')</option>
+                                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')</option>
+                                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')</option>
+                                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')</option>
+                                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')</option>
+                                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')</option>
+                                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')</option>
+                                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')</option>
+                                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
+                                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
+                                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio') </option>
+                                                                        <option value="@lang('messages.select.permanentes')">@lang('messages.select.permanentes')</option>
                                                                     </select>
                                                                     <i class="bi bi-calendar-range st-icon"></i>
                                                                     <span id="treatmentDuration_span"
@@ -3288,20 +3280,13 @@
                     <div class="modal-header title">
                         <i class="bi bi-alexa"></i>
                         <span style="padding-left: 5px">@lang('messages.modal.titulo.resultado_ia')</span>
-                        <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.copiar_diagnostico')"
-                            onclick="triggerExample();" style="margin-left: 5%; font-size: 14px;">
-                                <img width="20" height="auto"
-                                    src="{{ asset('/img/icons/copy-files.png') }}"
-                                    alt="avatar"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-html="true">
-                            {{-- <i class="bi bi-file-earmark-text"></i> --}}
+                        <button type="button" id="icon-copy" class="btn rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="@lang('messages.botton.copiar_diagnostico')"
+                            onclick="triggerExample();" style="margin-left: 5%;">
+                            <img width="70" height="auto" src="{{ asset('/img/icons/COPIAR-TEXTO.png') }}" alt="avatar">
                         </button> <span style="padding-left: 5px" id="copied"></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="font-size: 12px;"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <div class="div-ia">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicalReport extends Model
@@ -12,7 +13,7 @@ class MedicalReport extends Model
 
     use HasFactory;
 
-     /**
+    /**
      * Define table
      */
     protected $table = 'medical_reports';
@@ -31,23 +32,22 @@ class MedicalReport extends Model
         'date'
     ];
 
-    public function  get_doctor(): HasOne
+    public function get_doctor(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
-    public function  get_paciente(): HasOne
+    public function get_paciente(): BelongsTo
     {
-        return $this->hasOne(Patient::class, 'id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
-    public function  get_center(): HasOne
+    public function get_center(): HasOne
     {
         return $this->hasOne(Center::class, 'id', 'center_id');
     }
 
-    public function  get_center_data(): HasOne
+    public function get_center_data(): HasOne
     {
         return $this->hasOne(DoctorCenter::class, 'center_id', 'center_id');
     }
-
 }

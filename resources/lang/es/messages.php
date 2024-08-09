@@ -94,7 +94,7 @@ return [
         'tipo_alergia'             => 'Tipo de Alergia',
         'detalle'                  => 'Sintomas',
         'peso'                     => 'Peso (0 - 300 kg)',
-        'altura'                   => 'Altura (0 - 250 cm)',
+        'altura'                   => 'Altura (0 - 250 mts)',
         'presion_arterial'         => 'Presión arterial (mmHg)',
         'temperatura'              => 'Temperatura (34 - 42 C)',
         'respiraciones'            => 'Respiraciones (12 - 30 por minuto)',
@@ -362,6 +362,8 @@ return [
         'tipo_sangre'         => 'Grupo Sanguíneo',
         'efectividad'         => 'Efectividad',
         'via'                 => 'Via',
+        'frecuencia'          => 'Frecuencia',
+        'efect_secund'        => 'Efectos Secundarios',
     ],
 
     'placeholder' => [
@@ -466,6 +468,7 @@ return [
         '2_mes'          => '2 meses',
         '3_mes'          => '3 meses',
         '1_anio'         => '1 año',
+        'permanentes'    => 'Permanente',
         'Medicinas'      => 'Medicinas',
         'Alimentos'      => 'Alimentos',
         'Latex'          => 'Latex',

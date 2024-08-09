@@ -658,6 +658,11 @@
                                 className: "text-center td-pad",
                             },
                             {
+                                data: 'frequency',
+                                title: '@lang('messages.tabla.frecuencia')',
+                                className: "text-center td-pad",
+                            },
+                            {
                                 data: 'effectiveness',
                                 title: '@lang('messages.tabla.efectividad')',
                                 className: "text-center td-pad",
@@ -665,6 +670,16 @@
                             {
                                 data: 'treatmentDuration',
                                 title: '@lang('messages.tabla.duracion')',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'viaAdmin',
+                                title: '@lang('messages.tabla.via')',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'side_effects',
+                                title: '@lang('messages.tabla.efect_secund')',
                                 className: "text-center td-pad",
                             },
                             {
@@ -2053,13 +2068,14 @@
                                         <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="viaAdmin_span" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.via_administracion')
-                                                    </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="viaAdmin" name="viaAdmin" type="text" value="">
-                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                    <label for="viaAdmin" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.via')</label>
+                                                    <select name="viaAdmin" id="viaAdmin" placeholder="@lang('messages.label.seleccione')" class="form-control" class="form-control combo-textbox-input">
+                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                        @foreach ($medicines_vias as $item)
+                                                            <option value={{ $item->description }}>{{ $item->description }} </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i class="bi bi-capsule st-icon"></i>
                                                 </div>
                                                 <span id="viaAdmin_span" class="text-danger"></span>
                                             </div>
@@ -2089,6 +2105,7 @@
                                                         <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
                                                         <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
                                                         <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')</option>
+                                                        <option value="@lang('messages.select.permanentes')">@lang('messages.select.permanentes')</option>
 
                                                     </select>
                                                     <i class="bi bi-calendar-range st-icon"></i>
@@ -2152,10 +2169,11 @@
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medicamento')</th>
                                                         <th class="text-center" data-orderable="false" scope="col"> @lang('messages.tabla.dosis')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.frecuencia')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.efectividad')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
-                                                        {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_ini')</th> --}}
-                                                        {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_fin')</th> --}}
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.via')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.efect_secund')</th>
                                                         <th class="text-center w-5" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
@@ -2176,11 +2194,12 @@
                                                                         {{ $item['medicine'] }}</td>
                                                                     <td class="text-center"> {{ $item['dose'] }} </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }} </td>
+                                                                    <td class="text-center"> {{ $item['frequency'] }} </td>
                                                                     <td class="text-center"> {{ $item['effectiveness'] }} </td>
                                                                     <td class="text-center">
                                                                         {{ $item['treatmentDuration'] }}</td>
-                                                                    {{-- <td class="text-center"> {{ $item['dateIniTreatment'] }}</td> --}}
-                                                                    {{-- <td class="text-center"> {{ $item['dateEndTreatment'] }}</td> --}}
+                                                                    <td class="text-center"> {{ $item['viaAdmin'] }}</td>
+                                                                    <td class="text-center"> {{ $item['side_effects'] }}</td>
                                                                     <td class="text-center"><span
                                                                             onclick="deleteMedication({{ $key }})"><img
                                                                                 width="30" height="auto"

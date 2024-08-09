@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Center;
 use App\Models\ExamPatient;
+use App\Models\MedicalRecord;
 use App\Models\Patient;
 use App\Models\Reference as ModelsReference;
 use App\Models\Representative;
@@ -15,7 +16,7 @@ use Livewire\Component;
 
 class Reference extends Component
 {
-    static function store($data, $medical_record_code,$medical_record)
+    static function store($data, $medical_record_code, $medical_record)
     {
 
         /**
@@ -27,11 +28,11 @@ class Reference extends Component
         $user = Auth::user();
 
         /** Validacion para cargar el centro correcto cuando el medico
-             * esta asociado al plan corporativo
-             */
-            if ($user->center_id != null) {
-                $center_id_corporativo = $user->center_id;
-            }
+         * esta asociado al plan corporativo
+         */
+        if ($user->center_id != null) {
+            $center_id_corporativo = $user->center_id;
+        }
 
         $reference = new ModelsReference();
         $reference->cod_ref = 'SQ-REF-' . random_int(11111111, 99999999);
@@ -62,9 +63,9 @@ class Reference extends Component
         /**
          * Si es menor de edad
          */
-        if($patient->is_minor == 'true'){
+        if ($patient->is_minor == 'true') {
             $patient_email = Representative::where('patient_id', $reference->patient_id)->first()->re_email;
-        }else{
+        } else {
             $patient_email = $patient->email;
         }
 
@@ -90,6 +91,10 @@ class Reference extends Component
                 $exams_patient->date = date('d-m-Y');
                 $exams_patient->save();
             }
+
+            MedicalRecord::where('record_code', $medical_record_code)->update([
+                'status_exam' => 1
+            ]);
         }
 
         /**
@@ -114,11 +119,14 @@ class Reference extends Component
                 $studies_patient->date = date('d-m-Y');
                 $studies_patient->save();
             }
+
+            MedicalRecord::where('record_code', $medical_record_code)->update([
+                'status_study' => 1
+            ]);
         }
 
 
-        if(isset($center_id_corporativo))
-        {
+        if (isset($center_id_corporativo)) {
             $mailData = [
                 'dr_name' => $user->name . ' ' . $user->last_name,
                 'center' => Center::where('id', $center_id_corporativo)->first()->description,
@@ -127,13 +135,12 @@ class Reference extends Component
                 'reference_code' => $reference->cod_ref,
                 'reference_date' => $reference->date,
                 'patient_email' => $patient_email,
-                'patient_exam' =>  $data_exams,
-                'patient_study' =>  $data_studies ,
+                'patient_exam' => $data_exams,
+                'patient_study' => $data_studies,
             ];
 
             UtilsController::notification_mail($mailData, $type);
-
-        }else{
+        } else {
 
             $mailData = [
                 'dr_name' => $user->name . ' ' . $user->last_name,
@@ -143,8 +150,8 @@ class Reference extends Component
                 'reference_code' => $reference->cod_ref,
                 'reference_date' => $reference->date,
                 'patient_email' => $patient_email,
-                'patient_exam' =>  $data_exams,
-                'patient_study' =>  $data_studies,
+                'patient_exam' => $data_exams,
+                'patient_study' => $data_studies,
             ];
 
             UtilsController::notification_mail($mailData, $type);
@@ -154,16 +161,14 @@ class Reference extends Component
              * indicando en codigo de referencia de los examenes
              * y/o estudio solicitados por el medico
              */
-            if($patient->is_minor == 'true'){
+            if ($patient->is_minor == 'true') {
                 $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
-            }else{
+            } else {
                 $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
             }
 
             ApiServicesController::whatsapp_location_lab($data_exams, $data_studies, $mailData, $patient_phone);
         }
-
-
     }
 
     public function render()
