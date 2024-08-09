@@ -473,27 +473,27 @@
 
                     break;
 
-                case 2:
+                // case 2:
 
-                    $('#ci').attr("placeholder", "CIE").mask('000-0000000-0');
-                    $('#div_name').show();
-                    $('#div_last_name').show();
-                    $('#div_business_name').hide();
+                //     $('#ci').attr("placeholder", "CIE").mask('000-0000000-0');
+                //     $('#div_name').show();
+                //     $('#div_last_name').show();
+                //     $('#div_business_name').hide();
 
-                    $("#name").rules('add', {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    });
+                //     $("#name").rules('add', {
+                //         required: true,
+                //         minlength: 3,
+                //         maxlength: 50,
+                //     });
 
-                    $("#last_name").rules('add', {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    });
+                //     $("#last_name").rules('add', {
+                //         required: true,
+                //         minlength: 3,
+                //         maxlength: 50,
+                //     });
 
 
-                    break;
+                //     break;
 
                 case 3:
 
@@ -646,7 +646,7 @@
                                                 class="form-control">
                                                 <option value="">@lang('messages.form.tipo_documento')</option>
                                                 <option value="1">@lang('messages.select.cedula')</option>
-                                                <option value="2">@lang('messages.select.CIE')</option>
+                                                {{-- <option value="2">@lang('messages.select.CIE')</option> --}}
                                                 <option value="3">@lang('messages.select.pasaporte')</option>
                                             </select>
                                         </div>

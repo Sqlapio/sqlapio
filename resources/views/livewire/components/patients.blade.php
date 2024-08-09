@@ -1410,16 +1410,11 @@
                                                                     </button>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <span class="badge text-bg-info" style="font-size: 17px; color: #fff !important; width: 50px; !important">{{ $item->blood_type }}</span>
-                                                                    {{-- <button
-                                                                        type="button" class="btn btnSecond"
-                                                                        data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom"
-                                                                        data-bs-custom-class="custom-tooltip"
-                                                                        data-html="true" title="@lang('messages.tooltips.agendar_cita')"
-                                                                        style="font-size: 13px; padding: 0px 11px 0px 11px; !important">
-                                                                        tipo
-                                                                    </button> --}}
+                                                                    @if ($item->blood_type)
+                                                                        <span class="badge text-bg-info" style="font-size: 17px; color: #fff !important; width: 50px; !important">{{ $item->blood_type }}</span>
+                                                                    @else
+                                                                        <span>-----</span>
+                                                                    @endif
                                                                 </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
                                                                 <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>

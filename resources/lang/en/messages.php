@@ -94,7 +94,7 @@ return [
         'tipo_alergia'             => 'Type of Allergy',
         'detalle'                  => 'Symptoms',
         'peso'                     => 'Weight (0 - 300 kg)',
-        'altura'                   => 'Height (0 - 250 cm)',
+        'altura'                   => 'Height (0 - 2.50 mts)',
         'presion_arterial'         => 'Blood pressure (mmHg)',
         'temperatura'              => 'Temperature (34 - 42 C)',
         'respiraciones'            => 'Breaths (12 - 30 per minute)',
@@ -362,6 +362,8 @@ return [
         'tipo_sangre'          => 'Blood Type',
         'efectividad'          => 'Effectiveness',
         'via'                  => 'Through',
+        'frecuencia'           => 'Frequency',
+        'efect_secund'         => 'Side Effects',
     ],
 
     'placeholder' => [
@@ -466,6 +468,8 @@ return [
         '2_mes'         => '2 months',
         '3_mes'         => '3 months',
         '1_anio'        => '1 year',
+        'permanentes'   => 'Permanent',
+
         'Medicinas'     => 'Medicines',
         'Alimentos'     => 'Food',
         'Latex'         => 'Latex',

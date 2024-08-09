@@ -103,6 +103,8 @@ class ClinicalHistory extends Component
         $allergies = UtilsController::get_allergies();
         $allergy_symptoms = UtilsController::get_allergy_symptoms();
         $medical_devices = UtilsController::get_medical_device();
+        $medicines_vias = UtilsController::get_medicines_vias();
+
         return view('livewire.components.clinical-history',
         compact(
             'history',
@@ -118,6 +120,7 @@ class ClinicalHistory extends Component
             'allergies',
             'allergy_symptoms',
             'medical_devices',
+            "medicines_vias",
         ));
 
     }

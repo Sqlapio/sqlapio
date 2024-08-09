@@ -691,9 +691,9 @@
                 condition: {
                     required: true,
                 },
-                observations: {
-                    required: true,
-                },
+                // observations: {
+                //     required: true,
+                // },
                 center_id: {
                     required: true,
                 }
@@ -729,9 +729,9 @@
                 condition: {
                     required: "@lang('messages.alert.campo_obligatorio')",
                 },
-                observations: {
-                    required: "@lang('messages.alert.campo_obligatorio')",
-                }
+                // observations: {
+                //     required: "@lang('messages.alert.campo_obligatorio')",
+                // }
             }
         });
 
@@ -1202,29 +1202,32 @@
     }
 
     const showDataEdit = (item, active = true) => {
+
+        console.log(item)
+
         if (active) {
             $(".accordion-collapse2").collapse('show')
         }
-        if(item.data.sintomas === '') {
+        if(item.sintomas === '') {
             $("#symptoms_card1").hide();
         }
-        if(item.data.study.length === 0 && item.data.exam.length === 0){
-            $('#not-studie').show();
-            $('#not-exam').show();
-        }
+        // if(item.study.length === 0 && item.exam.length === 0){
+        //     $('#not-studie').show();
+        //     $('#not-exam').show();
+        // }
 
-        if(item.data.medications_supplements.length === 0){
-            $('#medicine').hide();
-        }
+        // if(item.medications_supplements.length === 0){
+        //     $('#medicine').hide();
+        // }
 
         $("#medical_record_id").val(item.id);
-        $("#center_id").val(item.data.center_id).change().attr('disabled', true);
-        // $("#background").val(item.data.background).attr('disabled', true);
-        $("#razon").val(item.data.razon).attr('disabled', true);
-        $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
-        $("#treatment").val(item.data.treatment).attr('disabled', true);
-        $("#sintomas").val(item.data.sintomas).attr('disabled', true);
-        // $("#studies").val(item.data.studies);
+        $("#center_id").val(item.center_id).change().attr('disabled', true);
+        // $("#background").val(item.background).attr('disabled', true);
+        $("#razon").val(item.razon).attr('disabled', true);
+        $("#diagnosis").val(item.diagnosis).attr('disabled', true);
+        $("#treatment").val(item.treatment).attr('disabled', true);
+        $("#sintomas").val(item.sintomas).attr('disabled', true);
+        // $("#studies").val(item.studies);
         $(".medicine-form").hide();
         // $("#indication").hide();
         // $("#treatmentDuration").hide();
@@ -1256,19 +1259,19 @@
         $("#symptoms_card3").addClass("symptoms_mt-0");
 
         $("#diagnosis").hide();
-        $("#diagnosis-text").show().text(item.data.diagnosis);
+        $("#diagnosis-text").show().text(item.diagnosis);
         // $("#background").hide();
-        // $("#background-text").show().text(item.data.background);
+        // $("#background-text").show().text(item.background);
         $("#razon").hide();
-        $("#razon-text").show().text(item.data.razon);
+        $("#razon-text").show().text(item.razon);
         $("#sintomas").hide();
-        $("#sintomas-text").show().text(item.data.sintomas);
+        $("#sintomas-text").show().text(item.sintomas);
         $("#text_area_exman").hide();
-        $("#exman-text").show().text(item.data.sintomas);
+        $("#exman-text").show().text(item.sintomas);
         $("#text_area_studies").hide();
-        $("#studies-text").show().text(item.data.sintomas);
+        $("#studies-text").show().text(item.sintomas);
 
-        item.data.medications_supplements.map((element, key) => {
+        item.medications_supplements.map((element, key) => {
             countMedicationAdd = countMedicationAdd + 1;
             var row = `
                     <tr id="${countMedicationAdd}">
@@ -1280,7 +1283,7 @@
             $('#table-medicamento').find('tbody').append(row);
 
             //setiar examenes
-            item.data.exam.map((elem, key) => {
+            item.exam.map((elem, key) => {
                 $(`#${elem.cod_exam}`).attr('checked', true);
                 const examFilter = exam_filter.push(elem.description);
             });
@@ -1304,7 +1307,7 @@
             }
 
             //setiar estudios
-            item.data.study.map((elem, key) => {
+            item.study.map((elem, key) => {
                 $(`#${elem.cod_study}`).attr('checked', true);
                 const examStudy = study_filter.push(elem.description);
             });
@@ -2663,14 +2666,18 @@
                                                                 <td class="text-center td-pad"> {{ $item->saturation }}
                                                                 </td>
                                                                 <td class="text-center td-pad">
-                                                                    <button onclick='handleObservaciones({{ $item }})'>
-                                                                        <img width="25" height="auto"
-                                                                            src="{{ asset('/img/icons/justify.png') }}"
-                                                                            alt="avatar" type="button"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="@lang('messages.tooltips.observaciones')">
-                                                                    </button>
+                                                                    @if ($item->observations)
+                                                                        <button onclick='handleObservaciones({{ $item }})'>
+                                                                            <img width="25" height="auto"
+                                                                                src="{{ asset('/img/icons/justify.png') }}"
+                                                                                alt="avatar" type="button"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="@lang('messages.tooltips.observaciones')">
+                                                                        </button>
+                                                                    @else
+                                                                        <span>-----</span>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -2915,7 +2922,10 @@
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>
                                                                         @foreach ($medicines as $item)
-                                                                        <option value={{ $item->description }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
+                                                                            @php
+                                                                                $medication = $item->description.'-'.$item->concentration.'-'.$item->shape
+                                                                            @endphp
+                                                                            <option value={{ $medication }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
                                                                         @endforeach
                                                                     </select>
                                                                     <i class="bi bi-capsule st-icon"></i>
@@ -2975,32 +2985,20 @@
                                                                         placeholder="Seleccione"class="form-control"
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>
-                                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')
-                                                                        </option>
-                                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')
-                                                                        </option>
+                                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')</option>
+                                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')</option>
+                                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')</option>
+                                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')</option>
+                                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')</option>
+                                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')</option>
+                                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')</option>
+                                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')</option>
+                                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')</option>
+                                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')</option>
+                                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
+                                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
+                                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio') </option>
+                                                                        <option value="@lang('messages.select.permanentes')">@lang('messages.select.permanentes')</option>
                                                                     </select>
                                                                     <i class="bi bi-calendar-range st-icon"></i>
                                                                     <span id="treatmentDuration_span"
@@ -3282,20 +3280,13 @@
                     <div class="modal-header title">
                         <i class="bi bi-alexa"></i>
                         <span style="padding-left: 5px">@lang('messages.modal.titulo.resultado_ia')</span>
-                        <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.copiar_diagnostico')"
-                            onclick="triggerExample();" style="margin-left: 5%; font-size: 14px;">
-                                <img width="20" height="auto"
-                                    src="{{ asset('/img/icons/copy-files.png') }}"
-                                    alt="avatar"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-html="true">
-                            {{-- <i class="bi bi-file-earmark-text"></i> --}}
+                        <button type="button" id="icon-copy" class="btn rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="@lang('messages.botton.copiar_diagnostico')"
+                            onclick="triggerExample();" style="margin-left: 5%;">
+                            <img width="70" height="auto" src="{{ asset('/img/icons/COPIAR-TEXTO.png') }}" alt="avatar">
                         </button> <span style="padding-left: 5px" id="copied"></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="font-size: 12px;"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <div class="div-ia">

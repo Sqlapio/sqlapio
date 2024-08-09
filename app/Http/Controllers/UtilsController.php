@@ -586,7 +586,6 @@ class UtilsController extends Controller
             $medical_user = MedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->get();
 
             return $medical_user;
-            //code...
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error UtilsController.get_medical_record_user()', $message);
@@ -2484,20 +2483,42 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function get_appointments_count_all($id)
+	static function get_appointments_count_all_attended($id)
 	{
 		try {
 
 			$attended = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_finalizada');
 
+			return $attended;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments_count_all_attended()', $message);
+		}
+	}
+
+    static function get_appointments_count_all_canceled($id)
+	{
+		try {
+
 			$canceled = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_cancelada');
+
+			return $canceled;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments_count_all_canceled()', $message);
+		}
+	}
+
+    static function get_appointments_count_all_confirmada($id)
+	{
+		try {
 
 			$confirmada = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_confirmar');
 
-			return [$canceled, $attended, $confirmada];
+			return $confirmada;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all()', $message);
+			dd('Error UtilsController.get_appointments_count_all_confirmada()', $message);
 		}
 	}
 
