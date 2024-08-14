@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Treatment extends Model
 {
@@ -30,5 +31,16 @@ class Treatment extends Model
         'indication',
         'treatmentDuration',
         'hours',
+        'route',
     ];
+
+    /**
+     * Get the medical_record that owns the Treatment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function medical_record(): BelongsTo
+    {
+        return $this->belongsTo(MedicalRecord::class, 'record_code', 'record_code');
+    }
 }

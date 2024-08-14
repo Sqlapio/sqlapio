@@ -81,8 +81,8 @@ class Reference extends Component
                 $exams_patient = new ExamPatient();
                 $exams_patient->record_code = $reference->cod_medical_record;
                 $exams_patient->cod_ref = $reference->cod_ref;
-                $exams_patient->cod_exam = $data_exams[$i]->code_exams;
-                $exams_patient->description = UtilsController::get_description_exam($data_exams[$i]->code_exams);
+                $exams_patient->cod_exam = (isset($data_exams[$i]->code_exams)) ? $data_exams[$i]->code_exams : 'SQ-EX-' . random_int(11111111, 99999999);
+                $exams_patient->description = isset($data_exams[$i]->code_exams) ? UtilsController::get_description_exam($data_exams[$i]->code_exams) : $data_exams[$i]->description;
                 $exams_patient->ref_id = $reference->id;
                 $exams_patient->user_id = $user->id;
                 $exams_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
@@ -98,7 +98,7 @@ class Reference extends Component
         }
 
         /**
-         * Logica para cargar los examenes
+         * Logica para cargar los estudios
          * cargados en la referencia.
          */
         if (isset($data->studies_array)) {
@@ -109,8 +109,8 @@ class Reference extends Component
                 $studies_patient = new StudyPatient();
                 $studies_patient->record_code = $reference->cod_medical_record;
                 $studies_patient->cod_ref = $reference->cod_ref;
-                $studies_patient->cod_study = $data_studies[$i]->code_studies;
-                $studies_patient->description = UtilsController::get_description_study($data_studies[$i]->code_studies);
+                $studies_patient->cod_study = (isset($data_studies[$i]->code_studies)) ? $data_studies[$i]->code_studies : 'SQ-ST-' . random_int(11111111, 99999999);
+                $studies_patient->description = isset($data_studies[$i]->code_studies) ? UtilsController::get_description_study($data_studies[$i]->code_studies) : $data_studies[$i]->description;
                 $studies_patient->ref_id = $reference->id;
                 $studies_patient->user_id = $user->id;
                 $studies_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;

@@ -65,4 +65,14 @@ class StudyPatient extends Model
     {
         return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
     }
+
+    /**
+     * Get the medical_record that owns the ExamPatient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function medical_record(): BelongsTo
+    {
+        return $this->belongsTo(MedicalRecord::class, 'medical_record_id', 'id');
+    }
 }

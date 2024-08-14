@@ -47,7 +47,7 @@ class MedicalRecord extends Component
 
             }
 
-            $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
+            // $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
 
             $user = Auth::user()->id;
 
@@ -122,6 +122,7 @@ class MedicalRecord extends Component
                     'indication'        => $data_treatment[$i]['indication'],
                     'treatmentDuration' => $data_treatment[$i]['treatmentDuration'],
                     'hours'             => $data_treatment[$i]['hours'],
+                    'route'             => $data_treatment[$i]['route'],
                     ]);
             }
 
@@ -299,7 +300,7 @@ class MedicalRecord extends Component
         $user_id = Auth::user()->id;
         $doctor_centers = DoctorCenter::where('user_id', $user_id)->where('status', 1)->get();
         $Patient = UtilsController::get_one_patient($id);
-        $medical_record_user = ModelsMedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->orderBy('created_at', 'desc')->get();
+        $medical_record_user = ModelsMedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center', 'get_exams', 'get_studies', 'get_tratamientos'])->orderBy('created_at', 'desc')->get();
         $medical_report = UtilsController::get_medical_report($id);
         $validate_histroy = $Patient->get_history;
         $exam = Exam::all();
