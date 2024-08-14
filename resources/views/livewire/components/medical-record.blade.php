@@ -1929,22 +1929,22 @@
                 columns: [{
                         data: 'cod_medical_report',
                         title: '@lang('messages.tabla.codigo_informe')',
-                        className: "text-center td-pad",
+                        className: "text-center",
                     },
                     {
                         data: 'name',
                         title: '@lang('messages.tabla.medico_remitente')',
-                        className: "text-center td-pad",
+                        className: "text-center",
                     },
                     {
                         data: 'date',
                         title: '@lang('messages.tabla.fecha')',
-                        className: "text-center td-pad w-10",
+                        className: "text-center w-10",
                     },
                     {
                         data: 'btn',
                         title: '@lang('messages.tabla.acciones')',
-                        className: "text-center td-pad",
+                        className: "text-center",
                     }
                 ],
             });
@@ -3151,7 +3151,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- {{ dd($medical_record_user) }} --}}
                                                     @foreach ($medical_record_user->sortByDesc('created_at') as $item)
                                                         <tr>
                                                             <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item->id }}</td>
@@ -3287,12 +3286,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($medical_report as $item)
+                                                    @foreach ($medical_report->sortByDesc('created_at') as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"> {{ $item->cod_medical_report }}</td>
-                                                            <td class="text-center td-pad"> {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
-                                                            <td class="text-center td-pad"> {{ $item->date }}</td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center text-capitalize"> {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center">  {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
+                                                            <td class="text-center"> {{ date('d-m-Y', strtotime($item->date)) }} </td>
+                                                            <td class="text-center">
                                                                 <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
                                                                     <button type="button">
                                                                         <img width="60" height="auto"

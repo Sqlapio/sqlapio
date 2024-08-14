@@ -36,7 +36,8 @@ $(document).ready(() => {
     reponsive: true,
     "searching": true,
     "bLengthChange": false,
-    "bDestroy": true
+    "bDestroy": true,
+    "ordering": false,
   });
 });
 

@@ -225,6 +225,8 @@ return [
         'ver_informe'          => 'View Report',
         'ver_examenes'         => 'View Exams',
         'ver_estudios'         => 'View Studies',
+        'eliminar_examen'      => 'Delete Exam',
+        'eliminar_estudio'     => 'Delete Study',
         'generar_informe'      => 'Generate Medical Report',
         'observaciones'        => 'Observation',
         'cargar_examen'        => 'Load Exam',

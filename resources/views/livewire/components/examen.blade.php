@@ -535,7 +535,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($exam as $item)
+                                                    @foreach ($exam->sortByDesc('created_at') as $item)
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
@@ -562,7 +562,7 @@
                                                                                     data-bs-toggle='tooltip'
                                                                                     data-bs-placement='right'
                                                                                     data-bs-custom-class='custom-tooltip'
-                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_examen')"
                                                                                     type='button'
                                                                                     style="margin-right: 0">
                                                                                     <img width="60" height="auto" src="{{ asset('/img/icons/CARGAR-RESULTADO-LABORATORIO.png') }}" alt="avatar">
@@ -600,7 +600,7 @@
                                                                                     data-bs-toggle='tooltip'
                                                                                     data-bs-placement='right'
                                                                                     data-bs-custom-class='custom-tooltip'
-                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                    data-html='true' title="@lang('messages.tooltips.eliminar_examen')"
                                                                                     type='button'
                                                                                     style="margin-right: 0">
                                                                                     <img width="60" height="auto" src="{{ asset('/img/icons/ELIMINAR-RESULTADO-LABORATORIO.png') }}" alt="avatar">

@@ -135,6 +135,8 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
             Route::post('/dash/notifications/{code}', [ApiServicesController::class, 'whatsapp_send_dash'])->name('dash-notifications');
             Route::post('/register-new-centers', [Centers::class, 'regiter_center'])->name('register-new-centers');
+            Route::post('/exam/{id}', [UtilsController::class, 'delete_file_exam'])->name('delete_file_exam');
+            Route::post('/study/{id}', [UtilsController::class, 'delete_file_study'])->name('delete_file_study');
             Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
             Route::get('/study', [Study::class, 'render'])->name('Study');
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');

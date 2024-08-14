@@ -333,7 +333,7 @@
                 cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
                 $('#spinner').show();
-                let route = '{{ route('delete_file_study', [':id']) }}';
+                let route = '{{ route("delete_file_study", [':id']) }}';
                     route = route.replace(':id', id);
                     $.ajax({
                         url: route,
@@ -482,7 +482,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($study as $item)
+                                                @foreach ($study->sortByDesc('created_at') as $item)
                                                     <tr>
                                                         <td class="table-avatar">
                                                             <img class="avatar"
@@ -490,7 +490,7 @@
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center"> {{ $item->date }} </td>
-                                                        <td class="text-center"> {{!$item->date_result ? "--------" : $item->date_result }} </td>
+                                                        <td class="text-center"> {{!$item->date_result ? "-----" : $item->date_result }} </td>
                                                         <td class="text-center"> {{ $item->cod_ref }} </td>
                                                         <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
                                                         @if (Auth::user()->contrie == '81')
@@ -542,7 +542,7 @@
                                                                                 data-bs-toggle='tooltip'
                                                                                 data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip'
-                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
+                                                                                data-html='true' title="@lang('messages.tooltips.eliminar_estudio')"
                                                                                 type='button'
                                                                                 style="margin-right: 0">
                                                                                 <img width="60" height="auto" src="{{ asset('/img/icons/ELIMINAR-RESULTADO.png') }}" alt="avatar">
