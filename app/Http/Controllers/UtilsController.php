@@ -1119,7 +1119,7 @@ class UtilsController extends Controller
             /**Logica para guardar el acumulado de citas confirmadas por el paciente */
             EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
 
-			return true;
+			return view('welcome');
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
