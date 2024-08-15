@@ -60,7 +60,6 @@
 @push('scripts')
     <script>
         let countPatientRegister = @json($count_patient_register);
-        let countMedicalRecordr = @json($count_medical_recordr);
         let countHistoryRegister = @json($count_history_register);
         let count_patient_genero = @json($count_patient_genero);
         let queries_month = @json($queries_month);
@@ -74,8 +73,6 @@
         let appointments_count_all_attended = @json($appointments_count_all_attended);
         let appointments_count_all_canceled = @json($appointments_count_all_canceled);
         let appointments_count_all_confirmada = @json($appointments_count_all_confirmada);
-
-
 
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
@@ -153,7 +150,7 @@
             get_general_appointments(appointments_unconfirmed, appointments_canceled)
             get_quotes(appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended);
             get_queries_month(queries_month, meses);
-            get_consultas_history(countMedicalRecordr, countHistoryRegister);
+            // get_consultas_history(countMedicalRecordr, countHistoryRegister);
             get_appointments_attended(appointments_attended);
             get_appointments_canceled(appointments_canceled);
             get_appointments_confirmed(appointments_confirmed);
