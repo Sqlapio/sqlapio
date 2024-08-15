@@ -2961,7 +2961,7 @@
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
-                                                                        <select name="medicines" id="medicines"
+                                                                    <select name="medicines" id="medicines"
                                                                         placeholder="Seleccione"class="form-control"
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>

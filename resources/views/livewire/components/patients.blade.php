@@ -493,8 +493,6 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
 
-            console.log(item)
-
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
@@ -1104,6 +1102,7 @@
                                                             <hr>
                                                             <h5>@lang('messages.label.datos_representante')</h5>
                                                             <hr>
+                                                            {{-- nombre --}}
                                                             <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                                 <div class="form-group">
                                                                     <div class="Icon-inside">
@@ -1116,6 +1115,7 @@
                                                                     </div>
                                                                 </diV>
                                                             </div>
+                                                            {{-- apellido --}}
                                                             <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                                 <div class="form-group">
                                                                     <div class="Icon-inside">
@@ -1128,6 +1128,7 @@
                                                                     </div>
                                                                 </diV>
                                                             </div>
+                                                            {{-- documento de identidad --}}
                                                             <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                                 <div class="form-group">
                                                                     <div class="Icon-inside">

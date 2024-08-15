@@ -8,16 +8,18 @@ use Illuminate\View\Component;
 
 class phoneComponent extends Component
 {
-    
+
 
     public $phone;
+    public $id;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($phone=null)
+    public function __construct($phone=null, $id='phone')
     {
         $this->phone= $phone;
+        $this->id= $id;
 
     }
 

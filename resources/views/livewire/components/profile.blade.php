@@ -261,7 +261,6 @@
                     required: true,
                     minlength: 5,
                     maxlength: 17,
-                    // onlyNumber: true
                 });
 
                 $("#license").rules('add', {
@@ -303,7 +302,6 @@
             } else {
                 let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
                 $(".holder").find('img').attr('src', img2);
-                // $("#img").val(img2);
             }
 
             //envio del formulario
@@ -589,8 +587,9 @@
 
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                            <button class="accordion-button bg-8" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                 <i class="bi bi-person"></i> @lang('messages.acordion.datos_profesionales')
                             </button>
@@ -612,8 +611,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-text @error('name') is-invalid @enderror"
                                                                     id="name" name="name" type="text"
@@ -626,8 +624,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="last_name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-text @error('last_name') is-invalid @enderror"
                                                                     id="last_name" name="last_name" type="text"
@@ -641,11 +638,9 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('ci') is-invalid @enderror"
@@ -658,8 +653,7 @@
                                                     {{-- fecha nacimiento --}}
                                                     <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
-                                                            <label for="birthdate" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.fecha_nacimiento')</label>
+                                                            <label for="birthdate" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.fecha_nacimiento')</label>
                                                             <input autocomplete="off" placeholder=""
                                                                 class="form-control date-bd @error('birthdate') is-invalid @enderror"
                                                                 id="birthdate" name="birthdate" type="date"
@@ -670,8 +664,7 @@
                                                     <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="genere" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
+                                                                <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
                                                                 <select name="genere" id="genere"
                                                                     placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
                                                                     class="form-control combo-textbox-input">
@@ -734,7 +727,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id='div-otros' style="display: none">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                        id='div-otros' style="display: none">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
@@ -820,9 +814,12 @@
                                                         </div>
                                                     @endif
                                                     {{-- ubicacion --}}
-                                                    <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' : 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' }}  mt-2" />
-                                                    <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
-                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                                    <x-ubigeo_contries
+                                                        class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' : 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' }}  mt-2" />
+                                                    <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}"
+                                                        style="display: flex; align-items: flex-end;">
+                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
+                                                            type="submit" style="margin-bottom: 1px; width: 100%;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -863,7 +860,8 @@
                                             {{-- rol laboratorio --}}
                                             <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
-                                                    <input type="hidden" id="id" name="id" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
+                                                    <input type="hidden" id="id" name="id"
+                                                        value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
                                                     {{-- razon social --}}
                                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 mt-2">
                                                         <div class="form-group">
@@ -955,7 +953,8 @@
                                                         </diV> --}}
                                                     </div>
                                                     {{-- direccion --}}
-                                                    <div class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
+                                                    <div
+                                                        class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -1019,8 +1018,10 @@
                                                             <small style="font-size: 12px" class="collapseBtn">https://www.sitioweb.com</small>
                                                         </diV>
                                                     </div> --}}
-                                                    <div class="col-sm-3 col-md-4 col-lg-4 col-xl-2 col-xxl-2 mb-btn" style="display: flex; align-items: flex-end;">
-                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')"  type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                                    <div class="col-sm-3 col-md-4 col-lg-4 col-xl-2 col-xxl-2 mb-btn"
+                                                        style="display: flex; align-items: flex-end;">
+                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
+                                                            type="submit" style="margin-bottom: 1px; width: 100%;" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -1049,8 +1050,9 @@
                                     <i class="bi bi-hospital"></i> @lang('messages.modal.titulo.asociar_centro')
                                 </button>
                             </span>
-                            <div id="collapseCentros" class="accordion-collapse collapse" aria-labelledby="headingCentros" data-bs-parent="#accordion">
-                                <div class="accordion-body">  @livewire('components.centers')
+                            <div id="collapseCentros" class="accordion-collapse collapse"
+                                aria-labelledby="headingCentros" data-bs-parent="#accordion">
+                                <div class="accordion-body"> @livewire('components.centers')
                                 </div>
                             </div>
                         </div>
@@ -1072,17 +1074,20 @@
                             <div id="collapseRegister" class="accordion-collapse collapse"
                                 aria-labelledby="headingRegister" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
+                                    <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr"
+                                        style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
                                         <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank"
                                             style="text-decoration: none;">
-                                            <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
+                                            <button type="button" class="btn btnPrimary"
+                                                style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                         </a>
                                         <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="@lang('messages.botton.copiar_enlace')"
                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                             style="margin-left: 5%;">
-                                            <img width="70" height="auto" src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
+                                            <img width="70" height="auto"
+                                                src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
                                         </button> <span style="padding-left: 5px" id="copied"></span>
                                     </div>
                                 </div>
@@ -1143,7 +1148,8 @@
                                         <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.registrar_secretaria')
                                     </button>
                                 </span>
-                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <a id="Link-medicos"
@@ -1157,7 +1163,8 @@
                                                 title="@lang('messages.botton.copiar_enlace')"
                                                 onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                                 style="margin-left: 5%;">
-                                                <img width="70" height="auto" src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
+                                                <img width="70" height="auto"
+                                                    src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
                                             </button> <span style="padding-left: 5px" id="copied"></span>
                                         </div>
                                     </div>
@@ -1167,7 +1174,8 @@
                     </div>
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
+                        <div
+                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -1177,14 +1185,17 @@
                                         <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital')
                                     </button>
                                 </span>
-                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <form id="form-seal" method="post" action="/">
                                             {{ csrf_field() }}
                                             <x-seal-component />
                                             <div class="row mt-2 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
+                                                        type="submit" style="margin-left: 20px" />
                                                 </div>
                                             </div>
                                         </form>
