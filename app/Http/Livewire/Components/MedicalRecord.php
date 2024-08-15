@@ -163,6 +163,11 @@ class MedicalRecord extends Component
             $medical_record_code = $medical_record['record_code'];
             ComponentsReference::store($data, $medical_record_code,$medical_record);
 
+            /**
+             * Metodo para escribir en la estadistica de las consultas
+             */
+            EstadisticaController::total_medical_record();
+
             $action = '15';
             ActivityLogController::store_log($action);
 
