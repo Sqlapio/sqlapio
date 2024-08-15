@@ -137,7 +137,9 @@
             });
 
             if(history) {
+                console.log(history.IMC19_marca)
                 $('#ACTSEX_activo').val(history.ACTSEX_activo).change();
+                $('#IMC19_dosis').val(history.IMC19_dosis).change();
             }
 
 
@@ -792,6 +794,7 @@
             });
 
         }
+
         //borrar cirugia
         function deleteSurgical(count) {
             Swal.fire({
@@ -813,6 +816,7 @@
             });
 
         }
+
         //borrar alergias
         function deleteAllergie(count) {
 
@@ -1345,15 +1349,23 @@
                                             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="IMC19_dosis" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.IMC19_dosis')
-                                                        </label>
-                                                        <input autocomplete="off"
+                                                        <label for="IMC19_dosis" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_dosis') </label>
+                                                        <select name="IMC19_dosis" id="IMC19_dosis"
+                                                            placeholder="Seleccione"class="form-control"
+                                                            class="form-control combo-textbox-input">
+                                                            <option value="">@lang('messages.label.seleccione')</option>
+                                                            <option value="1 Dosis">1 Dosis</option>
+                                                            <option value="2 Dosis">2 Dosis</option>
+                                                            <option value="3 Dosis">3 Dosis</option>
+                                                            <option value="4 Dosis">4 Dosis</option>
+                                                        </select>
+                                                        <i class="bi bi-capsule st-icon"></i>
+
+                                                        {{-- <input autocomplete="off"
                                                             class="form-control mask-only-text @error('IMC19_dosis') is-invalid @enderror"
                                                             id="IMC19_dosis" name="IMC19_dosis" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_dosis : '' !!}">
-                                                        <i class="bi bi-capsule st-icon"></i>
+                                                        <i class="bi bi-capsule st-icon"></i> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1398,8 +1410,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_inmunization" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <label for="observations_inmunization" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_inmunization" rows="{!! !empty($Patient->get_history->observations_inmunization) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
                                                     name="observations_inmunization" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunization : '' !!}</textarea>
                                             </div>
