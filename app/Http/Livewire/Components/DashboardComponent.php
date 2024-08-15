@@ -16,7 +16,7 @@ class DashboardComponent extends Component
         $id= (Auth::user()->role=="secretary") ? Auth::user()->master_corporate_id : Auth::user()->id;
 
         $count_patient_register =  EstadisticaController::total_patient_doctors($id);
-        $count_medical_recordr =  EstadisticaController::total_medical_record($id);
+        // $count_medical_recordr =  EstadisticaController::total_medical_record($id);
         $count_history_register =  EstadisticaController::total_history_register($id);
         $count_patient_genero =  EstadisticaController::total_patient_genero();
         $appointments = UtilsController::get_appointments_dashboard($id);
@@ -45,7 +45,7 @@ class DashboardComponent extends Component
             'livewire.components.dashboard-component',
             compact(
                 'count_patient_register',
-                'count_medical_recordr',
+                // 'count_medical_recordr',
                 'count_history_register',
                 'count_patient_genero',
                 'appointments',

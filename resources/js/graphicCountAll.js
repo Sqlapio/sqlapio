@@ -386,6 +386,7 @@ function get_appointments_confirmed(appointments_confirmed) {
  */
 
 function get_general_appointments(appointments_unconfirmed, appointments_canceled) {
+
   const data = {
     labels: Meses,
     datasets: [
