@@ -66,6 +66,7 @@
         let queries_month = @json($queries_month);
         let count_study = @json($count_study);
         let count_examen = @json($count_examen);
+        let meses = @json($meses);
         let appointments_attended = @json($appointments_attended);
         let appointments_canceled = @json($appointments_canceled);
         let appointments_confirmed = @json($appointments_confirmed);
@@ -151,7 +152,7 @@
             get_general_appointments2(appointments_confirmed, appointments_attended)
             get_general_appointments(appointments_unconfirmed, appointments_canceled)
             get_quotes(appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended);
-            get_queries_month(queries_month);
+            get_queries_month(queries_month, meses);
             get_consultas_history(countMedicalRecordr, countHistoryRegister);
             get_appointments_attended(appointments_attended);
             get_appointments_canceled(appointments_canceled);

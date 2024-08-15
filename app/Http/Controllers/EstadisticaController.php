@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GeneralStatistic;
 use App\Models\History;
 use App\Models\MedicalRecord;
+use App\Models\Mes;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -235,16 +236,24 @@ class EstadisticaController extends Controller
      * asociadas al medico
      * @param id
      */
-    static function total_medical_record($id)
+    static function total_medical_record()
     {
         try {
 
-            $total_medical_record = MedicalRecord::where('user_id', $id)->count();
-            return $total_medical_record;
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            $mov_medical_record = new GeneralStatistic();
+            $mov_medical_record->user_id = Auth::user()->id;
+            $mov_medical_record->medical_record = 1;
+            $mov_medical_record->mes = $mes;
+            $mov_medical_record->numero_mes = $numero_mes;
+            $mov_medical_record->date = now()->format('d-m-Y');
+            $mov_medical_record->save();
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-			dd('Error EstadisticaController.total_medical_record()', $message);
+            dd('Error EstadisticaController.total_medical_record()', $message);
         }
 
     }

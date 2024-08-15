@@ -32,6 +32,7 @@ use App\Models\State;
 use App\Models\MedicalRecord;
 use App\Models\MedicalReport;
 use App\Models\MedicalDevice;
+use App\Models\Mes;
 use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
@@ -1985,101 +1986,38 @@ class UtilsController extends Controller
 	{
 		try {
 
-			if ($month) {
-				$January = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "01") ? $month : null)->count();
+            $labels = Mes::where('numero', '<=', now()->format('m'))->pluck('mes')->toArray();
 
-				$February = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "02") ? $month : null)->count();
+            $valores = [];
 
-				$March = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "03") ? $month : null)->count();
+            for($i=0; $i < count($labels); $i++){
+                $valor = GeneralStatistic::where('mes', $labels[$i])->get();
+                if(isset($valor)){
+                    array_push($valores, $valor->count());
+                }
+            }
 
-				$April = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "04") ? $month : null)->count();
+            return $valores;
 
-				$May = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "05") ? $month : null)->count();
-
-				$June = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "06") ? $month : null)->count();
-
-				$julio  = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "07") ? $month : null)->count();
-
-				$agosto = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "08") ? $month : null)->count();
-
-				$septiembre = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "09") ? $month : null)->count();
-
-				$October = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "10") ? $month : null)->count();
-
-				$November = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "11") ? $month : null)->count();
-
-				$December = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", ($month == "12") ? $month : null)->count();
-
-				return [
-					$January, $February,
-					$March, $April, $May,
-					$June, $julio, $agosto,
-					$septiembre, $October,
-					$November, $December
-				];
-			} else {
-
-				$January = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "01")->count();
-
-				$February = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "02")->count();
-
-				$March = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "03")->count();
-
-				$April = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "04")->count();
-
-				$May = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "05")->count();
-
-				$June = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "06")->count();
-
-				$julio  = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "07")->count();
-
-				$agosto = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "08")->count();
-
-				$septiembre = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "09")->count();
-
-				$October = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "10")->count();
-
-				$November = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "11")->count();
-
-				$December = MedicalRecord::where("user_id", $id)
-					->whereMonth("created_at", "12")->count();
-
-				return [
-					$January, $February,
-					$March, $April, $May,
-					$June, $julio, $agosto,
-					$septiembre, $October,
-					$November, $December
-				];
-			}
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
-		}
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.get_image_patient()', $message);
+        }
 	}
+
+    static function meses()
+    {
+        try {
+
+            $meses = Mes::where('numero', '<=', now()->format('m'))->pluck('mes')->toArray();
+
+            return $meses;
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.get_image_patient()', $message);
+        }
+    }
 
 	static function get_appointments_attended($month = null,$id)
 	{

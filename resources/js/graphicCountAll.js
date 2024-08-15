@@ -108,10 +108,10 @@ function get_general(boy_girl, teen, adult, elderly) {
 */
 
 
-function get_queries_month(queries_month) {
+function get_queries_month(queries_month, meses) {
 
   const data = {
-    labels: Meses,
+    labels: meses,
     datasets: [
       {
         label: langJson.graficas.total,

@@ -31,6 +31,7 @@ class DashboardComponent extends Component
         $count_examen = UtilsController::total_exams();
         $patients = UtilsController::get_table_medical_record($id);
         $queries_month = UtilsController::get_queries_month(null,$id);
+        $meses = UtilsController::meses();
         $appointments_attended = UtilsController::get_appointments_attended(null,$id);
         $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);
         $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);
@@ -66,6 +67,7 @@ class DashboardComponent extends Component
                 "appointments_count_all_attended",
                 "appointments_count_all_confirmada",
                 "appointments_count_all_canceled",
+                "meses"
             )
         );
     }
