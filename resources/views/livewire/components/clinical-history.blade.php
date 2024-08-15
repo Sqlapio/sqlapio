@@ -137,9 +137,9 @@
             });
 
             if(history) {
-                console.log(history.IMC19_marca)
                 $('#ACTSEX_activo').val(history.ACTSEX_activo).change();
                 $('#IMC19_dosis').val(history.IMC19_dosis).change();
+                $('#IMC19_marca').val(history.IMC19_marca).change();
             }
 
 
@@ -1386,15 +1386,22 @@
                                             <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="IMC19_marca" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.IMC19_marca')
-                                                        </label>
-                                                        <input autocomplete="off"
+                                                        <label for="IMC19_marca" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_marca') </label>
+                                                        <select name="IMC19_marca" id="IMC19_marca"
+                                                            placeholder="@lang('messages.label.seleccione')" class="form-control"
+                                                            class="form-control combo-textbox-input">
+                                                            <option value="">@lang('messages.label.seleccione')</option>
+                                                            @foreach ($covid_vacunas as $item)
+                                                                <option value={{ $item->description }}>{{ $item->description }} </option>
+                                                            @endforeach
+                                                        </select>
+
+
+                                                        {{-- <input autocomplete="off"
                                                             class="form-control mask-only-text @error('IMC19_marca') is-invalid @enderror"
                                                             id="IMC19_marca" name="IMC19_marca" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_marca : '' !!}">
-                                                        <i class="bi bi-capsule st-icon"></i>
+                                                        <i class="bi bi-capsule st-icon"></i> --}}
                                                     </div>
                                                 </div>
                                             </div>

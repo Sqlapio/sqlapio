@@ -8,6 +8,7 @@ use App\Models\Center;
 use App\Models\History;
 use App\Models\Interview;
 use App\Models\Patient;
+use App\Models\VacunaCovid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -104,6 +105,8 @@ class ClinicalHistory extends Component
         $allergy_symptoms = UtilsController::get_allergy_symptoms();
         $medical_devices = UtilsController::get_medical_device();
         $medicines_vias = UtilsController::get_medicines_vias();
+        $covid_vacunas = VacunaCovid::all();
+
 
         return view('livewire.components.clinical-history',
         compact(
@@ -121,6 +124,7 @@ class ClinicalHistory extends Component
             'allergy_symptoms',
             'medical_devices',
             "medicines_vias",
+            'covid_vacunas',
         ));
 
     }
