@@ -23,6 +23,13 @@ $("#datepicker").datepicker({
   language: 'es',
 });
 
+$("textarea").each(function () {
+    this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+  }).on("input", function () {
+    this.style.height = 0;
+    this.style.height = (this.scrollHeight) + "px";
+  });
+
 $(document).ready(() => {
   // selec dos
   $(".select_dos").select2({

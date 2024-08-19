@@ -55,6 +55,7 @@ class Patient extends Model
  'company',
  'validity',
  'contact',
+ 'seguro',
 
  ];
 
