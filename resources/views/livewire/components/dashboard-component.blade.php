@@ -389,7 +389,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="justify-content: flex-end;">
+                                {{-- <div class="row" style="justify-content: flex-end;">
                                     <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -416,7 +416,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">

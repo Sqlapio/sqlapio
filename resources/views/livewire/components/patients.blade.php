@@ -117,6 +117,8 @@
                 editPatien(patient, true);
             }
 
+
+
             let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
             $(".holder").find('img').attr('src', ulrImge);
 
@@ -516,6 +518,17 @@
             $("#center_id").val(item.center_id).change();
             $("#state").val(item.state).change();
             $("#city").val(item.city).change();
+
+            $("#blood_type").val(item.blood_type).change();
+            $("#ce_name").val(item.ce_name);
+            $("#ce_last_name").val(item.ce_last_name);
+            $("#ce_phone").val(item.ce_phone);
+            $("#relationship").val(item.relationship);
+            $("#company").val(item.company);
+            $('#validity').val(item.validity).change();
+            $("#contact").val(item.contact);
+            $("#seguro").val(item.seguro).change();
+
             $('#btn-save').attr('disabled', false);
             $(".holder").show();
             if (item.is_minor === 'true') {
@@ -550,14 +563,7 @@
             $('#pn-input__prefix').val(prefix);
             $("#js_selected-flag").attr('src', cont.url_img);
 
-            $("#blood_type").val(item.blood_type);
-            $("#ce_name").val(item.ce_name);
-            $("#ce_last_name").val(item.ce_last_name);
-            $("#ce_phone").val(item.ce_phone);
-            $("#relationship").val(item.relationship);
-            $("#company").val(item.company);
-            $('#validity').val(item.validity);
-            $("#contact").val(item.contact);
+
             //end
 
 
@@ -612,6 +618,7 @@
             $("#company").attr('readonly', false);
             $('#validity').attr('disabled', false);
             $("#contact").attr('readonly', false);
+            $("#seguro").attr('disabled', false);
 
         }
 
@@ -886,6 +893,14 @@
 
             });
         }
+
+        $(document).on('change', '#seguro', function(e) {
+            if(e.target.value === 'si'){
+                $('#data-seguro').show()
+            } else {
+                $('#data-seguro').hide()
+            }
+        });
     </script>
 @endpush
 @section('content')
@@ -1243,6 +1258,22 @@
                                                         <hr class="mt-3">
                                                         <h5>@lang('messages.label.datos_seguro')</h5>
                                                         <hr>
+                                                        <div class="col-sm-12 col-md-3 col-lg-4 col-xl-2 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        Viene por seguro?
+                                                                    </label>
+                                                                    <select name="seguro" id="seguro" placeholder="Seleccione"class="form-control" class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                        <option value="si" onclick="prueba()">Si</option>
+                                                                        <option value="no">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" id="data-seguro" style="display: none">
                                                         {{-- Compañia --}}
                                                         <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                             <div class="form-group">

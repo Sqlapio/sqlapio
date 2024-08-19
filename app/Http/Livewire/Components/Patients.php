@@ -165,6 +165,7 @@ class Patients extends Component
                         'company'           => $request->company,
                         'validity'          => $request->validity,
                         'contact'           => $request->contact,
+                        'seguro'            => $request->seguro,
                         'user_id'           => auth()->user()->role == "secretary" ? $user_doc : $user_id,
                         'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                         'patient_img'       => $nameFile,
