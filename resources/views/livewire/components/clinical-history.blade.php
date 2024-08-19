@@ -220,24 +220,24 @@
             })
 
 
-            const autoTextarea = (id) => {
-                document.getElementById(id).addEventListener('keyup', function() {
-                    this.style.overflow = 'hidden';
-                    this.style.height = 0;
-                    this.style.height = this.scrollHeight + 'px';
-                }, false);
-            }
+            // const autoTextarea = (id) => {
+            //     document.getElementById(id).addEventListener('keyup', function() {
+            //         this.style.overflow = 'hidden';
+            //         this.style.height = 0;
+            //         this.style.height = this.scrollHeight + 'px';
+            //     }, false);
+            // }
 
-            autoTextarea('observations_back_family');
-            autoTextarea('observations_diagnosis');
-            autoTextarea('observations_not_pathological');
-            autoTextarea('observations_mental_healths');
-            autoTextarea('observations_medical_devices');
-            autoTextarea('observations_ginecologica');
-            autoTextarea('observations_allergies');
-            autoTextarea('observations_quirurgicas');
-            autoTextarea('observations_medication');
-            autoTextarea('observations_inmunizations');
+            // autoTextarea('observations_back_family');
+            // autoTextarea('observations_diagnosis');
+            // autoTextarea('observations_not_pathological');
+            // autoTextarea('observations_mental_healths');
+            // autoTextarea('observations_medical_devices');
+            // autoTextarea('observations_ginecologica');
+            // autoTextarea('observations_allergies');
+            // autoTextarea('observations_quirurgicas');
+            // autoTextarea('observations_medication');
+            // autoTextarea('observations_inmunizations');
         })
 
         // Antecedentes Familiares //
@@ -380,8 +380,6 @@
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
-                console.log(e.target.id)
-
                 //cambiar atributo input checkbook cunaod niega
                 if (e.target.id == "EM_NA") {
 
@@ -477,8 +475,6 @@
         const handlerMedicalDevices = (e) => {
 
             if ($(`#${e.target.id}`).is(':checked')) {
-
-                console.log(e.target.id)
 
                 //cambiar atributo input checkbook cunaod niega
                 if (e.target.id == "MD_NA") {
@@ -1077,7 +1073,7 @@
                                             <div class="form-group">
                                                 <label for="observations_back_family" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_back_family" rows="{!! !empty($Patient->get_history->observations_back_family) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                <textarea id="observations_back_family" rows="{!! !empty($Patient->get_history->observations_back_family) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: 146px !important' : '' !!}"
                                                     name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
