@@ -823,21 +823,21 @@
         });
         /////
 
-        const autoTextarea = (id) => {
-            document.getElementById(id).addEventListener('keyup', function() {
-                this.style.overflow = 'hidden';
-                this.style.height = 0;
-                this.style.height = this.scrollHeight + 'px';
-            }, false);
-        }
+        // const autoTextarea = (id) => {
+        //     document.getElementById(id).addEventListener('keyup', function() {
+        //         this.style.overflow = 'hidden';
+        //         this.style.height = 0;
+        //         this.style.height = this.scrollHeight + 'px';
+        //     }, false);
+        // }
 
-        // autoTextarea('background');
-        autoTextarea('sintomas');
-        autoTextarea('razon');
-        autoTextarea('diagnosis');
-        autoTextarea('text_area_exman');
-        autoTextarea('text_area_studies');
-        autoTextarea('observations');
+        // // autoTextarea('background');
+        // autoTextarea('sintomas');
+        // autoTextarea('razon');
+        // autoTextarea('diagnosis');
+        // autoTextarea('text_area_exman');
+        // autoTextarea('text_area_studies');
+        // autoTextarea('observations');
 
     });
 
@@ -1458,7 +1458,6 @@
         // $('#floatingInput').val('');
     }
 
-
     const handlerUl = (data, id, clas, number) => {
 
         let array = [];
@@ -1886,7 +1885,9 @@
             $('#copied').show();
             $("#copied").text('@lang('messages.alert.copiado')');
 
--            $("#diagnosis").text(response_data)
+            console.log(response_data)
+
+-           $("#diagnosis").text(response_data);
 
             setTimeout(function() {
                 $('#copied').hide();
