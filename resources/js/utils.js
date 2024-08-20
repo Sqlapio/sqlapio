@@ -27,10 +27,18 @@ $("textarea").each(function () {
     if(!this.value){
         this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
     }
-  }).on("input", function () {
+}).on("input", function () {
     this.style.height = 0;
     this.style.height = (this.scrollHeight) + "px";
-  });
+});
+
+$(document).ready(function() {
+    $("form").keypress(function(e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
+});
 
 $(document).ready(() => {
   // selec dos
