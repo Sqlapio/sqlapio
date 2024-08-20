@@ -175,46 +175,53 @@ class PDFController extends Controller
     public function PDF_exam($id)
     {
 
-        $MedicalRecord = MedicalRecord::where('id', $id)->with('get_paciente')->first();
-        $pdf = public_path().'/examenes/'.$MedicalRecord->get_paciente->ci.'_'.date('YmdHms').'.pdf';
-        $generator = new BarcodeGeneratorPNG();
-        $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-        $barcode = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
-        $data = [
-            'date' => date('m/d/Y'),
-            'MedicalRecord' => $MedicalRecord ,
-            'barcode' => $barcode,
+        try {
 
-        ];
-        pdf::view('pdf.PDF_exam',
-                [
-                    'data' => $data,
-                    'MedicalRecord' => $MedicalRecord,
-                    'barcode' => $barcode,
-                    'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
-                    'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
-                ])
-                ->withBrowsershot(function (Browsershot $browsershot) {
-                        $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
-                        $browsershot->setNpmBinary('/usr/local/bin/npm');
-                        // $browsershot->setChromePath('/usr/bin/chromium');
-                    })
-                ->format(Format::Letter)
-                ->margins(0, 0, 0, 0)
-                ->headerView('pdf.header', [
-                    'nombre'        => Auth::user()->name.' '.Auth::user()->last_name,
-                    'especialidad'  => Auth::user()->specialty,
-                    'mpps'          => Auth::user()->cod_mpps,
-                    'ci'            => Auth::user()->ci,
-                ])
-                ->footerView('pdf.footer', [
-                    'direccion'         => $doctor_center->address,
-                    'piso'              => $doctor_center->number_floor,
-                    'consultorio_num'   => $doctor_center->number_consulting_room,
-                    'consultorio_tel'   => $doctor_center->phone_consulting_room,
-                    'personal_tel'      => Auth::user()->phone,
-                ])
-                ->save($pdf);
+            $MedicalRecord = MedicalRecord::where('id', $id)->with('get_paciente')->first();
+            $pdf = public_path().'/examenes/'.$MedicalRecord->get_paciente->ci.'_'.date('YmdHms').'.pdf';
+            $generator = new BarcodeGeneratorPNG();
+            $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+            $barcode = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
+            $data = [
+                'date' => date('m/d/Y'),
+                'MedicalRecord' => $MedicalRecord ,
+                'barcode' => $barcode,
+
+            ];
+            pdf::view('pdf.PDF_exam',
+                    [
+                        'data' => $data,
+                        'MedicalRecord' => $MedicalRecord,
+                        'barcode' => $barcode,
+                        'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
+                        'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
+                    ])
+                    ->withBrowsershot(function (Browsershot $browsershot) {
+                            $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
+                            $browsershot->setNpmBinary('/usr/local/bin/npm');
+                            // $browsershot->setChromePath('/usr/bin/chromium');
+                        })
+                    ->format(Format::Letter)
+                    ->margins(0, 0, 0, 0)
+                    ->headerView('pdf.header', [
+                        'nombre'        => Auth::user()->name.' '.Auth::user()->last_name,
+                        'especialidad'  => Auth::user()->specialty,
+                        'mpps'          => Auth::user()->cod_mpps,
+                        'ci'            => Auth::user()->ci,
+                    ])
+                    ->footerView('pdf.footer', [
+                        'direccion'         => $doctor_center->address,
+                        'piso'              => $doctor_center->number_floor,
+                        'consultorio_num'   => $doctor_center->number_consulting_room,
+                        'consultorio_tel'   => $doctor_center->phone_consulting_room,
+                        'personal_tel'      => Auth::user()->phone,
+                    ])
+            ->save($pdf);
+            //code...
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+
     }
 
     /**
