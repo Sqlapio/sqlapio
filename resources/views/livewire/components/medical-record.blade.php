@@ -1880,7 +1880,7 @@
 
         try {
             await navigator.clipboard.writeText(response_data);
-            $("#icon-copy").css("background", "#04AA6D");
+            // $("#icon-copy").css("background", "#04AA6D");
 
             $('#copied').show();
             $("#copied").text('@lang('messages.alert.copiado')');
@@ -3328,7 +3328,7 @@
                         <span style="padding-left: 5px">@lang('messages.modal.titulo.resultado_ia')</span>
                         <button type="button" id="icon-copy" class="btn rounded-circle"
                             data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="@lang('messages.botton.copiar_diagnostico')"
+                            title="@lang('messages.tooltips.copiar_diagnostico')"
                             onclick="triggerExample();" style="margin-left: 5%;">
                             <img width="70" height="auto" src="{{ asset('/img/icons/COPIAR-TEXTO.png') }}" alt="avatar">
                         </button> <span style="padding-left: 5px" id="copied"></span>
