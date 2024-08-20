@@ -147,9 +147,9 @@ class PDFController extends Controller
                     'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
                 ])
                 ->withBrowsershot(function (Browsershot $browsershot) {
-                        $browsershot->setNodeBinary('/usr/bin/node'); //location of node
-                        $browsershot->setNpmBinary('/usr/bin/npm');
-                        $browsershot->setChromePath('/usr/bin/chromium');
+                        $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
+                        $browsershot->setNpmBinary('/usr/local/bin/npm');
+                        // $browsershot->setChromePath('/usr/bin/chromium');
                     })
                 ->format(Format::Letter)
                 ->margins(0, 0, 0, 0)
@@ -195,9 +195,9 @@ class PDFController extends Controller
                     'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
                 ])
                 ->withBrowsershot(function (Browsershot $browsershot) {
-                        $browsershot->setNodeBinary('/usr/bin/node'); //location of node
-                        $browsershot->setNpmBinary('/usr/bin/npm');
-                        $browsershot->setChromePath('/usr/bin/chromium');
+                        $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
+                        $browsershot->setNpmBinary('/usr/local/bin/npm');
+                        // $browsershot->setChromePath('/usr/bin/chromium');
                     })
                 ->format(Format::Letter)
                 ->margins(0, 0, 0, 0)
