@@ -1885,9 +1885,8 @@
             $('#copied').show();
             $("#copied").text('@lang('messages.alert.copiado')');
 
-            console.log(response_data)
-
 -           $("#diagnosis").text(response_data);
+-           $("#diagnosis").css("height", "340px");
 
             setTimeout(function() {
                 $('#copied').hide();
@@ -2164,6 +2163,8 @@
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong>
                                                 <span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
+                                                <strong>@lang('messages.tabla.tipo_sangre'):</strong>
+                                                <span> {{ $Patient->blood_type }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                                 <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>

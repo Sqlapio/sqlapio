@@ -967,6 +967,8 @@
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong>
                                                 <span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
+                                                <strong>@lang('messages.tabla.tipo_sangre'):</strong>
+                                                <span> {{ $Patient->blood_type }}</span>
                                                 <br>
                                                 @if (Auth::user()->contrie == '81')
                                                     <strong>@lang('messages.form.CIE') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
