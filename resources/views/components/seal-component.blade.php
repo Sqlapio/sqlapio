@@ -37,15 +37,14 @@
     });
 
     const handler = () => {
-        $('#modalCenter').modal('show');
+        $('#modalSeal').modal('show');
     }
 </script>
 
-<div>
     {{-- <div class="mt-2"> --}}
         {{-- <h5 class="collapseBtn">{{ $title }}</h5> --}}
     {{-- </div> --}}
-    <div class="row mt-2" style="display: flex; flex-direction: column; align-items: center;">
+    {{-- <div class="row mt-2" style="display: flex; flex-direction: column; align-items: center;"> --}}
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4" style="text-align: center">
             <div style="text-align: center">
                 <div class="holder_seal" style="display: none">
@@ -61,10 +60,10 @@
             </div>
         </div>
 
-    </div>
+    {{-- </div> --}}
 
      <!-- Modal -->
-     <div class="modal fade" id="modalCenter" tabindex="-1" aria-labelledby="modalCenterLabel" aria-hidden="true">
+     <div class="modal fade" id="modalSeal" tabindex="-1" aria-labelledby="modalCenterLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -87,4 +86,3 @@
             </div>
         </div>
     </div>
-</div>

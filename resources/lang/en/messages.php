@@ -160,7 +160,8 @@ return [
         'efectos_secundarios'      => 'Side effects',
         'efectividad'              => 'Effectiveness',
         'via'                      => 'Through',
-
+        'social_media'             => 'Instagram',
+        'color_pdf'                => 'Select color for PDF',
     ],
 
     'menu' => [
@@ -471,7 +472,6 @@ return [
         '3_mes'         => '3 months',
         '1_anio'        => '1 year',
         'permanentes'   => 'Permanent',
-
         'Medicinas'     => 'Medicines',
         'Alimentos'     => 'Food',
         'Latex'         => 'Latex',
@@ -493,9 +493,13 @@ return [
         'hospital'      => 'Hospital',
         'etc'           => 'Etc',
         'CIE'           => 'CIE',
-        'baja'           => 'Low',
-        'media'          => 'Media',
-        'alta'           => 'High',
+        'baja'          => 'Low',
+        'media'         => 'Media',
+        'alta'          => 'High',
+        'azul'          => 'Blue',
+        'blanco'        => 'White',
+        'verde'         => 'Green',
+        'rosa'          => 'Pink',
     ],
 
     'alert' => [

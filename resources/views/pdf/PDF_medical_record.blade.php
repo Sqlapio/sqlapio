@@ -12,7 +12,7 @@
         -moz-background-size: contain;
         -o-background-size: contain;
         background-size: contain !important;
-        background: url({{ asset('img/bg_pdf/' . $bg) }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/green.png') }}) no-repeat top fixed;
     }
 
     .imagen {
@@ -54,25 +54,25 @@
                         <div class="col-md-6">
                             <strong>Nombre:
                             </strong><span
-                                class="text-capitalize">{{ $MedicalReport->get_paciente->name . ' ' . $MedicalReport->get_paciente->last_name }}</span>
+                                class="text-capitalize">{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
                             <br>
-                            <strong>C.I:</strong> <span class="text-capitalize">{{ $MedicalReport->get_paciente->ci }}</span>
+                            <strong>C.I:</strong> <span class="text-capitalize">{{ $MedicalRecord->get_paciente->ci }}</span>
                             <br>
-                            <strong>Género:</strong> <span>{{ $MedicalReport->get_paciente->genere }}</span>
-                            <strong>Edad:</strong> <span>{{ $MedicalReport->get_paciente->age }}</span>
+                            <strong>Género:</strong> <span>{{ $MedicalRecord->get_paciente->genere }}</span>
+                            <strong>Edad:</strong> <span>{{ $MedicalRecord->get_paciente->age }}</span>
                             <br>
                             <strong>Correo electrónico:</strong>
-                            <span>{{ $MedicalReport->get_paciente->email }}</span>
+                            <span>{{ $MedicalRecord->get_paciente->email }}</span>
                             <br>
-                            <strong>Teléfono:</strong> <span>{{ $MedicalReport->get_paciente->phone }}</span>
+                            <strong>Teléfono:</strong> <span>{{ $MedicalRecord->get_paciente->phone }}</span>
                             <br>
                             <strong>Dirección:</strong>
-                            <span>{{ $MedicalReport->get_paciente->address }}</span>
+                            <span>{{ $MedicalRecord->get_paciente->address }}</span>
                         </div>
                         <div class="col-md-6"
                             style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}">
-                            <span class="code-span">{{ $MedicalReport->get_paciente->patient_code }}</span>
+                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="col-md-12 justify-content-center mt-3 px-5">
                         <strong> Descripcion del Informe:</strong>
                         <pre
-                            style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $MedicalReport->description }}</pre>
+                            style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $MedicalRecord->description }}</pre>
 
                         {{-- <p class="text-justify">{{ $MedicalRecord->razon }}</p> --}}
                     </div>

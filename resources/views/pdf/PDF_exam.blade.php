@@ -1,18 +1,19 @@
 @extends('layouts.app')
 @section('title', 'Medical Record')
 <style>
+    @page { margin:0px; }
     body {
-        /* font-family: 'Creato Display', sans-serif; */
+        font-family: 'Creato Display', sans-serif;
         margin-top: 0cm;
         margin-left: 0cm;
         margin-right: 0cm;
         margin-bottom: 0cm;
 
-        -webkit-background-size: contain;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        background-size: contain !important;
-        background: url({{ asset('img/bg_pdf/' . $bg) }}) no-repeat top fixed;
+        -webkit-background-size: 100%;
+        -moz-background-size: 100%;
+        -o-background-size: 100%;
+        background-size: 100% !important;
+        background: url({{ asset('img/bg_pdf/blue.png') }}) no-repeat top fixed;
     }
 
     .imagen {
@@ -21,13 +22,28 @@
     }
 
     .barcodeStyle {
-        width: 90% !important;
-        height: 37%;
+        width: 30% !important;
+        height: auto;
     }
 
     .img-pat {
         padding: 10px;
         border-radius: 10px;
+        text-transform: capitalize;
+    }
+
+    .container-fluid {
+        width: 100%;
+
+    }
+
+    .row-data {
+        margin-left: 60px;
+        margin-top: 30px;
+    }
+
+    .row-barcode {
+        margin-top: 30px;
     }
 
     pre {
@@ -39,17 +55,46 @@
         text-align: justify;
         line-height: 1.4;
     }
+
+    header {
+        position: fixed;
+        top: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 2cm;
+        text-align: center;
+        display: flex;
+    }
+
+/** Define the footer rules **/
+    footer {
+        position: fixed;
+        bottom: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 2cm;
+        text-align: center;
+        font-size: 14px;
+    }
+    footer .pagenum:before {
+        content: counter(page);
+    }
+
 </style>
 @push('scripts')
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid" style="font-size: 12px">
-            <div class="row" style="margin-top: 16%;">
-
-                <hr>
-                <div class="row mt-8">
-                    <div class="col-md-12 d-flex mt-8 px-5">
+        <header>
+            <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+            <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+            <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+        </header>
+        <div class="container-fluid" style="font-size: 16px">
+            <div class="" style="margin-top: 16%;">
+                <hr style="color:#0000001a">
+                <div class="row-data" style="display: flex; width: 100%">
+                    <div style="flex: 50%;">
                         {{-- Datos del paciente --}}
                         <div class="col-md-6">
                             <strong>Nombre:
@@ -68,36 +113,43 @@
                             <br>
                             <strong>Dirección:</strong>
                             <span>{{ $MedicalRecord->get_paciente->address }}</span>
-                        </div>
-                        <div class="col-md-6"
-                            style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}">
-                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                            <br>
+                            <strong>Código:</strong>
+                            <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </div>
+                    {{-- <div style="flex: 50%;">
+                        <div style="text-align: center">
+                            <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}"><br>
+                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                        </div>
+                    </div> --}}
                 </div>
-                <div class="row mt-5">
-                    <div class="col-md-12 justify-content-center text-center mb-5">
+                <div class="row-barcode">
+                    <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
                         <strong>Solicitud de Examenes</strong>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    {{-- <div class="col-md-12 justify-content-center mt-3">
-                    <strong> Antecendente:</strong>
-                    <pre style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" >{{ $MedicalRecord->background }}</pre>
-
-                    </div> --}}
-                    <div class="col-md-12 justify-content-center mt-3 px-5">
-                        <strong class="mt-10">Detalle de la solicitud:</strong>
+                <div class="row-data">
+                    <div style="margin-top: 30px">
+                        <strong class="mt-10">Detalle de la solicitud:</strong><br>
                         @foreach ($data_exam as $item)
                             <pre
                                 style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $item->description }}</pre>
                         @endforeach
-
-                        {{-- <p class="text-justify">{{ $MedicalRecord->razon }}</p> --}}
                     </div>
                 </div>
             </div>
         </div>
+        <footer style="text-align: center;">
+            <div>
+                <div style="margin-bottom: 5px; text-align: center;">
+                    <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                        <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+                    </p>
+                </div>
+                <div class="pagenum-container">Page <span class="pagenum"></span></div>
+            </div>
+        </footer>
     </div>
 @endsection

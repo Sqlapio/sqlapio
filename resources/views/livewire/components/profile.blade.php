@@ -765,6 +765,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {{-- social media --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-4 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="social_media" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.social_media')</label>
+                                                                <input autocomplete="off" placeholder="@lang('messages.form.social_media')"
+                                                                    class="form-control"
+                                                                    id="social_media" name="social_media" type="text"
+                                                                    value="{!! !empty($user) ? $user->social_media : '' !!}">
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @if (Auth::user()->type_plane == '7')
                                                         {{-- piso --}}
                                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
@@ -1182,20 +1195,36 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital')
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital') / PDF
                                     </button>
                                 </span>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <form id="form-seal" method="post" action="/">
                                             {{ csrf_field() }}
-                                            <x-seal-component />
+                                            <div class="row mt-2">
+                                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="background_pdf" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.color_pdf')</label>
+                                                            <select name="background_pdf" id="background_pdf"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                <option value="white">@lang('messages.select.blanco')</option>
+                                                                <option value="blue">@lang('messages.select.azul')</option>
+                                                                <option value="pink">@lang('messages.select.rosa')</option>
+                                                                <option value="green">@lang('messages.select.verde')</option>
+                                                            </select>
+                                                            <i class="bi bi-caret-down st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <x-seal-component />
+                                            </div>
                                             <div class="row mt-2 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
-                                                        type="submit" style="margin-left: 20px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
                                                 </div>
                                             </div>
                                         </form>

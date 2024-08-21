@@ -18,7 +18,7 @@ class Profile extends Component
     public function update_laboratory(Request $request)
     {
         try {
-            
+
             $update = DB::table('laboratories')
                 ->where('id', $request->id)
                 ->update([
@@ -193,7 +193,8 @@ class Profile extends Component
         DB::table('users')
         ->where('id', Auth::user()->id)
         ->update([
-            'digital_cello' => $nameFile,
+            'digital_cello'  => $nameFile,
+            'background_pdf' => $request->background_pdf,
         ]);
 
         return true;
