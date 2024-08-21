@@ -3,7 +3,7 @@
 <style>
     @page { margin:0px; }
     body {
-        /* font-family: 'Creato Display', sans-serif; */
+        font-family: 'Creato Display', sans-serif;
         margin-top: 0cm;
         margin-left: 0cm;
         margin-right: 0cm;
@@ -29,6 +29,21 @@
     .img-pat {
         padding: 10px;
         border-radius: 10px;
+        text-transform: capitalize;
+    }
+
+    .container-fluid {
+        width: 100%;
+
+    }
+
+    .row-data {
+        margin-left: 60px;
+        margin-top: 30px;
+    }
+
+    .row-barcode {
+        margin-top: 30px;
     }
 
     pre {
@@ -59,7 +74,7 @@
         right: 0cm;
         height: 2cm;
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
     }
     footer .pagenum:before {
         content: counter(page);
@@ -75,11 +90,11 @@
             <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
             <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
         </header>
-        <div class="container-fluid" style="font-size: 12px">
-            <div class="row" style="margin-top: 16%;">
-                <hr>
-                <div class="row mt-8">
-                    <div class="col-md-12 d-flex mt-8 px-5">
+        <div class="container-fluid" style="font-size: 16px">
+            <div class="" style="margin-top: 16%;">
+                <hr style="color:#0000001a">
+                <div class="row-data" style="display: flex; width: 100%">
+                    <div style="flex: 50%;">
                         {{-- Datos del paciente --}}
                         <div class="col-md-6">
                             <strong>Nombre:
@@ -98,34 +113,30 @@
                             <br>
                             <strong>Dirección:</strong>
                             <span>{{ $MedicalRecord->get_paciente->address }}</span>
+                            <br>
+                            <strong>Código:</strong>
+                            <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </div>
+                    {{-- <div style="flex: 50%;">
+                        <div style="text-align: center">
+                            <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}"><br>
+                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                        </div>
+                    </div> --}}
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-12 justify-content-center text-center mb-5">
-                        <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}"><br>
-                        <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 justify-content-center text-center mb-5">
+                <div class="row-barcode">
+                    <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
                         <strong>Solicitud de Examenes</strong>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    {{-- <div class="col-md-12 justify-content-center mt-3">
-                    <strong> Antecendente:</strong>
-                    <pre style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" >{{ $MedicalRecord->background }}</pre>
-
-                    </div> --}}
-                    <div class="col-md-12 justify-content-center mt-3 px-5">
+                <div class="row-data">
+                    <div style="margin-top: 30px">
                         <strong class="mt-10">Detalle de la solicitud:</strong><br>
                         @foreach ($data_exam as $item)
                             <pre
                                 style="font-size: 12px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $item->description }}</pre>
                         @endforeach
-
-                        {{-- <p class="text-justify">{{ $MedicalRecord->razon }}</p> --}}
                     </div>
                 </div>
             </div>

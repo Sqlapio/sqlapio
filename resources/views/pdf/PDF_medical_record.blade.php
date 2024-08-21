@@ -12,7 +12,7 @@
         -moz-background-size: contain;
         -o-background-size: contain;
         background-size: contain !important;
-        background: url({{ asset('img/bg_pdf/' . $bg) }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/green.png') }}) no-repeat top fixed;
     }
 
     .imagen {
