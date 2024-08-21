@@ -130,17 +130,17 @@
                 <div class="row-data">
                     <div style="margin-top: 30px">
                         <strong>Razón de la visita:</strong>
-                        <p style="font-size: 12px">{{ $MedicalRecord->razon }}</p>
+                        <p style="font-size: 18px">{{ $MedicalRecord->razon }}</p>
                         <br>
                         <strong>Diagnostico:</strong>
-                        <p style="font-size: 12px">{{ $MedicalRecord->diagnosis }}</p>
+                        <p style="font-size: 18px">{{ $MedicalRecord->diagnosis }}</p>
                         <br>
                         <strong>Sintomas:</strong>
-                        <p style="font-size: 12px">{{ $MedicalRecord->sintomas }}</p>
+                        <p style="font-size: 18px">{{ $MedicalRecord->sintomas }}</p>
                         <br>
                         <strong>Tratamiento:</strong>
                         @foreach (json_decode($MedicalRecord->medications_supplements) as $item)
-                            <p style="font-size: 12px"><strong>Medicamento:</strong> {{ $item->medicine }}, <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
+                            <p style="font-size: 18px"><strong>Medicamento:</strong> {{ $item->medicine }}, <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
                         @endforeach
                         <br>
                     </div>
