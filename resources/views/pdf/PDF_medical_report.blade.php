@@ -48,6 +48,7 @@
 
     .row-data {
         margin-left: 60px;
+        margin-right: 60px;
         margin-top: 30px;
     }
 
@@ -142,7 +143,7 @@
                             $des = str_replace('</p>', '', $MedicalReport->description);
                             $des = str_replace('<p>', '', $des);
                         @endphp
-                        <pre style="font-size: 18px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
+                        <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
                     </div>
                 </div>
             </div>
