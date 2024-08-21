@@ -64,13 +64,13 @@
                                     <div
                                         style="display: flex; flex-direction: column; align-items: center; margin-right: 10px;">
                                         <span class="text-capitalize" style="font-size: 12px;">Nombre:
-                                            {{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                                            {{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">C.I:
-                                            {{ $MedicalRecord->get_paciente->ci }}</span>
+                                            {{ $medical_prescription->get_paciente->ci }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">Genero:
-                                            {{ $MedicalRecord->get_paciente->genere }}</span>
+                                            {{ $medical_prescription->get_paciente->genere }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">Edad:
-                                            {{ $MedicalRecord->get_paciente->age }}</span>
+                                            {{ $medical_prescription->get_paciente->age }}</span>
                                     </div>
                                 </div>
                                 <div class='mt-2'style="margin-bottom: 5px; text-align: center; font-size: 12px;">
@@ -96,13 +96,13 @@
                                     <div
                                         style="display: flex; flex-direction: column; align-items: center; margin-right: 10px;">
                                         <span class="text-capitalize" style="font-size: 12px;">Nombre:
-                                            {{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                                            {{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">C.I:
-                                            {{ $MedicalRecord->get_paciente->ci }}</span>
+                                            {{ $medical_prescription->get_paciente->ci }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">Genero:
-                                            {{ $MedicalRecord->get_paciente->genere }}</span>
+                                            {{ $medical_prescription->get_paciente->genere }}</span>
                                         <span class="text-capitalize" style="font-size: 12px;">Edad:
-                                            {{ $MedicalRecord->get_paciente->age }}</span>
+                                            {{ $medical_prescription->get_paciente->age }}</span>
                                     </div>
                                 </div>
                                 <div class='mt-2'style="margin-bottom: 5px; text-align: center; font-size: 12px;">
