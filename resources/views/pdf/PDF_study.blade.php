@@ -138,7 +138,7 @@
                 </div>
                 <div class="row-data">
                     <div style="margin-top: 30px">
-                        <strong style="margin-bottom: 15px">Detalle de la solicitud:</strong><br>
+                        <strong style="margin-bottom: 15px">Detalle de la solicitud:</strong><br><br>
                         @foreach ($data_exam as $item)
                             <pre style="font-size: 14px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $item->description }}</pre>
                         @endforeach
