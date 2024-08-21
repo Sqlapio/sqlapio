@@ -1907,7 +1907,7 @@
             elem.btn = `
                 <a target="_blank" href="${route}">
                     <img width="32" height="auto"
-                    src="{{ asset('/img/icons/pdf-file.png') }}"
+                    src="{{ asset('/img/icons/pdf-informe.png') }}"
                     alt="avatar"
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom"
