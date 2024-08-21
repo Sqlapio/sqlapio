@@ -90,11 +90,11 @@
             <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
             <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
         </header>
-        <div class="container-fluid" style="font-size: 16px">
+        <div class="container-fluid">
             <div class="" style="margin-top: 16%;">
                 <hr style="color:#0000001a">
                 <div class="row-data" style="display: flex; width: 100%">
-                    <div style="flex: 50%;">
+                    <div style="flex: 50%; font-size: 15px">
                         {{-- Datos del paciente --}}
                         <div class="col-md-6">
                             <strong>Nombre:
@@ -131,7 +131,7 @@
                 </div>
                 <div class="row-data">
                     <div style="margin-top: 30px">
-                        <strong class="mt-10">Detalle de la solicitud:</strong><br>
+                        <strong style="margin-bottom: 15px">Detalle de la solicitud:</strong><br>
                         @foreach ($data_exam as $item)
                             <pre
                                 style="font-size: 14px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $item->description }}</pre>
