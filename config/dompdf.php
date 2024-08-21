@@ -169,7 +169,7 @@ return array(
          *
          * @see CPDF_Adapter::PAPER_SIZES for valid sizes ('letter', 'legal', 'A4', etc.)
          */
-        "default_paper_size" => "a4",
+        "default_paper_size" => "letter",
 
          /**
           * The default paper orientation.
@@ -221,7 +221,7 @@ return array(
          *
          * @var int
          */
-        "dpi" => 96,
+        "dpi" => 120,
 
         /**
          * Enable inline PHP

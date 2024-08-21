@@ -59,6 +59,7 @@ use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
 use Illuminate\Support\Facades\DB;
 use App\Models\DoctorCenter;
+use App\Models\ExamPatient;
 use Illuminate\Support\Facades\Auth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Spatie\LaravelPdf\Facades\Pdf;
@@ -384,16 +385,24 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-    // $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
-    // $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-    // $generator = new BarcodeGeneratorPNG();
-    // $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
-    // $data = [
-    // 'date' => date('m/d/Y'),
-    // 'MedicalRecord' => $MedicalRecord,
-    // 'barcode' => $barcode,
-    // ];
-    // return view("pdf.PDF_medical_record2", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
+            $MedicalRecord = ModelsMedicalRecord::where('id', 88)->with('get_paciente')->first();
+            $pdf = public_path().'/examenes/'.$MedicalRecord->get_paciente->ci.'_'.date('YmdHms').'.pdf';
+            $generator = new BarcodeGeneratorPNG();
+            $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+            $barcode = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
+            $data = [
+                'date' => date('m/d/Y'),
+                'MedicalRecord' => $MedicalRecord ,
+                'barcode' => $barcode,
+
+            ];
+            return view('pdf.PDF_exam', [
+                'data' => $data,
+                'MedicalRecord' => $MedicalRecord,
+                'barcode' => $barcode,
+                'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
+                'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
+            ]);
 });
 
 Route::get('/prueba2', function () {

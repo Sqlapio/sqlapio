@@ -81,7 +81,9 @@ class User extends Authenticatable {
         'expired_plan',
 		'center_id',
 		'master_corporate_id',
-		"token_corporate"
+		'token_corporate',
+        'social_media',
+        'background_pdf',
 	];
 
 	/**
@@ -195,7 +197,7 @@ class User extends Authenticatable {
         return $this->hasMany(Treatment::class, 'id', 'user_id');
     }
 
-	
+
     public function get_doctors(): HasMany
     {
         return $this->hasMany(DoctorCenter::class, 'user_id', 'id');

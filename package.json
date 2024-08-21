@@ -26,7 +26,6 @@
         "fullcalendar-scheduler": "^6.1.8",
         "jquery-validation": "^1.19.5",
         "moment": "^2.29.4",
-        "puppeteer": "^22.11.0",
         "sass": "^1.64.2",
         "sweetalert2": "^11.6.13",
         "tinymce": "^6.8.2"

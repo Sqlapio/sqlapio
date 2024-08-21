@@ -16,6 +16,7 @@
         "livewire/livewire": "^2.12",
         "mews/captcha": "^3.3",
         "picqer/php-barcode-generator": "^2.4",
+        "spatie/browsershot": "^4.2",
         "spatie/laravel-pdf": "^1.5"
     },
     "require-dev": {
