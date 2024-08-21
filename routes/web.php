@@ -425,12 +425,18 @@ Route::get('/t', function () {
 
         foreach($patients as $item){
             
-            $treatmentReminder_patient = Treatment::where('patient_id', $item->id)->where('send_status', 'activa')->get();
-            
-            foreach($treatmentReminder_patient as $value)
-            {
+            // $treatmentReminder_patient = Treatment::where('patient_id', $item->id)->where('send_status', 'activa')->get()->toArray();
+            $treatmentReminder_patient = Treatment::where('patient_id', $item->id)
+            ->where('send_status', 'activa')
+            ->select([DB::raw("record_code as codigo")])
+            ->groupBy('codigo')
+            ->get()->pluck('codigo');
+            dd($treatmentReminder_patient);
+            $dias = [];
 
-                $cadena = $value->treatmentDuration;
+            for ($i=0; $i < count($treatmentReminder_patient) ; $i++) { 
+
+                $cadena = $treatmentReminder_patient[$i]['treatmentDuration'];
 
                 if(str_contains($cadena, 'dia') || str_contains($cadena, 'días'))
                 {
@@ -457,71 +463,83 @@ Route::get('/t', function () {
                     $total_dias = 0;
                 }
 
-                if($value->count_notifications_send  <= $total_dias)
-                {
+                array_push($dias, $total_dias);
 
-                    $count = $value->count_notifications_send + 1;
-                    $doctor = ModelsUser::where('id', $value->user_id)->first();
-                    $patient = Patient::where('id', $value->patient_id)->first();
+                // if($treatmentReminder_patient[$i]['count_notifications_send']  <= $total_dias)
+                // {
+
+                //     $count = $treatmentReminder_patient[$i]['count_notifications_send'] + 1;
+                //     dump($count);
+                //     $doctor = ModelsUser::where('id', $treatmentReminder_patient[$i]['user_id'])->first();
+                //     $patient_phone = Patient::where('id', $treatmentReminder_patient[$i]['patient_id'])->first()->phone;
                     
-                    dump($count, $doctor, $patient);
-                    /**Obtenego el nombre del centro para poder crear el url de googleMpas */
-                    $caption = <<<HTML
-                    *RECORDATORIO DE TRATAMIENTO:*
+                //     /**Obtenego el nombre del centro para poder crear el url de googleMpas */
+                //     $caption = <<<HTML
+                //     *RECORDATORIO DE TRATAMIENTO:*
 
-                    *Se tomó su medicamento?. Recuerde que debe hacerlo...*
+                //     *Se tomó su medicamento?. Recuerde que debe hacerlo...*
 
-                    *Tratamiento Asignado por:*
-                    *Doctor(a):* {$doctor->name} {$doctor->last_name}
+                //     *Tratamiento Asignado por:*
+                //     *Doctor(a):* {$doctor->name} {$doctor->last_name}
 
-                    *Tratamiento*
-                    *Medicamento:* {$value->medicine}
-                    *Indicación:* {$value->indication}
-                    *Cada* {$value->hours} Horas
-                    *Duración del Tratamiento:* {$value->treatmentDuration}
-                    HTML;
+                //     *Tratamiento*
+                //     *Medicamento:* {$treatmentReminder_patient[$i]['medicine']}
+                //     *Indicación:* {$treatmentReminder_patient[$i]['indication']}
+                //     *Cada* {$treatmentReminder_patient[$i]['hours']} Horas
+                //     *Duración del Tratamiento:* {$treatmentReminder_patient[$i]['treatmentDuration']}
+                //     HTML;
 
-                    $params = array(
-                        'token' => env('TOKEN_API_WHATSAPP'),
-                        'to' => $patient->phone,
-                        'image' => env('BANNER_SQLAPIO'),
-                        'caption' => $caption
-                    );
-                    $curl = curl_init();
-                    curl_setopt_array($curl, array(
-                        CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => "",
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 30,
-                        CURLOPT_SSL_VERIFYHOST => 0,
-                        CURLOPT_SSL_VERIFYPEER => 0,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => "POST",
-                        CURLOPT_POSTFIELDS => http_build_query($params),
-                        CURLOPT_HTTPHEADER => array(
-                            "content-type: application/x-www-form-urlencoded"
-                        ),
-                    ));
+                //     $params = array(
+                //         'token' => env('TOKEN_API_WHATSAPP'),
+                //         'to' => $patient_phone,
+                //         'image' => env('BANNER_SQLAPIO'),
+                //         'caption' => $caption
+                //     );
+                //     $curl = curl_init();
+                //     curl_setopt_array($curl, array(
+                //         CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                //         CURLOPT_RETURNTRANSFER => true,
+                //         CURLOPT_ENCODING => "",
+                //         CURLOPT_MAXREDIRS => 10,
+                //         CURLOPT_TIMEOUT => 30,
+                //         CURLOPT_SSL_VERIFYHOST => 0,
+                //         CURLOPT_SSL_VERIFYPEER => 0,
+                //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //         CURLOPT_CUSTOMREQUEST => "POST",
+                //         CURLOPT_POSTFIELDS => http_build_query($params),
+                //         CURLOPT_HTTPHEADER => array(
+                //             "content-type: application/x-www-form-urlencoded"
+                //         ),
+                //     ));
 
-                    $response = curl_exec($curl);
-                    $err = curl_error($curl);
+                //     $response = curl_exec($curl);
+                //     $err = curl_error($curl);
 
-                    curl_close($curl);
+                //     curl_close($curl);
 
-                    if(isset($response))
-                    {
-                        $valor = $total_dias + 1;
-                        
-                        $update = Treatment::where('patient_id', $value->patient_id)->first()->update([
-                            'count_notifications_send' => $count
-                        ]);
-                        dd()
-                        if($value->count_notifications_send == $valor)
-                    }
-                }
+                //     if(true)
+                //     {
+                //         Treatment::where('patient_id', $treatmentReminder_patient[$i]['patient_id'])
+                //             ->where('treatmentDuration', $treatmentReminder_patient[$i]['treatmentDuration'])
+                //             ->where('send_status', 'activa')
+                //             ->update([
+                //                 'count_notifications_send' => $count
+                //             ]);
 
+                //         if($count == $total_dias)
+                //         {
+                //             Treatment::where('patient_id', $treatmentReminder_patient[$i]['patient_id'])
+                //             ->where('count_notifications_send', '=', $total_dias)
+                //             ->where('treatmentDuration', $treatmentReminder_patient[$i]['treatmentDuration'])
+                //             ->update([
+                //                 'send_status' => 'inactiva'
+                //             ]);
+                //         }
+                //     }
+                // }
             }
+            dd($dias);
+            
 
         }
         
