@@ -39,6 +39,7 @@
 
     .row-data {
         margin-left: 60px;
+        margin-right: 60px;
         margin-top: 30px;
     }
 
