@@ -242,6 +242,8 @@ class UtilsController extends Controller
 					'number_floor' 	          => $request->number_floor,
 					'number_consulting_room'  => $request->number_consulting_room,
 					'number_consulting_phone' => $request->number_consulting_phone,
+					'social_media'            => $request->social_media,
+					'background_pdf'          => $request->background_pdf,
 					'user_img' 	              => $nameFile,
 					'status_register'         => '2',
 				]);
@@ -2615,5 +2617,5 @@ class UtilsController extends Controller
             dd($th);
         }
     }
-    
+
 }

@@ -160,6 +160,8 @@ return [
         'efectividad'              => 'Efectividad',
         'efectos_secundarios'      => 'Efectos secundarios',
         'via'                      => 'Via',
+        'social_media'             => 'Instagram',
+        'color_pdf'                => 'Seleccione el color para el PDF',
     ],
 
     'menu' => [
@@ -495,6 +497,10 @@ return [
         'baja'           => 'Baja',
         'media'          => 'Media',
         'alta'           => 'Alto',
+        'azul'           => 'Azul',
+        'blanco'         => 'Blanco',
+        'verde'          => 'Verde',
+        'rosa'           => 'Rosado',
     ],
 
     'alert' => [
