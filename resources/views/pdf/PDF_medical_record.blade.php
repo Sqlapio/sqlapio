@@ -133,8 +133,11 @@
                         <strong>Razón de la visita:</strong>
                         <p style="font-size: 17px">{{ $MedicalRecord->razon }}</p>
                         <br>
-                        <strong>Diagnostico:</strong>
-                        <p style="font-size: 17px">{{ $MedicalRecord->diagnosis }}</p>
+                        <strong>Diagnóstico:</strong>
+                        @php
+                            $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
+                        @endphp
+                            <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
                         <br>
                         <strong>Sintomas:</strong>
                         <p style="font-size: 17px">{{ $MedicalRecord->sintomas }}</p>
