@@ -147,9 +147,7 @@ class MedicalRecord extends Component
             ActivityLogController::store_log($action);
 
             /**
-             * Logica para aumentar el contador
-             * de almacenamiento para el numero
-             * de consultas cargadas por el medico.
+             * Logica para aumentar el contador de las consulta guardadas por el medico
              *
              * Esta logica se aplica al tema de los planes
              */

@@ -18,7 +18,6 @@ class Reference extends Component
 {
     static function store($data, $medical_record_code, $medical_record)
     {
-
         /**
          * Logica para guardar los examenes y estudios
          * solicitados por el medico y generar la
@@ -92,9 +91,13 @@ class Reference extends Component
                 $exams_patient->save();
             }
 
-            MedicalRecord::where('record_code', $medical_record_code)->update([
-                'status_exam' => 1
-            ]);
+            if(count($data_exams) > 0)
+            {
+                MedicalRecord::where('record_code', $medical_record_code)->update([
+                    'status_exam' => 1
+                ]);
+            }
+
         }
 
         /**
@@ -120,11 +123,13 @@ class Reference extends Component
                 $studies_patient->save();
             }
 
-            MedicalRecord::where('record_code', $medical_record_code)->update([
-                'status_study' => 1
-            ]);
+            if(count($data_studies) > 0)
+            {
+                MedicalRecord::where('record_code', $medical_record_code)->update([
+                    'status_study' => 1
+                ]);
+            }
         }
-
 
         if (isset($center_id_corporativo)) {
             $mailData = [

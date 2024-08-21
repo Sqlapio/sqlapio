@@ -356,6 +356,12 @@
             $("#exampleModal").modal("show");
         }
     </script>
+    @php
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\MedicalRecord;
+        $sumatoria_study = MedicalRecord::where('user_id', Auth::user()->id)->where('status_study', 1)->sum('status_study');
+        $sumatoria_exam = MedicalRecord::where('user_id', Auth::user()->id)->where('status_exam', 1)->sum('status_exam');
+    @endphp
     <div class="row" style="padding: 20px;">
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"> {{ $info_plan->type_plane }} - {{ $info_plan->duration }}</h2>
         <hr style="margin-top: 5px">
@@ -408,7 +414,7 @@
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8" style="display: flex">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        {{ auth()->user()->ref_counter }}/{{ $info_plan->count_exam }}
+                                        {{ $sumatoria_exam }}/{{ $info_plan->count_exam }}
                                     </h2>
                                 </div>
                             </div>
@@ -425,7 +431,7 @@
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8" style="display: flex">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        {{ auth()->user()->ref_counter }}/{{ $info_plan->count_study }}
+                                        {{ $sumatoria_study }}/{{ $info_plan->count_study }}
                                     </h2>
                                 </div>
                             </div>

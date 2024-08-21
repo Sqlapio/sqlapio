@@ -18,7 +18,7 @@ class Profile extends Component
     public function update_laboratory(Request $request)
     {
         try {
-            
+
             $update = DB::table('laboratories')
                 ->where('id', $request->id)
                 ->update([
