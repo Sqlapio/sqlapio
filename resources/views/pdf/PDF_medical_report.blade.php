@@ -142,7 +142,7 @@
                             $des = str_replace('</p>', '', $MedicalReport->description);
                             $des = str_replace('<p>', '', $des);
                         @endphp
-                        <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
+                        <pre style="font-size: 18px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
                     </div>
                 </div>
             </div>
