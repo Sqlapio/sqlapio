@@ -4,7 +4,7 @@
     @page { margin:0px; }
     body {
         font-family: 'Creato Display', sans-serif;
-        margin-top: 3cm;
+        margin-top: 0cm;
         margin-left: 0cm;
         margin-right: 0cm;
         margin-bottom: 0cm;
@@ -43,7 +43,7 @@
 
     .container-fluid {
         width: 100%;
-
+        margin-top: 3cm;
     }
 
     .row-data {
@@ -170,8 +170,9 @@
             </div>
             <br>
             @if(strlen($MedicalRecord->diagnosis)>600)
-                <div style="page-break-after:always; margin-top: 16%;"></div>
+                <div style="page-break-after:always;"></div>
             @endif
+            <div style="height: 3cm"> </div>
             <div class="row-data">
                 <strong>Sintomas:</strong>
                 <p style="font-size: 17px">{{ $MedicalRecord->sintomas }}</p>
