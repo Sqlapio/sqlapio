@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Medical Record')
 <style>
+    @page { margin:0px; }
     body {
         /* font-family: 'Creato Display', sans-serif; */
         margin-top: 0cm;
@@ -32,6 +33,21 @@
         border-radius: 10px;
     }
 
+    .container-fluid {
+        width: 100%;
+        margin-top: 150px;
+    }
+
+    .row-data {
+        margin-left: 60px;
+        margin-right: 60px;
+        margin-top: 30px;
+    }
+
+    .row-barcode {
+        margin-top: 30px;
+    }
+
     pre {
         white-space: pre-wrap;
         white-space: -moz-pre-wrap;
@@ -41,15 +57,181 @@
         text-align: justify;
         line-height: 1.4;
     }
+
+    header {
+        position: fixed;
+        top: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 3cm;
+        text-align: center;
+        display: flex;
+        width: 100%
+    }
+
+/** Define the footer rules **/
+    footer {
+        position: fixed;
+        bottom: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 2cm;
+        text-align: center;
+        font-size: 14px;
+    }
+    footer .pagenum:before {
+        content: counter(page);
+    }
 </style>
 @push('scripts')
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid" style="font-size: 12px">
+        <header style="text-align: center;">
+            <table style="width: 100%; text-align: center;">
+                <tbody>
+                    <tr>
+                        <td class="table-border" style="width: 50%">
+                                <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+                                <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+                                <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+                        </td>
+                        <td class="table-border" style="width: 50%">
+                            <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+                            <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+                            <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </header>
+        <div>
+            <div class="container-fluid">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="table-border" style="width: 50%">
+                                <div style="font-size: 14px; margin-left: 25px">
+                                    <strong>Nombre:
+                                    </strong><span class="text-capitalize">{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
+                                    <br>
+                                    <strong>C.I:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->ci }}</span>
+                                    <br>
+                                    <strong>Género:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->genere }}</span>
+                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
+                                    <br>
+                                    <strong>Correo electrónico:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->email }}</span>
+                                    <br>
+                                    <strong>Teléfono:</strong> <span>{{ $medical_prescription->get_paciente->phone }}</span>
+                                    <br>
+                                    <strong>Dirección:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->address }}</span>
+                                    <br>
+                                    <strong>Código:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
+                                </div>
+                                <div class="row-barcode">
+                                    <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                                        <strong>Medicamentos</strong>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="margin-top: 30px">
+                                        @foreach ($medicamentos as $item)
+                                            <div style="padding-left: 62px; margin-rigth: 62px">
+                                                <div style="display: flex; flex-direction: column; align-items: left;">
+                                                    <span class="text-capitalize"
+                                                        style="font-size: 10px;">{{ $item->medicine }}</span></strong>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table-border" style="width: 50%">
+                                <div style="font-size: 14px; margin-left: 25px">
+                                    <strong>Nombre:
+                                    </strong><span class="text-capitalize">{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
+                                    <br>
+                                    <strong>C.I:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->ci }}</span>
+                                    <br>
+                                    <strong>Género:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->genere }}</span>
+                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
+                                    <br>
+                                    <strong>Correo electrónico:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->email }}</span>
+                                    <br>
+                                    <strong>Teléfono:</strong> <span>{{ $medical_prescription->get_paciente->phone }}</span>
+                                    <br>
+                                    <strong>Dirección:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->address }}</span>
+                                    <br>
+                                    <strong>Código:</strong>
+                                    <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
+                                </div>
+                                <div class="row-barcode">
+                                    <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                                        <strong>Indicaciones</strong>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="margin-top: 30px">
+                                        @foreach ($medicamentos as $item)
+                                        <div style="padding-left: 62px; margin-rigth: 62px">
+                                            <div class="header">
+                                                <div style="display: flex; flex-direction: column; align-items: left;">
+                                                    <span class="text-capitalize" style="font-size: 10px;">Medicamento:
+                                                        {{ $item->medicine }}</span></strong>
+                                                    <span class="text-capitalize" style="font-size: 10px;">Indicaciones:
+                                                        {{ $item->indication }} cada {{ $item->hours }} horas.</span></strong>
+                                                    <span class="text-capitalize" style="font-size: 10px;">Duracion:
+                                                        {{ $item->treatmentDuration }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer style="text-align: center;">
+            <table style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td class="table-border" style="width: 50%">
+                            <div>
+                                <div style="margin-bottom: 5px; text-align: center;">
+                                    <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                                        <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+                                    </p>
+                                </div>
+                                <div style="text-align: center;" class="pagenum-container">Page <span class="pagenum"></span></div>
+                            </div>
+                        </td>
+                        <td class="table-border" style="width: 50%">
+                            <div>
+                                <div style="margin-bottom: 5px; text-align: center;">
+                                    <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                                        <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+                                    </p>
+                                </div>
+                                <div style="text-align: center;" class="pagenum-container">Page <span class="pagenum"></span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </footer>
+        {{-- <div class="container-fluid" style="font-size: 12px">
             <div class="row justify-content-center" style="display: flex;">
                 <div class="col-sm-12 justify-content-center mt-3 px-5">
                     <div class="container text-center">
+
                         <div class="row justify-content-evenly">
                             <div class="col-sm-6" style="padding-right: 60px">
                                 <div style="display: flex; flex-direction: column; align-items: center; margin-right: 10px;">
@@ -163,7 +345,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     </div>
 @endsection
