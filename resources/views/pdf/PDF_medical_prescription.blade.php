@@ -131,23 +131,6 @@
                                     <strong>Código:</strong>
                                     <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
                                 </div>
-                                <div class="row-barcode">
-                                    <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
-                                        <strong>Medicamentos</strong>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:80%">
-                                        @foreach ($medicamentos as $item)
-                                            <div style="padding-left: 62px; margin-rigth: 62px">
-                                                <div style="display: flex; flex-direction: column; align-items: left;">
-                                                    <span class="text-capitalize"
-                                                        style="font-size: 10px;"><strong>- {{ $item->medicine }}</span></strong>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
                             </td>
                             <td class="table-border" style="width: 50%">
                                 <div style="font-size: 14px; margin-left: 62px">
@@ -170,27 +153,50 @@
                                     <strong>Código:</strong>
                                     <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
                                 </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td class="table-border" style="width: 50%">
                                 <div class="row-barcode">
                                     <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                                        <strong>Medicamentos</strong>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:90%">
+                                        <div style="padding-left: 62px; margin-rigth: 62px">
+                                            <div style="display: flex; flex-direction: column; align-items: left;">
+                                                @foreach ($medicamentos as $item)
+                                                    <span class="text-capitalize" style="font-size: 10px;"><strong>-</strong> {{ $item->medicine }}</span><br><br>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table-border" style="width: 50%">
+                                <div class="row-barcode">
+                                    <div class="text-center" style="text-align: center; margin-top: 70px; font-size: 21px">
                                         <strong>Indicaciones</strong>
                                     </div>
                                 </div>
                                 <div>
                                     <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:80%">
-                                        @foreach ($medicamentos as $item)
-                                            <div style="padding-left: 62px; margin-rigth: 62px;">
-                                                <div class="header">
-                                                    <div style="display: flex; flex-direction: column; align-items: left;">
-                                                        <span class="text-capitalize" style="font-size: 10px;"><strong>- Medicamento:
-                                                            {{ $item->medicine }}</span></strong>
-                                                        <span class="text-capitalize" style="font-size: 10px;">Indicaciones:
-                                                            {{ $item->indication }} cada {{ $item->hours }} horas.</span></strong>
-                                                        <span class="text-capitalize" style="font-size: 10px;">Duracion:
-                                                            {{ $item->treatmentDuration }}</span>
+                                        <div style="padding-left: 62px; margin-rigth: 62px;">
+                                            <div class="header">
+                                                <div style="display: flex; flex-direction: column; align-items: left;">
+                                                        @foreach ($medicamentos as $item)
+                                                            <span class="text-capitalize" style="font-size: 10px;"><strong>- Medicamento: </strong> {{ $item->medicine }}</span>
+                                                            <span class="text-capitalize" style="font-size: 10px;"><strong> Indicaciones: </strong> {{ $item->indication }} cada {{ $item->hours }} horas.</span>
+                                                            <span class="text-capitalize" style="font-size: 10px;"> <strong> Duracion: </strong> {{ $item->treatmentDuration }}</span><br><br>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
                                     </div>
                                 </div>
                             </td>
