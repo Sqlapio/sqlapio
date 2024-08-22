@@ -76,7 +76,7 @@
         display: flex;
     }
 
-/** Define the footer rules **/
+
     footer {
         position: fixed;
         bottom: 1cm;
