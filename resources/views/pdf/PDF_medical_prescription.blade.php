@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:80%">
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:90%">
                                         @foreach ($medicamentos as $item)
                                             <div style="padding-left: 62px; margin-rigth: 62px">
                                                 <div style="display: flex; flex-direction: column; align-items: left;">
