@@ -32,8 +32,9 @@
     }
 
     .container-fluid {
+        position: fixed;
+        bottom: 3cm;
         width: 100%;
-        height: 80%;
 
     }
 
@@ -137,7 +138,7 @@
                         @php
                             $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
                             $description = str_replace('\r\n', '<br>', $des)
-                        @endphpdiagnos
+                        @endphp
                             <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $description }}</pre>
                         <br>
                         <strong>Sintomas:</strong>
