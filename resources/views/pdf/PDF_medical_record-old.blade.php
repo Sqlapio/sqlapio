@@ -163,11 +163,10 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong> Consulta
-                            Médica</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong> Consulta Médica</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
-                    <td style="padding: 10px;">
+                    <tbody style="padding: 10px;">
                         <div>
                             <strong
                                 style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
