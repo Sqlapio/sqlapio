@@ -426,13 +426,143 @@ Route::get('/t', function () {
         foreach($patients as $item){
             
             // $treatmentReminder_patient = Treatment::where('patient_id', $item->id)->where('send_status', 'activa')->get()->toArray();
+            /**Obtengo tdos los tratamientos diferentes que pueda tener el paciente */
             $treatmentReminder_patient = Treatment::where('patient_id', $item->id)
             ->where('send_status', 'activa')
             ->select([DB::raw("record_code as codigo")])
             ->groupBy('codigo')
             ->get()->pluck('codigo');
-            dd($treatmentReminder_patient);
-            $dias = [];
+
+            /**
+             * @param $treatmentReminder_patient
+             * for() para recorrer el array de los codigos de consultas ya que el paciente
+             * puede tener mas de una consulta y mas de un tratamiento.
+             */
+            for ($i=0; $i < count($treatmentReminder_patient); $i++){
+                /**
+                 * @param array[]
+                 * Array vacio poara almacenar la cantidad dias de los tratamientos */
+                $dias = [];
+                dump($treatmentReminder_patient, $i);
+                /**
+                 * @param $treatmentReminder_patient[$i]
+                 * En la tabla de tratamientos pregunto los tratamiento asociados al codigo de la consulta
+                 */
+                $treatment = Treatment::where('record_code', $treatmentReminder_patient[$i])
+                ->where('send_status', 'activa')->get()->toArray();
+                dump($treatment);
+                for ($j=0; $j < count($treatment); $j++){
+
+                    $cadena = $treatment[$j]['treatmentDuration'];
+
+                    if(str_contains($cadena, 'dia') || str_contains($cadena, 'días'))
+                    {
+                        $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+                        $total_dias = $int_var;
+                    }
+                    elseif(str_contains($cadena, 'semana') || str_contains($cadena, 'semanas'))
+                    {
+                        $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+                        $total_dias = $int_var * 7;
+                    }
+                    elseif(str_contains($cadena, 'mes') || str_contains($cadena, 'meses'))
+                    {
+                        $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+                        $total_dias = $int_var * 30;
+                    }
+                    elseif(str_contains($cadena, 'año'))
+                    {
+                        $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+                        $total_dias = $int_var * 365;
+                    }
+                    else
+                    {
+                        $total_dias = 0;
+                    }
+
+                    array_push($dias, $total_dias);
+                    
+                }
+                
+                dump($dias);
+                dump(max($dias));
+                for ($k=0; $k < max($dias); $k++){
+                    $count = (Treatment::where('record_code', $treatmentReminder_patient[$i])->first()->count_notifications_send) + 1;
+                    $doctor = ModelsUser::where('id', $item->user_id)->first();
+                    $patient_phone = Patient::where('id', $item->id)->first()->phone;
+
+                    $array_tratamiento = Treatment::where('record_code', $treatmentReminder_patient[$i])->where('send_status', 'activa')->get(['medicine', 'indication', 'treatmentDuration'])->toJson();
+                    dd($array_tratamiento, implode(", ", $array_tratamiento));
+                    foreach($array_tratamiento as $key => $value)
+                    {
+                        $m[$key] = $value->medicine;
+                    }
+                    /**Obtenego el nombre del centro para poder crear el url de googleMpas */
+                    $caption = <<<EOF
+                    *RECORDATORIO DE TRATAMIENTO:*
+
+                    *Tratamiento*
+                        {$array_tratamiento}
+                    EOF;
+
+                    $params = array(
+                        'token' => env('TOKEN_API_WHATSAPP'),
+                        'to' => $patient_phone,
+                        'image' => env('BANNER_SQLAPIO'),
+                        'caption' => $caption
+                    );
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_SSL_VERIFYHOST => 0,
+                        CURLOPT_SSL_VERIFYPEER => 0,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => http_build_query($params),
+                        CURLOPT_HTTPHEADER => array(
+                            "content-type: application/x-www-form-urlencoded"
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+
+                    curl_close($curl);
+                    dd($response, $err);
+                    if(true)
+                    {
+                        Treatment::where('patient_id', $treatmentReminder_patient[$i]['patient_id'])
+                            ->where('treatmentDuration', $treatmentReminder_patient[$i]['treatmentDuration'])
+                            ->where('send_status', 'activa')
+                            ->update([
+                                'count_notifications_send' => $count
+                            ]);
+
+                        if($count == $total_dias)
+                        {
+                            Treatment::where('patient_id', $treatmentReminder_patient[$i]['patient_id'])
+                            ->where('count_notifications_send', '=', $total_dias)
+                            ->where('treatmentDuration', $treatmentReminder_patient[$i]['treatmentDuration'])
+                            ->update([
+                                'send_status' => 'inactiva'
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            dd('listo');
+
+            foreach($treatmentReminder_patient as $item){
+                $treatment = Treatment::where('record_code', $item)->first();
+                $dias[] = $treatment->treatmentDuration;
+            }
+            dd($dias);
+            // $treatments = Treatment::where('record_code', $item->id)
 
             for ($i=0; $i < count($treatmentReminder_patient) ; $i++) { 
 
