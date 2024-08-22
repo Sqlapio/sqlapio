@@ -8,14 +8,14 @@ $('.mask-only-number').mask('#', { reverse: true });
 $('.mask-only-breaths').mask('000/Min', { reverse: true });
 $('.mask-only-temperature').mask('00,00°', { reverse: true });
 $('.phone').mask('(000) 000-00-00');
-$('.mask-only-text').mask('Z', { translation: { 'Z': { pattern: /[a-zA-Z0-9-,. ]/, recursive: true } } });
+$('.mask-only-text').mask('Z', { translation: { 'Z': { pattern: /[áéíóúñüàèa-ñza-zA-Z0-9-,. ]/, recursive: true } } });
 $('.mask-text').mask('Z', { translation: { 'Z': { pattern: /[áéíóúñüàèa-ñzA-Z\s]/, recursive: true } } });
 $('.mask-rif').mask('Z-0000000000000000', { translation: { 'Z': { pattern: /[G-J-C-F]/, recursive: true } } });
 $('.mask-id-dom').mask('000-0000000-0');
-$('.mask-alfa-numeric').mask('Z', { translation: { 'Z': { pattern: /[a-zA-Z0-9- ]/, recursive: true } } });
+$('.mask-alfa-numeric').mask('Z', { translation: { 'Z': { pattern: /[áéíóúñüàèa-ñza-zA-Z0-9- ]/, recursive: true } } });
 $('.alpha-no-spaces').mask("A", {
   translation: {
-    "A": { pattern: /[a-z0-9@\-_.+]/, recursive: true }
+    "A": { pattern: /[áéíóúñüàèa-ñza-z0-9@\-_.+]/, recursive: true }
   }
 });
 
@@ -33,7 +33,7 @@ $("textarea").each(function () {
 });
 
 $(document).ready(function() {
-    $("form").keypress(function(e) {
+    $("btn").keypress(function(e) {
         if (e.which == 13) {
             return false;
         }
