@@ -491,18 +491,32 @@ Route::get('/t', function () {
                     $doctor = ModelsUser::where('id', $item->user_id)->first();
                     $patient_phone = Patient::where('id', $item->id)->first()->phone;
 
-                    $array_tratamiento = Treatment::where('record_code', $treatmentReminder_patient[$i])->where('send_status', 'activa')->get(['medicine', 'indication', 'treatmentDuration'])->toJson();
-                    dd($array_tratamiento, implode(", ", $array_tratamiento));
-                    foreach($array_tratamiento as $key => $value)
-                    {
-                        $m[$key] = $value->medicine;
+                    $array_tratamiento = Treatment::where('record_code', $treatmentReminder_patient[$i])->where('send_status', 'activa')->get(['medicine', 'indication', 'treatmentDuration'])->toArray();
+                    
+                    $medicine           = [];
+                    $indication         = [];
+                    $treatmentDuration  = [];
+
+                    for ($m=0; $m < count($array_tratamiento); $m++){
+
+                        $medicine[$m] = $array_tratamiento[$m]['medicine'];
+                        $indication[$m] = $array_tratamiento[$m]['indication'];
+                        $treatmentDuration[$m] = $array_tratamiento[$m]['treatmentDuration'];
+                        
                     }
+
+                    $list_medicine          = join(', ', $medicine);
+                    $list_indication        = join(', ', $indication);
+                    $list_treatmentDuration = join(', ', $treatmentDuration);
+                    
+
                     /**Obtenego el nombre del centro para poder crear el url de googleMpas */
                     $caption = <<<EOF
                     *RECORDATORIO DE TRATAMIENTO:*
-
                     *Tratamiento*
-                        {$array_tratamiento}
+
+                    *Medicamentos:* {$list_medicine}g
+
                     EOF;
 
                     $params = array(
