@@ -4,7 +4,7 @@
     @page { margin:0px; }
     body {
         font-family: 'Creato Display', sans-serif;
-        margin-top: 3cm;
+        margin-top: 0cm;
         margin-left: 0cm;
         margin-right: 0cm;
         margin-bottom: 0cm;
@@ -43,7 +43,7 @@
 
     .container-fluid {
         width: 100%;
-
+        margin-top: 3cm;
     }
 
     .row-data {
@@ -93,24 +93,24 @@
 @push('scripts')
 @endpush
 @section('content')
-<header>
-    <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
-    <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
-    <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
-</header>
-
-<footer class="footer">
-    <div>
-        <div style="margin-bottom: 5px; text-align: center;">
-            <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
-                <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
-            </p>
-        </div>
-        <div class="pagenum-container">Page <span class="pagenum"></span></div>
-    </div>
-</footer>
-
 <body>
+    <header>
+        <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+        <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+        <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+    </header>
+
+    <footer class="footer">
+        <div>
+            <div style="margin-bottom: 5px; text-align: center;">
+                <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                    <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+                </p>
+            </div>
+            <div class="pagenum-container">Page <span class="pagenum"></span></div>
+        </div>
+    </footer>
+
     <div class="container-fluid">
         <div>
             <hr style="color:#0000001a">
@@ -172,6 +172,10 @@
             @if(strlen($MedicalRecord->diagnosis)>600)
                 <div style="page-break-after:always; margin-top: 16%;"></div>
             @endif
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div>
             <div class="row-data">
                 <strong>Sintomas:</strong>
                 <p style="font-size: 17px">{{ $MedicalRecord->sintomas }}</p>
