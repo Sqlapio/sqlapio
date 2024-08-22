@@ -14,7 +14,7 @@
         -o-background-size: contain;
         background-size: contain !important;
         /* background: url({{ asset('img/bg_pdf/horizontal_green.png') }}) no-repeat top fixed; */
-        background: url({{ asset('img/bg_pdf/green_horizontal') }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/green_horizontal.png') }}) no-repeat top fixed;
 
     }
 
@@ -92,9 +92,9 @@
                 <tbody>
                     <tr>
                         <td class="table-border" style="width: 50%">
-                                <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
-                                <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
-                                <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+                            <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+                            <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+                            <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
                         </td>
                         <td class="table-border" style="width: 50%">
                             <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
@@ -137,12 +137,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px">
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:80%">
                                         @foreach ($medicamentos as $item)
                                             <div style="padding-left: 62px; margin-rigth: 62px">
                                                 <div style="display: flex; flex-direction: column; align-items: left;">
                                                     <span class="text-capitalize"
-                                                        style="font-size: 10px;"><strong> ✔ {{ $item->medicine }}</span></strong>
+                                                        style="font-size: 10px;"><strong>- {{ $item->medicine }}</span></strong>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -176,12 +176,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px">
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:80%">
                                         @foreach ($medicamentos as $item)
                                             <div style="padding-left: 62px; margin-rigth: 62px;">
                                                 <div class="header">
                                                     <div style="display: flex; flex-direction: column; align-items: left;">
-                                                        <span class="text-capitalize" style="font-size: 10px;"><strong> ✔ Medicamento:
+                                                        <span class="text-capitalize" style="font-size: 10px;"><strong>- Medicamento:
                                                             {{ $item->medicine }}</span></strong>
                                                         <span class="text-capitalize" style="font-size: 10px;">Indicaciones:
                                                             {{ $item->indication }} cada {{ $item->hours }} horas.</span></strong>
