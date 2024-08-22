@@ -170,12 +170,8 @@
             </div>
             <br>
             @if(strlen($MedicalRecord->diagnosis)>600)
-                <div style="page-break-after:always; margin-top: 16%;"></div>
+                <div style="page-break-after:always;"></div>
             @endif
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div>
             <div class="row-data">
                 <strong>Sintomas:</strong>
                 <p style="font-size: 17px">{{ $MedicalRecord->sintomas }}</p>
