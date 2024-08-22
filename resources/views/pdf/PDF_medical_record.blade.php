@@ -93,24 +93,24 @@
 @push('scripts')
 @endpush
 @section('content')
-<body>
-    <header>
-        <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
-        <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
-        <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
-    </header>
+<header>
+    <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+    <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+    <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+</header>
 
-    <footer class="footer">
-        <div>
-            <div style="margin-bottom: 5px; text-align: center;">
-                <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
-                    <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
-                </p>
-            </div>
-            <div class="pagenum-container">Page <span class="pagenum"></span></div>
+<footer class="footer">
+    <div>
+        <div style="margin-bottom: 5px; text-align: center;">
+            <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+            </p>
         </div>
-    </footer>
+        <div class="pagenum-container">Page <span class="pagenum"></span></div>
+    </div>
+</footer>
 
+<body>
     <div class="container-fluid">
         <div>
             <hr style="color:#0000001a">
