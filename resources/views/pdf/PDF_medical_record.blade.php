@@ -33,6 +33,7 @@
 
     .container-fluid {
         width: 100%;
+        height: 80%;
 
     }
 
@@ -53,7 +54,6 @@
         white-space: -o-pre-wrap;
         word-wrap: break-word;
         text-align: justify;
-        line-height: 1.4;
     }
 
     header {
@@ -131,13 +131,14 @@
                 <div class="row-data">
                     <div style="margin-top: 30px">
                         <strong>Razón de la visita:</strong>
-                        <p style="font-size: 17px">{{ $MedicalRecord->razon }}</p>
+                        <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $MedicalRecord->razon }}</pre>
                         <br>
                         <strong>Diagnóstico:</strong>
                         @php
                             $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
-                        @endphp
-                            <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
+                            $description = str_replace('\r\n', '<br>', $des)
+                        @endphpdiagnos
+                            <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $description }}</pre>
                         <br>
                         <strong>Sintomas:</strong>
                         <p style="font-size: 17px">{{ $MedicalRecord->sintomas }}</p>
