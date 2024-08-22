@@ -14,7 +14,7 @@
         -o-background-size: contain;
         background-size: contain !important;
         /* background: url({{ asset('img/bg_pdf/horizontal_green.png') }}) no-repeat top fixed; */
-        background: url({{ asset('img/bg_pdf/' . $bg) }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/green_horizontal') }}) no-repeat top fixed;
 
     }
 
@@ -111,7 +111,7 @@
                     <tbody>
                         <tr>
                             <td class="table-border" style="width: 50%">
-                                <div style="font-size: 14px; margin-left: 25px">
+                                <div style="font-size: 14px; margin-left: 62px">
                                     <strong>Nombre:
                                     </strong><span class="text-capitalize">{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                                     <br>
@@ -137,12 +137,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div style="margin-top: 30px">
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px">
                                         @foreach ($medicamentos as $item)
                                             <div style="padding-left: 62px; margin-rigth: 62px">
                                                 <div style="display: flex; flex-direction: column; align-items: left;">
                                                     <span class="text-capitalize"
-                                                        style="font-size: 10px;">{{ $item->medicine }}</span></strong>
+                                                        style="font-size: 10px;"><strong> ✔ {{ $item->medicine }}</span></strong>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -150,7 +150,7 @@
                                 </div>
                             </td>
                             <td class="table-border" style="width: 50%">
-                                <div style="font-size: 14px; margin-left: 25px">
+                                <div style="font-size: 14px; margin-left: 62px">
                                     <strong>Nombre:
                                     </strong><span class="text-capitalize">{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                                     <br>
@@ -176,21 +176,21 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div style="margin-top: 30px">
+                                    <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px">
                                         @foreach ($medicamentos as $item)
-                                        <div style="padding-left: 62px; margin-rigth: 62px">
-                                            <div class="header">
-                                                <div style="display: flex; flex-direction: column; align-items: left;">
-                                                    <span class="text-capitalize" style="font-size: 10px;">Medicamento:
-                                                        {{ $item->medicine }}</span></strong>
-                                                    <span class="text-capitalize" style="font-size: 10px;">Indicaciones:
-                                                        {{ $item->indication }} cada {{ $item->hours }} horas.</span></strong>
-                                                    <span class="text-capitalize" style="font-size: 10px;">Duracion:
-                                                        {{ $item->treatmentDuration }}</span>
+                                            <div style="padding-left: 62px; margin-rigth: 62px;">
+                                                <div class="header">
+                                                    <div style="display: flex; flex-direction: column; align-items: left;">
+                                                        <span class="text-capitalize" style="font-size: 10px;"><strong> ✔ Medicamento:
+                                                            {{ $item->medicine }}</span></strong>
+                                                        <span class="text-capitalize" style="font-size: 10px;">Indicaciones:
+                                                            {{ $item->indication }} cada {{ $item->hours }} horas.</span></strong>
+                                                        <span class="text-capitalize" style="font-size: 10px;">Duracion:
+                                                            {{ $item->treatmentDuration }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
                                     </div>
                                 </div>
                             </td>
