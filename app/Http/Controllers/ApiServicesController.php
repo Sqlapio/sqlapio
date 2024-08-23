@@ -417,7 +417,6 @@ class ApiServicesController extends Controller
 
     static public function whatsapp_send_dash($code)
     {
-
         try {
 
 
@@ -495,7 +494,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$cen->description}
             *{$piso}:* {$doctor_center->number_floor}
             *{$consultorio}:* {$doctor_center->number_consulting_room}
-            *confirmar cita:* {$code->link}
+            *Confirmar cita:* 'https://system.sqlapio.com/confirmation/dairy/' . $cita->code
             *{$precio}:* {$cita->price}
 
             *{$ubicacion}:* {$ubication}
