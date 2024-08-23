@@ -29,192 +29,199 @@ class Register extends Component
 
     public function store(Request $request)
     {
-
-        if ($request->type_plan == "7") {
-            $rules = [
-                // 'business_name' => 'required',
-                'password'  => 'required',
-                'email'     => 'required|unique:users',
-                // 'ci'            => 'required|unique:users',
-            ];
-
-            $msj = [
-                // 'business_name'    => __('messages.alert.nombre_obligatorio'),
-                'email.required'   => __('messages.alert.correo_obligatorio'),
-                'email.unique'     => __('messages.alert.correo_existente'),
-                'password'         => __('messages.alert.contraseña_obligatorio'),
-                'ci.required'      => __('messages.alert.cedula_obligatoria'),
-                'ci.unique'        => __('messages.alert.cedula_existente'),
-            ];
-        } else {
-            $rules = [
-                'name'      => 'required',
-                'last_name' => 'required',
-                'password'  => 'required',
-                'email'     => 'required|unique:users',
-                'ci'        => 'required|unique:users',
-            ];
-
-            $msj = [
-                'name'           => __('messages.alert.nombre_obligatorio'),
-                'last_name'      => __('messages.alert.apellido_obligatorio'),
-                'email.required' => __('messages.alert.correo_obligatorio'),
-                'email.unique'   => __('messages.alert.correo_existente'),
-                'password'       => __('messages.alert.contraseña_obligatorio'),
-                'ci.required'    => __('messages.alert.cedula_obligatoria'),
-                'ci.unique'      => __('messages.alert.cedula_existente'),
-            ];
-        }
-
-        $validator = Validator::make($request->all(), $rules, $msj);
-
-        if ($validator->fails()) {
-
-            return response()->json([
-                'success' => false,
-                'msj' => $validator->errors()->all()
-            ], 400);
-        }
-
-        $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
-
-        $date_today = $date_today->addDay(30)->format('Y-m-d');
-
-        // valdiar otp y capchat
-        // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
-        if (HandleOtpController::verify_otp($request)) {
-            $business_name =null;
-            $center_id =null;
-
-            if ($request->id_center == null && $request->type_plan == "7") { //nuevo centro
-
-                $business_name =$request->full_name ;
-
-                $new_centers = new Center();
-                $new_centers->address = $request->address;
-                $new_centers->description = $request->full_name;
-                $new_centers->state = $request->full_name;
-                $new_centers->state_id = $request->state_contrie;
-                $new_centers->country =$request->contrie;
-                $new_centers->city_contrie = $request->city_contrie;
-                $new_centers->color = UtilsController::color_dairy();
-                $new_centers->corporate = true;
-                $new_centers->save();
-
-                $center_id = $new_centers->id;
-
-            } else if($request->type_plan == "7" && $request->id_center != null ){
-
-                $center = Center::where('id',$request->id_center)->first();
-                $business_name = $center->description ;
-                $center_id = $request->id_center;
-            }
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->last_name = $request->last_name;
-            $user->business_name = $business_name;
-            $user->ci = $request->ci;
-            $user->email = $request->email;
-            $user->password = $request->password;
-            $user->verification_code = Str::random(30);
-            $user->password = Hash::make($request->password);
-            $user->email_verified_at = $date_today;
-
-            if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
-                $user->role = "medico";
-            } elseif ($request->type_plan == '4') {
-                $user->role = "laboratorio";
-            } elseif ($request->type_plan == '7') {
-                $user->role = "corporativo";
-            } else {
-                $user->role = "temporary";
-            }
-
-            // $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($user->id) : null;
-            $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
-            $user->center_id = $center_id;
-            $user->save();
+        try {
 
             if ($request->type_plan == "7") {
+                $rules = [
+                    // 'business_name' => 'required',
+                    'password'  => 'required',
+                    'email'     => 'required|unique:users',
+                    // 'ci'            => 'required|unique:users',
+                ];
 
-                User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($center_id)
-                ]);
+                $msj = [
+                    // 'business_name'    => __('messages.alert.nombre_obligatorio'),
+                    'email.required'   => __('messages.alert.correo_obligatorio'),
+                    'email.unique'     => __('messages.alert.correo_existente'),
+                    'password'         => __('messages.alert.contraseña_obligatorio'),
+                    'ci.required'      => __('messages.alert.cedula_obligatoria'),
+                    'ci.unique'        => __('messages.alert.cedula_existente'),
+                ];
             } else {
+                $rules = [
+                    'name'      => 'required',
+                    'last_name' => 'required',
+                    'password'  => 'required',
+                    'email'     => 'required|unique:users',
+                    'ci'        => 'required|unique:users',
+                ];
 
-                User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
-                ]);
+                $msj = [
+                    'name'           => __('messages.alert.nombre_obligatorio'),
+                    'last_name'      => __('messages.alert.apellido_obligatorio'),
+                    'email.required' => __('messages.alert.correo_obligatorio'),
+                    'email.unique'   => __('messages.alert.correo_existente'),
+                    'password'       => __('messages.alert.contraseña_obligatorio'),
+                    'ci.required'    => __('messages.alert.cedula_obligatoria'),
+                    'ci.unique'      => __('messages.alert.cedula_existente'),
+                ];
             }
 
-            // guardar datos en tabla laboratorios los datos de la corporativo
-            if ($request->type_plan == "7") {
-                if ($request->type_rif == '4') {
-                    $type_rif = "F";
-                }
-                if ($request->type_rif == '5') {
-                    $type_rif = "J";
-                }
-                if ($request->type_rif == '6') {
-                    $type_rif = "C";
-                }
-                if ($request->type_rif == '7') {
-                    $type_rif = "G";
-                }
+            $validator = Validator::make($request->all(), $rules, $msj);
 
-                $user_corporate = new Laboratory();
-                $user_corporate->user_id = $user->id;
-                $user_corporate->business_name =  $business_name;
-                $user_corporate->rif =$type_rif . '-' . $request->ci;
-                $user_corporate->email = $request->email;
-                $user_corporate->save();
+            if ($validator->fails()) {
 
-                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-                $stripeCustomer = $user->createAsStripeCustomer();
-
-                /**Registro la accion del usuario registrado en el log */
-                $action = 'corporate_plan';
-                ActivityLogController::store_log($action);
-
-                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                $action = '25';
-                ActivityLogController::store_log($action);
-            } elseif ($request->type_plan == "corporate_medico") {
-
-                User::where("id", $user->id)->update([
-                    "center_id" => decrypt($request->coporate_id),
-                    "master_corporate_id" =>User::where("center_id", decrypt($request->coporate_id))->where('role',"corporativo")->first()->id
-                ]);
-                # code...
-                /**Registro la accion del usuario registrado en el log */
-                $action = 'corporate_medico';
-                ActivityLogController::store_log($action);
-            } elseif ($request->type_plan == "1") {
-                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-                $stripeCustomer = $user->createAsStripeCustomer();
-
-                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                $action = '3';
-                ActivityLogController::store_log($action);
-            } else {
-                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-                $stripeCustomer = $user->createAsStripeCustomer();
-                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                $action = '25';
-                ActivityLogController::store_log($action);
+                return response()->json([
+                    'success' => false,
+                    'msj' => $validator->errors()->all()
+                ], 400);
             }
 
-            return response()->json([
-                'success' => true,
-                'msj'  => __('messages.alert.registro_inicial_sas')
-            ], 200);
-        } else {
+            $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
 
+            $date_today = $date_today->addDay(30)->format('Y-m-d');
+
+            // valdiar otp y capchat
+            // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
+            if (HandleOtpController::verify_otp($request)) {
+                $business_name = null;
+                $center_id = null;
+
+                if ($request->id_center == null && $request->type_plan == "7") { //nuevo centro
+
+                    $business_name = $request->full_name;
+
+                    $new_centers = new Center();
+                    $new_centers->address = $request->address;
+                    $new_centers->description = $request->full_name;
+                    $new_centers->state = $request->full_name;
+                    $new_centers->state_id = $request->state_contrie;
+                    $new_centers->country = $request->contrie;
+                    $new_centers->city_contrie = $request->city_contrie;
+                    $new_centers->color = UtilsController::color_dairy();
+                    $new_centers->corporate = true;
+                    $new_centers->save();
+
+                    $center_id = $new_centers->id;
+                } else if ($request->type_plan == "7" && $request->id_center != null) {
+
+                    $center = Center::where('id', $request->id_center)->first();
+                    $business_name = $center->description;
+                    $center_id = $request->id_center;
+                }
+
+                $user = new User();
+                $user->name = $request->name;
+                $user->last_name = $request->last_name;
+                $user->business_name = $business_name;
+                $user->ci = $request->ci;
+                $user->email = $request->email;
+                $user->password = $request->password;
+                $user->verification_code = Str::random(30);
+                $user->password = Hash::make($request->password);
+                $user->email_verified_at = $date_today;
+
+                if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
+                    $user->role = "medico";
+                } elseif ($request->type_plan == '4') {
+                    $user->role = "laboratorio";
+                } elseif ($request->type_plan == '7') {
+                    $user->role = "corporativo";
+                } else {
+                    $user->role = "temporary";
+                }
+
+                // $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($user->id) : null;
+                $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
+                $user->center_id = $center_id;
+                $user->save();
+
+                if ($request->type_plan == "7") {
+
+                    User::where("id", $user->id)->update([
+                        "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($center_id)
+                    ]);
+                } else {
+
+                    User::where("id", $user->id)->update([
+                        "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
+                    ]);
+                }
+
+                // guardar datos en tabla laboratorios los datos de la corporativo
+                if ($request->type_plan == "7") {
+                    if ($request->type_rif == '4') {
+                        $type_rif = "F";
+                    }
+                    if ($request->type_rif == '5') {
+                        $type_rif = "J";
+                    }
+                    if ($request->type_rif == '6') {
+                        $type_rif = "C";
+                    }
+                    if ($request->type_rif == '7') {
+                        $type_rif = "G";
+                    }
+
+                    $user_corporate = new Laboratory();
+                    $user_corporate->user_id = $user->id;
+                    $user_corporate->business_name =  $business_name;
+                    $user_corporate->rif = $type_rif . '-' . $request->ci;
+                    $user_corporate->email = $request->email;
+                    $user_corporate->save();
+
+                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                    $stripeCustomer = $user->createAsStripeCustomer();
+
+                    /**Registro la accion del usuario registrado en el log */
+                    $action = 'corporate_plan';
+                    ActivityLogController::store_log($action);
+
+                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                    $action = '25';
+                    ActivityLogController::store_log($action);
+                } elseif ($request->type_plan == "corporate_medico") {
+
+                    User::where("id", $user->id)->update([
+                        "center_id" => decrypt($request->coporate_id),
+                        "master_corporate_id" => User::where("center_id", decrypt($request->coporate_id))->where('role', "corporativo")->first()->id
+                    ]);
+                    # code...
+                    /**Registro la accion del usuario registrado en el log */
+                    $action = 'corporate_medico';
+                    ActivityLogController::store_log($action);
+                } elseif ($request->type_plan == "1") {
+                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                    $stripeCustomer = $user->createAsStripeCustomer();
+
+                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                    $action = '3';
+                    ActivityLogController::store_log($action);
+                } else {
+                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                    $stripeCustomer = $user->createAsStripeCustomer();
+                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                    $action = '25';
+                    ActivityLogController::store_log($action);
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'msj'  => __('messages.alert.registro_inicial_sas')
+                ], 200);
+            } else {
+
+                return response()->json([
+                    'success' => false,
+                    'msj'  => __('messages.alert.codigov_incorrecto')
+                ], 400);
+            }
+            //code...
+        } catch (\Throwable $th) {
             return response()->json([
-                'success' => false,
-                'msj'  => __('messages.alert.codigov_incorrecto')
-            ], 400);
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -298,7 +305,7 @@ class Register extends Component
                         'contrie'       => __('messages.alert.pais_obligatorio'),
                         // 'address'       => __('messages.alert.direccion_obligatoria'),
                         // 'zip_code'      => __('messages.alert.codigo_obligatorio'),
-                        
+
                         'cod_mpps'      => __('messages.alert.mpps_obligatorio'),
                     ];
                 }
@@ -444,16 +451,27 @@ class Register extends Component
                 return true;
             }
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.Register.store()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
     public function register_doctor_corporate($hash)
     {
-        $corporate = User::where('id', decrypt($hash))->first();
-        $type_plan = "corporate_medico";
-        return view('livewire.components.register', compact('corporate', 'type_plan', 'hash'));
+        try {
+
+            $corporate = User::where('id', decrypt($hash))->first();
+            $type_plan = "corporate_medico";
+            return view('livewire.components.register', compact('corporate', 'type_plan', 'hash'));
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function render($id = null)

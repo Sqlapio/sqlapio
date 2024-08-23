@@ -58,6 +58,7 @@ use Log;
 use Mews\Captcha\Facades\Captcha;
 use Svg\CssLength;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\ErrorController;
 
 
 class UtilsController extends Controller
@@ -248,8 +249,9 @@ class UtilsController extends Controller
 					'status_register'         => '2',
 				]);
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_registro()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_registro()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -300,8 +302,9 @@ class UtilsController extends Controller
 					'status_register' => '2',
 				]);
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_registro()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_registro_laboratory()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -311,8 +314,9 @@ class UtilsController extends Controller
 			$cities = City::all();
 			return $cities;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_cities()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_cities()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -322,8 +326,9 @@ class UtilsController extends Controller
 			$states = State::all();
 			return $states;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_states()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_states()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -335,8 +340,9 @@ class UtilsController extends Controller
 
 			return $patients;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patients()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patients()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -417,8 +423,9 @@ class UtilsController extends Controller
 			return $data;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -502,8 +509,9 @@ class UtilsController extends Controller
 			return $data;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_dashboard()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -514,8 +522,9 @@ class UtilsController extends Controller
 			return $history;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_history()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_history()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -552,8 +561,9 @@ class UtilsController extends Controller
 			return $patients;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patients_pag()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patients_pag()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -564,8 +574,9 @@ class UtilsController extends Controller
 			return $doctor_centers;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_centers_pag()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_doctor_centers_pag()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -576,8 +587,9 @@ class UtilsController extends Controller
 			return $MedicalRecord;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_centers_pag()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medical_record()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -590,8 +602,9 @@ class UtilsController extends Controller
 
             return $medical_user;
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error UtilsController.get_medical_record_user()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medical_record_user()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
 
@@ -617,8 +630,9 @@ class UtilsController extends Controller
 			return $doctor_centers;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_centers()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_doctor_centers()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -629,8 +643,9 @@ class UtilsController extends Controller
 			return $Patient;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_one_patient()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_one_patient()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -642,8 +657,9 @@ class UtilsController extends Controller
 			return $centers;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_centers()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_centers()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -655,8 +671,9 @@ class UtilsController extends Controller
 			return $centers;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_centers()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_centers_state()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -704,8 +721,9 @@ class UtilsController extends Controller
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.send_mail()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.notification_register_mail()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -788,8 +806,9 @@ class UtilsController extends Controller
 				Mail::to($mailData['email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.send_mail()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.notification_mail()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -810,8 +829,9 @@ class UtilsController extends Controller
 			return redirect('/')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.verify_email()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.verify_email()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -830,8 +850,9 @@ class UtilsController extends Controller
 				->where('verification_code', $verification_code)
 				->update(['email_verified_at' => $date]);
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.patient_verify_email()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.patient_verify_email()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -849,8 +870,9 @@ class UtilsController extends Controller
 			Mail::to($email)->send(new NotificationDairy($mailData));
 			Mail::to($patient_email)->send(new NotificationPatient($mailData));
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.notification_dairy_email()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.notification_dairy_email()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -862,8 +884,9 @@ class UtilsController extends Controller
 
 			return $patient_history;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_history()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_history()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -875,8 +898,9 @@ class UtilsController extends Controller
 
 			return $VitalSign;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_vital_sing()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_history_vital_sing()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -888,8 +912,9 @@ class UtilsController extends Controller
 
 			return $family_back;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_family_back()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_history_family_back()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -901,8 +926,9 @@ class UtilsController extends Controller
 
 			return $family_back;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_allergies()', $message);
+			$$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_allergies()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -914,8 +940,9 @@ class UtilsController extends Controller
 
 			return $family_back;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.allergy_symptoms()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_allergy_symptoms()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -927,8 +954,9 @@ class UtilsController extends Controller
 
 			return $pathology_back;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_pathology_back()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_history_pathology_back()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -940,8 +968,9 @@ class UtilsController extends Controller
 
 			return $non_pathology_back;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_non_pathology_back()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_history_non_pathology_back()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -953,8 +982,9 @@ class UtilsController extends Controller
 
 			return $inmunizations;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_inmunizations()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_inmunizations()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -966,8 +996,9 @@ class UtilsController extends Controller
 
 			return $mental_healths;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_mental_healths()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_mental_healths()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -979,8 +1010,9 @@ class UtilsController extends Controller
 
 			return $Condition;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.Condition()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_condition()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -991,8 +1023,9 @@ class UtilsController extends Controller
 			$file = Storage::disk('app/img/')->get($imgen);
 			return $file;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_image_patient()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1004,8 +1037,9 @@ class UtilsController extends Controller
 
 			return $patient_code;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_code()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1036,8 +1070,9 @@ class UtilsController extends Controller
 
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_boy_girl()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_boy_girl()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1070,8 +1105,9 @@ class UtilsController extends Controller
 				->count();
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_teen()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_teen()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1103,8 +1139,9 @@ class UtilsController extends Controller
 				->count();
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_adult()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_adult()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1138,8 +1175,9 @@ class UtilsController extends Controller
 
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_elderly()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_elderly()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1179,7 +1217,6 @@ class UtilsController extends Controller
 	 */
 	static function confirmation_dairy($code)
 	{
-
 		try {
 
 			$update = DB::table('appointments')
@@ -1196,8 +1233,9 @@ class UtilsController extends Controller
 			return view('welcome');
 
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.confirmation_dairy()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.confirmation_dairy()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1214,8 +1252,9 @@ class UtilsController extends Controller
 
 			Mail::to($patient_email)->send(new NotificationReferences($mailData));
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.notification_ref_email()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.notification_ref_email()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1227,8 +1266,9 @@ class UtilsController extends Controller
 			$img = $lab_img->lab_img;
 			return $img;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_lab()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_image_lab()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1245,8 +1285,9 @@ class UtilsController extends Controller
 				return null;
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_lab()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.exit_image_lab()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1257,8 +1298,9 @@ class UtilsController extends Controller
 			$reference = Reference::all();
 			return $reference;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_lab()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_ref()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1286,8 +1328,9 @@ class UtilsController extends Controller
 
 			return $references;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_lab()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_ref()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 	static function upload_result_exam(Request $request)
@@ -1366,8 +1409,9 @@ class UtilsController extends Controller
 
 			return true;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.upload_result_exam()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.upload_result_exam()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1448,8 +1492,9 @@ class UtilsController extends Controller
 			return true;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.upload_result_study()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.upload_result_study()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1459,8 +1504,9 @@ class UtilsController extends Controller
 			$description = Exam::where('cod_exam', $code)->first();
 			return $description->description;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_description_exam()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_description_exam()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1470,8 +1516,9 @@ class UtilsController extends Controller
 			$description = Study::where('cod_study', $code)->first();
 			return $description->description;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_description_study()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_description_study()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1489,8 +1536,9 @@ class UtilsController extends Controller
                 }
 
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_patient_counter()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_patient_counter()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1506,8 +1554,9 @@ class UtilsController extends Controller
 					]);
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_mr_counter()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_patient_counter()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1523,8 +1572,9 @@ class UtilsController extends Controller
 					]);
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_ref_exam_counter()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_patient_counter()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1542,188 +1592,211 @@ class UtilsController extends Controller
 
 			return $medical_record;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_table_medical_record()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_table_medical_record()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
 	static function search_person($value, $row)
 	{
+        try {
 
-		$data = [];
+            $data = [];
 
-		if ($row != 'cod_ref') {
+            if ($row != 'cod_ref') {
 
-			$pat = Patient::where("ci", $value)
-				->orwhereHas('get_reprensetative', function ($q) use ($value) {
-					$q->where('re_ci', $value);
-				})->get();
+                $pat = Patient::where("ci", $value)
+                    ->orwhereHas('get_reprensetative', function ($q) use ($value) {
+                        $q->where('re_ci', $value);
+                    })->get();
 
-			$tablePat =  ExamPatient::where('status', 2)
-				->whereHas('get_patients', function ($q) use ($value) {
-					$q->where('ci', $value);
-				});
+                $tablePat =  ExamPatient::where('status', 2)
+                    ->whereHas('get_patients', function ($q) use ($value) {
+                        $q->where('ci', $value);
+                    });
 
-			$tableRep =  ExamPatient::where('status', 2)
-				->whereHas('get_patients', function ($q) use ($value) {
-					$q->whereHas('get_reprensetative', function ($q) use ($value) {
-						$q->where('re_ci', $value);
-					});
-				});
+                $tableRep =  ExamPatient::where('status', 2)
+                    ->whereHas('get_patients', function ($q) use ($value) {
+                        $q->whereHas('get_reprensetative', function ($q) use ($value) {
+                            $q->where('re_ci', $value);
+                        });
+                    });
 
-			$data = $tablePat->union($tableRep)
-				->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
-				->skip(0)     // punto de partida
-				->take(10)   // limite de resgistro
-				->get();
+                $data = $tablePat->union($tableRep)
+                    ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
+                    ->skip(0)     // punto de partida
+                    ->take(10)   // limite de resgistro
+                    ->get();
 
-			$count =  $tablePat->union($tableRep)->get();
+                $count =  $tablePat->union($tableRep)->get();
 
-			$data = [
-				"data"  => $data,
-				"count" => count($count),
-				"skip"  => 0,
-				"limit" => 10,
-			];
+                $data = [
+                    "data"  => $data,
+                    "count" => count($count),
+                    "skip"  => 0,
+                    "limit" => 10,
+                ];
 
-			///buscar las referencias sin resultados cargados
+                ///buscar las referencias sin resultados cargados
 
-			$Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->where('ci', $value);
-			});
+                $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->where('ci', $value);
+                });
 
-			$Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->whereHas('get_reprensetative', function ($q) use ($value) {
-					$q->where('re_ci', $value);
-				});
-			});
+                $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
+                        $q->where('re_ci', $value);
+                    });
+                });
 
 
 
-			$reference = $Reference_pat->union($Reference_reo)
-				->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
-				->skip(0)     // punto de partida
-				->take(10)   // limite de resgistro
-				->get();
+                $reference = $Reference_pat->union($Reference_reo)
+                    ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                    ->skip(0)     // punto de partida
+                    ->take(10)   // limite de resgistro
+                    ->get();
 
-			$countDos = $Reference_pat->union($Reference_reo)->get();
+                $countDos = $Reference_pat->union($Reference_reo)->get();
 
-			$reference = [
-				"data"  => $reference,
-				"count" => count($countDos),
-				"skip"  => 0,
-				"limit" => 10,
-			];
+                $reference = [
+                    "data"  => $reference,
+                    "count" => count($countDos),
+                    "skip"  => 0,
+                    "limit" => 10,
+                ];
 
-			return ["data" => $data, "reference" => $reference, "pat" => $pat];
-		} else {
+                return ["data" => $data, "reference" => $reference, "pat" => $pat];
+            } else {
 
-			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->where('ci', $value);
-			});
+                $tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->where('ci', $value);
+                });
 
-			$tableRep =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->whereHas('get_reprensetative', function ($q) use ($value) {
-					$q->where('re_ci', $value);
-				});
-			});
+                $tableRep =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
+                        $q->where('re_ci', $value);
+                    });
+                });
 
-			$reference = $tablePat->union($tableRep)->get();
+                $reference = $tablePat->union($tableRep)->get();
 
-			foreach ($reference as $key => $val) {
-				$data[$key] = [
-					'id'                 => $val->id,
-					'cod_ref'            => $val->cod_ref,
-					'date'               => $val->date,
-					'cod_medical_record' => $val->cod_medical_record,
-					'get_exam'           => $val->get_exam,
-					'get_studie'         => $val->get_studie,
-					'get_patient'        => $val->get_patient,
-				];
-			}
+                foreach ($reference as $key => $val) {
+                    $data[$key] = [
+                        'id'                 => $val->id,
+                        'cod_ref'            => $val->cod_ref,
+                        'date'               => $val->date,
+                        'cod_medical_record' => $val->cod_medical_record,
+                        'get_exam'           => $val->get_exam,
+                        'get_studie'         => $val->get_studie,
+                        'get_patient'        => $val->get_patient,
+                    ];
+                }
 
-			return $data;
-		}
+                return $data;
+            }
+
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.search_person()';
+            ErrorController::error_log($modulo, $error_log);
+        }
+
 	}
 
 	static function search_studio($value, $row)
 	{
+        try {
 
-		$data = [];
-		if ($row != 'cod_ref') {
+            $data = [];
+            if ($row != 'cod_ref') {
 
+                $pat = Patient::where("ci", $value)
+                    ->orwhereHas('get_reprensetative', function ($q) use ($value) {
+                        $q->where('re_ci', $value);
+                    })->get();
 
-			$pat = Patient::where("ci", $value)
-				->orwhereHas('get_reprensetative', function ($q) use ($value) {
-					$q->where('re_ci', $value);
-				})->get();
+                $tablePat =  StudyPatient::where('status', 2)
+                    ->whereHas('get_patient', function ($q) use ($value) {
+                        $q->where('ci', $value);
+                    });
 
-			$tablePat =  StudyPatient::where('status', 2)
-				->whereHas('get_patient', function ($q) use ($value) {
-					$q->where('ci', $value);
-				});
+                $tableRep =  StudyPatient::where('status', 2)
+                    ->whereHas('get_patient', function ($q) use ($value) {
+                        $q->whereHas('get_reprensetative', function ($q) use ($value) {
+                            $q->where('re_ci', $value);
+                        });
+                    });
 
-			$tableRep =  StudyPatient::where('status', 2)
-				->whereHas('get_patient', function ($q) use ($value) {
-					$q->whereHas('get_reprensetative', function ($q) use ($value) {
-						$q->where('re_ci', $value);
-					});
-				});
+                $data = $tablePat->union($tableRep)
+                    ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
+                    ->skip(0)     // punto de partida
+                    ->take(10)   // limite de resgistro
+                    ->get();
 
-			$data = $tablePat->union($tableRep)
-				->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
-				->skip(0)     // punto de partida
-				->take(10)   // limite de resgistro
-				->get();
+                $count = $data = $tablePat->union($tableRep)->get();
 
-			$count = $data = $tablePat->union($tableRep)->get();
+                $data = [
+                    "data"  => $data,
+                    "count" => count($count),
+                    "skip"  => 0,
+                    "limit" => 10,
+                ];
 
-			$data = [
-				"data"  => $data,
-				"count" => count($count),
-				"skip"  => 0,
-				"limit" => 10,
-			];
+                //buscar las referencias sin resultados cargados
 
-			//buscar las referencias sin resultados cargados
+                $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->where('ci', $value);
+                });
 
-			$Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->where('ci', $value);
-			});
+                $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
+                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
+                        $q->where('re_ci', $value);
+                    });
+                });
 
-			$Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
-				$q->whereHas('get_reprensetative', function ($q) use ($value) {
-					$q->where('re_ci', $value);
-				});
-			});
+                $reference = $Reference_pat->union($Reference_reo)
+                    ->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
+                    ->skip(0)     // punto de partida
+                    ->take(10)   // limite de resgistro
+                    ->get();
 
-			$reference = $Reference_pat->union($Reference_reo)
-				->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
-				->skip(0)     // punto de partida
-				->take(10)   // limite de resgistro
-				->get();
+                $countDos = $Reference_pat->union($Reference_reo)->get();
 
-			$countDos = $Reference_pat->union($Reference_reo)->get();
+                $reference = [
+                    "data"  => $reference,
+                    "count" => count($countDos),
+                    "skip"  => 0,
+                    "limit" => 10,
+                ];
 
-			$reference = [
-				"data"  => $reference,
-				"count" => count($countDos),
-				"skip"  => 0,
-				"limit" => 10,
-			];
-
-			return ["data" => $data, "reference" => $reference, "pat" => $pat];
-		}
+                return ["data" => $data, "reference" => $reference, "pat" => $pat];
+            }
+            //code...
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.search_studio()';
+            ErrorController::error_log($modulo, $error_log);
+        }
+		
 	}
 
 	static function responce_references()
 	{
+        try {
 
-		$data_exam_res = ComponentsLaboratory::res_exams();
+            $data_exam_res = ComponentsLaboratory::res_exams();
 
-		$data_study_res = ComponentsLaboratory::res_studies();
+            $data_study_res = ComponentsLaboratory::res_studies();
+    
+            return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
 
-		return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.responce_references()';
+            ErrorController::error_log($modulo, $error_log);
+        }
 	}
 
 	static function update_status_dairy($id)
@@ -1735,8 +1808,9 @@ class UtilsController extends Controller
 					'status' => 3,
 				]);
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_status_dairy()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.update_status_dairy()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1765,8 +1839,9 @@ class UtilsController extends Controller
 			}
 			return $total_exams;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.total_exams()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.total_exams()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1784,8 +1859,9 @@ class UtilsController extends Controller
 			}
 			return $total_studies;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.total_studies()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.total_studies()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1796,8 +1872,9 @@ class UtilsController extends Controller
 			$user_patient_counter = Auth::user()->patient_counter;
 			return $user_patient_counter;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.total_studies()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_counter()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1817,8 +1894,9 @@ class UtilsController extends Controller
 			$lista_patient = Patient::where('center_id', $user->id)->get();
 			return $lista_patient;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_patient_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_patient_corporate()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1830,8 +1908,9 @@ class UtilsController extends Controller
 			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->get();
 			return $lista_medical_record;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medical_record_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medical_record_corporate()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1843,8 +1922,9 @@ class UtilsController extends Controller
 			$lista_doctor = User::where('master_corporate_id', $user->id)->where('role', 'medico')->get();
 			return $lista_doctor;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_doctor_corporate()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1855,8 +1935,9 @@ class UtilsController extends Controller
 			$list_exam = Exam::all();
 			return $list_exam;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_list_exam()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_list_exam()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1867,8 +1948,9 @@ class UtilsController extends Controller
 			$list_study = Study::all();
 			return $list_study;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_list_study()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_list_study()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1896,8 +1978,9 @@ class UtilsController extends Controller
 
 			return $doctor_update;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.habilitar_doctor_corporate()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1927,8 +2010,9 @@ class UtilsController extends Controller
 
 			return $doctor_update;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.deshabilitar_doctor_corporate()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1974,11 +2058,12 @@ class UtilsController extends Controller
 				'data'    =>  $res
 			], 200);
 		} catch (\Throwable $th) {
-
-			$message = $th->getMessage();
-			dd('Error UtilsController.sqlapio_ia()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.sqlapio_ia()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
+
 	static function get_medical_report($id)
 	{
 		try {
@@ -1986,8 +2071,9 @@ class UtilsController extends Controller
 			return $medical_report;
 			//code...
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medical_record_user()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medical_report()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2010,11 +2096,9 @@ class UtilsController extends Controller
 
 			return $color_appointments;
 		} catch (\Throwable $th) {
-
-			return response()->json([
-				'success' => 'true',
-				'data'  =>  $th->getMessage()
-			], 400);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.color_dairy()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2051,8 +2135,9 @@ class UtilsController extends Controller
 			$pass = substr(md5(mt_rand()), 0, 7) . "/" . substr($ci, 0, 3);
 			return $pass;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.generete_pass()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2074,8 +2159,9 @@ class UtilsController extends Controller
             return $valores;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error UtilsController.get_image_patient()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_queries_month()';
+            ErrorController::error_log($modulo, $error_log);
         }
 	}
 
@@ -2088,14 +2174,14 @@ class UtilsController extends Controller
             return $meses;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error UtilsController.get_image_patient()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.meses()';
+            ErrorController::error_log($modulo, $error_log);
         }
     }
 
 	static function get_appointments_attended($month = null,$id)
 	{
-
 		try {
 
 			if ($month) {
@@ -2188,8 +2274,9 @@ class UtilsController extends Controller
 				];
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_attended()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_attended()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2288,8 +2375,9 @@ class UtilsController extends Controller
 				];
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_canceled()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2389,8 +2477,9 @@ class UtilsController extends Controller
 				];
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_confirmed()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_confirmed()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2490,8 +2579,9 @@ class UtilsController extends Controller
 				];
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_unconfirmed()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_unconfirmed()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2604,8 +2694,9 @@ class UtilsController extends Controller
 
 			return $attended;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all_attended()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_count_all_attended()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2617,8 +2708,9 @@ class UtilsController extends Controller
 
 			return $canceled;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all_canceled()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_count_all_canceled()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2630,8 +2722,9 @@ class UtilsController extends Controller
 
 			return $confirmada;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all_confirmada()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_count_all_confirmada()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2668,8 +2761,9 @@ class UtilsController extends Controller
 				'get_appointments_unconfirmed' => $get_appointments_unconfirmed,
 			];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.filter_month_dashboard()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.filter_month_dashboard()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2684,8 +2778,9 @@ class UtilsController extends Controller
 
 			return $patientActive;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_doctor_active()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2700,8 +2795,9 @@ class UtilsController extends Controller
 
 			return $patientActive;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_doctor_corporate()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_doctor_inacactive()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2711,8 +2807,9 @@ class UtilsController extends Controller
 			$medicines = Medicines::all();
 			return $medicines;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medicines()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medicines()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2722,8 +2819,9 @@ class UtilsController extends Controller
 			$medicines_vias = Medicines_vias::all();
 			return $medicines_vias;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medicines_vias()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medicines_vias()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2733,8 +2831,9 @@ class UtilsController extends Controller
 			$medical_device = MedicalDevice::all();
 			return $medical_device;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_medical_device()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_medical_device()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -2746,8 +2845,9 @@ class UtilsController extends Controller
 			return $StudyPatient;
 
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_study()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_study()';
+            ErrorController::error_log($modulo, $error_log);
 		}
     }
 
@@ -2759,8 +2859,9 @@ class UtilsController extends Controller
 			return $ExamPatient;
 
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_study()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_exam()';
+            ErrorController::error_log($modulo, $error_log);
 		}
     }
 
@@ -2780,7 +2881,9 @@ class UtilsController extends Controller
             }
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.delete_file_exam()';
+            ErrorController::error_log($modulo, $error_log);
         }
     }
 
@@ -2800,7 +2903,9 @@ class UtilsController extends Controller
             }
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.delete_file_study()';
+            ErrorController::error_log($modulo, $error_log);
         }
     }
 

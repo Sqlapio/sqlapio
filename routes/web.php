@@ -385,24 +385,24 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-            $MedicalRecord = ModelsMedicalRecord::where('id', 88)->with('get_paciente')->first();
-            $pdf = public_path().'/examenes/'.$MedicalRecord->get_paciente->ci.'_'.date('YmdHms').'.pdf';
-            $generator = new BarcodeGeneratorPNG();
-            $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-            $barcode = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
-            $data = [
-                'date' => date('m/d/Y'),
-                'MedicalRecord' => $MedicalRecord ,
-                'barcode' => $barcode,
+    $MedicalRecord = ModelsMedicalRecord::where('id', 88)->with('get_paciente')->first();
+    $pdf = public_path() . '/examenes/' . $MedicalRecord->get_paciente->ci . '_' . date('YmdHms') . '.pdf';
+    $generator = new BarcodeGeneratorPNG();
+    $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+    $barcode = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
+    $data = [
+        'date' => date('m/d/Y'),
+        'MedicalRecord' => $MedicalRecord,
+        'barcode' => $barcode,
 
-            ];
-            return view('pdf.PDF_exam', [
-                'data' => $data,
-                'MedicalRecord' => $MedicalRecord,
-                'barcode' => $barcode,
-                'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
-                'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
-            ]);
+    ];
+    return view('pdf.PDF_exam', [
+        'data' => $data,
+        'MedicalRecord' => $MedicalRecord,
+        'barcode' => $barcode,
+        'bg' => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
+        'data_exam' => ExamPatient::where('record_code', $MedicalRecord->record_code)->get(),
+    ]);
 });
 
 Route::get('/prueba2', function () {
@@ -418,67 +418,159 @@ Route::get('/prueba2', function () {
     return view("pdf.PDF_medical_prescription2", compact('medical_prescription', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
-Route::get('/pp', function () {
-    $medical_prescription = ModelsMedicalRecord::where('id', 77)->with('get_paciente')->first();
-    $medicamentos = Treatment::where('record_code', $medical_prescription->record_code)->get();
-    $pdf = 'Recipe_' . $medical_prescription->get_paciente->ci . '_' . date('YmdHms') . '.pdf';
-    $doctor_center = DoctorCenter::where('user_id', $medical_prescription->user_id)->where('center_id', $medical_prescription->center_id)->first();
-    $generator = new BarcodeGeneratorPNG();
-    $barcode = base64_encode($generator->getBarcode($medical_prescription->get_paciente->patient_code, $generator::TYPE_CODE_128));
-    $data = [
-        'date' => date('m/d/Y'),
-        'medical_prescription' => $medical_prescription,
-        'barcode' => $barcode,
-    ];
-    return view(
-        'pdf.PDF_medical_prescription',
-        [
-            'data' => $data,
-            'MedicalRecord' => $medical_prescription,
-            'doctor_center' => $doctor_center,
-            'medicamentos' => $medicamentos,
-            'generator' => $generator,
-            'barcode' => $barcode,
-            'bg' => Auth::user()->background_pdf == 'white.png' ? '' : Auth::user()->background_pdf,
-            'nombre' => Auth::user()->name . ' ' . Auth::user()->last_name,
-            'especialidad' => Auth::user()->specialty,
-            'mpps' => Auth::user()->cod_mpps,
-            'ci' => Auth::user()->ci,
-            'direccion' => $doctor_center->address,
-            'piso' => $doctor_center->number_floor,
-            'consultorio_num' => $doctor_center->number_consulting_room,
-            'consultorio_tel' => $doctor_center->phone_consulting_room,
-            'personal_tel' => Auth::user()->phone,
-        ]
-    );
-    // ->withBrowsershot(function (Browsershot $browsershot) {
-    // $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
-    // $browsershot->setNpmBinary('/usr/local/bin/npm');
-    // // $browsershot->setChromePath(env('CHROMIUM'));
-    // })
-    // ->format(Format::Letter)
-    // ->orientation(Orientation::Landscape)
-    // ->margins(2, 2, 2, 2);
-    // ->download();
-    // ->headerView('pdf.header', [
-    // 'nombre' => Auth::user()->name.' '.Auth::user()->last_name,
-    // 'especialidad' => Auth::user()->specialty,
-    // 'mpps' => Auth::user()->cod_mpps,
-    // 'ci' => Auth::user()->ci,
-    // ])
-    // ->footerView('pdf.footer', [
-    // 'direccion' => $doctor_center->address,
-    // 'piso' => $doctor_center->number_floor,
-    // 'consultorio_num' => $doctor_center->number_consulting_room,
-    // 'consultorio_tel' => $doctor_center->phone_consulting_room,
-    // 'personal_tel' => Auth::user()->phone,
-    // ])
-    // ->save($pdf);
+Route::get('/t', function () {
+    // try {
 
+    //     $patients = Patient::all();
 
+    //     foreach ($patients as $item) {
+
+    //         /**Obtengo tdos los tratamientos diferentes que pueda tener el paciente */
+    //         $treatmentReminder_patient = Treatment::where('patient_id', $item->id)
+    //             ->where('send_status', 'activa')
+    //             ->select([DB::raw("record_code as codigo")])
+    //             ->groupBy('codigo')
+    //             ->get()->pluck('codigo');
+    //         dump($treatmentReminder_patient);
+    //         /**
+    //          * @param $treatmentReminder_patient
+    //          * for() para recorrer el array de los codigos de consultas ya que el paciente
+    //          * puede tener mas de una consulta y mas de un tratamiento.
+    //          */
+    //         for ($i = 0; $i < count($treatmentReminder_patient); $i++) {
+
+    //             /**
+    //              * @param array[]
+    //              * Array vacio poara almacenar la cantidad dias de los tratamientos */
+    //             $dias = [];
+
+    //             /**
+    //              * @param $treatmentReminder_patient[$i]
+    //              * En la tabla de tratamientos pregunto los tratamiento asociados al codigo de la consulta
+    //              */
+    //             $treatment = Treatment::where('record_code', $treatmentReminder_patient[$i])
+    //                 ->where('send_status', 'activa')->get()->toArray();
+
+    //             /**
+    //              * @param $treatment, $dias[], $medicine[], $indication[], $treatmentDuration[]
+    //              *
+    //              * 1.-> for() para calcular el numero de dias de cada tratamiento
+    //              * y seleccionar el numero mayor, que sera el numero de veces
+    //              * que se envie la notificacion.
+    //              *
+    //              * 2.-> Este for() tambien se utiliza para optener los diferentes tratamientos que
+    //              * posee el paciente de acuerdo con el codigo de la consulta.
+    //              */
+    //             $medicine           = [];
+    //             $indication         = [];
+    //             $treatmentDuration  = [];
+
+    //             for ($j = 0; $j < count($treatment); $j++) {
+
+    //                 $cadena = $treatment[$j]['treatmentDuration'];
+
+    //                 if (str_contains($cadena, 'dia') || str_contains($cadena, 'días')) {
+    //                     $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+    //                     $total_dias = $int_var;
+    //                 } elseif (str_contains($cadena, 'semana') || str_contains($cadena, 'semanas')) {
+    //                     $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+    //                     $total_dias = $int_var * 7;
+    //                 } elseif (str_contains($cadena, 'mes') || str_contains($cadena, 'meses')) {
+    //                     $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+    //                     $total_dias = $int_var * 30;
+    //                 } elseif (str_contains($cadena, 'año')) {
+    //                     $int_var = (int)filter_var($cadena, FILTER_SANITIZE_NUMBER_INT);
+    //                     $total_dias = $int_var * 365;
+    //                 } else {
+    //                     $total_dias = 0;
+    //                 }
+
+    //                 // array_push($dias, $total_dias);
+    //                 $dias[$j] = $total_dias;
+    //                 $medicine[$j] = $treatment[$j]['medicine'];
+    //                 $indication[$j] = $treatment[$j]['indication'];
+    //                 $treatmentDuration[$j] = $treatment[$j]['treatmentDuration'];
+    //             }
+
+    //             $doctor = ModelsUser::where('id', $item->user_id)->first();
+    //             $patient_phone = Patient::where('id', $item->id)->first()->phone;
+
+    //             $list_medicine = join(', ', $medicine);
+
+    //             $caption = <<<EOF
+    //                 *RECORDATORIO DE TRATAMIENTO:*
+
+    //                 *RECORDATORIO DE TRATAMIENTO:*
+
+    //                 *Se tomó su medicamento?. Recuerde que debe hacerlo...*
+
+    //                 *Tratamiento Asignado por:*
+    //                 *Doctor(a):* {$doctor->name} {$doctor->last_name}
+
+    //                 *TRATAMIENTO*
+
+    //                 *Medicamentos:*
+    //                 {$list_medicine}
+    //                 EOF;
+
+    //             $params = array(
+    //                 'token' => env('TOKEN_API_WHATSAPP'),
+    //                 'to' => $patient_phone,
+    //                 'image' => env('BANNER_SQLAPIO'),
+    //                 'caption' => $caption
+    //             );
+    //             $curl = curl_init();
+    //             curl_setopt_array($curl, array(
+    //                 CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+    //                 CURLOPT_RETURNTRANSFER => true,
+    //                 CURLOPT_ENCODING => "",
+    //                 CURLOPT_MAXREDIRS => 10,
+    //                 CURLOPT_TIMEOUT => 30,
+    //                 CURLOPT_SSL_VERIFYHOST => 0,
+    //                 CURLOPT_SSL_VERIFYPEER => 0,
+    //                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //                 CURLOPT_CUSTOMREQUEST => "POST",
+    //                 CURLOPT_POSTFIELDS => http_build_query($params),
+    //                 CURLOPT_HTTPHEADER => array(
+    //                     "content-type: application/x-www-form-urlencoded"
+    //                 ),
+    //             ));
+
+    //             $response = curl_exec($curl);
+
+    //             $err = curl_error($curl);
+
+    //             curl_close($curl);
+
+    //             /**
+    //              * Este if() se encarga de actualizar el contador de envio de tratamientos
+    //              * para evitar que al terminar el tiempo del tratamiento la notificacion
+    //              * se siga enviando.
+    //              */
+    //             if (isset($response)) {
+    //                 $update = Treatment::where('record_code', $treatmentReminder_patient[$i])->where('send_status', 'activa')->get();
+    //                     foreach ($update as $key => $value) 
+    //                     {
+    //                         $value->count_notifications_send = $value->count_notifications_send + 1;
+    //                             if($value->count_notifications_send == max($dias))
+    //                             {
+    //                                 $value->send_status = 'inactiva';
+    //                             }
+    //                         $value->save();
+    //                     }
+    //             }else{
+    //                 dd($err);
+    //             }
+
+    //         }
+
+    //     }
+
+    // } catch (\Throwable $th) {
+    //     dd($th);
+    // }
+    dd( error_get_last());
 });
-
-
 
 ///grupo de rutas pacientes modulo
 Route::middleware(['authUserPatient'])->group(function () {

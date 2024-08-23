@@ -73,8 +73,10 @@ class Laboratory extends Component
             }
             return $data_exam_res;
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error livewire.Laboratory.references_res()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
         
     }
@@ -140,8 +142,10 @@ class Laboratory extends Component
             return $data_study_res;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error livewire.Laboratory.references_res()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
         
     }   
