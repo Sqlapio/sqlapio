@@ -164,7 +164,6 @@
             get_recorded_appointments(appointments_unconfirmed);
             get_study(count_study);
             get_examen(count_examen);
-
             get_appointments_attended_scheduled(appointments_unconfirmed, appointments_attended);
             get_appointments_canceled_scheduled(appointments_unconfirmed, appointments_canceled);
             get_appointments_confirmed_scheduled(appointments_unconfirmed, appointments_confirmed);
