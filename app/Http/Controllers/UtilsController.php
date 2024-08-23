@@ -1085,8 +1085,9 @@ class UtilsController extends Controller
 
 			return $patient_boy_girl;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_boy_girl()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_patient_boy_girl()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1120,8 +1121,9 @@ class UtilsController extends Controller
 
 			return $patient_teen;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_teen()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_patient_teen()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1154,8 +1156,9 @@ class UtilsController extends Controller
 
 			return $patient_adult;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_adult()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_patient_adult()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1190,8 +1193,9 @@ class UtilsController extends Controller
 
 			return $patient_elderly;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_elderly()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_patient_elderly()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1202,12 +1206,13 @@ class UtilsController extends Controller
 				->count();
 
 			$patient_genere_masculino  =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
-				->count();
+				->count(); 
 
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_gender()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_all_patient_gender()';
+            ErrorController::error_log($modulo, $error_log);
 		}
 	}
 
@@ -1779,7 +1784,7 @@ class UtilsController extends Controller
             $modulo = 'UtilsController.search_studio()';
             ErrorController::error_log($modulo, $error_log);
         }
-		
+
 	}
 
 	static function responce_references()
@@ -1789,7 +1794,7 @@ class UtilsController extends Controller
             $data_exam_res = ComponentsLaboratory::res_exams();
 
             $data_study_res = ComponentsLaboratory::res_studies();
-    
+
             return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
 
         } catch (\Throwable $th) {

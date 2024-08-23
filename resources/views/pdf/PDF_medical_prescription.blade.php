@@ -14,7 +14,7 @@
         -o-background-size: contain;
         background-size: contain !important;
         /* background: url({{ asset('img/bg_pdf/horizontal_green.png') }}) no-repeat top fixed; */
-        background: url({{ asset('img/bg_pdf/green_horizontal.png') }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/'.$bg.'_horizontal.png') }}) no-repeat top fixed;
 
     }
 

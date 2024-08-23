@@ -102,7 +102,7 @@ class PDFController extends Controller
                         'medicamentos'          => $medicamentos,
                         'generator'             => $generator,
                         'barcode'               => $barcode,
-                        'bg'                    => Auth::user()->background_pdf == '' ? 'horizontal_white.png' : Auth::user()->background_pdf,
+                        'bg'                    => Auth::user()->background_pdf == '' ? 'white_horizontal.png' : Auth::user()->background_pdf,
                         'nombre'                => Auth::user()->name.' '.Auth::user()->last_name,
                         'especialidad'          => Auth::user()->specialty,
                         'mpps'                  => Auth::user()->cod_mpps,
