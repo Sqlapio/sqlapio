@@ -252,6 +252,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_registro()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -305,6 +306,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_registro_laboratory()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -317,6 +319,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_cities()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -329,6 +332,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_states()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -343,6 +347,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patients()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -426,6 +431,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -512,6 +518,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_dashboard()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -525,6 +532,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_history()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -564,6 +572,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patients_pag()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -577,6 +586,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_doctor_centers_pag()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -590,6 +600,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_record()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -605,6 +616,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_record_user()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
 
@@ -633,6 +645,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_doctor_centers()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -646,6 +659,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_one_patient()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -660,6 +674,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_centers()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -674,6 +689,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_centers_state()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -724,6 +740,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.notification_register_mail()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -809,6 +826,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.notification_mail()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -832,6 +850,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.verify_email()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -853,6 +872,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.patient_verify_email()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -873,6 +893,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.notification_dairy_email()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -887,6 +908,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_history()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -901,6 +923,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_history_vital_sing()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -915,6 +938,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_history_family_back()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -929,6 +953,7 @@ class UtilsController extends Controller
 			$$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_allergies()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -943,6 +968,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_allergy_symptoms()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -957,6 +983,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_history_pathology_back()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -971,6 +998,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_history_non_pathology_back()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -985,6 +1013,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_inmunizations()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -999,6 +1028,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_mental_healths()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1013,6 +1043,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_condition()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1026,6 +1057,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_image_patient()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1040,6 +1072,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_code()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1073,6 +1106,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_boy_girl()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1088,6 +1122,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_patient_boy_girl()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1109,6 +1144,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_teen()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1124,6 +1160,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_patient_teen()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1144,6 +1181,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_adult()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1159,6 +1197,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_patient_adult()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1181,6 +1220,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_elderly()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1196,6 +1236,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_patient_elderly()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1213,6 +1254,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_patient_gender()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1241,6 +1283,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.confirmation_dairy()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1260,6 +1303,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.notification_ref_email()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1274,6 +1318,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_image_lab()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1293,6 +1338,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.exit_image_lab()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1306,6 +1352,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_ref()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1336,6 +1383,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_all_ref()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 	static function upload_result_exam(Request $request)
@@ -1417,6 +1465,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.upload_result_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1500,6 +1549,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.upload_result_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1512,6 +1562,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_description_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1524,6 +1575,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_description_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1544,6 +1596,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_patient_counter()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1562,6 +1615,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_patient_counter()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1580,6 +1634,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_patient_counter()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1600,6 +1655,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_table_medical_record()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1706,6 +1762,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.search_person()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
 	}
@@ -1783,6 +1840,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.search_studio()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
 	}
@@ -1801,6 +1859,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.responce_references()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 	}
 
@@ -1816,6 +1875,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.update_status_dairy()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1847,6 +1907,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.total_exams()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1867,6 +1928,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.total_studies()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1880,6 +1942,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_counter()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1902,6 +1965,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_patient_corporate()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1916,6 +1980,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_record_corporate()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1930,6 +1995,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_doctor_corporate()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1943,6 +2009,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_list_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1956,6 +2023,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_list_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -1986,6 +2054,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.habilitar_doctor_corporate()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2018,6 +2087,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.deshabilitar_doctor_corporate()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2066,6 +2136,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.sqlapio_ia()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2079,6 +2150,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_report()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2104,6 +2176,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.color_dairy()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2143,6 +2216,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.generete_pass()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2167,6 +2241,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.get_queries_month()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 	}
 
@@ -2182,6 +2257,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.meses()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
     }
 
@@ -2282,6 +2358,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_attended()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2383,6 +2460,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_canceled()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2485,6 +2563,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_confirmed()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2587,6 +2666,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_unconfirmed()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2702,6 +2782,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_count_all_attended()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2716,6 +2797,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_count_all_canceled()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2730,6 +2812,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_count_all_confirmada()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2769,6 +2852,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.filter_month_dashboard()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2786,6 +2870,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_doctor_active()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2803,6 +2888,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_doctor_inacactive()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2815,6 +2901,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medicines()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2827,6 +2914,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medicines_vias()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2839,6 +2927,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_device()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2853,6 +2942,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
     }
 
@@ -2867,6 +2957,7 @@ class UtilsController extends Controller
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
     }
 
@@ -2889,6 +2980,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.delete_file_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
     }
 
@@ -2911,6 +3003,7 @@ class UtilsController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.delete_file_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
     }
 
