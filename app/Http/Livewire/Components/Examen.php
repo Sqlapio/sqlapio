@@ -16,110 +16,140 @@ class Examen extends Component
 {
     public function res_exam(Request $request, $active = false)
     {
+        try {
+                // Page Length
+            if (!$active) {
+                $pageNumber =  ($request->start / $request->length) + 1;
+                $pageLength = $request->length;
+                $skip       = ($pageNumber - 1) * $pageLength;
+            } else {
+                $skip = 0;
+                $pageLength = 10;
+            }
 
-        // Page Length
-        if (!$active) {
-            $pageNumber =  ($request->start / $request->length) + 1;
-            $pageLength = $request->length;
-            $skip       = ($pageNumber - 1) * $pageLength;
-        } else {
-            $skip = 0;
-            $pageLength = 10;
+            $count = ExamPatient::where('status', 2)
+                ->where('user_id', Auth::user()->id)->get();
+
+            $data = ExamPatient::where('status', 2)
+                ->where('user_id', Auth::user()->id)
+                ->skip($skip)         // punto de partida
+                ->take($pageLength)   // limite de resgistro
+                ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+
+            $res = [
+                "data" => $data,
+                "count" => count($count),
+                "skip" => $skip,
+                "limit" => $pageLength,
+            ];
+
+            return $res;
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
-
-        $count = ExamPatient::where('status', 2)
-            ->where('user_id', Auth::user()->id)->get();
-
-        $data = ExamPatient::where('status', 2)
-            ->where('user_id', Auth::user()->id)
-            ->skip($skip)         // punto de partida
-            ->take($pageLength)   // limite de resgistro
-            ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
-
-        $res = [
-            "data" => $data,
-            "count" => count($count),
-            "skip" => $skip,
-            "limit" => $pageLength,
-        ];
-
-        return $res;
     }
 
     public function res_exam_patient($id)
     {
+        try {
 
-        $count = ExamPatient::where('status', 2)
+            $count = ExamPatient::where('status', 2)
             ->where('patient_id', $id)->get();
 
-        $data = ExamPatient::where('status', 2)
-            ->where('patient_id', $id)
-            ->skip(0)         // punto de partida
-            ->take(10)   // limite de resgistro
-            ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+            $data = ExamPatient::where('status', 2)
+                ->where('patient_id', $id)
+                ->skip(0)         // punto de partida
+                ->take(10)   // limite de resgistro
+                ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
-        $res = [
-            "data" => $data,
-            "count" => count($count),
-            "skip" => 0,
-            "limit" => 10,
-        ];
+            $res = [
+                "data" => $data,
+                "count" => count($count),
+                "skip" => 0,
+                "limit" => 10,
+            ];
 
-        return $res;
+            return $res;
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function res_exam_sin_resul(Request $request, $active = false)
     {
+        try {
 
-        // Page Length
-        if (!$active) {
-            $pageNumber = ($request->start / $request->length) + 1;
-            $pageLength = $request->length;
-            $skip       = ($pageNumber - 1) * $pageLength;
-        } else {
-            $skip = 0;
-            $pageLength = 10;
+            // Page Length
+            if (!$active) {
+                $pageNumber = ($request->start / $request->length) + 1;
+                $pageLength = $request->length;
+                $skip       = ($pageNumber - 1) * $pageLength;
+            } else {
+                $skip = 0;
+                $pageLength = 10;
+            }
+            $count =  Reference::where('user_id',  Auth::user()->id)
+                ->with(['get_examne_stutus_uno'])->get();
+
+            $data =  Reference::where('user_id',  Auth::user()->id)
+                ->skip($skip)         // punto de partida
+                ->take($pageLength)   // limite de resgistro
+                ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                ->get();
+
+            $res = [
+                "data" => $data,
+                "count" => count($count),
+                "skip" => $skip,
+                "limit" => $pageLength,
+            ];
+
+            return $res;
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
-        $count =  Reference::where('user_id',  Auth::user()->id)
-            ->with(['get_examne_stutus_uno'])->get();
-
-        $data =  Reference::where('user_id',  Auth::user()->id)
-            ->skip($skip)         // punto de partida
-            ->take($pageLength)   // limite de resgistro
-            ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
-            ->get();
-
-        $res = [
-            "data" => $data,
-            "count" => count($count),
-            "skip" => $skip,
-            "limit" => $pageLength,
-        ];
-
-        return $res;
     }
 
     public function res_exam_sin_resul_patient($id)
     {
+        try {
 
-
-        $count =  Reference::where('patient_id',  $id)
+            $count =  Reference::where('patient_id',  $id)
             ->with(['get_examne_stutus_uno'])->get();
 
-        $data =  Reference::where('patient_id',  $id)
-            ->skip(0)         // punto de partida
-            ->take(10)   // limite de resgistro
-            ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
-            ->get();
+            $data =  Reference::where('patient_id',  $id)
+                ->skip(0)         // punto de partida
+                ->take(10)   // limite de resgistro
+                ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                ->get();
 
-        $res = [
-            "data" => $data,
-            "count" => count($count),
-            "skip" => 0,
-            "limit" => 10,
-        ];
+            $res = [
+                "data" => $data,
+                "count" => count($count),
+                "skip" => 0,
+                "limit" => 10,
+            ];
 
-        return $res;
+            return $res;
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
+        }
     }
 
 

@@ -11,8 +11,6 @@ class Dashboard extends Component
 {
     public function render()
     {
-
-
         $patients = UtilsController::get_patient_corporate();
         $dortors = UtilsController::get_doctor_corporate();
         $doctor_active = UtilsController::get_doctor_active();
