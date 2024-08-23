@@ -36,9 +36,16 @@ class DashboardComponent extends Component
         $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);
         $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);
         $appointments_unconfirmed = UtilsController::get_appointments_unconfirmed(null,$id);
+        $appointments_not_attended = UtilsController::get_appointments_not_attended(null,$id);
         $appointments_count_all_attended = UtilsController::get_appointments_count_all_attended($id);
         $appointments_count_all_canceled = UtilsController::get_appointments_count_all_canceled($id);
         $appointments_count_all_confirmada = UtilsController::get_appointments_count_all_confirmada($id);
+        $appointments_count_all_no_atendida = UtilsController::get_appointments_count_all_no_atendida($id);
+        $all_patient_boy_girl = UtilsController::get_all_patient_boy_girl($id);
+        $all_patient_teen = UtilsController::get_all_patient_teen($id);
+        $all_patient_adult = UtilsController::get_all_patient_adult($id);
+        $all_patient_elderly = UtilsController::get_all_patient_elderly($id);
+        $all_patient_gender = UtilsController::get_all_patient_gender($id);
 
 
         return view(
@@ -64,10 +71,18 @@ class DashboardComponent extends Component
                 "appointments_canceled",
                 "appointments_confirmed",
                 "appointments_unconfirmed",
+                "appointments_not_attended",
                 "appointments_count_all_attended",
                 "appointments_count_all_confirmada",
                 "appointments_count_all_canceled",
-                "meses"
+                "appointments_count_all_no_atendida",
+                "meses",
+                'all_patient_boy_girl',
+                'all_patient_teen',
+                'all_patient_adult',
+                'all_patient_elderly',
+                'all_patient_gender',
+
             )
         );
     }

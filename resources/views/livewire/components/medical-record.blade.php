@@ -1906,7 +1906,7 @@
             route = route.replace(':id', elem.id);
             elem.btn = `
                 <a target="_blank" href="${route}">
-                    <img width="32" height="auto"
+                    <img width="60" height="auto"
                     src="{{ asset('/img/icons/pdf-informe.png') }}"
                     alt="avatar"
                     data-bs-toggle="tooltip"
@@ -3301,7 +3301,7 @@
                                                                             alt="avatar" data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             data-bs-custom-class="custom-tooltip"
-                                                                            data-html="true" title="@lang('messages.tooltips.informe')">
+                                                                            data-html="true" title="@lang('messages.tooltips.ver_informe')">
                                                                     </button>
                                                                 </a>
                                                             </td>
