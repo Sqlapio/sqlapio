@@ -20,8 +20,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('app:treatment-reminder')
         ->weekdays()
-        ->dailyAt('7:00')
-        ->everySixHours($minutes = 0)
+        ->twiceDaily(6, 18)
         ->emailOutputTo('gusta.acp@gmail.com');
     }
 
