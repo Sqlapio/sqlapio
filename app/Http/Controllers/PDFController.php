@@ -69,7 +69,9 @@ class PDFController extends Controller
             return $pdf->download($file);
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_medical_record()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
     }
@@ -118,7 +120,9 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_medical_prescription()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
     }
@@ -161,7 +165,9 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_informe_medico()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
     }
@@ -207,7 +213,9 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_exam()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
     }
@@ -252,7 +260,9 @@ class PDFController extends Controller
             return $pdf->download($file);
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_study()';
+            ErrorController::error_log($modulo, $error_log);
         }
 
     }
