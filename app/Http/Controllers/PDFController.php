@@ -72,6 +72,7 @@ class PDFController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'PDFController.PDF_medical_record()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -123,6 +124,7 @@ class PDFController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'PDFController.PDF_medical_prescription()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -168,6 +170,7 @@ class PDFController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'PDFController.PDF_informe_medico()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -216,6 +219,7 @@ class PDFController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'PDFController.PDF_exam()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -263,6 +267,7 @@ class PDFController extends Controller
             $error_log = $th->getMessage();
             $modulo = 'PDFController.PDF_study()';
             ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
