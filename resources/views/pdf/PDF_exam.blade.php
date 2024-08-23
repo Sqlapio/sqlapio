@@ -13,7 +13,7 @@
         -moz-background-size: 100%;
         -o-background-size: 100%;
         background-size: 100% !important;
-        background: url({{ asset('img/bg_pdf/blue.png') }}) no-repeat top fixed;
+        background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
     }
 
     .imagen {
