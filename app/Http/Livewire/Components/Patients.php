@@ -629,9 +629,10 @@ class Patients extends Component
             return [$patient, $patient_counter];
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd($th);
-            dd('Error Livewire.Components.Patient.store()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -664,8 +665,10 @@ class Patients extends Component
 
             return $patient;
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.Patient.search()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 

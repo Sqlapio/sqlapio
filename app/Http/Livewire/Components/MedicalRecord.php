@@ -147,9 +147,7 @@ class MedicalRecord extends Component
             ActivityLogController::store_log($action);
 
             /**
-             * Logica para aumentar el contador
-             * de almacenamiento para el numero
-             * de consultas cargadas por el medico.
+             * Logica para aumentar el contador de las consulta guardadas por el medico
              *
              * Esta logica se aplica al tema de los planes
              */
@@ -174,8 +172,10 @@ class MedicalRecord extends Component
             return true;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.MedicalRecord.store()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -248,55 +248,65 @@ class MedicalRecord extends Component
             return  $physical_exams;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.MedicalRecord.store_physical_exams()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
     public function informe_medico (Request $request)
     {
+        try {
 
-        $rules = [
-            'TextInforme'  => 'required',
-        ];
-
-        $msj = [
-            'TextInforme'  => __('messages.alert.text_informe_requerido'),
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $msj);
-
-        if ($validator->fails()) {
+            $rules = [
+                'TextInforme'  => 'required',
+            ];
+    
+            $msj = [
+                'TextInforme'  => __('messages.alert.text_informe_requerido'),
+            ];
+    
+            $validator = Validator::make($request->all(), $rules, $msj);
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => $validator->errors()->all()
+                ], 400);
+            }
+    
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
+    
+           MedicalReport::updateOrCreate(
+                ['id' => $request->medical_report_id],
+                [
+                    'cod_medical_report' => 'SQ-MR-'.random_int(11111111, 99999999),
+                    'user_id'       => $request->user_id,
+                    'patient_id'    => $request->patient_id,
+                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                    'date'          => date('d-m-Y'),
+                    'description'   => $request->TextInforme,
+                ]
+            );
+    
+    
+            $medical_report = UtilsController::get_medical_report($request->patient_id);
+    
+    
+            return $medical_report ;
+            //code...
+        } catch (\Throwable $th) {
             return response()->json([
                 'success' => 'false',
-                'errors'  => $validator->errors()->all()
-            ], 400);
+                'errors'  => $th->getMessage()
+            ], 500);
         }
-
-        /** Validacion para cargar el centro correcto cuando el medico
-         * esta asociado al plan corporativo
-         */
-        if (Auth::user()->center_id != null) {
-            $center_id_corporativo = Auth::user()->center_id;
-        }
-
-       MedicalReport::updateOrCreate(
-            ['id' => $request->medical_report_id],
-            [
-                'cod_medical_report' => 'SQ-MR-'.random_int(11111111, 99999999),
-                'user_id'       => $request->user_id,
-                'patient_id'    => $request->patient_id,
-                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
-                'date'          => date('d-m-Y'),
-                'description'   => $request->TextInforme,
-            ]
-        );
-
-
-        $medical_report = UtilsController::get_medical_report($request->patient_id);
-
-
-        return $medical_report ;
 
     }
 

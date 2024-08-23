@@ -69,7 +69,10 @@ class PDFController extends Controller
             return $pdf->download($file);
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_medical_record()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -102,7 +105,7 @@ class PDFController extends Controller
                         'medicamentos'          => $medicamentos,
                         'generator'             => $generator,
                         'barcode'               => $barcode,
-                        'bg'                    => Auth::user()->background_pdf == '' ? 'horizontal_white.png' : Auth::user()->background_pdf,
+                        'bg'                    => Auth::user()->background_pdf == '' ? 'white_horizontal.png' : Auth::user()->background_pdf,
                         'nombre'                => Auth::user()->name.' '.Auth::user()->last_name,
                         'especialidad'          => Auth::user()->specialty,
                         'mpps'                  => Auth::user()->cod_mpps,
@@ -118,7 +121,10 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_medical_prescription()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -161,7 +167,10 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_informe_medico()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -207,7 +216,10 @@ class PDFController extends Controller
             return $pdf->download($file);
 
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_exam()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -252,7 +264,10 @@ class PDFController extends Controller
             return $pdf->download($file);
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_study()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }

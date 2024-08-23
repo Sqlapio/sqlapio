@@ -176,8 +176,10 @@ class Centers extends Component
                 ->where('id', $id)
                 ->update(['status' => 2]);
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.centers.centers_disabled()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -189,8 +191,10 @@ class Centers extends Component
                 ->where('id', $id)
                 ->update(['status' => 1]);
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.centers.centers_enabled()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 

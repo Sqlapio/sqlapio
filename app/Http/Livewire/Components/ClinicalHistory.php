@@ -83,8 +83,10 @@ class ClinicalHistory extends Component
                 return true;
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error Livewire.Components.ClinicalHistory.store()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
 
     }

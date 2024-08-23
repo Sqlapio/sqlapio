@@ -158,39 +158,52 @@ class PaymentForm extends Component
                 ], 400);
             }
         } catch (\Throwable $th) {
-            dd($th);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
     public function pay_plan_renew(Request $request)
     {
-        $user = Auth::user();
+        try {
 
-        $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
-        $date_today = $date_today->addDay(30)->format('Y-m-d');
+            $user = Auth::user();
 
-        $billed_plans = new BilledPlan();
-        $billed_plans->user_id = $user->id;
-        $billed_plans->type_plan = $request->type_plan;
-        $billed_plans->amount = $request->amount;
-        $billed_plans->date = date('d-m-Y');
-        $billed_plans->status = 'renovated';
-        $billed_plans->save();
-
-        User::where('id', $user->id)->where('email', $request->email)
-            ->update([
-                'type_plane' => $request->type_plan,
-                'date_start_plan' => date('Y-m-d'),
-                'date_end_plan' => $date_today,
-                'patient_counter' => 0,
-                'medical_record_counter' => 0,
-                'ref_counter' => 0,
-            ]);
-
-        return response()->json([
-            'success' => 'true',
-            'mjs'  => 'Su plan fue renovado con éxito',
-        ], 200);
+            $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+            $date_today = $date_today->addDay(30)->format('Y-m-d');
+    
+            $billed_plans = new BilledPlan();
+            $billed_plans->user_id = $user->id;
+            $billed_plans->type_plan = $request->type_plan;
+            $billed_plans->amount = $request->amount;
+            $billed_plans->date = date('d-m-Y');
+            $billed_plans->status = 'renovated';
+            $billed_plans->save();
+    
+            User::where('id', $user->id)->where('email', $request->email)
+                ->update([
+                    'type_plane' => $request->type_plan,
+                    'date_start_plan' => date('Y-m-d'),
+                    'date_end_plan' => $date_today,
+                    'patient_counter' => 0,
+                    'medical_record_counter' => 0,
+                    'ref_counter' => 0,
+                ]);
+    
+            return response()->json([
+                'success' => 'true',
+                'mjs'  => 'Su plan fue renovado con éxito',
+            ], 200);
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
+        }
+        
     }
 
     public function send_otp(Request $request)
@@ -248,7 +261,6 @@ class PaymentForm extends Component
                 ], 400);
             }
         } catch (\Throwable $th) {
-
             return response()->json([
                 'success' => 'false',
                 'errors'  => "Error interno"
