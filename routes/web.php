@@ -418,6 +418,11 @@ Route::get('/prueba2', function () {
     return view("pdf.PDF_medical_prescription2", compact('medical_prescription', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
+
+Route::get('/tt', function () {
+    return view("error404");
+});
+
 Route::get('/t', function () {
     // try {
 
@@ -549,7 +554,7 @@ Route::get('/t', function () {
     //              */
     //             if (isset($response)) {
     //                 $update = Treatment::where('record_code', $treatmentReminder_patient[$i])->where('send_status', 'activa')->get();
-    //                     foreach ($update as $key => $value) 
+    //                     foreach ($update as $key => $value)
     //                     {
     //                         $value->count_notifications_send = $value->count_notifications_send + 1;
     //                             if($value->count_notifications_send == max($dias))

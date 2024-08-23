@@ -78,6 +78,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
+            *confirmar cita:* {$data['link']}
             *{$precio}:*  {$data['price']}
 
             *{$ubicacion}:* {$data['ubication']}
@@ -425,7 +426,7 @@ class ApiServicesController extends Controller
             $cen = Center::where('id', $cita->center_id)->first();
             $patient = Patient::where('id', $cita->patient_id)->first();
             $doctor_center = DoctorCenter::where('user_id', $dr->id)->where('center_id', $cita->center_id)->first();
-            
+
             $hora_format = '';
 
 
@@ -494,6 +495,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$cen->description}
             *{$piso}:* {$doctor_center->number_floor}
             *{$consultorio}:* {$doctor_center->number_consulting_room}
+            *confirmar cita:* {$code->link}
             *{$precio}:* {$cita->price}
 
             *{$ubicacion}:* {$ubication}
