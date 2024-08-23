@@ -28,6 +28,12 @@ let chart_inactive_doctors;
 
 /**
  *
+ * Grafica de rol Medico
+ *
+ */
+
+/**
+ *
  * Grafica de Pacientes por edad y sexo
  *
  */
@@ -381,11 +387,148 @@ function get_appointments_confirmed(appointments_confirmed) {
 
 /**
  *
- * Grafica de citas atendidas y sin confirmar por mes
+ * Grafica de citas agendadas vs confirmadas por mes
  *
  */
 
-function get_general_appointments(appointments_unconfirmed, appointments_canceled) {
+function get_appointments_confirmed_scheduled(appointments_unconfirmed, appointments_confirmed) {
+    const data = {
+      labels: Meses,
+      datasets: [
+          {
+              label: langJson.graficas.citas_sinconfirmar_mes,
+              data: appointments_unconfirmed,
+              borderColor: "#6c757d",
+              backgroundColor: "#6c757d"
+          },
+        {
+          label: langJson.graficas.citas_confirmadas_mes,
+          data: appointments_confirmed,
+          borderColor: "#ffc107",
+          backgroundColor: "#ffc107"
+        },
+      ]
+    };
+
+    new Chart($("#confirmed_scheduled"), {
+      type: "bar",
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+          },
+          x: {
+            ticks: { color: "#596167", beginAtZero: true }
+          }
+        },
+        plugins: {
+          datalabels: {
+              anchor: 'end',
+              align: 'end',
+              labels: {
+                  title: {
+                      color: "#596167",
+                      font: {
+                          weight: "bold",
+                          size: 11
+                      }
+                  }
+              },
+              formatter: function(value) {
+                  return value == 0 ? '' : value;
+              }
+          },
+          legend: {
+            position: "bottom",
+            align: "start",
+            labels: {
+              color: "#596167"
+            }
+          },
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+
+/**
+ *
+ * Grafica de citas agendadas vs atendidas por mes
+ *
+ */
+
+function get_appointments_attended_scheduled(appointments_unconfirmed, appointments_attended) {
+    const data = {
+      labels: Meses,
+      datasets: [
+          {
+              label: langJson.graficas.citas_sinconfirmar_mes,
+              data: appointments_unconfirmed,
+              borderColor: "#6c757d",
+              backgroundColor: "#6c757d"
+          },
+
+          {
+              label: langJson.graficas.citas_atendidas_mes,
+              data: appointments_attended,
+              borderColor: "#198754",
+              backgroundColor: "#198754"
+            }
+      ]
+    };
+
+    new Chart($("#attended_scheduled"), {
+      type: "bar",
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+          },
+          x: {
+            ticks: { color: "#596167", beginAtZero: true }
+          }
+        },
+        plugins: {
+          datalabels: {
+              anchor: 'end',
+              align: 'end',
+              labels: {
+                  title: {
+                      color: "#596167",
+                      font: {
+                          weight: "bold",
+                          size: 11
+                      }
+                  }
+              },
+              formatter: function(value) {
+                  return value == 0 ? '' : value;
+              }
+          },
+          legend: {
+            position: "bottom",
+            align: "start",
+            labels: {
+              color: "#596167"
+            }
+          },
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+
+/**
+ *
+ * Grafica de citas agendadas vs canceladas por mes
+ *
+ */
+
+function get_appointments_canceled_scheduled(appointments_unconfirmed, appointments_canceled) {
 
   const data = {
     labels: Meses,
@@ -405,7 +548,7 @@ function get_general_appointments(appointments_unconfirmed, appointments_cancele
     ]
   };
 
-  chart_general_appointments = new Chart($("#countGereral3"), {
+  new Chart($("#canceled_scheduled"), {
     type: "bar",
     data: data,
     options: {
@@ -450,30 +593,31 @@ function get_general_appointments(appointments_unconfirmed, appointments_cancele
 
 /**
  *
- * Grafica de citas confirmadas y atendidas por mes
+ * Grafica de citas agendadas vs no atendidas por mes
  *
  */
 
-function get_general_appointments2(appointments_confirmed, appointments_attended) {
+function get_appointments_not_attended_scheduled(appointments_unconfirmed, appointments_not_attended) {
+
   const data = {
     labels: Meses,
     datasets: [
-      {
-        label: langJson.graficas.citas_confirmadas_mes,
-        data: appointments_confirmed,
-        borderColor: "#ffc107",
-        backgroundColor: "#ffc107"
-      },
-      {
-        label: langJson.graficas.citas_atendidas_mes,
-        data: appointments_attended,
-        borderColor: "#198754",
-        backgroundColor: "#198754"
-      }
+        {
+            label: langJson.graficas.citas_sinconfirmar_mes,
+            data: appointments_unconfirmed,
+            borderColor: "#6c757d",
+            backgroundColor: "#6c757d"
+        },
+        {
+            label: langJson.graficas.citas_noatendidas_mes,
+            data: appointments_not_attended,
+            borderColor: "#336fe0",
+            backgroundColor: "#336fe0"
+        },
     ]
   };
 
-  chart_general_appointments2 = new Chart($("#countGereral4"), {
+  new Chart($("#not_attended_scheduled"), {
     type: "bar",
     data: data,
     options: {
@@ -515,6 +659,219 @@ function get_general_appointments2(appointments_confirmed, appointments_attended
     plugins: [ChartDataLabels]
   });
 }
+
+/**
+ *
+ * Grafica de pacientes por edad
+ *
+ */
+function get_age(all_patient_boy_girl, all_patient_teen, all_patient_adult, all_patient_elderly ) {
+    const data = {
+        labels: [langJson.graficas.niños, langJson.graficas.jovenes, langJson.graficas.adultos, langJson.graficas.adultos_mayores],
+        datasets: [
+            {
+                label: langJson.graficas.total,
+                data: [all_patient_boy_girl, all_patient_teen, all_patient_adult, all_patient_elderly],
+                backgroundColor: ["#00bfff", "#007df6", "#008089", "#008970"]
+            },
+        ]
+      };
+
+      new Chart($("#get_age"), {
+        type: "bar",
+        data: data,
+        options: {
+        responsive: true,
+        barThickness: 70,
+        scales: {
+            y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+            },
+            x: {
+            ticks: { color: "#596167", beginAtZero: true }
+            }
+        },
+        plugins: {
+            datalabels: {
+                anchor: 'end',
+                align: 'end',
+                labels: {
+                    title: {
+                        color: "#596167",
+                        font: {
+                            weight: "bold",
+                            size: 11
+                        }
+                    }
+                },
+                formatter: function(value) {
+                    return value == 0 ? '' : value;
+                }
+            },
+            legend: {
+                display: false,
+                position: "bottom",
+                align: "start",
+                labels: {
+                    color: "#596167"
+                }
+            },
+        }
+        },
+        plugins: [ChartDataLabels]
+      });
+}
+
+/**
+ *
+ * Grafica de paciente por genero
+ *
+ */
+function get_gender(all_patient_gender) {
+    const data = {
+        labels: [langJson.graficas.femenino, langJson.graficas.masculino],
+        datasets: [
+            {
+                label: langJson.graficas.femenino,
+                data: [all_patient_gender.femenino, all_patient_gender.masculino,],
+                backgroundColor: ["rgb(255, 99, 132)", "#2380f7"]
+            },
+        ]
+      };
+
+      new Chart($("#get_gender"), {
+        type: "bar",
+        data: data,
+        options: {
+        responsive: true,
+        barThickness: 70,
+        scales: {
+            y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+            },
+            x: {
+            ticks: { color: "#596167", beginAtZero: true }
+            }
+        },
+        plugins: {
+            datalabels: {
+                anchor: 'end',
+                align: 'end',
+                labels: {
+                    title: {
+                        color: "#596167",
+                        font: {
+                            weight: "bold",
+                            size: 11
+                        }
+                    }
+                },
+                formatter: function(value) {
+                    return value == 0 ? '' : value;
+                }
+            },
+            legend: {
+                display: false,
+                position: "bottom",
+                align: "start",
+                labels: {
+                    color: "#596167"
+                }
+            },
+        }
+        },
+        plugins: [ChartDataLabels]
+      });
+}
+
+
+/**
+ *
+ * Grafica de citas por a;o Agendadas, Confirmadas, Atendidas, Canceladas, no atendidas
+ *
+ */
+
+function get_appointments_general(appointments_unconfirmed, appointments_confirmed, appointments_attended, appointments_canceled, appointments_not_attended) {
+
+  const data = {
+    labels: Meses,
+    datasets: [
+        {
+            label: langJson.graficas.citas_sinconfirmar_mes,
+            data: appointments_unconfirmed,
+            borderColor: "#6c757d",
+            backgroundColor: "#6c757d"
+        },
+        {
+            label: langJson.graficas.citas_confirmadas_mes,
+            data: appointments_confirmed,
+            borderColor: "#ffc107",
+            backgroundColor: "#ffc107"
+        },
+        {
+            label: langJson.graficas.citas_atendidas_mes,
+            data: appointments_attended,
+            borderColor: "#198754",
+            backgroundColor: "#198754"
+        },
+        {
+            label: langJson.graficas.citas_canceladas_mes,
+            data: appointments_canceled,
+            borderColor: "#dc3545",
+            backgroundColor: "#dc3545"
+        },
+        {
+            label: langJson.graficas.citas_noatendidas_mes,
+            data: appointments_not_attended,
+            borderColor: "#336fe0",
+            backgroundColor: "#336fe0"
+        },
+    ]
+  };
+
+  new Chart($("#appointments_general"), {
+    type: "bar",
+    data: data,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+        },
+        x: {
+          ticks: { color: "#596167", beginAtZero: true }
+        }
+      },
+      plugins: {
+        datalabels: {
+            anchor: 'end',
+            align: 'end',
+            labels: {
+                title: {
+                    color: "#596167",
+                    font: {
+                        weight: "bold",
+                        size: 11
+                    }
+                }
+            },
+            formatter: function(value) {
+                return value == 0 ? '' : value;
+            }
+        },
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: "#596167"
+          }
+        },
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+
 
 /**
  *
@@ -531,24 +888,6 @@ function get_quotes(appointments_count_all_confirmada, appointments_count_all_ca
                 data: [appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended],
                 backgroundColor: ["#ffc107", "#dc3545", "#198754"]
             },
-            // {
-            //     label: langJson.graficas.confirmadas,
-            //     data: [appointments_count_all_confirmada],
-            //     borderColor: "#ffc107",
-            //     backgroundColor: "#ffc107"
-            // },
-            // {
-            //     label: langJson.graficas.canceladas,
-            //     data: [appointments_count_all_canceled],
-            //     borderColor: "#dc3545",
-            //     backgroundColor: "#dc3545"
-            // },
-            // {
-            //     label: langJson.graficas.atendidas,
-            //     data: [appointments_count_all_attended],
-            //     borderColor: "#198754",
-            //     backgroundColor: "#198754"
-            // }
         ]
       };
 
@@ -653,6 +992,10 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
 }
 
 /**
+ *
+ * Grafica de rol corporativo
+ *
+ *//**
  *
  * Grafica de citas agendadas acumuladas x mes corporativo
  *
@@ -771,6 +1114,8 @@ function get_doctors(doctors_active, doctors_inactive) {
 // window.get_patient_register = get_patient_register;
 // window.get_medical_record = get_medical_record;
 // window.get_history_register = get_history_register;
+// window.get_general_appointments = get_general_appointments;
+// window.get_general_appointments2 = get_general_appointments2;
 window.updat_graphc = updat_graphc;
 window.get_general = get_general;
 window.get_queries_month = get_queries_month;
@@ -781,5 +1126,11 @@ window.get_quotes = get_quotes;
 window.get_consultas_history = get_consultas_history;
 window.get_recorded_appointments = get_recorded_appointments;
 window.get_doctors = get_doctors;
-window.get_general_appointments = get_general_appointments;
-window.get_general_appointments2 = get_general_appointments2;
+
+window.get_appointments_confirmed_scheduled = get_appointments_confirmed_scheduled;
+window.get_appointments_attended_scheduled = get_appointments_attended_scheduled;
+window.get_appointments_canceled_scheduled = get_appointments_canceled_scheduled;
+window.get_appointments_not_attended_scheduled = get_appointments_not_attended_scheduled;
+window.get_appointments_general = get_appointments_general;
+window.get_age = get_age;
+window.get_gender = get_gender;

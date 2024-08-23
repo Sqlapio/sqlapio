@@ -70,9 +70,16 @@
         let appointments_canceled = @json($appointments_canceled);
         let appointments_confirmed = @json($appointments_confirmed);
         let appointments_unconfirmed = @json($appointments_unconfirmed);
+        let appointments_not_attended = @json($appointments_not_attended);
         let appointments_count_all_attended = @json($appointments_count_all_attended);
         let appointments_count_all_canceled = @json($appointments_count_all_canceled);
         let appointments_count_all_confirmada = @json($appointments_count_all_confirmada);
+        let appointments_count_all_no_atendida = @json($appointments_count_all_no_atendida);
+        let all_patient_boy_girl = @json($all_patient_boy_girl);
+        let all_patient_teen = @json($all_patient_teen);
+        let all_patient_adult = @json($all_patient_adult);
+        let all_patient_elderly = @json($all_patient_elderly);
+        let all_patient_gender = @json($all_patient_gender);
 
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
@@ -146,8 +153,8 @@
             });
 
             get_general(boy_girl, teen, adult, elderly);
-            get_general_appointments2(appointments_confirmed, appointments_attended)
-            get_general_appointments(appointments_unconfirmed, appointments_canceled)
+            // get_general_appointments2(appointments_confirmed, appointments_attended)
+            // get_general_appointments(appointments_unconfirmed, appointments_canceled)
             get_quotes(appointments_count_all_confirmada, appointments_count_all_canceled, appointments_count_all_attended);
             get_queries_month(queries_month, meses);
             // get_consultas_history(countMedicalRecordr, countHistoryRegister);
@@ -157,6 +164,14 @@
             get_recorded_appointments(appointments_unconfirmed);
             get_study(count_study);
             get_examen(count_examen);
+
+            get_appointments_attended_scheduled(appointments_unconfirmed, appointments_attended);
+            get_appointments_canceled_scheduled(appointments_unconfirmed, appointments_canceled);
+            get_appointments_confirmed_scheduled(appointments_unconfirmed, appointments_confirmed);
+            get_appointments_not_attended_scheduled(appointments_unconfirmed, appointments_not_attended);
+            get_appointments_general(appointments_unconfirmed, appointments_confirmed, appointments_attended, appointments_canceled, appointments_not_attended);
+            get_age(all_patient_boy_girl, all_patient_teen, all_patient_adult, all_patient_elderly);
+            get_gender(all_patient_gender);
 
         });
 
@@ -433,53 +448,80 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
+                                        {{-- agendadas vs confirmadas --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-                                                <div class="card" style="background-color: #eee">
-                                                    <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general2')</h5>
-                                                    <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                        <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                            <canvas id="countGereral4"></canvas>
-                                                        </div>
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general2')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="confirmed_scheduled"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="card" style="background-color: #eee">
-                                                    <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
-                                                    <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                        <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                            <canvas id="countGereral2"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </div>
                                         </div>
-
+                                        {{-- agendadas vs atendidas --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-                                            <div class="row">
-                                                    <div class="card" style="background-color: #eee">
-                                                        <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general')</h5>
-                                                        <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                                <canvas id="countGereral3"></canvas>
-                                                            </div>
-                                                        </div>
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="attended_scheduled"></canvas>
                                                     </div>
-                                                    <div class="card " style="background-color: #eee;">
-                                                        <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
-                                                        <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                                <canvas id="quotes"></canvas>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- agendadas vs canceladas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general3')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="canceled_scheduled"></canvas>
                                                     </div>
-                                                    {{-- <div class="col-xl-6 col-lg-6" style="padding-left: 5px">
-                                                        <div class="card " style="background-color: #eee;">
-                                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.consultas_historias')</h5>
-                                                            <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                                <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                    <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- agendadas vs no antendidas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general4')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="not_attended_scheduled"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Genero --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card " style="background-color: #eee;">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo_sex')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="get_gender"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Edad --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="get_age"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Total citas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="appointments_general"  style="height:40vh; width:100vw"></canvas>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -512,71 +554,26 @@
                                                             <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.hora') </th>
-                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false" > @lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col" data-orderable="false"> @lang('messages.tabla.nombre_apellido') </th>
                                                                         @if (Auth::user()->contrie == '81')
-                                                                            <th class="text-center w-10" scope="col"> @lang('messages.form.CIE')</th>
+                                                                            <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.form.CIE')</th>
                                                                         @else
-                                                                            <th class="text-center w-10" scope="col"> @lang('messages.tabla.cedula')</th>
+                                                                            <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cedula')</th>
                                                                         @endif
-                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.centro_salud')</th>
-                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-17" scope="col"data-orderable="false"> @lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.estatus')</th>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($appointments as $item)
-                                                                        @php
-                                                                            $hora = '';
-
-                                                                                if (substr($item['extendedProps']['data'], 6)) {
-                                                                                    $hora = substr($item['extendedProps']['data'], 6);
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '13:00') {
-                                                                                    $hora = '01:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '14:00') {
-                                                                                    $hora = '02:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '15:00') {
-                                                                                    $hora = '03:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '16:00') {
-                                                                                    $hora = '04:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '17:00') {
-                                                                                    $hora = '05:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '18:00') {
-                                                                                    $hora = '06:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '19:00') {
-                                                                                    $hora = '07:00';
-                                                                                }
-
-                                                                                if (substr($item['extendedProps']['data'], 6) == '20:00') {
-                                                                                    $hora = '08:00';
-                                                                                }
-                                                                        @endphp
+                                                                    @foreach (collect($appointments)->sortBy('start') as $item)
 
                                                                         <tr>
-                                                                            <td class="text-center td-pad">
-                                                                                {{ $hora . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                                            </td>
-                                                                            <td class="text-center td-pad text-capitalize">
-                                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                                            </td>
+                                                                            <td class="text-center td-pad"> {{ Carbon\Carbon::parse($item['start'])->format('H:i') }} </td>
+                                                                            <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
                                                                             @if (Auth::user()->contrie == '81')
-                                                                                <td class="text-center td-pad">
-                                                                                    {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }}
-                                                                                </td>
+                                                                                <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
                                                                             @else
                                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
                                                                             @endif
@@ -590,31 +587,31 @@
                                                                             <td>
                                                                                 <div class="d-flex" style="justify-content: center;">
                                                                                     @if (Auth::user()->role == 'medico')
-                                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                            <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item["extendedProps"]["patient_id"]) }}"
-                                                                                                @php
-                                                                                                    $id_patient =  $item["extendedProps"]["patient_id"];
-                                                                                                @endphp
-                                                                                                onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }} '>
-                                                                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
-                                                                                                    <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
-                                                                                                </button>
-                                                                                            </a>
+                                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
+                                                                                            @php
+                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                                $age =  $item['extendedProps']['age'];
+                                                                                            @endphp
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
+                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $age }}', '{{ $status2 }}')">
+                                                                                            <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                        </button>
                                                                                         </div>
                                                                                     @endif
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                         <button type="button"
                                                                                             data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom"
                                                                                             title="@lang('messages.tooltips.cancelar_cita')"
-                                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}', '{{  $status2 }}')">
-                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}','{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}', '{{  $status2 }}')">
+                                                                                            <img width="51" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                         <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.enviar_recordatorio')"
                                                                                             onclick="resend_reminder('{{ $item['extendedProps']['id'] }}', '{{  $status2 }}')">
-                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                            <img width="55" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -630,7 +627,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="justify-content: flex-end;">
+                                {{-- <div class="row" style="justify-content: flex-end;">
                                     <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -657,7 +654,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
@@ -674,59 +671,79 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                            <div class="col-xl-12 col-lg-12">
-                                                <div class="card" style="background-color: #eee">
-                                                    <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general2')</h5>
-                                                    <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                        <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                            <canvas id="countGereral4"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card" style="background-color: #eee; margin-bottom: 25px;">
-                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
+                                        {{-- agendadas vs confirmadas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general2')</h5>
                                                 <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
                                                     <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                        <canvas id="countGereral2"></canvas>
+                                                        <canvas id="confirmed_scheduled"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        {{-- agendadas vs atendidas --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-                                            <div class="row">
-                                                <div class="col-xl-12 col-lg-12">
-                                                    <div class="card" style="background-color: #eee">
-                                                        <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general')</h5>
-                                                        <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                                <canvas id="countGereral3"></canvas>
-                                                            </div>
-                                                        </div>
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="attended_scheduled"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-12 col-lg-12" style="display: flex">
-                                                    <div class="col-xl-6 col-lg-6" style="padding-right: 5px">
-                                                        <div class="card " style="background-color: #eee;">
-                                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
-                                                            <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                                <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                    <canvas id="quotes" style="height:auto; width:100vw"></canvas>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            </div>
+                                        </div>
+                                        {{-- agendadas vs canceladas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general3')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="canceled_scheduled"></canvas>
                                                     </div>
-                                                    <div class="col-xl-6 col-lg-6" style="padding-left: 5px">
-                                                        <div class="card " style="background-color: #eee;">
-                                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.consultas_historias')</h5>
-                                                            <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
-                                                                <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                    <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- agendadas vs no antendidas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_general4')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="not_attended_scheduled"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Total citas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card " style="background-color: #eee;">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="quotes"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Edad --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="get_age"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Total citas --}}
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="card" style="background-color: #eee">
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
+                                                <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="appointments_general"  style="height:40vh; width:100vw"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
