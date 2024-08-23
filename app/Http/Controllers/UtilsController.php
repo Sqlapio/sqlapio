@@ -1126,20 +1126,6 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function get_all_patient_boy_girl($id)
-	{
-		try {
-			$patient_boy_girl =  Patient::where('user_id', $id)
-				->where('age', '<=', 12)
-				->count();
-
-			return $patient_boy_girl;
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_boy_girl()', $message);
-		}
-	}
-
 	/**
 	 * Jovenes
 	 */
@@ -1178,20 +1164,6 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function get_all_patient_teen($id)
-	{
-		try {
-			$patient_teen =  Patient::where('user_id', $id)
-				->WhereBetween('age', [12, 17])
-				->count();
-
-			return $patient_teen;
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_teen()', $message);
-		}
-	}
-
 	/**
 	 * Adultos
 	 */
@@ -1226,20 +1198,6 @@ class UtilsController extends Controller
             $modulo = 'UtilsController.get_all_patient_adult()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
-		}
-	}
-
-    static function get_all_patient_adult($id)
-	{
-		try {
-			$patient_adult =  Patient::where('user_id', $id)
-            ->WhereBetween('age', [19, 60])
-			->count();
-
-			return $patient_adult;
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_adult()', $message);
 		}
 	}
 
@@ -1289,7 +1247,7 @@ class UtilsController extends Controller
 				->count();
 
 			$patient_genere_masculino  =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
-				->count(); 
+				->count();
 
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
@@ -1297,36 +1255,6 @@ class UtilsController extends Controller
             $modulo = 'UtilsController.get_all_patient_gender()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
-		}
-	}
-
-    static function get_all_patient_elderly($id)
-	{
-		try {
-			$patient_elderly =  Patient::where('user_id', $id)
-            ->where('age', '>', 61)
-			->count();
-
-			return $patient_elderly;
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_elderly()', $message);
-		}
-	}
-
-    static function get_all_patient_gender($id)
-	{
-		try {
-			$patient_genere_femenino =  Patient::where('user_id', $id)->where('genere', '=', 'femenino')
-				->count();
-
-			$patient_genere_masculino  =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
-				->count();
-
-			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_all_patient_gender()', $message);
 		}
 	}
 
@@ -2838,109 +2766,10 @@ class UtilsController extends Controller
 				];
 			}
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_not_attended()', $message);
-		}
-	}
-
-    static function get_appointments_not_attended($month = null,$id)
-	{
-		try {
-
-			if ($month) {
-
-				$January = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$February = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$March = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$April = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$May = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$June = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$julio  = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$agosto = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$septiembre = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$October = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$November = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				$December = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_no_atendida');
-
-				return [
-					$January, $February,
-					$March, $April, $May,
-					$June, $julio, $agosto,
-					$septiembre, $October,
-					$November, $December
-				];
-			} else {
-
-				$January = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "01")->get()->sum('dairy_no_atendida');
-
-				$February = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "02")->get()->sum('dairy_no_atendida');
-
-				$March = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "03")->get()->sum('dairy_no_atendida');
-
-				$April = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "04")->get()->sum('dairy_no_atendida');
-
-				$May = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "05")->get()->sum('dairy_no_atendida');
-
-				$June = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "06")->get()->sum('dairy_no_atendida');
-
-				$julio  = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "07")->get()->sum('dairy_no_atendida');
-
-				$agosto = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "08")->get()->sum('dairy_no_atendida');
-
-				$septiembre = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "09")->get()->sum('dairy_no_atendida');
-
-				$October = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "10")->get()->sum('dairy_no_atendida');
-
-				$November = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "11")->get()->sum('dairy_no_atendida');
-
-				$December = GeneralStatistic::where("user_id", $id)
-					->whereMonth("created_at", "12")->get()->sum('dairy_no_atendida');
-
-				return [
-					$January, $February,
-					$March, $April, $May,
-					$June, $julio, $agosto,
-					$septiembre, $October,
-					$November, $December
-				];
-			}
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_not_attended()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
@@ -2997,21 +2826,10 @@ class UtilsController extends Controller
 
 			return $no_atendida;
 		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all_no_atendida()', $message);
-		}
-	}
-
-    static function get_appointments_count_all_no_atendida($id)
-	{
-		try {
-
-			$no_atendida = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_no_atendida');
-
-			return $no_atendida;
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.get_appointments_count_all_no_atendida()', $message);
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_count_all_no_atendida()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
 		}
 	}
 
