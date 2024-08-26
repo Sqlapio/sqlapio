@@ -13,6 +13,7 @@ use App\Models\StudyPatient;
 use App\Models\Treatment;
 use Illuminate\Support\Facades\Auth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use App\Http\Controllers\UtilsController;
 
 use Spatie\LaravelPdf\Enums\Format;
 use Spatie\Browsershot\Browsershot;
@@ -284,7 +285,9 @@ class PDFController extends Controller
             $generator      = new BarcodeGeneratorPNG();
             $doctor_center  = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
             $barcode        = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
-            $history        = History::where('id', $id)->get();
+            $history        = History::where('id', $id)->first();
+
+            $family_back = UtilsController::get_history_family_back();
 
             $data = [
                 'date' => date('m/d/Y'),
@@ -311,6 +314,8 @@ class PDFController extends Controller
                         'consultorio_num'   => $doctor_center->number_consulting_room,
                         'consultorio_tel'   => $doctor_center->phone_consulting_room,
                         'personal_tel'      => Auth::user()->phone,
+
+                        'family_back'      => $family_back,
             ]);
 
             return $pdf->download($file);
