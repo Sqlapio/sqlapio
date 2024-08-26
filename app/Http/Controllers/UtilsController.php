@@ -1287,6 +1287,35 @@ class UtilsController extends Controller
 		}
 	}
 
+    /**
+	 * Confirmacion de cita por parte del paciente
+	 * @param code de la cita
+	 */
+	static function cancelation_dairy($code)
+	{
+		try {
+
+			$update = DB::table('appointments')
+				->where('code', $code)
+				->update([
+					'status' => 4,
+				]);
+
+            $dairy = Appointment::where('code', $code)->where('status', 4)->first();
+
+            /**Logica para guardar el acumulado de citas confirmadas por el paciente */
+            EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
+
+			return view('welcome');
+
+		} catch (\Throwable $th) {
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.cancelation_dairy()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
+		}
+	}
+
 	/**
 	 * Funcion que envia las notificaciones al paciente y al medico
 	 * justo despues que la cita es creada a nivel de sistemas
