@@ -22,6 +22,11 @@ class Kernel extends ConsoleKernel
         ->weekdays()
         ->twiceDaily(6, 18)
         ->emailOutputTo('gusta.acp@gmail.com');
+
+        $schedule->command('app:update-status-dairy')
+        ->weekdays()
+        ->dailyAt('23:59')
+        ->emailOutputTo('gusta.acp@gmail.com');
     }
 
     /**
