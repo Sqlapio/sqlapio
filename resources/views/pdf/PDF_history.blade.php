@@ -152,16 +152,29 @@
                 </div>
             </div>
             <div class="row-data">
-                {{-- <div style="margin-top: 30px">
+                <div style="margin-top: 30px">
+                    <strong>Antecedentes Familiares:</strong><br>
                     @php
-                        $des = str_replace('</p>', '', $MedicalReport->description);
-                        $des = str_replace('<p>', '', $des);
+                        // dd($history->FB_EC)
                     @endphp
-                        <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
-                     --}}
-                     <strong>Peso: </strong><span></span>
-                        <br>
 
+                        <span style="font-size: 15px">{{ $history->FB_EC === '1' ? '-Enfermedad Coronaria.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_HA === '1' ? '-Hipertension Arterial.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_D === '1' ? '-Diabetes.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_C === '1' ? '-Cancer({{ $history->FB_C_input }})' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_AL === '1' ? '-Alzheimer.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_EM === '1' ? '-Esclerosis Multiple.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_EDP === '1' ? '-Enfermedad de Parkinson.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_TSM === '1' ? '-Transtornos de Salud Mental.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_AR === '1' ? '-Artritis Reumatoide.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_LES === '1' ? '-Lupus Eritematoso Sistemico.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_EHC === '1' ? '-Enfermedades Hepaticas cronicas.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_TDT === '1' ? '-Transtornos de la Tiroides.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_ER === '1' ? '-Enfermedades Respiratorias.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_DM === '1' ? '-Distrofia Muscular.' : null }}</span>
+                        <span style="font-size: 15px">{{ $history->FB_NA === '1' ? '-Niega.' : null }}</span>
+
+                    <br>
                 </div>
             </div>
             <br>
