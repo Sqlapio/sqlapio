@@ -171,6 +171,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
+            Route::post('/create-background-pdf', [Profile::class, 'create_background_pdf'])->name('create_background_pdf');
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/plan', [Plan::class, 'render'])->name('Plan');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');

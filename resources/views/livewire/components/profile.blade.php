@@ -1204,6 +1204,54 @@
                                         <form id="form-seal" method="post" action="/">
                                             {{ csrf_field() }}
                                             <div class="row mt-2">
+                                                {{-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="background_pdf" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.color_pdf')</label>
+                                                            <select name="background_pdf" id="background_pdf"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                <option value="white">@lang('messages.select.blanco')</option>
+                                                                <option value="blue">@lang('messages.select.azul')</option>
+                                                                <option value="pink">@lang('messages.select.rosa')</option>
+                                                                <option value="green">@lang('messages.select.verde')</option>
+                                                            </select>
+                                                            <i class="bi bi-caret-down st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                                <x-seal-component />
+                                            </div>
+                                            <div class="row mt-2 justify-content-md-end">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Background PDF --}}
+                    <div class="row">
+                        <div
+                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingThreePDF">
+                                    <button class="accordion-button collapsed bg-8" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThreePDF" aria-expanded="false"
+                                        aria-controls="collapseThreePDF"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.configuracion_pdf')
+                                    </button>
+                                </span>
+                                <div id="collapseThreePDF" class="accordion-collapse collapse" aria-labelledby="headingThreePDF" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <form id="form-seal" method="post" action="/">
+                                            {{ csrf_field() }}
+                                            <div class="row mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -1221,7 +1269,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-seal-component />
+                                                {{-- <x-seal-component /> --}}
                                             </div>
                                             <div class="row mt-2 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">

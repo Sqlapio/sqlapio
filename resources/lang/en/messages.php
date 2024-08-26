@@ -188,6 +188,7 @@ return [
         'datos_profesionales'     => 'Professional data',
         'actualizacion_correo'    => 'Email Update',
         'firma_sello_digital'     => 'Signature and Digital Seal',
+        'configuracion_pdf'       => 'Configuration PDF',
         'informacion_plan'        => 'Plan information',
         'antecedentes_med'        => 'Medical History',
         'antecedentes_per'        => 'Family History',
