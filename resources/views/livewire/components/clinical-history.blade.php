@@ -985,17 +985,16 @@
                                                 <strong>@lang('messages.ficha_paciente.nro_historias'):</strong>
                                                 <span> {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
                                             </div>
-                                            <div class="col-sm-2 col-md-3 col-lg-3 col-xl-6 col-xxl-6">
+                                            {{-- <div class="col-sm-2 col-md-3 col-lg-3 col-xl-6 col-xxl-6">
                                                 <a target="_blank" href="{{ route('PDF_history', $Patient->id) }}">
                                                     <button type="button"
-                                                        {{-- onclick="history_pdf()" --}}
                                                         data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom"
                                                         title="@lang('messages.tooltips.historia')">
                                                         <img width="70" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                     </button>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

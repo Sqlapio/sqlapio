@@ -114,7 +114,7 @@
 
     .div-bar {
         /* background-color: #47525E !important; */
-        background: url({{ asset('img/0.jpg') }}) no-repeat top fixed !important;
+        background: url({{ asset('img/nav.png') }}) no-repeat top fixed !important;
     }
 
     .navbar-text {

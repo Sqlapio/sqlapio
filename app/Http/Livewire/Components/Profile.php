@@ -71,7 +71,7 @@ class Profile extends Component
         try {
             if ($request->action == 'rp') {
                 $user = User::where('email', $request->email)->first();
-    
+
                 if ($user == null) {
                     return response()->json([
                         'error' => 'true',
@@ -82,7 +82,7 @@ class Profile extends Component
                     DB::table('users')
                         ->where('email', $request->email)
                         ->update(['cod_update_pass' => $code]);
-    
+
                     $type = 'reset_pass';
                     $mailData = [
                         'dr_email'      => $request->email,
@@ -90,19 +90,19 @@ class Profile extends Component
                         'code'          => $code
                     ];
                     UtilsController::notification_mail($mailData, $type);
-    
+
                     return true;
                 }
             }
             if ($request->action == 'up') {
                 $user = Auth::user();
-    
+
                 $name = $user->name . ' ' . $user->last_name;
                 $code = random_int(111111, 999999);
                 DB::table('users')
                     ->where('email', $user->email)
                     ->update(['cod_update_email' => $code]);
-    
+
                 $type = 'update_email';
                 $mailData = [
                     'dr_email'      => $request->email,
@@ -110,9 +110,9 @@ class Profile extends Component
                     'code'          => $code
                 ];
                 UtilsController::notification_mail($mailData, $type);
-    
+
                 UtilsController::notification_register_mail($code, $request->email, $name, $type);
-    
+
                 return true;
             }
             //code...
@@ -122,7 +122,7 @@ class Profile extends Component
                 'errors'  => $th->getMessage()
             ], 500);
         }
-        
+
     }
 
     public function verify_otp(Request $request)
@@ -131,23 +131,23 @@ class Profile extends Component
             if ($request->action == 'up') {
 
                 $user = Auth::user();
-    
+
                 if ($user->cod_update_email != $request->cod_update_email) {
                     return response()->json([
                         'success' => 'false',
                         'msj'  => __('messages.alert.codigo_incorrecto')
                     ], 400);
                 } else {
-    
+
                     DB::table('users')
                         ->where('email', $user->email)
                         ->update(['email' => $request->email]);
-    
+
                     return response()->json([
                         'success' => 'true',
                         'msj'  => __('messages.alert.correo_actualizado')
                     ], 200);
-    
+
                     /**
                      * Registro de accion en el log
                      * del sistema
@@ -156,16 +156,16 @@ class Profile extends Component
                     ActivityLogController::store_log($action);
                 }
             }
-    
+
             if ($request->action == 'rp') {
-    
+
                 $user = User::where('email', $request->email)->first();
-    
+
                 if ($request->cod_update_pass == $user->cod_update_pass) {
                     DB::table('users')
                         ->where('email', $request->email)
                         ->update(['password' => Hash::make($request->password)]);
-    
+
                     return response()->json([
                         'success' => 'true',
                         'msj'  => __('messages.alert.clave_actualizada')
@@ -177,17 +177,18 @@ class Profile extends Component
                     ], 400);
                 }
             }
-            
+
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => 'false',
                 'errors'  => $th->getMessage()
             ], 500);
         }
-        
+
     }
     public function create_seal(Request $request)
     {
+        dd($request);
         try {
 
             $nameFile = null;
@@ -216,17 +217,17 @@ class Profile extends Component
                     $extension = ".pdf";
                 }
                 $nameFile = uniqid() . $extension;
-    
+
                 file_put_contents(public_path('imgs/seal/') . $nameFile, $file);
             }
-    
+
             DB::table('users')
             ->where('id', Auth::user()->id)
             ->update([
                 'digital_cello'  => $nameFile,
                 'background_pdf' => $request->background_pdf,
             ]);
-    
+
             return true;
             //code...
         } catch (\Throwable $th) {
