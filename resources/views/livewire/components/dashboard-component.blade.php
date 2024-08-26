@@ -714,13 +714,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- Total citas --}}
+                                        {{-- Genero --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6">
                                             <div class="card " style="background-color: #eee;">
-                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas')</h5>
+                                                <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.pacientes_tipo_sex')</h5>
                                                 <div class="card-body" style="display: flex; justify-content: center; padding: 0 1.5rem 1.5rem 1.5rem">
                                                     <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                        <canvas id="quotes"></canvas>
+                                                        <canvas id="get_gender"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
