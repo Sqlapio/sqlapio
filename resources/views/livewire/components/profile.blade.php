@@ -397,6 +397,44 @@
                     });
                 }
             })
+
+            //envio del formulario para el background-pdf
+            $("#form-background-pdf").submit(function(event) {
+                event.preventDefault();
+                if ($("#form-background-pdf").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+                    var data = $('#form-background-pdf').serialize();
+                    $.ajax({
+                        url: '{{ route('create_background_pdf') }}',
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-background-pdf").trigger("reset");
+                            Swal.fire({
+                                icon: 'success',
+                                title: '@lang('messages.alert.operacion_exitosa')',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
+                            }).then((result) => {
+                                $('#div-seal-content').hide();
+                            });
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error.responseJSON.errors);
+
+                        }
+                    });
+                }
+            })
         });
 
         function handlerTypeDoc(e) {
@@ -762,7 +800,7 @@
                                                                     class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                                     id="cod_mpps" name="cod_mpps" type="text"
                                                                     value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
-                                                                <i class="bi bi-geo st-icon"></i>
+                                                                <i class="bi bi-123 st-icon"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -775,7 +813,7 @@
                                                                     class="form-control"
                                                                     id="social_media" name="social_media" type="text"
                                                                     value="{!! !empty($user) ? $user->social_media : '' !!}">
-                                                                <i class="bi bi-geo st-icon"></i>
+                                                                <i class="bi bi-instagram st-icon"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1189,14 +1227,14 @@
                     {{-- firma Digital --}}
                     <div class="row">
                         <div
-                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
+                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital') / PDF
+                                        <i class="bi bi-pen"></i> @lang('messages.acordion.firma_sello_digital')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
@@ -1244,12 +1282,12 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThreePDF" aria-expanded="false"
                                         aria-controls="collapseThreePDF"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.configuracion_pdf')
+                                        <i class="bi bi-filetype-pdf"></i> @lang('messages.acordion.configuracion_pdf')
                                     </button>
                                 </span>
                                 <div id="collapseThreePDF" class="accordion-collapse collapse" aria-labelledby="headingThreePDF" data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <form id="form-seal" method="post" action="/">
+                                        <form id="form-background-pdf" method="post" action="/">
                                             {{ csrf_field() }}
                                             <div class="row mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-3 mt-2">
@@ -1265,7 +1303,7 @@
                                                                 <option value="pink">@lang('messages.select.rosa')</option>
                                                                 <option value="green">@lang('messages.select.verde')</option>
                                                             </select>
-                                                            <i class="bi bi-caret-down st-icon"></i>
+                                                            <i class="bi bi-palette st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>

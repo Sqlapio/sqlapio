@@ -45,7 +45,7 @@
         {{-- <h5 class="collapseBtn">{{ $title }}</h5> --}}
     {{-- </div> --}}
     {{-- <div class="row mt-2" style="display: flex; flex-direction: column; align-items: center;"> --}}
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4" style="text-align: center">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="text-align: center">
             <div style="text-align: center">
                 <div class="holder_seal" style="display: none">
                     <img width="250" height="120" id="seal_img_preview" src="#" alt="pic" style="border-radius: 9%; object-fit: contain;" />
