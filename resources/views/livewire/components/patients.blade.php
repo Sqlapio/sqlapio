@@ -1039,7 +1039,7 @@
                                                                         <option value="O+">O+</option>
                                                                         <option value="O-">O-</option>
                                                                     </select>
-                                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                                    <i class="bi bi-alphabet st-icon"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1447,7 +1447,13 @@
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
-                                                                <td class="text-center"> {{ date_format(date_create($item->birthdate),"d-m-Y") }} </td>
+                                                                <td class="text-center">
+                                                                    @if ($item->birthdate)
+                                                                            {{ date_format(date_create($item->birthdate),"d-m-Y") }}
+                                                                        @else
+                                                                            <span>-----</span>
+                                                                        @endif
+                                                                </td>
                                                                 <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex" style="justify-content: center;">

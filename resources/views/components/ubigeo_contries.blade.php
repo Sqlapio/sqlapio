@@ -40,7 +40,7 @@
                         <option value={{ $item->id }}>{{ $item->name }}</option>
                     @endforeach
                 </select>
-                <i class="bi bi-flag" style="top: 30px"></i>
+                <i class="bi bi-geo-alt st-icon" ></i>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
             <select onchange="handlercity(event)" name="state_contrie" id="state_contrie" class="form-control">
                 <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-geo-alt st-icon"></i>
         </div>
     </div>
 </div>
@@ -65,7 +65,7 @@
             <select name="city_contrie" id="city_contrie" class="form-control">
                 <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-geo-alt st-icon"></i>
         </div>
     </div>
 </div>

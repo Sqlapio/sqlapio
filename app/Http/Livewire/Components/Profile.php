@@ -225,6 +225,25 @@ class Profile extends Component
             ->where('id', Auth::user()->id)
             ->update([
                 'digital_cello'  => $nameFile,
+            ]);
+    
+            return true;
+            //code...
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function create_background_pdf(Request $request)
+    {
+        try {
+    
+            DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->update([
                 'background_pdf' => $request->background_pdf,
             ]);
 
