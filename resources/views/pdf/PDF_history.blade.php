@@ -1,220 +1,174 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Historia clínica</title>
-</head>
+@extends('layouts.app')
+@section('title', 'Medical History')
 <style>
+    @page { margin:0px; }
     body {
         font-family: 'Creato Display', sans-serif;
-        font-size: 12px;
-        margin-top: 5cm;
+        margin-top: 0cm;
         margin-left: 0cm;
         margin-right: 0cm;
-        margin-bottom: 2cm;
+        margin-bottom: 0cm;
 
+        -webkit-background-size: contain;
+        -moz-background-size: contain;
+        -o-background-size: contain;
+        background-size: contain !important;
+        background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
     }
 
-    .table-border {
-        text-align: left;
-        padding: 10px;
-        text-align: justify;
+    .imagen {
+        /* text-align: left; */
+        margin-top: 13px
     }
 
-    .page-break {
-        /* page-break-after: always;
-        text-align: right !important; */
-        page-break-after: right
-    }
-
-    .footer {
-        position: fixed;
-        bottom: 0cm;
-        left: 0cm;
-        right: 0px;
-        height: 50px;
-        text-align: center;
-        line-height: 35px;
-        padding: 10px;
-        font-size: 12px;
-        margin-top: 3cm
-    }
-
-    .table {
-        border-collapse: collapse;
-        border: 09x;
-        /* letter-spacing: 1px; */
-        font-size: 0.8rem;
-        width: 100%;
-    }
-
-    th {
-        border: 0px;
-        text-align: left;
-        font-size: 15px;
-        color: #38ABE2
-    }
-
-    td {
-        text-align: center;
-        text-align: justify;
-
-    }
-
-    .border-table {
-        border: 1px solid black;
-        font-size: 10px;
-    }
-
-    .text {
-        text-align: left;
+    .barcodeStyle {
+        width: 90% !important;
+        height: 37%;
     }
 
     .img-pat {
-        margin-top: -40px !important;
         padding: 10px;
         border-radius: 10px;
     }
 
-    span {
-        text-transform: capitalize;
+    pre {
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+        text-align: justify;
+        line-height: 1.4;
     }
 
-    /* ////////////// */
-    .text-header {
-        background-color: #2A8ED7;
-        color: white;
-        border-radius: 50px !important;
-    }
-
-    h1 {
-        color: #2A8ED7;
-    }
-
-    .table-info-pat {
-        border: 1px solid black;
-    }
-
-    .info-pat {
-        margin-top: -20px !important;
-        padding: 10px;
-    }
-
-    .imagen {
-        text-align: left;
-        margin-top: 13px
-    }
-
-    .header {
-        position: fixed;
-        top: 0cm;
-        left: -1cm;
+    .container-fluid {
         width: 100%;
+        margin-top: 3cm;
     }
 
-    .inf-prueba {
-        float: left;
-        margin-left: 1cm;
+    .row-data {
+        margin-left: 60px;
+        margin-right: 60px;
+        margin-top: 30px;
     }
 
-    .DIV {
-        margin-top: 1%;
+    .row-barcode {
+        margin-top: 30px;
     }
 
-    .container {
+    pre {
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+        text-align: justify;
+        line-height: 1.4;
+    }
 
+    header {
+        position: fixed;
+        top: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 2cm;
+        text-align: center;
         display: flex;
-        /* align-items: center; */
-        justify-content: space-between;
     }
 
-    #tab2 {
-        float: left;
-        width: 50%
-    }
 
-    #tab3 {
-        float: left;
-        width: 70%
+    footer {
+        position: fixed;
+        bottom: 1cm;
+        left: 0cm;
+        right: 0cm;
+        height: 5cm;
+        text-align: center;
+        font-size: 14px;
     }
-
-    .table-dos {
-        width: 70%
+    footer .pagenum:before {
+        content: counter(page);
     }
 </style>
+@push('scripts')
+@endpush
+@section('content')
 
 <body>
-    <div class="header">
-        <table class="inf-prueba table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong> Historia
-                            clínica</strong></td>
-                </tr>
-                <tr class="text-header" style="border-radius: 50px!important;">
-                    <td>
-                        <div style="text-align: justify;padding: 10px; margin-top:20px">
-                            <strong>Nombre y
-                                Apellido:</strong><span>{{ $history->get_paciente->name . ' ' . $history->get_paciente->last_name }}</span>
-                            <br>
-                            <strong>Cédula:</strong> <span>{{ $history->get_paciente->ci }}</span>
-                            <br>
-                            <strong>Género:</strong> <span>{{ $history->get_paciente->genere }}</span>
-                            <br>
-                            <strong>Edad:</strong> <span>{{ $history->get_paciente->age }}</span>
-                            <br>
-                            <strong>Correo electrónico:</strong>
-                            <span>{{ $history->get_paciente->email }}</span>
-                            <br>
-                            <strong>Teléfono:</strong> <span>{{ $history->get_paciente->phone }}</span>
-                            <br>
-                            <strong>Dirección:</strong>
-                            <span>{{ $history->get_paciente->address }}</span>
-                        </div>
-                    </td>
-                    <td style="text-align: center;">
-                        <div class="text" style="margin-right: 40%;margin-top:40px">
-                            <img class="img-pat" style="border-radius: 20%"
-                                src="../public/imgs/{{ $history->get_paciente->patient_img }}" alt="Avatar"
-                                width="100" height="auto">
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+    <header>
+        <span class="text-capitalize" style="font-size: 20px; margin-bottom: 5px">{{ $nombre }}</span></strong><br>
+        <span class="text-capitalize" style="font-size: 15px;">C.I: {{ $ci }} / MPPS: {{ $mpps }}</span><br>
+        <span class="text-capitalize" style="font-size: 15px;">Especialidad: {{ $especialidad }}</span>
+    </header>
     <footer class="footer">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <img class="imagen" src="../public/img/avatar/img.jpg" alt="" width="150"
-                            height="auto">
-                    </td>
-                    <td style="padding: 20px">
-                        Copyright © 2024 SqLapioTechnology LLC. All rights reserved.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div>
+            <img class="img-pat" style="border-radius: 20%; object-fit: cover" src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
+            <div style="margin-bottom: 5px; text-align: center;">
+                <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
+                    <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
+                </p>
+            </div>
+            <div class="pagenum-container">Page <span class="pagenum"></span></div>
+        </div>
     </footer>
 
-    <div class="DIV" style="padding: 5%">
+    <div class="container-fluid">
+        <div>
+            <hr style="color:#0000001a">
+            <div class="row-data" style="display: flex; width: 100%">
+                <div style="flex: 50%; font-size: 15px">
+                    {{-- Datos del paciente --}}
+                    <div class="col-md-6">
+                        <strong>Nombre:
+                        </strong><span class="text-capitalize">{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                        <br>
+                        <strong>C.I:</strong> <span class="text-capitalize">{{ $MedicalRecord->get_paciente->ci }}</span>
+                        <br>
+                        <strong>Género:</strong> <span class="text-capitalize">{{ $MedicalRecord->get_paciente->genere }}</span>
+                        <strong>Edad:</strong> <span>{{ $MedicalRecord->get_paciente->age }}</span>
+                        <br>
+                        <strong>Correo electrónico:</strong>
+                        <span>{{ $MedicalRecord->get_paciente->email }}</span>
+                        <br>
+                        <strong>Teléfono:</strong> <span>{{ $MedicalRecord->get_paciente->phone }}</span>
+                        <br>
+                        <strong>Dirección:</strong>
+                        <span>{{ $MedicalRecord->get_paciente->address }}</span>
+                        <br>
+                        <strong>Código:</strong>
+                        <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                    </div>
+                </div>
+                {{-- <div style="flex: 50%;">
+                    <div style="text-align: center">
+                        <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}"><br>
+                        <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                    </div>
+                </div> --}}
+            </div>
+            <div class="row-barcode">
+                <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                    <strong>Historia Médica</strong>
+                </div>
+            </div>
+            <div class="row-data">
+                {{-- <div style="margin-top: 30px">
+                    @php
+                        $des = str_replace('</p>', '', $MedicalReport->description);
+                        $des = str_replace('<p>', '', $des);
+                    @endphp
+                        <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
+                     --}}
+                     <strong>Peso: </strong><span></span>
+                        <br>
+
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    {{-- <div class="DIV" style="padding: 5%">
         <h1>Datos principales de la historia</h1>
         <table class="table-info-pat table">
             <thead>
@@ -466,16 +420,7 @@
                 </tbody>
             </table>
         </div>
-    @endif
+    @endif --}}
 
-    <script type="text/php">
-        if ( isset($pdf) ) {
-            $pdf->page_script('
-                $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
-                $pdf->text(500, 790, "Pag $PAGE_NUM/$PAGE_COUNT", $font, 10);
-            ');
-        }
-    </script>
 </body>
-
-</html>
+@endsection

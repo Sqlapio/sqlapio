@@ -240,6 +240,7 @@
                 $('#address').val(user.address).change();
                 $('#genere').val(user.genere).change();
                 $('#specialty').val(user.specialty).change();
+                $('#background_pdf').val(user.background_pdf).change();
                 $(".holder").find('img').attr('src', img);
 
                 if (seal_img != null) {

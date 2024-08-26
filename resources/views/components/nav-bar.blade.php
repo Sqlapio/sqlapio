@@ -113,7 +113,8 @@
     }
 
     .div-bar {
-        background-color: #47525E !important;
+        /* background-color: #47525E !important; */
+        background: url({{ asset('img/0.jpg') }}) no-repeat top fixed !important;
     }
 
     .navbar-text {
@@ -577,7 +578,7 @@
             <nav class="navbar navbar-expand-lg div-bar navbar-dark bg-dark" style="padding: 0;">
                 <div class="container-fluid nav-mb">
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 logo-mb">
-                        <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
+                        {{-- <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo"> --}}
                         {{-- <a class="navbar-brand" href="#">Navbar w/ text</a> --}}
                         {{-- Imagen del medico --}}
 

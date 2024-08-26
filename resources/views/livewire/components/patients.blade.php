@@ -1447,7 +1447,7 @@
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
-                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                <td class="text-center"> {{ date_format(date_create($item->birthdate),"d-m-Y") }} </td>
                                                                 <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex" style="justify-content: center;">

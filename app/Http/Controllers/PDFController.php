@@ -271,4 +271,56 @@ class PDFController extends Controller
         }
 
     }
+
+    /**
+     * PDF HISTORIA CLINICA
+     */
+    public function PDF_history($id)
+    {
+        try {
+
+            $MedicalRecord  = MedicalRecord::where('id', $id)->with('get_paciente')->first();
+            $file           = $MedicalRecord->get_paciente->ci.'_'.date('YmdHms').'.pdf';
+            $generator      = new BarcodeGeneratorPNG();
+            $doctor_center  = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+            $barcode        = base64_encode($generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128));
+            $history        = History::where('id', $id)->get();
+
+            $data = [
+                'date' => date('m/d/Y'),
+                'MedicalRecord' => $MedicalRecord ,
+                'barcode' => $barcode,
+
+            ];
+
+            // dd($history);
+
+            $pdf = Pdf::loadView('pdf.PDF_history', [
+                        'data'              => $data,
+                        'MedicalRecord'     => $MedicalRecord,
+                        'barcode'           => $barcode,
+                        'history'           => $history,
+                        'bg'                => Auth::user()->background_pdf == '' ? 'white.png' : Auth::user()->background_pdf,
+                        'data_exam'         => StudyPatient::where('record_code', $MedicalRecord->record_code)->get(),
+                        'nombre'            => Auth::user()->name.' '.Auth::user()->last_name,
+                        'especialidad'      => Auth::user()->specialty,
+                        'mpps'              => Auth::user()->cod_mpps,
+                        'ci'                => Auth::user()->ci,
+                        'direccion'         => $doctor_center->address,
+                        'piso'              => $doctor_center->number_floor,
+                        'consultorio_num'   => $doctor_center->number_consulting_room,
+                        'consultorio_tel'   => $doctor_center->phone_consulting_room,
+                        'personal_tel'      => Auth::user()->phone,
+            ]);
+
+            return $pdf->download($file);
+            //code...
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'PDFController.PDF_history()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
+        }
+
+    }
 }
