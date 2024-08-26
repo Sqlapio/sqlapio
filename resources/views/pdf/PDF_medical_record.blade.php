@@ -82,13 +82,14 @@
         bottom: 1cm;
         left: 0cm;
         right: 0cm;
-        height: 2cm;
+        height: 5cm;
         text-align: center;
         font-size: 14px;
     }
     footer .pagenum:before {
         content: counter(page);
     }
+
 </style>
 @push('scripts')
 @endpush
@@ -101,6 +102,7 @@
     </header>
 
     <footer class="footer">
+        <img class="img-pat" style="border-radius: 20%; object-fit: cover"src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
         <div>
             <div style="margin-bottom: 5px; text-align: center;">
                 <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
