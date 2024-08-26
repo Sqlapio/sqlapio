@@ -14,7 +14,6 @@ class HandleOtpController extends Controller
 
 	static function send_otp(Request $request)
 	{
-
 		try {
 
 			$user = User::where('email', $request->email)->first();

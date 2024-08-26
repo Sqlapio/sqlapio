@@ -2258,7 +2258,7 @@ class UtilsController extends Controller
             $valores = [];
 
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->get();
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->get();
                 if(isset($valor)){
                     array_push($valores, $valor->count());
                 }
