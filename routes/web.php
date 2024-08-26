@@ -112,10 +112,14 @@ Route::get('/verify/{verification_code}', [UtilsController::class, 'verify_email
 Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'patient_verify_email']);
 
 /**
- * Ruta para confirmacion
- * para la cita del PACIENTE
+ * Ruta para confirmacion para la cita del PACIENTE
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
+
+/**
+ * Ruta para cancelar la cita del PACIENTE
+ */
+Route::get('/cancel/dairy/{code}', [UtilsController::class, 'cancelation_dairy']);
 
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
@@ -569,7 +573,7 @@ Route::get('/t', function () {
 
     //         }
 
-    //     }
+    //     } 
 
     // } catch (\Throwable $th) {
     //     dd($th);
