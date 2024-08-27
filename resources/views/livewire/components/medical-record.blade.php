@@ -846,7 +846,7 @@
 
         if (patient.get_history != null) {
 
-                // Antecedentes Personales y Familiares
+            // Antecedentes Personales y Familiares
             family_back.map((value, keyy) => {
                 for (const [key, val] of Object
                     .entries(
@@ -2247,12 +2247,14 @@
                                                                     <tr>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_dosis')</th>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_fecha_ultima_dosis')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_marca')</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
                                                                         <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_dosis}}</td>
                                                                         <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_fecha_ultima_dosis}}</td>
+                                                                        <td class="text-center text-capitalize"> {{ $Patient->get_history->IMC19_marca}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

@@ -137,11 +137,16 @@
 
         const showData = (response) => {
 
+            console.log(response)
+
             let family_back = @json($family_back);
             let get_condition = @json($get_condition);
             let non_pathology_back = @json($non_pathology_back);
             let vital_sing = @json($vital_sing);
             let pathology_back = @json($pathology_back);
+            let mental_healths = @json($mental_healths);
+            let inmunizations = @json($inmunizations);
+            let medical_devices = @json($medical_devices);
 
             //mostar datos el paciente
 
@@ -186,12 +191,20 @@
             $('.ob_pathology_back').empty();
             $('.non_pathology_back').empty();
             $('.ob_non_pathology_back').empty();
+            $('.mental_healths').empty();
+            $('.ob_mental_healths').empty();
+            $('.inmunizations').empty();
+            $('.covid').empty();
+            $('.ob_inmunizations').empty();
+            $('.medical_device').empty();
+            $('.ob_medical_devices').empty();
             $('.gilecologico').empty();
             $('#not-alergias').hide();
             $('.list-alergias').empty();
             $('.ob-alergias').empty();
             $('#not-cirugias').hide();
             $('.list-cirugias').empty();
+            // $('#table-info-cirugias').empty();
             $('.ob-cirugias').empty();
             $('#not-medications').hide();
             $('.list-medicamentos').empty();
@@ -201,48 +214,44 @@
             if (response.patient.get_history != null) {
                 $('#div-history').show();
                 $('#not-history').hide();
+
                 // Antecedentes Personales y Familiares
+                    family_back.map((value, keyy) => {
+                        for (const [key, val] of Object
+                            .entries(
+                                response.patient.get_history
+                            )) {
 
-                family_back.map((value, keyy) => {
-                    for (const [key, val] of Object
-                        .entries(
-                            response.patient.get_history
-                        )) {
+                            if (key == value.name) {
 
-                        if (key == value.name) {
+                                if (val != null) {
+                                    $('.family_back')
+                                        .append(
+                                            `<small>${value.name === 'FB_C' ? '<strong> ✔ </strong>'+value.text+ ' ( ' +response.patient.get_history.FB_C_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
 
-                            if (val != null) {
-                                $('.family_back')
-                                    .append(
-                                        `<li class="${key} list-group-item" aria-current="true" >
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <small>${value.text}</small>
-                                            </div>
-                                        </li>`
-                                    );
-                            }
-                        };
-                    }
-                });
-                if (response.patient.get_history.observations_back_family) {
-                    $('.ob_family_back').append(
-                        `<li class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
+                                        );
+                                }
+                            };
+                        }
+                    });
+                    if (response.patient.get_history.observations_back_family) {
+                        $('.ob_family_back').append(
+                            `<div class="d-flex w-100 justify-content-between">
                                 <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${response.patient.get_history.observations_back_family}
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${response.patient.get_history.observations_back_family}</small>
                                 </span>
-                            </div>
-                        </li>`
-                    );
-                }
+                            </div>`
+                        );
+                    }
                 // end
 
                 // Antecedentes personales patológicos
 
-                pathology_back.map((value, keyy) => {
-                    for (const [key, val] of Object
+                    pathology_back.map((value, keyy) => {
+                        for (const [key, val] of Object
                         .entries(
                             response.patient.get_history
                         )) {
@@ -252,37 +261,34 @@
 
                                 $('.pathology_back')
                                     .append(
-                                        `<li class="list-group-item" aria-current="true"j>
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <small>${value.text}</small>
-                                            </div>
-                                        </li>`
+                                        `<small><strong> ✔ </strong>${value.text}. </small>`
                                     );
                             }
 
                         };
                     }
-                });
+                    });
 
-                if (response.patient.get_history.observations_diagnosis) {
-                    $('.ob_pathology_back').append(
-                        `<li class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${response.patient.get_history.observations_diagnosis}
-                                </span>
-                            </div>
-                        </li>`
-                    );
-                }
+                    if (response.patient.get_history.observations_diagnosis) {
+                        $('.ob_pathology_back').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_diagnosis}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
                 // end
 
                 // historia Antecedentes personales no patológicos
 
-                non_pathology_back.map((value, keyy) => {
-                    for (const [key, val] of Object
+                    non_pathology_back.map((value, keyy) => {
+                        for (const [key, val] of Object
                         .entries(
                             response.patient.get_history
                         )) {
@@ -291,30 +297,162 @@
                             if (val != null) {
                                 $('.non_pathology_back')
                                     .append(
-                                        `<li class="list-group-item" aria-current="true">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <small>${value.text}</small>
-                                            </div>
-                                        </li>`
+                                        `<small><strong> ✔ </strong>${value.name === 'NPB_NA' ? value.text : value.text+ ': SI'}.</small>`
                                     );
                             }
                         };
                     }
-                });
+                    });
 
-                if (response.patient.get_history.observations_not_pathological) {
-                    $('.ob_non_pathology_back').append(
-                        `<li class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${response.patient.get_history.observations_not_pathological}
-                                </span>
-                            </div>
-                        </li>`
-                    );
-                }
+                    if (response.patient.get_history.observations_not_pathological) {
+                        $('.ob_non_pathology_back').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_not_pathological}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
+
+                // end
+
+                // historia Salud mental
+
+                    mental_healths.map((value, keyy) => {
+                        for (const [key, val] of Object
+                            .entries(
+                                response.patient.get_history
+                            )) {
+
+                            if (key == value.name) {
+                                if (val != null) {
+                                    $('.mental_healths')
+                                        .append(
+                                            `<small><strong> ✔ </strong>${value.text}.</small>`
+                                        );
+                                }
+                            };
+                        }
+                    });
+
+                    if (response.patient.get_history.observations_mental_healths) {
+                        $('.ob_mental_healths').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_mental_healths}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
+
+                // end
+
+                // historia Inmunizacion
+
+                    inmunizations.map((value, keyy) => {
+                        for (const [key, val] of Object
+                            .entries(
+                                response.patient.get_history
+                            )) {
+
+                            if (key == value.name) {
+                                if (val != null) {
+                                    $('.inmunizations')
+                                        .append(
+                                            `<small>${value.name === 'IM_O' ? '<strong> ✔ </strong>' +value.text+ ' ( ' +response.patient.get_history.IM_V_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
+                                        );
+                                }
+                            };
+                        }
+                    });
+
+                    if (response.patient.get_history.IMC19_covid === '1') {
+                        $('.covid').append(
+                            `<hr class="mt-1" style="margin-bottom: 0;">
+                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                @lang('messages.form.IMC19_covid')</h6>
+                            <hr style="margin-bottom: 0;">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive"  id="table-info-consulta">
+                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_dosis')</th>
+                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_fecha_ultima_dosis')</th>
+                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_marca')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center text-capitalize"> ${response.patient.get_history.IMC19_dosis} </td>
+                                            <td class="text-center text-capitalize"> ${response.patient.get_history.IMC19_fecha_ultima_dosis} </td>
+                                            <td class="text-center text-capitalize"> ${response.patient.get_history.IMC19_marca} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>`
+                        );
+                    }
+
+                    if (response.patient.get_history.observations_inmunization) {
+                        $('.ob_inmunizations').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_inmunization}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+
+                    }
+
+                // end
+
+                // historia dispositivos medicos
+
+                    medical_devices.map((value, keyy) => {
+                        for (const [key, val] of Object
+                            .entries(
+                                response.patient.get_history
+                            )) {
+
+                            if (key == value.name) {
+                                if (val != null) {
+                                    $('.medical_device')
+                                        .append(
+                                            `<small><strong> ✔ </strong>${value.description}. </small>`
+                                        );
+                                }
+                            };
+                        }
+                    });
+                    if (response.patient.get_history.observations_medical_devices) {
+                        $('.ob_medical_devices').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_medical_devices}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
 
                 // end
 
@@ -322,55 +460,126 @@
 
                 if (response.patient.genere === 'femenino') {
 
-                    let gine = `<div class="row p-3">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <ul class="list-group" style="border-radius: 8px;">
-                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">@lang('messages.acordion.antecedentes_gine')</h5>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item" aria-current="true" style="display: grid !important;">
-                                                <div id="table-info-consulta">
-                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.edad_mestruacion')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.fecha_periodo')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_embarazos')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_partos')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_cesareas')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_abortos')</th>
-                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.anticonceptivo')</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.edad_primera_menstruation}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.fecha_ultima_regla}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.numero_embarazos}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.numero_partos}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.cesareas}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.numero_abortos}</td>
-                                                                <td class="text-center text-capitalize"> ${ response.patient.get_history.pregunta}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <span class="text-justify mt-3">
-                                                        <strong>@lang('messages.label.observaciones'):</strong>
-                                                        <br>
-                                                        ${response.patient.get_history.observations_ginecologica}
-                                                    </span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    <div>
-                                </div>`
+                    let gine = `<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                        <div class="row">
+                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_gine')</h6>
+                            <hr style="margin-top: 5px">
+                            <div class="row">
+                                <hr class="mt-1" style="margin-bottom: 0;">
+                                <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                    @lang('messages.subtitulos.ginecologicos')</h6>
+                                <hr style="margin-bottom: 0;">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                    <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.edad_mestruacion')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.fecha_periodo')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ciclo_menstrual')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.infecciones')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.exam_previos')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.anticonceptivo')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_menarquia}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_fecha_ultimo_pe}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_duracion}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_infecciones}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_ex_gine_previos}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.GINE_metodo_anti}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr class="mt-3" style="margin-bottom: 0;">
+                                <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                    @lang('messages.subtitulos.obstetricos')</h6>
+                                <hr style="margin-bottom: 0;">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_embarazos')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_partos')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_cesareas')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_abortos')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.OBSTE_gravides}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.OBSTE_partos}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.OBSTE_cesareas}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.OBSTE_abortos}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr class="mt-3" style="margin-bottom: 0;">
+                                <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                    @lang('messages.subtitulos.menopausia')</h6>
+                                <hr style="margin-bottom: 0;">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                    <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_fecha_ini')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_sintomas')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.MENOSPA_fecha_ini}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.MENOSPA_sintomas}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.MENOSPA_tratamiento}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr class="mt-3" style="margin-bottom: 0;">
+                                <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                    @lang('messages.subtitulos.act_sexual')</h6>
+                                <hr style="margin-bottom: 0;">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                    <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.ACTSEX_activo === '1' ? "Activo" : "Inactivo"}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.ACTSEX_enfermedades_ts}</td>
+                                                    <td class="text-center text-capitalize"> ${ response.patient.get_history.MENOSPA_tratamiento}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${ response.patient.get_history.observations_ginecologica }</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
 
                     $('.gilecologico').append(gine)
                 }
@@ -380,18 +589,17 @@
                 // alegias
 
                 if (response.allergies.length != 0) {
+                    $('#div_allergies').show();
                     response.allergies.map((e, key) => {
-                        $('.list-alergias').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <span class="text-capitalize">
-                                        <strong>@lang('messages.form.tipo_alergia'):</strong> ${e.type_alergia},
-                                        <br>
-                                        <strong>@lang('messages.form.detalle'):</strong> ${e.detalle_alergia}
-                                    </span>
-                                </div>
-                            </li>`
-                        );
+
+                        let row = `
+                        <tr>
+                            <td class="text-center">${e.type_alergia}</td>
+                            <td class="text-center"> ${e.detalle_alergia}</td>
+                        </tr>`;
+
+                        $('#table-info-allergies').find('tbody').append(row);
+
                     });
                 }
                 if (response.patient.get_history.observations_allergies) {
@@ -399,9 +607,10 @@
                         `<li class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
                                 <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${ response.patient.get_history.observations_allergies}
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${ response.patient.get_history.observations_allergies}</small>
                                 </span>
                             </div>
                         </li>`
@@ -411,19 +620,17 @@
 
                 // cirugias
 
-                if (response.patient.get_history.history_surgical != null) {
+                if (response.history_surgical.length != 0) {
+                    $('#div_cirugias').show();
                     response.history_surgical.map((e, key) => {
-                        $('.list-cirugias').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <span class="text-capitalize">
-                                        <strong>@lang('messages.form.tipo_cirugia'):</strong> ${e.cirugia},
-                                        <br>
-                                        <strong>@lang('messages.form.fecha'):</strong> ${e.datecirugia}
-                                    </span>
-                                </div>
-                            </li>`
-                        );
+
+                        let row = `
+                        <tr>
+                            <td class="text-center">${e.cirugia}</td>
+                            <td class="text-center"> ${e.datecirugia}</td>
+                        </tr>`;
+
+                        $('#table-info-cirugias').find('tbody').append(row);
 
                     });
                 }
@@ -432,9 +639,10 @@
                         `<li class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
                                 <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${ response.patient.get_history.observations_quirurgicas}
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${response.patient.get_history.observations_quirurgicas}</small>
                                 </span>
                             </div>
                         </li>`
@@ -444,38 +652,36 @@
 
                 // medicamentos
 
-                if (response.medications_supplements != null) {
-                    response.medications_supplements.map((e,
-                        key) => {
-                        $('.list-medicamentos').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <span class="text-capitalize" >
-                                        <strong>@lang('messages.form.medicamento'):</strong> ${e.medicine},
-                                        <br>
-                                        <strong>@lang('messages.form.dosis'):</strong> ${e.dose},
-                                        <br>
-                                        <strong>@lang('messages.form.patologia'):</strong> ${e.patologi},
-                                        <br>
-                                        <strong>@lang('messages.form.duracion_tratamiento'):</strong> ${e.treatmentDuration}
-                                    </span>
-                                </div>
-                            </li>`
-                        );
+                if (response.medications_supplements.length != 0) {
+                    $('#div_medicamentos').show();
+                    response.medications_supplements.map((e, key) => {
+
+                    let row = `
+                        <tr>
+                        <td class="text-center">${e.medicine}</td>
+                        <td class="text-center"> ${e.dose}</td>
+                        <td class="text-center">${e.patologi}</td>
+                        <td class="text-center">${e.effectiveness}</td>
+                        <td class="text-center"> ${e.treatmentDuration}</td>
+                        </tr>`;
+
+                        $('#table-info-medicines').find('tbody').append(row);
+
                     });
                 }
                 if (response.patient.get_history.observations_medication) {
                     $('.ob-medicamentos').append(
-                        `<li class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <span class="text-justify mt-3">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${ response.patient.get_history.observations_medication}
-                                </span>
-                            </div>
-                        </li>`
-                    );
+                    `<li class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <span class="text-justify mt-3">
+                                <h6 class="mb-0 text-capitalize">
+                                    @lang('messages.label.observaciones'):
+                                </h6>
+                                <small>${response.patient.get_history.observations_medication}</small>
+                            </span>
+                        </div>
+                    </li>`
+                );
                 }
             } else {
 
@@ -856,8 +1062,7 @@
                                     </div>
                                 </div>
 
-
-                            {{-- conteido de la data --}}
+                                {{-- contenido de la data --}}
                                 <div class="row mt-5" id="div-content" style="display: none">
                                     <hr>
                                     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -878,7 +1083,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="div-overflow" id='div-history'>
-                                                    <div class="Examen_fisico"></div>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="row">
                                                             <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
@@ -887,127 +1091,106 @@
                                                             <div class="ob_family_back"> </div>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true"
-                                                                    style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.antecedentes_per')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="family_back"> </div>
-                                                                <div class="ob_family_back"> </div>
-                                                            </ul>
-                                                        </div>
-                                                    </div> --}}
-
-
-                                                    <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.antecedentes_per_pa')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="pathology_back"> </div>
-                                                                <div class="ob_pathology_back"> </div>
-                                                            </ul>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="pathology_back"> </div>
+                                                            <div class="ob_pathology_back"> </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.antecedentes_per_no_pa')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="non_pathology_back"> </div>
-                                                                <div class="ob_non_pathology_back"> </div>
-                                                            </ul>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="non_pathology_back"> </div>
+                                                            <div class="ob_non_pathology_back"> </div>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_salud')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="mental_healths"> </div>
+                                                            <div class="ob_mental_healths"> </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="inmunizations"> </div>
+                                                            <div class="covid"> </div>
+                                                            <div class="ob_inmunizations"> </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.dispositivos_medicos')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="medical_device"> </div>
+                                                            <div class="ob_medical_devices"> </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="gilecologico mt-2"></div>
-
-
-                                                    <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.antecedentes_alerg')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="list-alergias "> </div>
-                                                                <div class="ob-alergias"> </div>
-                                                                <div id="not-alergias">
-                                                                    <li class="list-group-item" aria-current="true">
-                                                                        <div class="d-flex w-100 justify-content-between">
-                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                        </div>
-                                                                    </li>
-                                                                </div>
-                                                            </ul>
+                                                    <div id="div_allergies" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_alerg')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-allergies">
+                                                                <table class="table table-striped table-bordered table-info-allergies" id="table-info-allergies">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_alergia')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.detalle')</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="ob-alergias"> </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true"
-                                                                    style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.antecedentes_qx')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="list-cirugias"> </div>
-                                                                <div class="ob-cirugias"> </div>
-
-                                                                <div id="not-cirugias">
-                                                                    <li class="list-group-item" aria-current="true">
-                                                                        <div class="d-flex w-100 justify-content-between">
-                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                        </div>
-                                                                    </li>
-                                                                </div>
-                                                            </ul>
+                                                    <div id="div_cirugias" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_qx')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-cirugias">
+                                                                <table class="table table-striped table-bordered table-info-cirugias" id="table-info-cirugias">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_cirugia')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.fecha')</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="ob-cirugias"> </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="row p-3 mt-2">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <ul class="list-group" style="border-radius: 8px;">
-                                                                <li class="list-group-item active aa" aria-current="true"
-                                                                    style="z-index: 0;">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                            @lang('messages.acordion.medicamentos')
-                                                                        </h5>
-                                                                    </div>
-                                                                </li>
-                                                                <div class="list-medicamentos"> </div>
-                                                                <div class="ob-medicamentos"> </div>
-                                                                <div id="not-medications">
-                                                                    <li class="list-group-item" aria-current="true">
-                                                                        <div class="d-flex w-100 justify-content-between">
-                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                        </div>
-                                                                    </li>
-                                                                </div>
-                                                            </ul>
+                                                    <div id="div_medicamentos" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: none; border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="row">
+                                                            <h6 style="font-size: 18px">@lang('messages.acordion.medicamentos')</h6>
+                                                            <hr style="margin-top: 5px">
+                                                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-medicines">
+                                                                <table class="table table-striped table-bordered table-info-medicines" id="table-info-medicines">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.medicamento')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.dosis')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.patologia')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.efectividad')</th>
+                                                                            <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.duracion_tratamiento')</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="ob-medicamentos"> </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1113,7 +1296,7 @@
                                                 <section>
                                                     @if ($item->get_history !== null)
                                                         <div class="div-overflow" id='div-history'>
-                                                            {{-- antecedentes  --}}
+                                                            {{-- antecedentes personales  --}}
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
@@ -1128,7 +1311,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                            {{-- antecedentes personales patologicos  --}}
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
@@ -1143,7 +1326,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                            {{-- antecedentes personales no patologicos  --}}
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
@@ -1153,47 +1336,226 @@
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>
                                                                             <br>
-                                                                           {{ $item->get_history->observations_diagnosis}}
+                                                                           {{ $item->get_history->observations_not_pathological}}
                                                                         </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            {{-- <div class="row p-3 mt-2">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <ul class="list-group" style="border-radius: 8px;">
-                                                                        <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                                    @lang('messages.acordion.antecedentes_per_pa')
-                                                                                </h5>
-                                                                            </div>
-                                                                        </li>
-                                                                        <div class="pathology_back"> </div>
-                                                                        <div class="ob_pathology_back"> </div>
-                                                                    </ul>
-                                                                </div>
-                                                            </div> --}}
-
-                                                            <div class="row p-3 mt-2">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <ul class="list-group" style="border-radius: 8px;">
-                                                                        <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                                    @lang('messages.acordion.antecedentes_per_no_pa')
-                                                                                </h5>
-                                                                            </div>
-                                                                        </li>
-                                                                        <div class="non_pathology_back"> </div>
-                                                                        <div class="ob_non_pathology_back"> </div>
-                                                                    </ul>
+                                                            {{-- antecedentes de salud mental  --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_salud')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                           {{ $item->get_history->observations_mental_healths}}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="gilecologico mt-2"></div>
+                                                            {{-- historia Inmunizacion --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                        @if ($item->get_history->IMC19_covid === '1')
+                                                                            <hr class="mt-1" style="margin-bottom: 0;">
+                                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                                @lang('messages.form.IMC19_covid')</h6>
+                                                                            <hr style="margin-bottom: 0;">
+                                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive"  id="table-info-consulta">
+                                                                                <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_dosis')</th>
+                                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_fecha_ultima_dosis')</th>
+                                                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.IMC19_marca')</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td class="text-center text-capitalize"> {{ $item->get_history->IMC19_dosis}}</td>
+                                                                                            <td class="text-center text-capitalize"> {{ $item->get_history->IMC19_fecha_ultima_dosis}}</td>
+                                                                                            <td class="text-center text-capitalize"> {{ $item->get_history->IMC19_marca}} </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        @endif
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                           {{ $item->get_history->observations_inmunization}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- historia dispositivos medicos --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.dispositivos_medicos')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                           {{ $item->get_history->observations_medical_devices}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- historia ginecologica --}}
+                                                            @if ($item->genere == 'femenino')
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                    <div class="row">
+                                                                        <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_gine')</h6>
+                                                                        <hr style="margin-top: 5px">
+                                                                        <div class="row">
+                                                                            <hr class="mt-1" style="margin-bottom: 0;">
+                                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                                @lang('messages.subtitulos.ginecologicos')</h6>
+                                                                            <hr style="margin-bottom: 0;">
+                                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                                <div id="table-info-consulta">
+                                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.edad_mestruacion')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.fecha_periodo')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ciclo_menstrual')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.infecciones')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.exam_previos')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.anticonceptivo')</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_menarquia}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_fecha_ultimo_pe}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_duracion}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_infecciones}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_ex_gine_previos}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->GINE_metodo_anti}}</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                                @lang('messages.subtitulos.obstetricos')</h6>
+                                                                            <hr style="margin-bottom: 0;">
+                                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                            <div id="table-info-consulta">
+                                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_embarazos')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_partos')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_cesareas')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.nro_abortos')</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->OBSTE_gravides}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->OBSTE_partos}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->OBSTE_cesareas}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->OBSTE_abortos}}</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                                @lang('messages.subtitulos.menopausia')</h6>
+                                                                            <hr style="margin-bottom: 0;">
+                                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                                <div id="table-info-consulta">
+                                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_fecha_ini')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_sintomas')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->MENOSPA_fecha_ini}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->MENOSPA_sintomas}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->MENOSPA_tratamiento}}</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                                                @lang('messages.subtitulos.act_sexual')</h6>
+                                                                            <hr style="margin-bottom: 0;">
+                                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                                                <div id="table-info-consulta">
+                                                                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
+                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo"}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->ACTSEX_enfermedades_ts}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->MENOSPA_tratamiento}}</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="d-flex w-100 justify-content-between">
+                                                                                <span class="text-justify mt-3">
+                                                                                    <h6 class="mb-0 text-capitalize">
+                                                                                        @lang('messages.label.observaciones'):
+                                                                                    </h6>
+                                                                                    <small>{{ $item->get_history->observations_ginecologica }}</small>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+
+                                                            {{-- <div class="gilecologico mt-2"></div> --}}
 
 
+                                                            {{-- alergias --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_alerg')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                        {{ $item->get_history->observations_allergies}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="row p-3 mt-2">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                                     <ul class="list-group" style="border-radius: 8px;">
@@ -1205,7 +1567,7 @@
                                                                             </div>
                                                                         </li>
                                                                         <div class="list-alergias "> </div>
-                                                                        <div class="ob-alergias"> </div>
+
                                                                         <div id="not-alergias">
                                                                             <li class="list-group-item" aria-current="true">
                                                                                 <div class="d-flex w-100 justify-content-between">
@@ -1216,6 +1578,22 @@
                                                                     </ul>
                                                                 </div>
                                                             </div>
+                                                            {{-- quirurgicos --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_qx')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                        {{ $item->get_history->observations_quirurgicas}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="row p-3 mt-2">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                                     <ul class="list-group" style="border-radius: 8px;">
@@ -1228,7 +1606,6 @@
                                                                             </div>
                                                                         </li>
                                                                         <div class="list-cirugias"> </div>
-                                                                        <div class="ob-cirugias"> </div>
 
                                                                         <div id="not-cirugias">
                                                                             <li class="list-group-item" aria-current="true">
@@ -1238,6 +1615,22 @@
                                                                             </li>
                                                                         </div>
                                                                     </ul>
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- medicamentos --}}
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="row">
+                                                                    <h6 style="font-size: 18px">@lang('messages.acordion.medicamentos')</h6>
+                                                                    <hr style="margin-top: 5px">
+                                                                    <div class="non_pathology_back"> </div>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <span class="text-justify mt-3">
+                                                                            <strong>@lang('messages.label.observaciones'):</strong>
+                                                                            <br>
+                                                                        {{ $item->get_history->observations_medication}}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
