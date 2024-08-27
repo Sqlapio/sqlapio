@@ -227,7 +227,7 @@ class EstadisticaController extends Controller
                 $accumulated->user_id = $user_id;
                 $accumulated->type_plane = $user_connect->type_plane;
                 $accumulated->center = $user_connect->center_id;
-                $accumulated->dairy_no_atendias = 1;
+                $accumulated->dairy_no_atendidas = 1;
                 $accumulated->mes = $mes;
                 $accumulated->numero_mes = $numero_mes;
                 $accumulated->date = date('d-m-Y');
@@ -237,7 +237,7 @@ class EstadisticaController extends Controller
                 $accumulated->user_id = $user_id;
                 $accumulated->type_plane = $user_connect->type_plane;
                 $accumulated->center = $center_id;
-                $accumulated->dairy_no_atendias = 1;
+                $accumulated->dairy_no_atendidas = 1;
                 $accumulated->mes = $mes;
                 $accumulated->numero_mes = $numero_mes;
                 $accumulated->date = date('d-m-Y');
