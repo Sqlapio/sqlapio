@@ -379,9 +379,10 @@ class Patients extends Component
                 /** Validacion para cargar el centro correcto cuando el medico
                  * esta asociado al plan corporativo
                  */
-                if ( $request->center_id == null) {
-                    $center_id_corporativo =  auth()->user()->master_corporate_id;
 
+                if ($request->center_id == null) {
+
+                    $center_id_corporativo =  auth()->user()->center_id;
                 }
 
                 /** Logica para cargar una nueva profesion */

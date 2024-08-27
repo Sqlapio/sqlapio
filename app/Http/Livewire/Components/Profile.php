@@ -188,7 +188,6 @@ class Profile extends Component
     }
     public function create_seal(Request $request)
     {
-        dd($request);
         try {
 
             $nameFile = null;
