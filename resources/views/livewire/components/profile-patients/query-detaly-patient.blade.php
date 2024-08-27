@@ -818,259 +818,284 @@
                             </div>
 
 
-                            <div class="row justify-content-center mt-3" id="content-table-patient-portal">
-                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 table-responsive">
-                                    <hr>
-                                    <h5 class="mb-4">@lang('messages.subtitulos.pacientes_registrados')</h5>
-                                    <table id="table-info-pacientes-portal" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
-                                                <th class="text-center w-10" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                <th class="text-center w-17" scope="col">@lang('messages.tabla.seleccionar')</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($patients as $item)
+                            @if (count($patients) > 1)
+                                <div class="row justify-content-center mt-3" id="content-table-patient-portal">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 table-responsive">
+                                        <hr>
+                                        <h5 class="mb-4">@lang('messages.subtitulos.pacientes_registrados')</h5>
+                                        <table id="table-info-pacientes-portal" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
                                                 <tr>
-                                                    <td class="table-avatar">
-                                                        <img class="avatar" src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
-                                                    </td>
-                                                    <td class="text-center text-capitalize"> {{ $item->patient_code }} </td>
-                                                    <td class="text-center text-capitalize"> {{ $item->name . ' ' . $item->last_name }}</td>
-                                                    <td class="text-center text-capitalize">
-                                                        <div class="d-flex" style="justify-content: center;">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                <button onclick="searchPatien({{ $item->id }});" type="button" data-bs-toggle="tooltip"data-bs-placement="bottom" title="@lang('messages.tooltips.editar')" >
-                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/user-check.png') }}" alt="avatar">
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-17" scope="col">@lang('messages.tabla.seleccionar')</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach ($patients as $item)
+                                                        <tr>
+                                                            <td class="table-avatar">
+                                                                <img class="avatar" src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
+                                                            </td>
+                                                            <td class="text-center text-capitalize"> {{ $item->patient_code }} </td>
+                                                            <td class="text-center text-capitalize"> {{ $item->name . ' ' . $item->last_name }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div class="d-flex" style="justify-content: center;">
+                                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                        <button onclick="searchPatien({{ $item->id }});" type="button" data-bs-toggle="tooltip"data-bs-placement="bottom" title="@lang('messages.tooltips.editar')" >
+                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/user-check.png') }}" alt="avatar">
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
 
                             {{-- conteido de la data --}}
-                            <div class="row mt-5" id="div-content" style="display: none">
-                                <hr>
-                                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
-                                    <div class="d-flex" style="align-items: center;" id="info-pat"></div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
-                                    <div id="wizard">
-                                        <h3>@lang('messages.pacientes.historia_clinica')</h3>
-                                        <section>
-                                            <div style="display: none" id='not-history' class="row justify-content-center mt-2">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                    <h5 class="card-title" style="text-align: center;">
-                                                        @lang('messages.pacientes.paciente_sin_hist')
-                                                    </h5>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
-                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                </div>
-                                            </div>
-                                            <div class="div-overflow" id='div-history'>
-                                                <div class="Examen_fisico"></div>
-                                                <div class="row p-3 mt-2">
+                                <div class="row mt-5" id="div-content" style="display: none">
+                                    <hr>
+                                    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
+                                        <div class="d-flex" style="align-items: center;" id="info-pat"></div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
+                                        <div id="wizard">
+                                            <h3>@lang('messages.pacientes.historia_clinica')</h3>
+                                            <section>
+                                                <div style="display: none" id='not-history' class="row justify-content-center mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true"
-                                                                style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.antecedentes_per')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="family_back"> </div>
-                                                            <div class="ob_family_back"> </div>
-                                                        </ul>
+                                                        <h5 class="card-title" style="text-align: center;">
+                                                            @lang('messages.pacientes.paciente_sin_hist')
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
+                                                        <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
                                                     </div>
                                                 </div>
-
-
-                                                <div class="row p-3 mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.antecedentes_per_pa')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="pathology_back"> </div>
-                                                            <div class="ob_pathology_back"> </div>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row p-3 mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.antecedentes_per_no_pa')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="non_pathology_back"> </div>
-                                                            <div class="ob_non_pathology_back"> </div>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="gilecologico mt-2"></div>
-
-
-                                                <div class="row p-3 mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.antecedentes_alerg')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="list-alergias "> </div>
-                                                            <div class="ob-alergias"> </div>
-                                                            <div id="not-alergias">
-                                                                <li class="list-group-item" aria-current="true">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                    </div>
-                                                                </li>
-                                                            </div>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="row p-3 mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true"
-                                                                style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.antecedentes_qx')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="list-cirugias"> </div>
-                                                            <div class="ob-cirugias"> </div>
-
-                                                            <div id="not-cirugias">
-                                                                <li class="list-group-item" aria-current="true">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                    </div>
-                                                                </li>
-                                                            </div>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row p-3 mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true"
-                                                                style="z-index: 0;">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        @lang('messages.acordion.medicamentos')
-                                                                    </h5>
-                                                                </div>
-                                                            </li>
-                                                            <div class="list-medicamentos"> </div>
-                                                            <div class="ob-medicamentos"> </div>
-                                                            <div id="not-medications">
-                                                                <li class="list-group-item" aria-current="true">
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                    </div>
-                                                                </li>
-                                                            </div>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                        <h3>@lang('messages.pacientes.consulta_medica')</h3>
-                                        <section>
-                                            <div style="display: none" id='not-medical-record' class="row justify-content-center mt-2">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                    <h5 class="card-title" style="text-align: center;">
-                                                        @lang('messages.pacientes.paciente_sin_cons')
-                                                    </h5>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
-                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                </div>
-                                            </div>
-                                            <div class="list-group list-con div-overflow"> </div>
-                                        </section>
-                                        <h3>@lang('messages.pacientes.estudios_realizado')</h3>
-                                        <section>
-                                            <div class="row p-3 div-overflow">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
-                                                    <ul class="list-group ul-study list-group-flush overflow-auto">
-                                                    </ul>
-                                                    <div id='not-studie' class="row justify-content-center">
+                                                <div class="div-overflow" id='div-history'>
+                                                    <div class="Examen_fisico"></div>
+                                                    <div class="row p-3 mt-2">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                @lang('messages.pacientes.no_estudios')
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                            <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true"
+                                                                    style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.antecedentes_per')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="family_back"> </div>
+                                                                <div class="ob_family_back"> </div>
+                                                            </ul>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                        <h3>@lang('messages.pacientes.examenes_realizado')</h3>
-                                        <section>
-                                            <div class="row p-3 div-overflow">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
-                                                    <ul class="list-group ul-exmen list-group-flush overflow-auto"> </ul>
-                                                    <div id='not-exam' class="row justify-content-center">
+
+
+                                                    <div class="row p-3 mt-2">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                @lang('messages.pacientes.no_examenes')
-                                                            </h5>
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.antecedentes_per_pa')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="pathology_back"> </div>
+                                                                <div class="ob_pathology_back"> </div>
+                                                            </ul>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                            <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                    </div>
+
+                                                    <div class="row p-3 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.antecedentes_per_no_pa')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="non_pathology_back"> </div>
+                                                                <div class="ob_non_pathology_back"> </div>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="gilecologico mt-2"></div>
+
+
+                                                    <div class="row p-3 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.antecedentes_alerg')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="list-alergias "> </div>
+                                                                <div class="ob-alergias"> </div>
+                                                                <div id="not-alergias">
+                                                                    <li class="list-group-item" aria-current="true">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row p-3 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true"
+                                                                    style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.antecedentes_qx')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="list-cirugias"> </div>
+                                                                <div class="ob-cirugias"> </div>
+
+                                                                <div id="not-cirugias">
+                                                                    <li class="list-group-item" aria-current="true">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row p-3 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <ul class="list-group" style="border-radius: 8px;">
+                                                                <li class="list-group-item active aa" aria-current="true"
+                                                                    style="z-index: 0;">
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
+                                                                            @lang('messages.acordion.medicamentos')
+                                                                        </h5>
+                                                                    </div>
+                                                                </li>
+                                                                <div class="list-medicamentos"> </div>
+                                                                <div class="ob-medicamentos"> </div>
+                                                                <div id="not-medications">
+                                                                    <li class="list-group-item" aria-current="true">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <strong>@lang('messages.pacientes.sin_informacion')</strong>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </section>
-                                        <h3>@lang('messages.pacientes.examenes_fisico')</h3>
-                                        <section>
-                                            <div style="display: none" id='not-examenes-fisicos' class="row justify-content-center mt-2">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                    <h5 class="card-title" style="text-align: center;">
-                                                        @lang('messages.pacientes.no_examenes')
-                                                    </h5>
+                                            </section>
+                                            <h3>@lang('messages.pacientes.consulta_medica')</h3>
+                                            <section>
+                                                <div style="display: none" id='not-medical-record' class="row justify-content-center mt-2">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <h5 class="card-title" style="text-align: center;">
+                                                            @lang('messages.pacientes.paciente_sin_cons')
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
+                                                        <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
-                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                <div class="list-group list-con div-overflow"> </div>
+                                            </section>
+                                            <h3>@lang('messages.pacientes.estudios_realizado')</h3>
+                                            <section>
+                                                <div class="row p-3 div-overflow">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
+                                                        <ul class="list-group ul-study list-group-flush overflow-auto">
+                                                        </ul>
+                                                        <div id='not-studie' class="row justify-content-center">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
+                                                                    @lang('messages.pacientes.no_estudios')
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
+                                                                <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="list-group list-examenes-fisicos div-overflow"> </div>
-                                        </section>
+                                            </section>
+                                            <h3>@lang('messages.pacientes.examenes_realizado')</h3>
+                                            <section>
+                                                <div class="row p-3 div-overflow">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
+                                                        <ul class="list-group ul-exmen list-group-flush overflow-auto"> </ul>
+                                                        <div id='not-exam' class="row justify-content-center">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
+                                                                    @lang('messages.pacientes.no_examenes')
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
+                                                                <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <h3>@lang('messages.pacientes.examenes_fisico')</h3>
+                                            <section>
+                                                <div style="display: none" id='not-examenes-fisicos' class="row justify-content-center mt-2">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <h5 class="card-title" style="text-align: center;">
+                                                            @lang('messages.pacientes.no_examenes')
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
+                                                        <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                    </div>
+                                                </div>
+                                                <div class="list-group list-examenes-fisicos div-overflow"> </div>
+                                            </section>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            @else
+                                @foreach ($patients as $item)
+                                    {{ $patients }}
+                                    <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;" >
+                                        <img src="{{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                        <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">  {{ $item->name . ' ' . $item->last_name }}</span>
+                                        <br>
+                                        <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span> {{ $item->birthdate }}</span>
+                                        <br>
+                                        <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $item->age }} años</span>
+                                        <br>
+                                        <strong>@lang('messages.ficha_paciente.ci'):</strong><span> {{ $item->ci }} </span>
+                                        <br>
+                                        <strong>@lang('messages.ficha_paciente.genero'):</strong><span class="text-capitalize"> {{ $item->genere }} </span>
+                                        <br>
+                                        <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span class="text-capitalize">{{ $item->get_history ? $item->get_history->cod_history : '' }} </span>
+                                    </div>
+                                @endforeach
+
+                            @endif
                         </div>
                     </div>
                 </div>
