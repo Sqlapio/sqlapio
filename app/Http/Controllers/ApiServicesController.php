@@ -78,7 +78,8 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *confirmar cita:* {$data['link']}
+            *Confirmar cita:* {$data['link']}
+            *Cancelar cita:* {$data['link_cancel']}
             *{$precio}:*  {$data['price']}
 
             *{$ubicacion}:* {$data['ubication']}
@@ -495,6 +496,7 @@ class ApiServicesController extends Controller
             *{$piso}:* {$doctor_center->number_floor}
             *{$consultorio}:* {$doctor_center->number_consulting_room}
             *Confirmar cita:* 'https://system.sqlapio.com/confirmation/dairy/' . $cita->code
+            *Cancelar cita:* 'https://system.sqlapio.com/cancel/dairy/' . $cita->code
             *{$precio}:* {$cita->price}
 
             *{$ubicacion}:* {$ubication}
