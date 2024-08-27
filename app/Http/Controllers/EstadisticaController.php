@@ -45,16 +45,39 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $accumulated = new GeneralStatistic();
-            $accumulated->user_id = $user_id;
-            $accumulated->center = $center_id;
-            $accumulated->dairy_sin_confirmar = 1;
-            $accumulated->date = date('d-m-Y');
-            $accumulated->save();
+            $user_connect = Auth::user();
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            if($user_connect->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $user_connect->center_id;
+                $accumulated->dairy_sin_confirmar = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $center_id;
+                $accumulated->dairy_sin_confirmar = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+
+
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error EstadisticaController.accumulated_doctor()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -66,16 +89,38 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $accumulated = new GeneralStatistic();
-            $accumulated->user_id = $user_id;
-            $accumulated->center = $center_id;
-            $accumulated->dairy_confirmar = 1;
-            $accumulated->date = date('d-m-Y');
-            $accumulated->save();
+            $user_connect = Auth::user();
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            if($user_connect->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $user_connect->center_id;
+                $accumulated->dairy_confirmar = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $center_id;
+                $accumulated->dairy_confirmar = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error EstadisticaController.accumulated_doctor()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -87,16 +132,38 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $accumulated = new GeneralStatistic();
-            $accumulated->user_id = $user_id;
-            $accumulated->center = $center_id;
-            $accumulated->dairy_finalizada = 1;
-            $accumulated->date = date('d-m-Y');
-            $accumulated->save();
+            $user_connect = Auth::user();
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            if($user_connect->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $user_connect->center_id;
+                $accumulated->dairy_finalizada = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $center_id;
+                $accumulated->dairy_finalizada = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error EstadisticaController.accumulated_doctor()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
@@ -108,20 +175,84 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $accumulated = new GeneralStatistic();
-            $accumulated->user_id = $user_id;
-            $accumulated->center = $center_id;
-            $accumulated->dairy_cancelada = 1;
-            $accumulated->date = date('d-m-Y');
-            $accumulated->save();
+            $user_connect = Auth::user();
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            if($user_connect->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $user_connect->center_id;
+                $accumulated->dairy_cancelada = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $center_id;
+                $accumulated->dairy_cancelada = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+
 
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error EstadisticaController.accumulated_doctor()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
 
+    /**
+     * Acumulado para citas finalizadas por los pacientes
+     */
+    static function accumulated_dairy_no_atendidas($user_id, $center_id)
+    {
+        try {
+
+            $user_connect = Auth::user();
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            if($user_connect->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $user_connect->center_id;
+                $accumulated->dairy_no_atendias = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_id;
+                $accumulated->type_plane = $user_connect->type_plane;
+                $accumulated->center = $center_id;
+                $accumulated->dairy_no_atendias = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+
+
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_appointments_not_attended()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
+        }
+
+    }
     /**
      * Acumulado para pacientes registrados
      */
