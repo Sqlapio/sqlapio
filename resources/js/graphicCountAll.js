@@ -1001,9 +1001,9 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
  *
  */
 
-function get_recorded_appointments(appointments_unconfirmed) {
+function get_recorded_appointments(appointments_unconfirmed, meses) {
   const data = {
-    labels: Meses,
+    labels: meses,
     datasets: [
       {
         label: langJson.graficas.total,

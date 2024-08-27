@@ -81,7 +81,7 @@ class QueryDetalyPatient extends Component
 	public function toviewPatient()
 	{
 		$patients =  $this->search_detaly_all(auth()->guard("users_patients")->user()->username);
-		
+
 		// $data = ($patients->count()>0)? []: $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
 
 		$vital_sing = UtilsController::get_history_vital_sing();
@@ -89,7 +89,9 @@ class QueryDetalyPatient extends Component
 		$pathology_back = UtilsController::get_history_pathology_back();
 		$non_pathology_back = UtilsController::get_history_non_pathology_back();
 		$get_condition = UtilsController::get_condition();
-
+        $mental_healths = UtilsController::get_mental_healths();
+        $inmunizations = UtilsController::get_inmunizations();
+		$medical_devices = UtilsController::get_medical_device();
 
 		return view(
 			'livewire.components.profile-patients.query-detaly-patient',
@@ -99,7 +101,10 @@ class QueryDetalyPatient extends Component
 				'pathology_back',
 				'non_pathology_back',
 				'get_condition',
-				"patients"
+				'patients',
+                'mental_healths',
+                'inmunizations',
+                'medical_devices',
 			)
 		);
 	}

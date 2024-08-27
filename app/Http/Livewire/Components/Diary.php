@@ -226,6 +226,7 @@ class Diary extends Component
                     'price'         => $appointment->price,
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
+                    'link_cancel'   => 'https://system.sqlapio.com/cancel/dairy/' . $appointment->code,
                 ];
 
                 /**Notificacion por email */
@@ -250,6 +251,7 @@ class Diary extends Component
                     'price'         => $appointment->price,
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
+                    'link_cancel'   => 'https://system.sqlapio.com/cancel/dairy/' . $appointment->code,
                 ];
 
                 /**Notificacion por email */
