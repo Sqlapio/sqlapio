@@ -343,6 +343,8 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+
+                                                                    
                                                                     @foreach (collect($appointments)->sortBy('start') as $item)
 
                                                                         <tr>

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\EstadisticaController;
 use App\Models\Appointment;
 use Illuminate\Console\Command;
 
@@ -27,11 +28,16 @@ class UpdateStatusDairy extends Command
     public function handle()
     {
         $hoy = now()->format('Y-m-d');
-        $dairy = Appointment::whereBetween('status', [1, 2])->whereBetween('created_at', [$hoy.' 00:00:00.000', $hoy.' 23:59:59.000'])->get();
-        foreach ($dairy as $item) {
+
+        $dairy = Appointment::whereBetween('status', [1, 2])->where('date_start', $hoy )->get();
+        foreach($dairy as $item)
+        {
             $item->status = 5;
             $item->save();
+
+            EstadisticaController::accumulated_dairy_no_atendidas($item->user_id, $item->center_id);
         }
+
 
     }
 }

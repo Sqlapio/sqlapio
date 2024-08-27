@@ -30,12 +30,14 @@
         let patients = @json($patients);
         let doctors_active = @json($doctor_active);
         let doctors_inactive = @json($doctor_inacactive);
+        let dairy_unconfirmed_master_corporate = @json($dairy_unconfirmed_master_corporate);
+        let meses = @json($meses);
 
         $(document).ready(() => {
 
             let user = @json(Auth::user());
 
-            get_recorded_appointments();
+            get_recorded_appointments(dairy_unconfirmed_master_corporate, meses);
             get_doctors(doctors_active, doctors_inactive);
 
         });
@@ -53,7 +55,7 @@
                     <div class="card bg-9">
                         <div class="card-body" style="position: sticky; padding: 1% 2%;">
                             <h4 class="mb-4 mt-2" style="color: #596167">Dashboard Sqlapio</h4>
-                            <div class="row" style="justify-content: flex-end;">
+                            {{-- <div class="row" style="justify-content: flex-end;">
                                 <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                     <div class="form-group">
                                         <div class="Icon-inside">
@@ -79,7 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                 <div class="row mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
@@ -118,7 +120,7 @@
                                                                     <th class="text-center w-image" scope="col"
                                                                         data-orderable="false">@lang('messages.tabla.foto')</th>
                                                                     <th class="text-center w-10" scope="col"
-                                                                        data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        data-orderable="false">@lang('messages.tabla.nombre_apellido`')</th>
                                                                     <th class="text-center w-10" scope="col"
                                                                         data-orderable="false">@lang('messages.form.email')</th>
                                                                     <th class="text-center w-10" scope="col"
