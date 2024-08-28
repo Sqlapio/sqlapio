@@ -214,7 +214,7 @@ class EstadisticaController extends Controller
     /**
      * Acumulado para citas finalizadas por los pacientes
      */
-    static function accumulated_dairy_no_atendida($user_id, $center_id)
+    static function accumulated_dairy_no_atendidas($user_id, $center_id)
     {
         try {
 
