@@ -1280,10 +1280,7 @@ class UtilsController extends Controller
 			return view('welcome');
 
 		} catch (\Throwable $th) {
-			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.confirmation_dairy()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
+
 		}
 	}
 
@@ -1309,10 +1306,7 @@ class UtilsController extends Controller
 			return view('cancel');
 
 		} catch (\Throwable $th) {
-			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.cancelation_dairy()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
+
 		}
 	}
 
