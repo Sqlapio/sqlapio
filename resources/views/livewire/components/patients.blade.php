@@ -396,11 +396,13 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
-                                url = url.replace(':id', response[0].id);
+
+                                window.location.href = "{{ route('Patients') }}";
+
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
+                                url = url.replace(':id', response[0].id);
                                 if(user.role == 'secretary') {
-                                    window.location.href = "{{ route('Patients') }}";
                                 }
                                 if(user.role == 'medico') {
                                     $("#bnt-cons").append(
