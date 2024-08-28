@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('app:update-status-dairy')
         ->weekdays()
-        ->dailyAt('23:59')
+        ->dailyAt('18:00')
         ->emailOutputTo('gusta.acp@gmail.com');
     }
 
