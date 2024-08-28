@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiServicesController;
+use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
@@ -122,6 +123,9 @@ Route::get('/confirmation/dairy/{code}', function ($code) {
 				]);
 
     $dairy = Appointment::where('code', $code)->where('status', 2)->first();
+
+    EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
+
     return view("welcome");
 });
 
@@ -137,6 +141,9 @@ Route::get('/cancel/dairy/{code}', function ($code) {
 				]);
 
     $dairy = Appointment::where('code', $code)->where('status', 2)->first();
+
+    EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
+
     return view("cancel");
 });
 
