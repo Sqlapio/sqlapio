@@ -1,33 +1,38 @@
 @extends('layouts.app')
 @section('title', 'Confirm')
 <style>
+body {
+        font-family: 'Creato Display', sans-serif;
+        margin-top: 0cm;
+        margin-left: 0cm;
+        margin-right: 0cm;
+        margin-bottom: 0cm;
 
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100% !important;
+        background: url({{ asset('img/confirmada.mp4') }});
+    }
+
+    #background-video {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+    }
 
 </style>
 @section('content')
     <div>
-        <div class="container-fluid text-center">
-            <div class="row form-sq" style="position: relative">
-                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
-                    <div class="card" id="div-form">
-                        <div class="card-body">
-                            
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                <div class="text-center">
-                                    <img class="img" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" style="width: 200px;">
-                                </div>
-                                <div class="text-center">
-                                    <img class="img" src="{{ asset('img/confimation.jpg') }}" style="width: 200px;">
-                                </div>
-
-                                <h4>Su cita ha sido confirmada</h4>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+        <video id="background-video" autoplay loop muted>
+            <source src="img/confirmada.mp4" type="video/mp4">
+        </video>
     </div>
 @endsection
 

@@ -1306,7 +1306,7 @@ class UtilsController extends Controller
             /**Logica para guardar el acumulado de citas confirmadas por el paciente */
             EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
 
-			return view('welcome');
+			return view('cancel');
 
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
@@ -2301,8 +2301,20 @@ class UtilsController extends Controller
 
             $valores = [];
 
+            /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null)
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+            /************************************************************/
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('dairy_finalizada');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_finalizada');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
@@ -2327,8 +2339,20 @@ class UtilsController extends Controller
 
             $valores = [];
 
+            /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null)
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+            /************************************************************/
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('dairy_cancelada');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_cancelada');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
@@ -2353,8 +2377,20 @@ class UtilsController extends Controller
 
             $valores = [];
 
+            /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null)
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+            /************************************************************/
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('dairy_confirmar');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_confirmar');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
@@ -2363,97 +2399,6 @@ class UtilsController extends Controller
 
             return $valores;
 
-			// if ($month) {
-
-			// 	$January = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$February = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$March = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$April = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$May = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$June = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$julio  = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$agosto = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$septiembre = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$October = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$November = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	$December = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_confirmar');
-
-			// 	return [
-			// 		$January, $February,
-			// 		$March, $April, $May,
-			// 		$June, $julio, $agosto,
-			// 		$septiembre, $October,
-			// 		$November, $December
-			// 	];
-			// } else {
-
-			// 	$January = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "01")->get()->sum('dairy_confirmar');
-
-			// 	$February = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "02")->get()->sum('dairy_confirmar');
-
-			// 	$March = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "03")->get()->sum('dairy_confirmar');
-
-			// 	$April = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "04")->get()->sum('dairy_confirmar');
-
-			// 	$May = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "05")->get()->sum('dairy_confirmar');
-
-			// 	$June = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "06")->get()->sum('dairy_confirmar');
-
-			// 	$julio  = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "07")->get()->sum('dairy_confirmar');
-
-			// 	$agosto = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "08")->get()->sum('dairy_confirmar');
-
-			// 	$septiembre = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "09")->get()->sum('dairy_confirmar');
-
-			// 	$October = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "10")->get()->sum('dairy_confirmar');
-
-			// 	$November = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "11")->get()->sum('dairy_confirmar');
-
-			// 	$December = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "12")->get()->sum('dairy_confirmar');
-
-			// 	return [
-			// 		$January, $February,
-			// 		$March, $April, $May,
-			// 		$June, $julio, $agosto,
-			// 		$septiembre, $October,
-			// 		$November, $December
-			// 	];
-			// }
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_confirmed()';
@@ -2474,8 +2419,20 @@ class UtilsController extends Controller
 
             $valores = [];
 
+            /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null)
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+            /************************************************************/
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('dairy_sin_confirmar');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_sin_confirmar');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
@@ -2484,97 +2441,6 @@ class UtilsController extends Controller
             // dd($valores);
             return $valores;
 
-			// if ($month) {
-
-			// 	$January = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$February = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$March = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$April = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$May = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$June = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$julio  = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$agosto = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$septiembre = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$October = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$November = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	$December = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_sin_confirmar');
-
-			// 	return [
-			// 		$January, $February,
-			// 		$March, $April, $May,
-			// 		$June, $julio, $agosto,
-			// 		$septiembre, $October,
-			// 		$November, $December
-			// 	];
-			// } else {
-
-			// 	$January = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "01")->get()->sum('dairy_sin_confirmar');
-
-			// 	$February = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "02")->get()->sum('dairy_sin_confirmar');
-
-			// 	$March = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "03")->get()->sum('dairy_sin_confirmar');
-
-			// 	$April = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "04")->get()->sum('dairy_sin_confirmar');
-
-			// 	$May = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "05")->get()->sum('dairy_sin_confirmar');
-
-			// 	$June = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "06")->get()->sum('dairy_sin_confirmar');
-
-			// 	$julio  = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "07")->get()->sum('dairy_sin_confirmar');
-
-			// 	$agosto = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "08")->get()->sum('dairy_sin_confirmar');
-
-			// 	$septiembre = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "09")->get()->sum('dairy_sin_confirmar');
-
-			// 	$October = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "10")->get()->sum('dairy_sin_confirmar');
-
-			// 	$November = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "11")->get()->sum('dairy_sin_confirmar');
-
-			// 	$December = GeneralStatistic::where("user_id", $id)
-			// 		->whereMonth("created_at", "12")->get()->sum('dairy_sin_confirmar');
-
-			// 	return [
-			// 		$January, $February,
-			// 		$March, $April, $May,
-			// 		$June, $julio, $agosto,
-			// 		$septiembre, $October,
-			// 		$November, $December
-			// 	];
-			// }
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_unconfirmed()';
@@ -2605,7 +2471,6 @@ class UtilsController extends Controller
 
             return $valores;
 
-
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments_unconfirmed()';
@@ -2622,8 +2487,20 @@ class UtilsController extends Controller
 
             $valores = [];
 
+            /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null)
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+            /************************************************************/
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('dairy_no_atendida');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_no_atendida');
 
                 if(isset($valor)){
                     array_push($valores, $valor);

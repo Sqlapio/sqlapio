@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\EstadisticaController;
 use App\Models\Appointment;
+use App\Models\GeneralStatistic;
+use App\Models\Mes;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class UpdateStatusDairy extends Command
@@ -35,9 +38,33 @@ class UpdateStatusDairy extends Command
             $item->status = 5;
             $item->save();
 
-            EstadisticaController::accumulated_dairy_no_atendidas($item->user_id, $item->center_id);
-        }
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
 
+            $user_affected = User::where('id', $dairy->user_id)->first();
+
+            if($user_affected->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_affected->user_id;
+                $accumulated->type_plane = 7;
+                $accumulated->center = $user_affected->center_id;
+                $accumulated->dairy_no_atendida = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $user_affected->user_id;
+                $accumulated->type_plane = $user_affected->type_plane;
+                $accumulated->center = $user_affected->center_id;
+                $accumulated->dairy_no_atendida = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+        }
 
     }
 }
