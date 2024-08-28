@@ -399,6 +399,9 @@
                                 url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
+                                if(user.role == 'secretary') {
+                                    window.location.href = "{{ route('Patients') }}";
+                                }
                                 if(user.role == 'medico') {
                                     $("#bnt-cons").append(
                                         `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`

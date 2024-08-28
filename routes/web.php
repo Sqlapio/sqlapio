@@ -425,7 +425,7 @@ Route::get('/prueba2', function () {
 
 
 Route::get('/tt', function () {
-    return view("error404");
+    return view("cancel");
 });
 
 Route::get('/t', function () {
@@ -574,7 +574,7 @@ Route::get('/t', function () {
 
     //         }
 
-    //     } 
+    //     }
 
     // } catch (\Throwable $th) {
     //     dd($th);

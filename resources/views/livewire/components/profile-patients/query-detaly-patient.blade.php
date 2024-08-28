@@ -588,108 +588,108 @@
 
                 // alegias
 
-                if (response.allergies.length != 0) {
-                    $('#div_allergies').show();
-                    response.allergies.map((e, key) => {
+                    if (response.allergies.length != 0) {
+                        $('#div_allergies').show();
+                        response.allergies.map((e, key) => {
 
-                        let row = `
-                        <tr>
-                            <td class="text-center">${e.type_alergia}</td>
-                            <td class="text-center"> ${e.detalle_alergia}</td>
-                        </tr>`;
+                            let row = `
+                            <tr>
+                                <td class="text-center">${e.type_alergia}</td>
+                                <td class="text-center"> ${e.detalle_alergia}</td>
+                            </tr>`;
 
-                        $('#table-info-allergies').find('tbody').append(row);
+                            $('#table-info-allergies').find('tbody').append(row);
 
-                    });
-                }
-                if (response.patient.get_history.observations_allergies) {
-                    $('.ob-alergias').append(
-                        `<li class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <span class="text-justify mt-3">
-                                    <h6 class="mb-0 text-capitalize">
-                                        @lang('messages.label.observaciones'):
-                                    </h6>
-                                    <small>${ response.patient.get_history.observations_allergies}</small>
-                                </span>
-                            </div>
-                        </li>`
-                    );
-                }
+                        });
+                    }
+                    if (response.patient.get_history.observations_allergies) {
+                        $('.ob-alergias').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${ response.patient.get_history.observations_allergies}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
                 // end
 
                 // cirugias
 
-                if (response.history_surgical.length != 0) {
-                    $('#div_cirugias').show();
-                    response.history_surgical.map((e, key) => {
+                    if (response.history_surgical.length != 0) {
+                        $('#div_cirugias').show();
+                        response.history_surgical.map((e, key) => {
+
+                            let row = `
+                            <tr>
+                                <td class="text-center">${e.cirugia}</td>
+                                <td class="text-center"> ${e.datecirugia}</td>
+                            </tr>`;
+
+                            $('#table-info-cirugias').find('tbody').append(row);
+
+                        });
+                    }
+                    if (response.patient.get_history.observations_quirurgicas) {
+                        $('.ob-cirugias').append(
+                            `<li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <span class="text-justify mt-3">
+                                        <h6 class="mb-0 text-capitalize">
+                                            @lang('messages.label.observaciones'):
+                                        </h6>
+                                        <small>${response.patient.get_history.observations_quirurgicas}</small>
+                                    </span>
+                                </div>
+                            </li>`
+                        );
+                    }
+                // end
+
+                // medicamentos
+
+                    if (response.medications_supplements.length != 0) {
+                        $('#div_medicamentos').show();
+                        response.medications_supplements.map((e, key) => {
 
                         let row = `
-                        <tr>
-                            <td class="text-center">${e.cirugia}</td>
-                            <td class="text-center"> ${e.datecirugia}</td>
-                        </tr>`;
+                            <tr>
+                            <td class="text-center">${e.medicine}</td>
+                            <td class="text-center"> ${e.dose}</td>
+                            <td class="text-center">${e.patologi}</td>
+                            <td class="text-center">${e.effectiveness}</td>
+                            <td class="text-center"> ${e.treatmentDuration}</td>
+                            </tr>`;
 
-                        $('#table-info-cirugias').find('tbody').append(row);
+                            $('#table-info-medicines').find('tbody').append(row);
 
-                    });
-                }
-                if (response.patient.get_history.observations_quirurgicas) {
-                    $('.ob-cirugias').append(
+                        });
+                    }
+                    if (response.patient.get_history.observations_medication) {
+                        $('.ob-medicamentos').append(
                         `<li class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
                                 <span class="text-justify mt-3">
                                     <h6 class="mb-0 text-capitalize">
                                         @lang('messages.label.observaciones'):
                                     </h6>
-                                    <small>${response.patient.get_history.observations_quirurgicas}</small>
+                                    <small>${response.patient.get_history.observations_medication}</small>
                                 </span>
                             </div>
                         </li>`
                     );
-                }
-                // end
+                    }
+                    } else {
 
-                // medicamentos
+                        $('#not-history').show();
+                        $('#div-history').hide();
 
-                if (response.medications_supplements.length != 0) {
-                    $('#div_medicamentos').show();
-                    response.medications_supplements.map((e, key) => {
-
-                    let row = `
-                        <tr>
-                        <td class="text-center">${e.medicine}</td>
-                        <td class="text-center"> ${e.dose}</td>
-                        <td class="text-center">${e.patologi}</td>
-                        <td class="text-center">${e.effectiveness}</td>
-                        <td class="text-center"> ${e.treatmentDuration}</td>
-                        </tr>`;
-
-                        $('#table-info-medicines').find('tbody').append(row);
-
-                    });
-                }
-                if (response.patient.get_history.observations_medication) {
-                    $('.ob-medicamentos').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${response.patient.get_history.observations_medication}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-                }
-            } else {
-
-                $('#not-history').show();
-                $('#div-history').hide();
-
-            }
-            //end
+                    }
+                //end
 
 
             // mostrar consultas
@@ -698,7 +698,7 @@
             $('.ul-exmen').empty();
             $('.ul-study').empty();
             if (response.medicard_record.length > 0) {
-
+                console.log(response.medicard_record)
                 response.medicard_record.map((e, key) => {
                     let element = '';
                     if ((key % 2) == 0) {
@@ -873,8 +873,8 @@
             $('.list-examenes-fisicos').empty();
             $("#not-examenes-fisicos").hide();
             if (response.get_physical_exams.length > 0) {
+
                 response.get_physical_exams.map((e, key) => {
-                    console.log(e)
                     let element = '';
                     if ((key % 2) == 0) {
                         element =
@@ -1266,7 +1266,6 @@
 
                             @else
                                 @foreach ($patients as $item)
-                                    {{ $item->get_history }}
                                     <div class="row mt-5" id="div-content">
                                         <hr>
                                         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -1301,7 +1300,22 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="family_back"> </div>
+                                                                    <span style="font-size: 13px">{{ $item->get_history->FB_EC === '1' ? '✔ Enfermedad Coronaria.' : null }}
+                                                                    {{ $item->get_history->FB_HA === '1' ? '✔ Hipertension Arterial.' : null }}
+                                                                    {{ $item->get_history->FB_D === '1' ? '✔ Diabetes.' : null }}
+                                                                    {{ $item->get_history->FB_C === '1' ? '✔ Cancer ('. $item->get_history->FB_C_input .')' : null }}
+                                                                    {{ $item->get_history->FB_AL === '1' ? '✔ Alzheimer.' : null }}
+                                                                    {{ $item->get_history->FB_EM === '1' ? '✔ Esclerosis Multiple.' : null }}
+                                                                    {{ $item->get_history->FB_EDP === '1' ? '✔ Enfermedad de Parkinson.' : null }}
+                                                                    {{ $item->get_history->FB_TSM === '1' ? '✔ Transtornos de Salud Mental.' : null }}
+                                                                    {{ $item->get_history->FB_AR === '1' ? '✔ Artritis Reumatoide.' : null }}
+                                                                    {{ $item->get_history->FB_LES === '1' ? '✔ Lupus Eritematoso Sistemico.' : null }}
+                                                                    {{ $item->get_history->FB_EHC === '1' ? '✔ Enfermedades Hepaticas cronicas.' : null }}
+                                                                    {{ $item->get_history->FB_TDT === '1' ? '✔ Transtornos de la Tiroides.' : null }}
+                                                                    {{ $item->get_history->FB_ER === '1' ? '✔ Enfermedades Respiratorias.' : null }}
+                                                                    {{ $item->get_history->FB_DM === '1' ? '✔ Distrofia Muscular.' : null }}
+                                                                    {{ $item->get_history->FB_NA === '1' ? '✔ Niega.' : null }}</span>
+
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -1316,7 +1330,33 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="pathology_back"> </div>
+                                                                    <span style="font-size: 13px">
+                                                                        {{ $item->get_history->PB_HA === '1' ? '✔ Hipertensión Arterial.' : null }}
+                                                                        {{ $item->get_history->PB_EC === '1' ? '✔ Enfermedad Coronaria.' : null }}
+                                                                        {{ $item->get_history->PB_A === '1' ? '✔ Asma.' : null }}
+                                                                        {{ $item->get_history->PB_EPOC === '1' ? '✔ Enfermedad Pulmonar Obstructiva Cronica (EPOC).' : null }}
+                                                                        {{ $item->get_history->PB_ADS === '1' ? '✔ Apnea del Sueño.' : null }}
+                                                                        {{ $item->get_history->PB_D === '1' ? '✔ Diabetes.' : null }}
+                                                                        {{ $item->get_history->PB_H === '1' ? '✔ Hipercolesterolemia.' : null }}
+                                                                        {{ $item->get_history->PB_C === '1' ? '✔ Cancer ('. $item->get_history->FB_C_input .')' : null }}
+                                                                        {{ $item->get_history->PB_P === '1' ? '✔ Parkinson.' : null }}
+                                                                        {{ $item->get_history->PB_AL === '1' ? '✔ Alzheimer.' : null }}
+                                                                        {{ $item->get_history->PB_M === '1' ? '✔ Migraña.' : null }}
+                                                                        {{ $item->get_history->PB_AR === '1' ? '✔ Artritis Reumatoide.' : null }}
+                                                                        {{ $item->get_history->PB_EM === '1' ? '✔ Esclerosis Multiple.' : null }}
+                                                                        {{ $item->get_history->PB_U === '1' ? '✔ Ulceras.' : null }}
+                                                                        {{ $item->get_history->PB_G === '1' ? '✔ Gastitris.' : null }}
+                                                                        {{ $item->get_history->PB_SII === '1' ? '✔ Sindrome del Intestino Irritable (SII).' : null }}
+                                                                        {{ $item->get_history->PB_TDT === '1' ? '✔ Transtornos de la tiroides.' : null }}
+                                                                        {{ $item->get_history->PB_EHC === '1' ? '✔ Efermedades hepaticas cronicas.' : null }}
+                                                                        {{ $item->get_history->PB_ERC === '1' ? '✔ Enfermedad Renal Cronica (ERC).' : null }}
+                                                                        {{ $item->get_history->PB_OO === '1' ? '✔ Osteoartritis / Osteoporosis.' : null }}
+                                                                        {{ $item->get_history->PB_FA === '1' ? '✔ Fracturas Anteriores.' : null }}
+                                                                        {{ $item->get_history->PB_GLA === '1' ? '✔ Glaucoma.' : null }}
+                                                                        {{ $item->get_history->PB_PCODC === '1' ? '✔ Problemas circulatorios / de coagulación.' : null }}
+                                                                        {{ $item->get_history->PB_TS === '1' ? '✔ Ha recibido transfusiones sanguineas? - Si. ' : null }}
+                                                                        {{ $item->get_history->PB_NA === '1' ? '✔ Niega.' : null }}
+                                                                    </span>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -1556,28 +1596,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row p-3 mt-2">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <ul class="list-group" style="border-radius: 8px;">
-                                                                        <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                                    @lang('messages.acordion.antecedentes_alerg')
-                                                                                </h5>
-                                                                            </div>
-                                                                        </li>
-                                                                        <div class="list-alergias "> </div>
-
-                                                                        <div id="not-alergias">
-                                                                            <li class="list-group-item" aria-current="true">
-                                                                                <div class="d-flex w-100 justify-content-between">
-                                                                                    <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                                </div>
-                                                                            </li>
-                                                                        </div>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
                                                             {{-- quirurgicos --}}
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="row">
@@ -1594,30 +1612,6 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="row p-3 mt-2">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <ul class="list-group" style="border-radius: 8px;">
-                                                                        <li class="list-group-item active aa" aria-current="true"
-                                                                            style="z-index: 0;">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                                    @lang('messages.acordion.antecedentes_qx')
-                                                                                </h5>
-                                                                            </div>
-                                                                        </li>
-                                                                        <div class="list-cirugias"> </div>
-
-                                                                        <div id="not-cirugias">
-                                                                            <li class="list-group-item" aria-current="true">
-                                                                                <div class="d-flex w-100 justify-content-between">
-                                                                                    <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                                </div>
-                                                                            </li>
-                                                                        </div>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-
                                                             {{-- medicamentos --}}
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="row">
@@ -1631,30 +1625,6 @@
                                                                         {{ $item->get_history->observations_medication}}
                                                                         </span>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row p-3 mt-2">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <ul class="list-group" style="border-radius: 8px;">
-                                                                        <li class="list-group-item active aa" aria-current="true"
-                                                                            style="z-index: 0;">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                                    @lang('messages.acordion.medicamentos')
-                                                                                </h5>
-                                                                            </div>
-                                                                        </li>
-                                                                        <div class="list-medicamentos"> </div>
-                                                                        <div class="ob-medicamentos"> </div>
-                                                                        <div id="not-medications">
-                                                                            <li class="list-group-item" aria-current="true">
-                                                                                <div class="d-flex w-100 justify-content-between">
-                                                                                    <strong>@lang('messages.pacientes.sin_informacion')</strong>
-                                                                                </div>
-                                                                            </li>
-                                                                        </div>
-                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
