@@ -3,31 +3,51 @@
 <style>
 
 
+    #background-video {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    @media only screen and (min-width: 768px) {
+        #background-video-mobile {
+            display: none;
+        }
+    }
+
+
+    @media only screen and (max-width: 768px) {
+        #background-video-mobile {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        #background-video {
+            display: none;
+        }
+    }
+
 </style>
 @section('content')
     <div>
-        <div class="container-fluid text-center">
-            <div class="row form-sq" style="position: relative">
-                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
-                    <div class="card" id="div-form">
-                        <div class="card-body">
-
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                <div class="text-center">
-                                    <img class="img" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" style="width: 200px;">
-                                </div>
-                                <div class="text-center">
-                                    <img class="img" src="{{ asset('img/confimation.jpg') }}" style="width: 200px;">
-                                </div>
-
-                                <h4>Su cita ha sido confirmada</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <video id="background-video" autoplay loop muted>
+            <source src="{{ asset('img/confirmada.mp4') }}" type="video/mp4">
+        </video>
+        <video id="background-video-mobile" autoplay loop muted>
+            <source src="{{ asset('img/FONDO_APP.mp4') }}" type="video/mp4">
+        </video>
     </div>
 @endsection
-

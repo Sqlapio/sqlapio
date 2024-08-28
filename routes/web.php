@@ -114,12 +114,31 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
 /**
  * Ruta para confirmacion para la cita del PACIENTE
  */
-Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
+Route::get('/confirmation/dairy/{code}', function ($code) {
+    $update = DB::table('appointments')
+				->where('code', $code)
+				->update([
+					'status' => 2,
+				]);
+
+    $dairy = Appointment::where('code', $code)->where('status', 2)->first();
+    return view("welcome");
+});
 
 /**
  * Ruta para cancelar la cita del PACIENTE
  */
-Route::get('/cancel/dairy/{code}', [UtilsController::class, 'cancelation_dairy']);
+// Route::get('/cancel/dairy/{code}', [UtilsController::class, 'cancelation_dairy']);
+Route::get('/cancel/dairy/{code}', function ($code) {
+    $update = DB::table('appointments')
+				->where('code', $code)
+				->update([
+					'status' => 2,
+				]);
+
+    $dairy = Appointment::where('code', $code)->where('status', 2)->first();
+    return view("cancel");
+});
 
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
@@ -423,10 +442,6 @@ Route::get('/prueba2', function () {
     return view("pdf.PDF_medical_prescription2", compact('medical_prescription', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
-
-Route::get('/tt', function () {
-    return view("cancel");
-});
 
 Route::get('/t', function () {
     // try {
