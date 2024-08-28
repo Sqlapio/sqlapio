@@ -25,7 +25,7 @@
         #background-video-mobile {
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
+            object-fit: contain;
             position: fixed;
             left: 0;
             right: 0;
