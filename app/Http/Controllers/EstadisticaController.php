@@ -117,10 +117,7 @@ class EstadisticaController extends Controller
 
 
         } catch (\Throwable $th) {
-            $error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_appointments_not_attended()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
+
         }
 
     }
@@ -203,10 +200,7 @@ class EstadisticaController extends Controller
 
 
         } catch (\Throwable $th) {
-            $error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_appointments_not_attended()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
+
         }
 
     }
