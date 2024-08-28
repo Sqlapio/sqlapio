@@ -89,7 +89,7 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $user_connect = Auth::user();
+            $user_connect = User::where('id', $user_id)->first();
             $numero_mes = now()->format('m');
             $mes = Mes::where('numero', $numero_mes)->first()->mes;
 
@@ -172,7 +172,7 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $user_connect = Auth::user();
+            $user_connect = User::where('id', $user_id)->first();
             $numero_mes = now()->format('m');
             $mes = Mes::where('numero', $numero_mes)->first()->mes;
 
