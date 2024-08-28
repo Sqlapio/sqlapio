@@ -90,7 +90,6 @@ class Diary extends Component
                         'last_name'         => $request->last_name_patient,
                         'phone'             => $request->phonenumber_prefix."-".$request->phone,
                         'email'             => $request->email_patient,
-                        // 'birthdate'     => $request->birthdate_patient,
                         'age'               => $request->age_patient,
                         'center_id'         => $request->center_id,
                         'user_id'           => (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id,
@@ -146,8 +145,9 @@ class Diary extends Component
             } else {
 
                 $appointment->save();
+
                 /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
-                EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+                EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id, );
             }
 
             /**Escribir la accion en la tabla de logs */
