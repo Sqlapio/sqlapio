@@ -356,7 +356,7 @@
                                                                                     <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
                                                                                 @endif
                                                                             @else
-                                                                                <span>-----</span>
+                                                                                <td class="text-center td-pad"> <span>-----</span></td>
                                                                             @endif
                                                                             <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
                                                                             @php
