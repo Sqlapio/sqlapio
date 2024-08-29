@@ -2124,8 +2124,25 @@
                     }
                 ],
             });
-    }
 
+        }
+
+        const refresh = () => {
+
+            $('#medicines').val('').change();
+            $('#div-medicina').show();
+            $('#div-otros').hide();
+            $('#medicines').val('')
+
+        }
+
+        const handleSpeciality = (e) => {
+            console.log(e.target.value)
+            if (e.target.value === "Otros") {
+                $('#div-medicina').hide();
+                $('#div-otros').show();
+            }
+        }
 </script>
 @endpush
 @section('content')
@@ -2961,11 +2978,11 @@
                                                         <div style="display: flex">
                                                             <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2" id="div-medicina">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
-                                                                    <select name="medicines" id="medicines"
+                                                                    <select name="medicines" id="medicines"  onchange="handleSpeciality(event)"
                                                                         placeholder="Seleccione"class="form-control"
                                                                         class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.label.seleccione')</option>
@@ -2975,13 +2992,32 @@
 
                                                                             @endphp
                                                                             <option value="{{ $medication }}">{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
-                                                                            @endforeach
+                                                                        @endforeach
+                                                                        <option value='Otros'>@lang('messages.label.otros')</option>
                                                                     </select>
                                                                     <i class="bi bi-capsule st-icon"></i>
                                                                 </div>
                                                                 <span id="medicine_span" class="text-danger"></span>
                                                             </diV>
                                                         </div>
+                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id='div-otros' style="display: none">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="specialty" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    @lang('messages.form.medicamento')
+                                                                </label>
+                                                                <input autocomplete="off" class="form-control mask-text"
+                                                                    id="medicines" name="medicines"
+                                                                    type="text" value="">
+                                                                <i data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                    data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                    title="Refrescar"
+                                                                    class="bi bi-arrow-clockwise st-icon"
+                                                                    onclick="refresh();"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
                                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
