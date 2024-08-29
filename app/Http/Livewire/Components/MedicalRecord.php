@@ -132,7 +132,7 @@ class MedicalRecord extends Component
              */
             /********************************************************************************************************/
 
-            $cita_patient = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->where('status', 2)->first();
+            $cita_patient = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->whereBetween('status', [1, 2])->first();
             if(isset($cita_patient))
             {
                 $cita_patient->update([
