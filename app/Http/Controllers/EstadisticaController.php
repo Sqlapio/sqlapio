@@ -21,19 +21,30 @@ class EstadisticaController extends Controller
     {
         try {
 
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
             $accumulated = new GeneralStatistic();
             $accumulated->user_id = $user_id;
             $accumulated->center = $center_id;
             $accumulated->patient = 1;
             $accumulated->is_minor = $is_minor;
             $accumulated->patient_genere = $genere;
+            $accumulated->mes = $mes;
+            $accumulated->numero_mes = $numero_mes;
             $accumulated->date = date('d-m-Y');
             $accumulated->state = $state;
             $accumulated->save();
 
+            $update_accumulated_patient = User::where('id', $user_id)->first()->patient_counter;
+            $update_accumulated_patient += 1;
+            User::where('id', $user_id)->update(['patient_counter' => $update_accumulated_patient]);
+
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-			dd('Error EstadisticaController.accumulated_patient()', $message);
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.accumulated_patient()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
         }
 
     }
