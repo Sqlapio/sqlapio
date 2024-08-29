@@ -426,8 +426,8 @@ class ApiServicesController extends Controller
             $cen = Center::where('id', $cita->center_id)->first();
             $patient = Patient::where('id', $cita->patient_id)->first();
             $doctor_center = DoctorCenter::where('user_id', $dr->id)->where('center_id', $cita->center_id)->first();
-            $confirmar = 'https://system.sqlapio.com/confirmation/dairy/'.$code;
-            $cancelar = 'https://system.sqlapio.com/cancel/dairy/'.$code;
+            $confirmar = 'https://system.sqlapio.com/confirmation/dairy/'.$cita->code;
+            $cancelar = 'https://system.sqlapio.com/cancel/dairy/'.$cita->code;
 
             $hora_format = '';
 

@@ -145,7 +145,7 @@ Route::get('/cancel/dairy/{code}', function ($code) {
                     ]);
 
         $dairy = Appointment::where('code', $code)->where('status', 4)->first();
-        EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
+        EstadisticaController::accumulated_dairy_cancelada($dairy->user_id, $dairy->center_id);
 
         return view("cancel");
     }
