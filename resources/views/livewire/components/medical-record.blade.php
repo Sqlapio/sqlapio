@@ -1649,7 +1649,7 @@
 
             medications_supplements.push({
                 id: countMedicationAdd,
-                medicine: $('#medicines').val(),
+                medicine: $('#medicines').val() === 'Otros' ? $('#medicines-other').val() : $('#medicines').val(),
                 route: $('#route').val(),
                 indication: $('#indication').val(),
                 treatmentDuration: $('#treatmentDuration').val(),
@@ -1707,6 +1707,10 @@
             countMedicationAdd = countMedicationAdd + 1;
             $('#countMedicationAdd').val(countMedicationAdd);
             // limpiar campos
+            $('#medicines-other').val('').change();
+            $('#div-medicina').show();
+            $('#div-otros').hide();
+            $('#medicines-other').val('')
             $('#medicines').val("");
             $('#route').val("");
             $('#indication').val("");
@@ -2129,10 +2133,10 @@
 
         const refresh = () => {
 
-            $('#medicines').val('').change();
+            $('#medicines-other').val('').change();
             $('#div-medicina').show();
             $('#div-otros').hide();
-            $('#medicines').val('')
+            $('#medicines-other').val('')
 
         }
 
@@ -3000,24 +3004,24 @@
                                                                 <span id="medicine_span" class="text-danger"></span>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id='div-otros' style="display: none">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="specialty" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    @lang('messages.form.medicamento')
-                                                                </label>
-                                                                <input autocomplete="off" class="form-control mask-text"
-                                                                    id="medicines" name="medicines"
-                                                                    type="text" value="">
-                                                                <i data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                                                    title="Refrescar"
-                                                                    class="bi bi-arrow-clockwise st-icon"
-                                                                    onclick="refresh();"></i>
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2" id='div-otros' style="display: none">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="specialty" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.medicamento')
+                                                                    </label>
+                                                                    <input autocomplete="off" class="form-control mask-text"
+                                                                        id="medicines-other" name="medicines-other"
+                                                                        type="text" value="">
+                                                                    <i data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                        data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                        title="Refrescar"
+                                                                        class="bi bi-arrow-clockwise st-icon"
+                                                                        onclick="refresh();"></i>
+                                                                </div>
                                                             </div>
-                                                        </diV>
-                                                    </div>
+                                                        </div>
                                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
