@@ -344,13 +344,10 @@
                                                                 </thead>
                                                                 <tbody>
 
-                                                                    
                                                                     @foreach (collect($appointments)->sortBy('start') as $item)
-                                                                        @php
-                                                                            $date = substr($item['start'], 11);
-                                                                        @endphp
+
                                                                         <tr>
-                                                                            <td class="text-center td-pad"> {{ $date }} </td>
+                                                                            <td class="text-center td-pad"> {{ substr($item['start'], 11) }} </td>
                                                                             <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
                                                                             @if (Auth::user()->contrie == '81')
                                                                                 <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
