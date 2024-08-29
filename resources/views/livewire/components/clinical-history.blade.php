@@ -332,6 +332,15 @@
 
             $('#countDiagnosis').val(countDiagnosis);
 
+            if(e.target.id == 'PB_C' && $(`#${'PB_C'}`).is(':checked') == true) {
+                $('#PB_C_input').show();
+
+            } else if($(`#${'PB_C'}`).is(':checked') == false) {
+
+                $('#PB_C_input').hide();
+                $('#PB_C_input').val('');
+            }
+
         }
 
         // Antecedentes Personales No Patológicos //
@@ -1018,46 +1027,46 @@
                                 <div class="accordion-body">
 
                                     {{-- antecedentes personales --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per')</h6>
-                                    <hr style="margin-bottom: 0;">
-                                    <div class="row" id="checkbok-input">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id='APF' style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_back_bamiliy = 0;
-                                        @endphp
-                                        @foreach ($family_back as $item)
+                                        <hr style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="checkbok-input">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id='APF' style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
                                             @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_back_bamiliy++;
-                                                    }
-                                                }
+                                                $count_back_bamiliy = 0;
                                             @endphp
+                                            @foreach ($family_back as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_back_bamiliy++;
+                                                        }
+                                                    }
+                                                @endphp
 
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerBackFamiliy(event);" class="form-check"
-                                                                name="{{ $item->name }}" type="checkbox"
-                                                                id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center;">
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerBackFamiliy(event);" class="form-check"
+                                                                    name="{{ $item->name }}" type="checkbox"
+                                                                    id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div style="display: flex; align-items: center;">
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="FB_C_input" style="{!! !empty($validateHistory->FB_C) ? '' : 'display: none' !!}">
                                                 <div class="form-group">
@@ -1074,425 +1083,439 @@
                                                     <span id="FB_C_input" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countBackFamily" name="countBackFamily"
-                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_back_bamiliy : '' !!}">
-                                            </div>
                                         </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countBackFamily" name="countBackFamily"
+                                                        class="form-control" readonly value="{!! !empty($validateHistory) ? $count_back_bamiliy : '' !!}">
+                                                </div>
+                                            </div>
 
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_back_family" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_back_family" rows="{!! !empty($Patient->get_history->observations_back_family) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: 146px !important' : '' !!}"
-                                                    name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_back_family" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_back_family" rows="{!! !empty($Patient->get_history->observations_back_family) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: 146px !important' : '' !!}"
+                                                        name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     {{-- end --}}
 
                                     {{-- Antecedentes Personales Patológicos --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                        @lang('messages.acordion.antecedentes_per_pa')</h6>
-                                    <hr style="margin-bottom: 0;">
-
-                                    <div class="row" id="checkbok-input-diagnosis">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="APP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_dagnosis = 0;
-                                        @endphp
-                                        @foreach ($pathology_back as $item)
+                                        <hr style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                            @lang('messages.acordion.antecedentes_per_pa')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="checkbok-input-diagnosis">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="APP"
+                                                    style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
                                             @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_dagnosis++;
-                                                    }
-                                                }
+                                                $count_dagnosis = 0;
                                             @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerDiagnosis(event);" class="form-check"
-                                                                name="{{ $item->name }}" type="checkbox"
-                                                                id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
+                                            @foreach ($pathology_back as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_dagnosis++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerDiagnosis(event);" class="form-check"
+                                                                    name="{{ $item->name }}" type="checkbox"
+                                                                    id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countDiagnosis" name="countDiagnosis"
-                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
+                                            @endforeach
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="PB_C_input" style="{!! !empty($validateHistory->PB_C) ? '' : 'display: none' !!}">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="PB_C_input" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.label.tipo_cancer')
+                                                        </label>
+                                                        <input autocomplete="off" class="form-control mask-only-text"
+                                                            id="PB_C_input" name="PB_C_input" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->PB_C_input : '' !!}">
+                                                        <i class="bi bi-file-medical st-icon"></i>
+                                                    </div>
+                                                    <span id="PB_C_input" class="text-danger"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_diagnosis" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_diagnosis" rows="{!! !empty($Patient->get_history->observations_diagnosis) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
-                                                    name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countDiagnosis" name="countDiagnosis"
+                                                        class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_diagnosis" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_diagnosis" rows="{!! !empty($Patient->get_history->observations_diagnosis) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                        name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     {{-- end --}}
 
                                     {{-- Antecedentes Personales No Patológicos --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_per_no_pa')</h6>
-                                    <hr style="margin-bottom: 0;">
-                                    <div class="row" id="div_no_aplica_no_pathology">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_notpathologica = 0;
-                                        @endphp
-                                        @foreach ($non_pathology_back as $item)
+                                        <hr style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_per_no_pa')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="div_no_aplica_no_pathology">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="ANP"
+                                                    style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
                                             @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_notpathologica++;
-                                                    }
-                                                }
+                                                $count_notpathologica = 0;
                                             @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerNotPathologica(event);"
-                                                                class="form-check" name="{{ $item->name }}"
-                                                                type="checkbox" id="{{ $item->name }}"
-                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
+                                            @foreach ($non_pathology_back as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_notpathologica++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerNotPathologica(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countNotPathological"
+                                                        name="countNotPathological" class="form-control" readonly
+                                                        value="{!! !empty($validateHistory) ? $count_notpathologica : '' !!}">
+                                                </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countNotPathological"
-                                                    name="countNotPathological" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_notpathologica : '' !!}">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_not_pathological" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_not_pathological" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
                                     {{-- end --}}
 
                                     {{-- Salud Mental --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_salud')</h6>
-                                    <hr style="margin-bottom: 0;">
-                                    <div class="row" id="div_mental_healths">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_mental_healths = 0;
-                                        @endphp
-                                        @foreach ($mental_healths as $item)
+                                        <hr style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_salud')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="div_mental_healths">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="ANP"
+                                                    style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
                                             @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_mental_healths++;
-                                                    }
-                                                }
+                                                $count_mental_healths = 0;
                                             @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerMentalHealths(event);"
-                                                                class="form-check" name="{{ $item->name }}"
-                                                                type="checkbox" id="{{ $item->name }}"
-                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
+                                            @foreach ($mental_healths as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_mental_healths++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerMentalHealths(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countMentalHealths"
+                                                        name="countMentalHealths" class="form-control" readonly
+                                                        value="{!! !empty($validateHistory) ? $count_mental_healths : '' !!}">
+                                                </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countMentalHealths"
-                                                    name="countMentalHealths" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_mental_healths : '' !!}">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_mental_healths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_mental_healths" rows="{!! !empty($Patient->get_history->observations_mental_healths) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_mental_healths" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_mental_healths : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_mental_healths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_mental_healths" rows="{!! !empty($Patient->get_history->observations_mental_healths) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_mental_healths" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_mental_healths : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     {{-- end --}}
 
                                     {{-- inmunizaciones --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.inmunizaciones')</h6>
-                                    <hr style="margin-bottom: 0;">
-                                    <div class="row" id="div_inmunizations">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_inmunizations = 0;
-                                        @endphp
-                                        @foreach ($inmunizations as $item)
-                                            @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_inmunizations++;
-                                                    }
-                                                }
-                                            @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerInmunizations(event);"
-                                                                class="form-check" name="{{ $item->name }}"
-                                                                type="checkbox" id="{{ $item->name }}"
-                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="IM_V_input" style="{!! !empty($validateHistory->IM_O) ? '' : 'display: none' !!}">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="IM_V_input" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.label.otros')
-                                                    </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="IM_V_input" name="IM_V_input" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->IM_V_input : '' !!}">
-                                                    <i class="bi bi-file-medical st-icon"></i>
-                                                </div>
-                                                <span id="IM_V_input" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <hr class="mt-3" style="margin-bottom: 0;">
-                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                            @lang('messages.form.IMC19_covid')</h6>
                                         <hr style="margin-bottom: 0;">
-                                        <div class="row">
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
-                                                <div class="floating-label-group" style="margin-top: 30px;">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input class="form-check" name="IMC19_covid" type="checkbox"
-                                                                id="IMC19_covid" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ( $validateHistory->IMC19_covid === '1' ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                @lang('messages.form.IMC19_covid')
-                                                            </label>
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.inmunizaciones')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="div_inmunizations">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="ANP"
+                                                    style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
+                                            @php
+                                                $count_inmunizations = 0;
+                                            @endphp
+                                            @foreach ($inmunizations as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_inmunizations++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerInmunizations(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            @endforeach
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="IM_V_input" style="{!! !empty($validateHistory->IM_O) ? '' : 'display: none' !!}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="IMC19_dosis" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_dosis') </label>
-                                                        <select name="IMC19_dosis" id="IMC19_dosis"
-                                                            placeholder="Seleccione"class="form-control"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">@lang('messages.label.seleccione')</option>
-                                                            <option value="1 Dosis">1 Dosis</option>
-                                                            <option value="2 Dosis">2 Dosis</option>
-                                                            <option value="3 Dosis">3 Dosis</option>
-                                                            <option value="4 Dosis">4 Dosis</option>
-                                                        </select>
-                                                        <i class="bi bi-capsule st-icon"></i>
-
-                                                        {{-- <input autocomplete="off"
-                                                            class="form-control mask-only-text @error('IMC19_dosis') is-invalid @enderror"
-                                                            id="IMC19_dosis" name="IMC19_dosis" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_dosis : '' !!}">
-                                                        <i class="bi bi-capsule st-icon"></i> --}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="IMC19_fecha_ultima_dosis" class="form-label"
+                                                        <label for="IM_V_input" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.IMC19_fecha_ultima_dosis')
+                                                            @lang('messages.label.otros')
                                                         </label>
-                                                        <input autocomplete="off"
-                                                            class="form-control @error('IMC19_fecha_ultima_dosis') is-invalid @enderror"
-                                                            id="IMC19_fecha_ultima_dosis" name="IMC19_fecha_ultima_dosis"
-                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_fecha_ultima_dosis : '' !!}">
+                                                        <input autocomplete="off" class="form-control mask-only-text"
+                                                            id="IM_V_input" name="IM_V_input" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->IM_V_input : '' !!}">
+                                                        <i class="bi bi-file-medical st-icon"></i>
+                                                    </div>
+                                                    <span id="IM_V_input" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                @lang('messages.form.IMC19_covid')</h6>
+                                            <hr style="margin-bottom: 0;">
+                                            <div class="row">
+                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                    <div class="floating-label-group" style="margin-top: 30px;">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input class="form-check" name="IMC19_covid" type="checkbox"
+                                                                    id="IMC19_covid" value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ( $validateHistory->IMC19_covid === '1' ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    @lang('messages.form.IMC19_covid')
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="IMC19_dosis" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_dosis') </label>
+                                                            <select name="IMC19_dosis" id="IMC19_dosis"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">@lang('messages.label.seleccione')</option>
+                                                                <option value="1 Dosis">1 Dosis</option>
+                                                                <option value="2 Dosis">2 Dosis</option>
+                                                                <option value="3 Dosis">3 Dosis</option>
+                                                                <option value="4 Dosis">4 Dosis</option>
+                                                            </select>
+                                                            <i class="bi bi-capsule st-icon"></i>
+
+                                                            {{-- <input autocomplete="off"
+                                                                class="form-control mask-only-text @error('IMC19_dosis') is-invalid @enderror"
+                                                                id="IMC19_dosis" name="IMC19_dosis" type="text"
+                                                                value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_dosis : '' !!}">
+                                                            <i class="bi bi-capsule st-icon"></i> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="IMC19_fecha_ultima_dosis" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                @lang('messages.form.IMC19_fecha_ultima_dosis')
+                                                            </label>
+                                                            <input autocomplete="off"
+                                                                class="form-control @error('IMC19_fecha_ultima_dosis') is-invalid @enderror"
+                                                                id="IMC19_fecha_ultima_dosis" name="IMC19_fecha_ultima_dosis"
+                                                                type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_fecha_ultima_dosis : '' !!}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="IMC19_marca" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_marca') </label>
+                                                            <select name="IMC19_marca" id="IMC19_marca"
+                                                                placeholder="@lang('messages.label.seleccione')" class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">@lang('messages.label.seleccione')</option>
+                                                                @foreach ($covid_vacunas as $item)
+                                                                    <option value={{ $item->description }}>{{ $item->description }} </option>
+                                                                @endforeach
+                                                            </select>
+
+
+                                                            {{-- <input autocomplete="off"
+                                                                class="form-control mask-only-text @error('IMC19_marca') is-invalid @enderror"
+                                                                id="IMC19_marca" name="IMC19_marca" type="text"
+                                                                value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_marca : '' !!}">
+                                                            <i class="bi bi-capsule st-icon"></i> --}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countInmunizations"
+                                                        name="countInmunizations" class="form-control" readonly
+                                                        value="{!! !empty($validateHistory) ? $count_inmunizations : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                                 <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="IMC19_marca" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.IMC19_marca') </label>
-                                                        <select name="IMC19_marca" id="IMC19_marca"
-                                                            placeholder="@lang('messages.label.seleccione')" class="form-control"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">@lang('messages.label.seleccione')</option>
-                                                            @foreach ($covid_vacunas as $item)
-                                                                <option value={{ $item->description }}>{{ $item->description }} </option>
-                                                            @endforeach
-                                                        </select>
-
-
-                                                        {{-- <input autocomplete="off"
-                                                            class="form-control mask-only-text @error('IMC19_marca') is-invalid @enderror"
-                                                            id="IMC19_marca" name="IMC19_marca" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_marca : '' !!}">
-                                                        <i class="bi bi-capsule st-icon"></i> --}}
-                                                    </div>
+                                                    <label for="observations_inmunization" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_inmunization" rows="{!! !empty($Patient->get_history->observations_inmunization) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                        name="observations_inmunization" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunization : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countInmunizations"
-                                                    name="countInmunizations" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_inmunizations : '' !!}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_inmunization" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_inmunization" rows="{!! !empty($Patient->get_history->observations_inmunization) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
-                                                    name="observations_inmunization" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunization : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     {{-- end --}}
 
                                     {{-- Dispositivos medicos --}}
-                                    <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.dispositivos_medicos') </h6>
-                                    <hr style="margin-bottom: 0;">
-                                    <div class="row" id="div_medical_devices">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        @php
-                                            $count_medical_devices = 0;
-                                        @endphp
-                                        @foreach ($medical_devices as $item)
+                                        <hr style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.dispositivos_medicos') </h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row" id="div_medical_devices">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
                                             @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_medical_devices++;
-                                                    }
-                                                }
+                                                $count_medical_devices = 0;
                                             @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerMedicalDevices(event);"
-                                                                class="form-check" name="{{ $item->name }}"
-                                                                type="checkbox" id="{{ $item->name }}"
-                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->description }}
-                                                            </label>
+                                            @foreach ($medical_devices as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_medical_devices++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerMedicalDevices(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->description }}
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countmedical_devices"
+                                                        name="countmedical_devices" class="form-control" readonly
+                                                        value="{!! !empty($validateHistory) ? $count_medical_devices : '' !!}">
+                                                </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countmedical_devices"
-                                                    name="countmedical_devices" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_medical_devices : '' !!}">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_medical_devices" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_medical_devices" rows="{!! !empty($Patient->get_history->observations_medical_devices) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medical_devices" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medical_devices : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                            <div class="form-group">
-                                                <label for="observations_medical_devices" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_medical_devices" rows="{!! !empty($Patient->get_history->observations_medical_devices) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medical_devices" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medical_devices : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {{-- end --}}
                                 </div>
                             </div>
                         </div>
@@ -1686,7 +1709,7 @@
                                                         <input autocomplete="off"
                                                             class="form-control @error('MENOSPA_fecha_ini') is-invalid @enderror"
                                                             id="MENOSPA_fecha_ini" name="MENOSPA_fecha_ini"
-                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->MENOSPA_fecha_ini : '' !!}">
+                                                            type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->MENOSPA_fecha_ini : '' !!}">
                                                     </div>
                                                 </div>
                                             </div>
