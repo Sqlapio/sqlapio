@@ -114,7 +114,8 @@
 
     .div-bar {
         /* background-color: #47525E !important; */
-        background: url({{ asset('img/nav.png') }}) no-repeat top fixed !important;
+        background: url({{ asset('img/nav.png') }}) no-repeat left !important;
+        /* background-size: 100% 94px !important; */
     }
 
     .navbar-text {
@@ -132,6 +133,13 @@
 
     .navbar-nav {
         margin-top: -13px;
+    }
+
+    @media only screen and (min-width: 1920px) {
+
+        .div-bar {
+            background-size: 100% 94px !important;
+        }
     }
 
 
