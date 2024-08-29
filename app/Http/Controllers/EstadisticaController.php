@@ -36,10 +36,6 @@ class EstadisticaController extends Controller
             $accumulated->state = $state;
             $accumulated->save();
 
-            $update_accumulated_patient = User::where('id', $user_id)->first()->patient_counter;
-            $update_accumulated_patient += 1;
-            User::where('id', $user_id)->update(['patient_counter' => $update_accumulated_patient]);
-
         } catch (\Throwable $th) {
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.accumulated_patient()';

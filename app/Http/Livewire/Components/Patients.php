@@ -198,17 +198,17 @@ class Patients extends Component
                     $action = '35';
                     ActivityLogController::store_log($action);
                 }
-                if($request->id == null || auth()->user()->role == 'secretary'){
+                if($request->id == null){
 
                     $action = '9';
                     ActivityLogController::store_log($action);
 
-                    /**
-                     * Acumulado para el manejo de estadisticas
-                     * @param state
-                     * @param 1 -> menor de edad
-                     */
+                    /**Contador de pacientes*/
+                    UtilsController::update_patient_counter($user_id);
+
+                    /**estadistica de pacientes*/
                     EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere, 1);
+
                 }
 
                 /**Notificacion al Medico por haber registrado un paciente nuevo*/
@@ -448,15 +448,14 @@ class Patients extends Component
                     ActivityLogController::store_log($action);
                 }
 
-                if($request->id == null || auth()->user()->role == 'secretary'){
+                if($request->id == null){
                     $action = '9';
                     ActivityLogController::store_log($action);
 
-                    /**
-                     * Acumulado para el manejo de estadisticas
-                     * @param state
-                     * @param 1 -> menor de edad
-                     */
+                    /**Contador de pacientes*/
+                    UtilsController::update_patient_counter($user_id);
+
+                    /**estadistica de pacientes*/
                     EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere);
                 }
 
