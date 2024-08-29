@@ -125,20 +125,16 @@ class Patients extends Component
 
                 if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
 
-
                     $dataCenter = auth()->user()->get_data_corporate_master;
-
                     $user_doc = $dataCenter->id;
                     $contrie_doc = $dataCenter->contrie;
 
                 }
 
-
                 if (auth()->user()->role == "secretary") {
 
                     $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
                     $contrie_doc = auth()->user()->get_data_corporate_master->contrie;
-
                     foreach($dataCenter as $item){
                         $user_doc = $item->user_id;
                     }
@@ -147,7 +143,7 @@ class Patients extends Component
                 $patient = Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
-                        'patient_code'      => UtilsController::get_patient_code($request->re_ci),
+                    'patient_code'      => UtilsController::get_patient_code($request->re_ci),
                         'name'              => $request->name,
                         'last_name'         => $request->last_name,
                         'genere'            => $request->genere,
@@ -191,25 +187,29 @@ class Patients extends Component
 
                         ]
                     );
+   
+                if($request->id != null)
+                {
+                    $action = '34';
+                    ActivityLogController::store_log($action);
+                }
+                if($re_patient)
+                {
+                    $action = '35';
+                    ActivityLogController::store_log($action);
+                }
+                if($request->id == null || auth()->user()->role == 'secretary'){
 
-                $action = '9';
-                ActivityLogController::store_log($action);
+                    $action = '9';
+                    ActivityLogController::store_log($action);
 
-                /**
-                 * Acumulado para el manejo de estadisticas
-                 * @param state
-                 * @param 1 -> menor de edad
-                 */
-                EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere, 1);
-
-                /**
-                 * Logica para aumentar el contador
-                 * de almacenamiento para el numero
-                 * de pacientes.
-                 *
-                 * Esta logica se aplica al tema de los planes
-                 */
-                UtilsController::update_patient_counter($user_id);
+                    /**
+                     * Acumulado para el manejo de estadisticas
+                     * @param state
+                     * @param 1 -> menor de edad
+                     */
+                    EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere, 1);
+                }
 
                 /**Notificacion al Medico por haber registrado un paciente nuevo*/
                 $user = Auth::user();
@@ -368,7 +368,6 @@ class Patients extends Component
 
                 $validator = Validator::make($request->all(), $rules, $msj);
 
-
                 if ($validator->fails()) {
                     return response()->json([
                         'success' => 'false',
@@ -381,7 +380,6 @@ class Patients extends Component
                  */
 
                 if ($request->center_id == null) {
-
                     $center_id_corporativo =  auth()->user()->center_id;
                 }
 
@@ -396,21 +394,15 @@ class Patients extends Component
                 $ci = str_replace('-', '', $request->ci);
 
                 if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
-
-
                     $dataCenter = auth()->user()->get_data_corporate_master;
-
                     $user_doc = $dataCenter->id;
                     $contrie_doc = $dataCenter->contrie;
 
                 }
 
-
                 if (auth()->user()->role == "secretary") {
-
                     $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
                     $contrie_doc = auth()->user()->get_data_corporate_master->contrie;
-
                     foreach($dataCenter as $item){
                         $user_doc = $item->user_id;
                     }
@@ -450,22 +442,22 @@ class Patients extends Component
                     ]
                 );
 
-                /**
-                 * Acumulado para el manejo de estadisticas
-                 * @param state
-                 */
-                EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere);
-
-                /**
-                 * Logica para aumentar el contador
-                 * de almacenamiento para el numero
-                 * de pacientes.
-                 *
-                 * Esta logica se aplica al tema de los planes
-                 */
-                if($request->id == null || auth()->user()->role == 'secretary')
+                if($request->id != null)
                 {
-                    UtilsController::update_patient_counter($patient['user_id']);
+                    $action = '34';
+                    ActivityLogController::store_log($action);
+                }
+
+                if($request->id == null || auth()->user()->role == 'secretary'){
+                    $action = '9';
+                    ActivityLogController::store_log($action);
+
+                    /**
+                     * Acumulado para el manejo de estadisticas
+                     * @param state
+                     * @param 1 -> menor de edad
+                     */
+                    EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere);
                 }
 
 

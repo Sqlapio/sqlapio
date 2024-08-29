@@ -21,12 +21,17 @@ class EstadisticaController extends Controller
     {
         try {
 
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
             $accumulated = new GeneralStatistic();
             $accumulated->user_id = $user_id;
             $accumulated->center = $center_id;
             $accumulated->patient = 1;
             $accumulated->is_minor = $is_minor;
             $accumulated->patient_genere = $genere;
+            $accumulated->mes = $mes;
+            $accumulated->numero_mes = $numero_mes;
             $accumulated->date = date('d-m-Y');
             $accumulated->state = $state;
             $accumulated->save();
