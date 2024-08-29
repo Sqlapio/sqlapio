@@ -135,6 +135,12 @@
         margin-top: -13px;
     }
 
+    @media only screen and (max-width: 991px) {
+        .div-bar {
+            background: url({{ asset('img/nav-2.png') }}) no-repeat left !important;
+        }
+
+    }
     @media only screen and (min-width: 1920px) {
 
         .div-bar {
