@@ -198,7 +198,7 @@
 
                         });
             } else {
-                if(age === '') {
+                if(ci === '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
@@ -349,10 +349,14 @@
                                                                         <tr>
                                                                             <td class="text-center td-pad"> {{ substr($item['start'], 11) }} </td>
                                                                             <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
-                                                                            @if (Auth::user()->contrie == '81')
-                                                                                <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
+                                                                            @if ($item['extendedProps']['ci'])
+                                                                                @if (Auth::user()->contrie == '81')
+                                                                                    <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
+                                                                                @else
+                                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                                @endif
                                                                             @else
-                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                                <span>-----</span>
                                                                             @endif
                                                                             <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
                                                                             @php
@@ -367,11 +371,11 @@
                                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                             @php
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
-                                                                                                $age =  $item['extendedProps']['age'];
+                                                                                                $ci =  $item['extendedProps']['ci'];
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
-                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $age }}', '{{ $status2 }}')">
+                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}', '{{ $status2 }}')">
                                                                                             <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>
                                                                                         </div>
