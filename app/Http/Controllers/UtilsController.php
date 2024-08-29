@@ -171,6 +171,12 @@ class UtilsController extends Controller
         if ($value == 'corporate_plan') {
 			return 'add register corporate plane';
 		}
+        if ($value == '34') {
+			return 'update patient';
+		}
+        if ($value == '35') {
+			return 'update representative';
+		}
 
 	}
 
