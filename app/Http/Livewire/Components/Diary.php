@@ -116,7 +116,7 @@ class Diary extends Component
                     $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
                     $patient->contrie_doc       = auth()->user()->contrie;
                     $patient->verification_code = Str::random(30);
-                    // $patient->save();
+                    $patient->save();
 
                     $appointment = new Appointment();
                     $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
@@ -127,7 +127,7 @@ class Diary extends Component
                     $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
                     $appointment->price         = $request->price;
                     $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
-                    // $appointment->save();
+                    $appointment->save();
 
                     $action = '23';
                     ActivityLogController::store_log($action);
@@ -159,7 +159,7 @@ class Diary extends Component
                     $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
                     $appointment->price         = $request->price;
                     $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
-                    // $appointment->save();
+                    $appointment->save();
 
                     /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
                     EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
