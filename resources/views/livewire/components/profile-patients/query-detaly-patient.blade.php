@@ -1338,7 +1338,7 @@
                                                                         {{ $item->get_history->PB_ADS === '1' ? '✔ Apnea del Sueño.' : null }}
                                                                         {{ $item->get_history->PB_D === '1' ? '✔ Diabetes.' : null }}
                                                                         {{ $item->get_history->PB_H === '1' ? '✔ Hipercolesterolemia.' : null }}
-                                                                        {{ $item->get_history->PB_C === '1' ? '✔ Cancer ('. $item->get_history->FB_C_input .')' : null }}
+                                                                        {{ $item->get_history->PB_C === '1' ? '✔ Cancer ('. $item->get_history->PB_C_input .')' : null }}
                                                                         {{ $item->get_history->PB_P === '1' ? '✔ Parkinson.' : null }}
                                                                         {{ $item->get_history->PB_AL === '1' ? '✔ Alzheimer.' : null }}
                                                                         {{ $item->get_history->PB_M === '1' ? '✔ Migraña.' : null }}

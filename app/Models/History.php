@@ -77,6 +77,7 @@ class History extends Model
         'PB_D',
         'PB_H',
         'PB_C',
+        'PB_C_input',
         'PB_P',
         'PB_AL',
         'PB_M',
