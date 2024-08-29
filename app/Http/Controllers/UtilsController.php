@@ -353,7 +353,7 @@ class UtilsController extends Controller
 
 	static function get_appointments($id)
 	{
-		try {
+        try {
 			$appointments = Appointment::where('user_id', $id)
 				->WhereBetween('status', [1, 2])->get();
 			$data = [];
@@ -408,12 +408,12 @@ class UtilsController extends Controller
 						'id'              => $val->id,
 						'price'           => $val->price,
 						'confirmation'    => $val->confirmation,
-						'phone'           => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_phone . '  (Rep)' : $val->get_patients->phone,
+						'phone'           => $val->get_patients->phone == null ? '----' : $val->get_patients->phone,
 						'name'            => $val->get_patients->name,
 						'last_name'       => $val->get_patients->last_name,
-						'ci'              => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_ci . '  (Rep)' : $val->get_patients->ci,
-						'email'           => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_email . '  (Rep)' : $val->get_patients->email,
-						'genere'          => $val->get_patients->genere,
+						'ci'              => $val->get_patients->ci == null ? '----' : $val->get_patients->ci,
+						'email'           => $val->get_patients->email == null ? '----' : $val->get_patients->email,
+						'genere'          => $val->get_patients->genere == null ? '----' : $val->get_patients->genere,
 						'age'             => $val->get_patients->age,
 						'patient_id'      => $val->get_patients->id,
 						'center_id'       => $val->center_id,
@@ -2255,9 +2255,9 @@ class UtilsController extends Controller
             $valores = [];
 
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->get();
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('medical_record');
                 if(isset($valor)){
-                    array_push($valores, $valor->count());
+                    array_push($valores, $valor);
                 }
             }
 
