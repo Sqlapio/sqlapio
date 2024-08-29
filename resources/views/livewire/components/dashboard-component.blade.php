@@ -175,7 +175,7 @@
         });
 
 
-        const alertInfoPaciente = (id_patient, age, status) => {
+        const alertInfoPaciente = (id_patient, ci, status) => {
             if (status === 'Cancelada') {
                 Swal.fire({
                             icon: 'error',
