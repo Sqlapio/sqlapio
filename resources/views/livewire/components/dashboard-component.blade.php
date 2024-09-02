@@ -189,16 +189,17 @@
 
                 } else if (status === 'Finalizada') {
                 Swal.fire({
-                            icon: 'error',
-                            title: 'Cita Finalizada',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        }).then((result) => {
+                    icon: 'error',
+                    title: 'Cita Finalizada',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                }).then((result) => {
 
-                        });
+                });
             } else {
-                if(ci === '') {
+                console.log(ci)
+                if(ci === '----') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
