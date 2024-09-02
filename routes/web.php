@@ -157,6 +157,7 @@ Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pa
 Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
+        /**Prefix Auth */
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
@@ -177,6 +178,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
             Route::group(array('prefix' => 'patients'), function () {
+                /**Patients*/
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::post('/create-informe-medico', [MedicalRecord::class, 'informe_medico'])->name('create-informe-medico')->middleware(['VerifyPlans']);

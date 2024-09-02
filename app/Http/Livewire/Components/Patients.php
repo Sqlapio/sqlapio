@@ -187,7 +187,7 @@ class Patients extends Component
 
                         ]
                     );
-   
+
                 if($request->id != null)
                 {
                     $action = '34';
@@ -425,7 +425,6 @@ class Patients extends Component
                         'state'             => $request->state,
                         'city'              => $request->city,
                         'address'           => $request->address,
-                        // 'zip_code'          => $request->zip_code,
                         'blood_type'        => $request->blood_type,
                         'ce_phone'          => $request->ce_phone,
                         'ce_name'           => $request->ce_name,
@@ -446,6 +445,9 @@ class Patients extends Component
                 {
                     $action = '34';
                     ActivityLogController::store_log($action);
+
+                    /**Contador de pacientes*/
+                    UtilsController::update_patient_counter($user_id);
                 }
 
                 if($request->id == null){
