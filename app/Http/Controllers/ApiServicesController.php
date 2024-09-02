@@ -118,6 +118,114 @@ class ApiServicesController extends Controller
         }
     }
 
+    /**Esta funcion se utiliza cuando se envia la notificacion por whatsaap
+     * a un paciente que fue pre-registrado desde la agenda
+     */
+    static public function whatsapp_welcome_pre_registro($phone, $ubicacion, array $data)
+    {
+        // dd($data);
+        try {
+
+            $hora_format = '';
+
+            if ($data['horario']) {
+                $hora_format = $data['horario'];
+            }
+
+            if ($data['horario'] == '13:00 pm') {
+                $hora_format = '01:00 pm';
+            }
+
+            if ($data['horario'] == '14:00 pm') {
+                $hora_format = '02:00 pm';
+            }
+
+            if ($data['horario'] == '15:00 pm') {
+                $hora_format = '03:00 pm';
+            }
+
+            if ($data['horario'] == '16:00 pm') {
+                $hora_format = '04:00 pm';
+            }
+
+            if ($data['horario'] == '17:00 pm') {
+                $hora_format = '05:00 pm';
+            }
+
+            if ($data['horario'] == '18:00 pm') {
+                $hora_format = '06:00 pm';
+            }
+
+            if ($data['horario'] == '19:00 pm') {
+                $hora_format = '07:00 pm';
+            }
+
+            if ($data['horario'] == '20:00 pm') {
+                $hora_format = '08:00 pm';
+            }
+
+            $cita_medica = __('messages.whatsapp.cita_medica');
+            $text3 = __('messages.whatsapp.text3');
+            $sr = __('messages.whatsapp.sr');
+            $fecha = __('messages.whatsapp.fecha');
+            $hora = __('messages.whatsapp.hora');
+            $doctor = __('messages.whatsapp.doctor');
+            $centro = __('messages.whatsapp.centro');
+            $piso = __('messages.whatsapp.piso');
+            $consultorio = __('messages.whatsapp.consultorio');
+            $ubicacion = __('messages.whatsapp.ubicacion');
+            $precio = __('messages.whatsapp.precio');
+
+            $body = <<<HTML
+            *{$cita_medica}:*
+
+            {$sr}. {$data['patient_name']},
+            {$text3}.
+
+            *{$fecha}:* {$data['fecha']}
+            *{$hora}:* {$hora_format}
+            *{$doctor}:* {$data['dr_name']}
+            *{$centro}:* {$data['centro']}
+            *{$piso}:* {$data['piso']}
+            *{$consultorio}:* {$data['consultorio']}
+            *{$precio}:*  {$data['price']}
+
+            *{$ubicacion}:* {$data['ubication']}
+            HTML;
+
+            $params = array(
+                'token' => env('TOKEN_API_WHATSAPP'),
+                'to' => $phone,
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $body
+            );
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.sms_welcome()', $message);
+        }
+    }
+
     static public function whatsapp_register_doctor(array $data)
     {
 

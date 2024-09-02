@@ -134,6 +134,85 @@ class Diary extends Component
 
                     /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
                     EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+
+                    /**Envio de notificaciones */
+
+                    /**Buscamos la direccion del centro */
+                    $dir = str_replace(' ', '%20', $appointment->get_center->description);
+                    $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+                    /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
+                    if (isset($center_id_corporativo))
+                    {
+                        $type = 'appointment';
+
+                        if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7")
+                        {
+                            $info_medico = User::where('id', auth()->user()->master_coorporate_id)->first();
+                            $dataCenter = auth()->user()->get_data_corporate_master;
+                            $numberFloor = $dataCenter->number_floor;
+                            $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                            $numberConsultingRoom = $dataCenter->number_consulting_room;
+                            $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+
+                        }
+
+                        if (auth()->user()->role == "secretary")
+                        {
+                            $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+                            foreach ($dataCenter as $item) {
+                                $nameDoctor = $item->name . ' ' . $item->last_name;
+                                $numberFloor = $item->number_floor;
+                                $numberConsultingRoom = $item->number_consulting_room;
+                                $phoneConsultingRoom = $item->phone_consulting_room;
+                            }
+                        }
+
+                        $mailData = [
+                            'dr_name'       => auth()->user()->role == "secretary" ? $info_medico->name.' '.$info_medico->last_name : auth()->user()->name. ' ' .auth()->user()->last_name,
+                            'dr_email'      => $user->email,
+                            'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                            'cod_patient'   => $patient->patient_code,
+                            'patient_email' => $patient->email,
+                            'fecha'         => $appointment->date_start,
+                            'horario'       => $date[0] . ' ' . $request->timeIni,
+                            'centro'        => $appointment->get_center->description,
+                            'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                            'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                            'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                            'price'         => $appointment->price,
+                            'ubication'     => $ubication,
+                        ];
+
+                        /**Notificacion por whatsapp */
+                        ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+
+                    } else {
+
+                        $type = 'appointment';
+
+                        $mailData = [
+                            'dr_name'       => $user->name . ' ' . $user->last_name,
+                            'dr_email'      => $user->email,
+                            'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                            'cod_patient'   => $patient->patient_code,
+                            'patient_email' => $patient->email,
+                            'fecha'         => $request->date_start,
+                            'horario'       => $date[0] . ' ' . $request->timeIni,
+                            'centro'        => $appointment->get_center->description,
+                            'piso'          => $appointment->get_center->number_floor,
+                            'consultorio'   => $appointment->get_center->number_consulting_room,
+                            'telefono'      => $appointment->get_center->phone_consulting_room,
+                            'price'         => $appointment->price,
+                            'ubication'     => $ubication,
+                        ];
+
+
+                        /**Notificacion por whatsapp */
+                        ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+
+                    }
+
                 }
             } else {
 
