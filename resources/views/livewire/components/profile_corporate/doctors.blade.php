@@ -41,18 +41,8 @@
 @push('scripts')
     <script>
         const handlerDoctor = async (e) => {
-            if ($(`#${e.target.id}`).is(':checked')) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.habilitar_medico')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
-                    handlerStatus("{{ route('enabled-doctor', ':id') }}", e.target.value);
-                    $('#spinner').show();
-                });
-            } else {
+            console.log(e.target)
+            if (e.target.checked === false) {
                 Swal.fire({
                     icon: 'warning',
                     title: '@lang('messages.alert.deshabilitar_medico')',
@@ -61,6 +51,18 @@
                     confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     handlerStatus("{{ route('disabled-doctor', ':id') }}", e.target.value);
+                    $('#spinner').show();
+                });
+            } 
+            if (e.target.checked === true){
+                Swal.fire({
+                    icon: 'warning',
+                    title: '@lang('messages.alert.habilitar_medico')',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                }).then((result) => {
+                    handlerStatus("{{ route('enabled-doctor', ':id') }}", e.target.value);
                     $('#spinner').show();
                 });
             }

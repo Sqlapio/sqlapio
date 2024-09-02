@@ -45,9 +45,9 @@ class UpdateStatusDairy extends Command
 
             if($user_affected->type_plane == 7){
                 $accumulated = new GeneralStatistic();
-                $accumulated->user_id = $user_affected->user_id;
+                $accumulated->user_id = $item->user_id;
                 $accumulated->type_plane = 7;
-                $accumulated->center = $user_affected->center_id;
+                $accumulated->center = $item->center_id;
                 $accumulated->dairy_no_atendida = 1;
                 $accumulated->mes = $mes;
                 $accumulated->numero_mes = $numero_mes;
@@ -55,9 +55,8 @@ class UpdateStatusDairy extends Command
                 $accumulated->save();
             }else{
                 $accumulated = new GeneralStatistic();
-                $accumulated->user_id = $user_affected->user_id;
-                $accumulated->type_plane = $user_affected->type_plane;
-                $accumulated->center = $user_affected->center_id;
+                $accumulated->user_id = $item->user_id;
+                $accumulated->center = $item->center_id;
                 $accumulated->dairy_no_atendida = 1;
                 $accumulated->mes = $mes;
                 $accumulated->numero_mes = $numero_mes;
