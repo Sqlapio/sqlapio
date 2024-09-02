@@ -1301,20 +1301,20 @@
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per')</h6>
                                                                     <hr style="margin-top: 5px">
                                                                     <span style="font-size: 13px">{{ $item->get_history->FB_EC === '1' ? '✔ Enfermedad Coronaria.' : null }}
-                                                                    {{ $item->get_history->FB_HA === '1' ? '✔ Hipertension Arterial.' : null }}
-                                                                    {{ $item->get_history->FB_D === '1' ? '✔ Diabetes.' : null }}
-                                                                    {{ $item->get_history->FB_C === '1' ? '✔ Cancer ('. $item->get_history->FB_C_input .')' : null }}
-                                                                    {{ $item->get_history->FB_AL === '1' ? '✔ Alzheimer.' : null }}
-                                                                    {{ $item->get_history->FB_EM === '1' ? '✔ Esclerosis Multiple.' : null }}
+                                                                    {{ $item->get_history->FB_HA  === '1' ? '✔ Hipertension Arterial.' : null }}
+                                                                    {{ $item->get_history->FB_D   === '1' ? '✔ Diabetes.' : null }}
+                                                                    {{ $item->get_history->FB_C   === '1' ? '✔ Cancer ('. $item->get_history->FB_C_input .')' : null }}
+                                                                    {{ $item->get_history->FB_AL  === '1' ? '✔ Alzheimer.' : null }}
+                                                                    {{ $item->get_history->FB_EM  === '1' ? '✔ Esclerosis Multiple.' : null }}
                                                                     {{ $item->get_history->FB_EDP === '1' ? '✔ Enfermedad de Parkinson.' : null }}
                                                                     {{ $item->get_history->FB_TSM === '1' ? '✔ Transtornos de Salud Mental.' : null }}
-                                                                    {{ $item->get_history->FB_AR === '1' ? '✔ Artritis Reumatoide.' : null }}
+                                                                    {{ $item->get_history->FB_AR  === '1' ? '✔ Artritis Reumatoide.' : null }}
                                                                     {{ $item->get_history->FB_LES === '1' ? '✔ Lupus Eritematoso Sistemico.' : null }}
                                                                     {{ $item->get_history->FB_EHC === '1' ? '✔ Enfermedades Hepaticas cronicas.' : null }}
                                                                     {{ $item->get_history->FB_TDT === '1' ? '✔ Transtornos de la Tiroides.' : null }}
-                                                                    {{ $item->get_history->FB_ER === '1' ? '✔ Enfermedades Respiratorias.' : null }}
-                                                                    {{ $item->get_history->FB_DM === '1' ? '✔ Distrofia Muscular.' : null }}
-                                                                    {{ $item->get_history->FB_NA === '1' ? '✔ Niega.' : null }}</span>
+                                                                    {{ $item->get_history->FB_ER  === '1' ? '✔ Enfermedades Respiratorias.' : null }}
+                                                                    {{ $item->get_history->FB_DM  === '1' ? '✔ Distrofia Muscular.' : null }}
+                                                                    {{ $item->get_history->FB_NA  === '1' ? '✔ Niega.' : null }}</span>
 
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
@@ -1331,31 +1331,31 @@
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_pa')</h6>
                                                                     <hr style="margin-top: 5px">
                                                                     <span style="font-size: 13px">
-                                                                        {{ $item->get_history->PB_HA === '1' ? '✔ Hipertensión Arterial.' : null }}
-                                                                        {{ $item->get_history->PB_EC === '1' ? '✔ Enfermedad Coronaria.' : null }}
-                                                                        {{ $item->get_history->PB_A === '1' ? '✔ Asma.' : null }}
-                                                                        {{ $item->get_history->PB_EPOC === '1' ? '✔ Enfermedad Pulmonar Obstructiva Cronica (EPOC).' : null }}
-                                                                        {{ $item->get_history->PB_ADS === '1' ? '✔ Apnea del Sueño.' : null }}
-                                                                        {{ $item->get_history->PB_D === '1' ? '✔ Diabetes.' : null }}
-                                                                        {{ $item->get_history->PB_H === '1' ? '✔ Hipercolesterolemia.' : null }}
-                                                                        {{ $item->get_history->PB_C === '1' ? '✔ Cancer ('. $item->get_history->PB_C_input .')' : null }}
-                                                                        {{ $item->get_history->PB_P === '1' ? '✔ Parkinson.' : null }}
-                                                                        {{ $item->get_history->PB_AL === '1' ? '✔ Alzheimer.' : null }}
-                                                                        {{ $item->get_history->PB_M === '1' ? '✔ Migraña.' : null }}
-                                                                        {{ $item->get_history->PB_AR === '1' ? '✔ Artritis Reumatoide.' : null }}
-                                                                        {{ $item->get_history->PB_EM === '1' ? '✔ Esclerosis Multiple.' : null }}
-                                                                        {{ $item->get_history->PB_U === '1' ? '✔ Ulceras.' : null }}
-                                                                        {{ $item->get_history->PB_G === '1' ? '✔ Gastitris.' : null }}
-                                                                        {{ $item->get_history->PB_SII === '1' ? '✔ Sindrome del Intestino Irritable (SII).' : null }}
-                                                                        {{ $item->get_history->PB_TDT === '1' ? '✔ Transtornos de la tiroides.' : null }}
-                                                                        {{ $item->get_history->PB_EHC === '1' ? '✔ Efermedades hepaticas cronicas.' : null }}
-                                                                        {{ $item->get_history->PB_ERC === '1' ? '✔ Enfermedad Renal Cronica (ERC).' : null }}
-                                                                        {{ $item->get_history->PB_OO === '1' ? '✔ Osteoartritis / Osteoporosis.' : null }}
-                                                                        {{ $item->get_history->PB_FA === '1' ? '✔ Fracturas Anteriores.' : null }}
-                                                                        {{ $item->get_history->PB_GLA === '1' ? '✔ Glaucoma.' : null }}
+                                                                        {{ $item->get_history->PB_HA    === '1' ? '✔ Hipertensión Arterial.' : null }}
+                                                                        {{ $item->get_history->PB_EC    === '1' ? '✔ Enfermedad Coronaria.' : null }}
+                                                                        {{ $item->get_history->PB_A     === '1' ? '✔ Asma.' : null }}
+                                                                        {{ $item->get_history->PB_EPOC  === '1' ? '✔ Enfermedad Pulmonar Obstructiva Cronica (EPOC).' : null }}
+                                                                        {{ $item->get_history->PB_ADS   === '1' ? '✔ Apnea del Sueño.' : null }}
+                                                                        {{ $item->get_history->PB_D     === '1' ? '✔ Diabetes.' : null }}
+                                                                        {{ $item->get_history->PB_H     === '1' ? '✔ Hipercolesterolemia.' : null }}
+                                                                        {{ $item->get_history->PB_C     === '1' ? '✔ Cancer ('. $item->get_history->PB_C_input .')' : null }}
+                                                                        {{ $item->get_history->PB_P     === '1' ? '✔ Parkinson.' : null }}
+                                                                        {{ $item->get_history->PB_AL    === '1' ? '✔ Alzheimer.' : null }}
+                                                                        {{ $item->get_history->PB_M     === '1' ? '✔ Migraña.' : null }}
+                                                                        {{ $item->get_history->PB_AR    === '1' ? '✔ Artritis Reumatoide.' : null }}
+                                                                        {{ $item->get_history->PB_EM    === '1' ? '✔ Esclerosis Multiple.' : null }}
+                                                                        {{ $item->get_history->PB_U     === '1' ? '✔ Ulceras.' : null }}
+                                                                        {{ $item->get_history->PB_G     === '1' ? '✔ Gastitris.' : null }}
+                                                                        {{ $item->get_history->PB_SII   === '1' ? '✔ Sindrome del Intestino Irritable (SII).' : null }}
+                                                                        {{ $item->get_history->PB_TDT   === '1' ? '✔ Transtornos de la tiroides.' : null }}
+                                                                        {{ $item->get_history->PB_EHC   === '1' ? '✔ Efermedades hepaticas cronicas.' : null }}
+                                                                        {{ $item->get_history->PB_ERC   === '1' ? '✔ Enfermedad Renal Cronica (ERC).' : null }}
+                                                                        {{ $item->get_history->PB_OO    === '1' ? '✔ Osteoartritis / Osteoporosis.' : null }}
+                                                                        {{ $item->get_history->PB_FA    === '1' ? '✔ Fracturas Anteriores.' : null }}
+                                                                        {{ $item->get_history->PB_GLA   === '1' ? '✔ Glaucoma.' : null }}
                                                                         {{ $item->get_history->PB_PCODC === '1' ? '✔ Problemas circulatorios / de coagulación.' : null }}
-                                                                        {{ $item->get_history->PB_TS === '1' ? '✔ Ha recibido transfusiones sanguineas? - Si. ' : null }}
-                                                                        {{ $item->get_history->PB_NA === '1' ? '✔ Niega.' : null }}
+                                                                        {{ $item->get_history->PB_TS    === '1' ? '✔ Ha recibido transfusiones sanguineas? - Si. ' : null }}
+                                                                        {{ $item->get_history->PB_NA    === '1' ? '✔ Niega.' : null }}
                                                                     </span>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
@@ -1371,7 +1371,17 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="non_pathology_back"> </div>
+                                                                    <span style="font-size: 13px">
+                                                                        {{ $item->get_history->NPB_CA     === '1' ? '✔ Cosume alcohol? Si.' : null }}
+                                                                        {{ $item->get_history->NPB_CFGYPL === '1' ? '✔ Cosume frecuentemente grasas y productos lacteos? Si.' : null }}
+                                                                        {{ $item->get_history->NPB_CFAAA  === '1' ? '✔ Cosume frecuentemente alimentos procesados y altos en azúcar?. Si' : null }}
+                                                                        {{ $item->get_history->NPB_CC     === '1' ? '✔ Consume cigarrillos: Puros, Pipas, Tabaco de mascar o Vapper?. Si' : null }}
+                                                                        {{ $item->get_history->NPB_CCD    === '1' ? '✔ Cosume o a Consumido drogas. Si' : null }}
+                                                                        {{ $item->get_history->NPB_UFMVL  === '1' ? '✔ Usa frecuentemente medicamento de venta libre?. Si' : null }}
+                                                                        {{ $item->get_history->NPB_EF     === '1' ? '✔ Se ejercita frecuentemente?. Si' : null }}
+                                                                        {{ $item->get_history->NPB_SIPD   === '1' ? '✔ Sufre de Insomio o problemas para dormir? Si' : null }}
+                                                                        {{ $item->get_history->NPB_NA     === '1' ? '✔ Niega.' : null }}
+                                                                    </span>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -1387,7 +1397,19 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_salud')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="non_pathology_back"> </div>
+                                                                    <span style="font-size: 13px">
+                                                                        {{ $item->get_history->EM_DMR   === '1' ? '✔ Depresión mayor recurrente.' : null }}
+                                                                        {{ $item->get_history->EM_TB    === '1' ? '✔ Trastorno bipolar.' : null }}
+                                                                        {{ $item->get_history->EM_TAG   === '1' ? '✔ Trastorno de ansiedad generalizada (TAG).' : null }}
+                                                                        {{ $item->get_history->EM_TCO   === '1' ? '✔ Trastorno obsesivo-compulsivo (TOC).' : null }}
+                                                                        {{ $item->get_history->EM_TP    === '1' ? '✔ Trastorno de pánico.' : null }}
+                                                                        {{ $item->get_history->EM_TEPT  === '1' ? '✔ Trastorno de estrés postraumático (TEPT).' : null }}
+                                                                        {{ $item->get_history->EM_E     === '1' ? '✔ Esquizofrenia.' : null }}
+                                                                        {{ $item->get_history->EM_TLP   === '1' ? '✔ Trastorno de la personalidad límite (TLP).' : null }}
+                                                                        {{ $item->get_history->EM_TAAB  === '1' ? '✔ Trastorno de alimentación (anorexia bulimia).' : null }}
+                                                                        {{ $item->get_history->EM_TCS   === '1' ? '✔ Trastorno por consumo de sustancias.' : null }}
+                                                                        {{ $item->get_history->EM_NA    === '1' ? '✔ Niega.' : null }}
+                                                                    </span>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -1403,7 +1425,19 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="non_pathology_back"> </div>
+                                                                    <span style="font-size: 13px">
+                                                                        {{-- {{ $item->get_history->EM_DMR   === '1' ? '✔ Depresión mayor recurrente.' : null }}
+                                                                        {{ $item->get_history->EM_TB    === '1' ? '✔ Trastorno bipolar.' : null }}
+                                                                        {{ $item->get_history->EM_TAG   === '1' ? '✔ Trastorno de ansiedad generalizada (TAG).' : null }}
+                                                                        {{ $item->get_history->EM_TCO   === '1' ? '✔ Trastorno obsesivo-compulsivo (TOC).' : null }}
+                                                                        {{ $item->get_history->EM_TP    === '1' ? '✔ Trastorno de pánico.' : null }}
+                                                                        {{ $item->get_history->EM_TEPT  === '1' ? '✔ Trastorno de estrés postraumático (TEPT).' : null }}
+                                                                        {{ $item->get_history->EM_E     === '1' ? '✔ Esquizofrenia.' : null }}
+                                                                        {{ $item->get_history->EM_TLP   === '1' ? '✔ Trastorno de la personalidad límite (TLP).' : null }}
+                                                                        {{ $item->get_history->EM_TAAB  === '1' ? '✔ Trastorno de alimentación (anorexia bulimia).' : null }}
+                                                                        {{ $item->get_history->EM_TCS   === '1' ? '✔ Trastorno por consumo de sustancias.' : null }}
+                                                                        {{ $item->get_history->EM_NA    === '1' ? '✔ Niega.' : null }} --}}
+                                                                    </span>
                                                                         @if ($item->get_history->IMC19_covid === '1')
                                                                             <hr class="mt-1" style="margin-bottom: 0;">
                                                                             <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
