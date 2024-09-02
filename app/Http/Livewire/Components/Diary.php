@@ -103,116 +103,225 @@ class Diary extends Component
                     ], 400);
                 } else {
 
-                    $patient = new Patient();
-                    $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
-                    $patient->name              = $request->name_patient;
-                    $patient->last_name         = $request->last_name_patient;
-                    $patient->phone             = $request->phonenumber_prefix . "-" . $request->phone;
-                    $patient->email             = $request->email_patient;
-                    $patient->is_minor          = $request->is_minor;
-                    $patient->birthdate         = $request->birthdate_patient;
-                    $patient->age               = $request->age_patient;
-                    $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                    $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                    $patient->contrie_doc       = auth()->user()->contrie;
-                    $patient->verification_code = Str::random(30);
-                    $patient->save();
+                    if ($request->is_minor == 'true') {
 
-                    $appointment = new Appointment();
-                    $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
-                    $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                    $appointment->patient_id    = $patient->id;
-                    $appointment->date_start    = $request->date_start;
-                    $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
-                    $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                    $appointment->price         = $request->price;
-                    $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
-                    $appointment->save();
+                        /**ES MENOR DE EDAD */
 
-                    $action = '23';
-                    ActivityLogController::store_log($action);
+                        $patient = new Patient();
+                        $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
+                        $patient->name              = $request->name_patient;
+                        $patient->last_name         = $request->last_name_patient;
 
-                    /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
-                    EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+                        $patient->is_minor          = $request->is_minor;
+                        $patient->birthdate         = $request->birthdate_patient;
+                        $patient->age               = $request->age_patient;
+                        $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                        $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                        $patient->contrie_doc       = auth()->user()->contrie;
+                        $patient->verification_code = Str::random(30);
+                        $patient->save();
 
-                    /**Envio de notificaciones */
+                        $representative = new Representative();
+                        $representative->re_email     = $request->email_patient;
+                        $representative->re_phone     = $request->phonenumber_prefix . "-" . $request->phone;
+                        $representative->patient_id   = $patient->id;
+                        $representative->save();
 
-                    /**Buscamos la direccion del centro */
-                    $dir = str_replace(' ', '%20', $appointment->get_center->description);
-                    $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+                        $appointment = new Appointment();
+                        $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
+                        $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                        $appointment->patient_id    = $patient->id;
+                        $appointment->date_start    = $request->date_start;
+                        $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
+                        $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                        $appointment->price         = $request->price;
+                        $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
+                        $appointment->save();
 
-                    /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
-                    if (isset($center_id_corporativo))
-                    {
-                        $type = 'appointment';
+                        $action = '23';
+                        ActivityLogController::store_log($action);
 
-                        if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7")
-                        {
-                            $info_medico = User::where('id', auth()->user()->master_coorporate_id)->first();
-                            $dataCenter = auth()->user()->get_data_corporate_master;
-                            $numberFloor = $dataCenter->number_floor;
-                            $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
-                            $numberConsultingRoom = $dataCenter->number_consulting_room;
-                            $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+                        /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+                        EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
 
-                        }
+                        /**Envio de notificaciones */
 
-                        if (auth()->user()->role == "secretary")
-                        {
-                            $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
-                            foreach ($dataCenter as $item) {
-                                $nameDoctor = $item->name . ' ' . $item->last_name;
-                                $numberFloor = $item->number_floor;
-                                $numberConsultingRoom = $item->number_consulting_room;
-                                $phoneConsultingRoom = $item->phone_consulting_room;
+                        /**Buscamos la direccion del centro */
+                        $dir = str_replace(' ', '%20', $appointment->get_center->description);
+                        $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+                        /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
+                        if (isset($center_id_corporativo)) {
+                            $type = 'appointment';
+
+                            if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+                                $info_medico = User::where('id', auth()->user()->master_coorporate_id)->first();
+                                $dataCenter = auth()->user()->get_data_corporate_master;
+                                $numberFloor = $dataCenter->number_floor;
+                                $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                                $numberConsultingRoom = $dataCenter->number_consulting_room;
+                                $phoneConsultingRoom = $dataCenter->phone_consulting_room;
                             }
+
+                            if (auth()->user()->role == "secretary") {
+                                $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+                                foreach ($dataCenter as $item) {
+                                    $nameDoctor = $item->name . ' ' . $item->last_name;
+                                    $numberFloor = $item->number_floor;
+                                    $numberConsultingRoom = $item->number_consulting_room;
+                                    $phoneConsultingRoom = $item->phone_consulting_room;
+                                }
+                            }
+
+                            $mailData = [
+                                'dr_name'       => auth()->user()->role == "secretary" ? $info_medico->name . ' ' . $info_medico->last_name : auth()->user()->name . ' ' . auth()->user()->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $patient->email,
+                                'fecha'         => $appointment->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                                'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                                'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+                        } else {
+
+                            $type = 'appointment';
+
+                            $mailData = [
+                                'dr_name'       => $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $patient->email,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => $appointment->get_center->number_floor,
+                                'consultorio'   => $appointment->get_center->number_consulting_room,
+                                'telefono'      => $appointment->get_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+
+
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
                         }
-
-                        $mailData = [
-                            'dr_name'       => auth()->user()->role == "secretary" ? $info_medico->name.' '.$info_medico->last_name : auth()->user()->name. ' ' .auth()->user()->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $patient->name. ' ' .$patient->last_name,
-                            'cod_patient'   => $patient->patient_code,
-                            'patient_email' => $patient->email,
-                            'fecha'         => $appointment->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $appointment->get_center->description,
-                            'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
-                            'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
-                            'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                        ];
-
-                        /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
-
-                    } else {
-
-                        $type = 'appointment';
-
-                        $mailData = [
-                            'dr_name'       => $user->name . ' ' . $user->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $patient->name . ' ' . $patient->last_name,
-                            'cod_patient'   => $patient->patient_code,
-                            'patient_email' => $patient->email,
-                            'fecha'         => $request->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $appointment->get_center->description,
-                            'piso'          => $appointment->get_center->number_floor,
-                            'consultorio'   => $appointment->get_center->number_consulting_room,
-                            'telefono'      => $appointment->get_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                        ];
-
-
-                        /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
-
                     }
 
+                    if ($request->is_minor == 'false') {
+                        $patient = new Patient();
+                        $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
+                        $patient->name              = $request->name_patient;
+                        $patient->last_name         = $request->last_name_patient;
+                        $patient->phone             = $request->phonenumber_prefix . "-" . $request->phone;
+                        $patient->email             = $request->email_patient;
+                        $patient->is_minor          = $request->is_minor;
+                        $patient->birthdate         = $request->birthdate_patient;
+                        $patient->age               = $request->age_patient;
+                        $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                        $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                        $patient->contrie_doc       = auth()->user()->contrie;
+                        $patient->verification_code = Str::random(30);
+                        $patient->save();
+
+                        $appointment = new Appointment();
+                        $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
+                        $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                        $appointment->patient_id    = $patient->id;
+                        $appointment->date_start    = $request->date_start;
+                        $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
+                        $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                        $appointment->price         = $request->price;
+                        $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
+                        $appointment->save();
+
+                        $action = '23';
+                        ActivityLogController::store_log($action);
+
+                        /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+                        EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+
+                        /**Envio de notificaciones */
+
+                        /**Buscamos la direccion del centro */
+                        $dir = str_replace(' ', '%20', $appointment->get_center->description);
+                        $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+                        /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
+                        if (isset($center_id_corporativo)) {
+                            $type = 'appointment';
+
+                            if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+                                $info_medico = User::where('id', auth()->user()->master_coorporate_id)->first();
+                                $dataCenter = auth()->user()->get_data_corporate_master;
+                                $numberFloor = $dataCenter->number_floor;
+                                $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                                $numberConsultingRoom = $dataCenter->number_consulting_room;
+                                $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+                            }
+
+                            if (auth()->user()->role == "secretary") {
+                                $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+                                foreach ($dataCenter as $item) {
+                                    $nameDoctor = $item->name . ' ' . $item->last_name;
+                                    $numberFloor = $item->number_floor;
+                                    $numberConsultingRoom = $item->number_consulting_room;
+                                    $phoneConsultingRoom = $item->phone_consulting_room;
+                                }
+                            }
+
+                            $mailData = [
+                                'dr_name'       => auth()->user()->role == "secretary" ? $info_medico->name . ' ' . $info_medico->last_name : auth()->user()->name . ' ' . auth()->user()->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $patient->email,
+                                'fecha'         => $appointment->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                                'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                                'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+                        } else {
+
+                            $type = 'appointment';
+
+                            $mailData = [
+                                'dr_name'       => $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $patient->email,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => $appointment->get_center->number_floor,
+                                'consultorio'   => $appointment->get_center->number_consulting_room,
+                                'telefono'      => $appointment->get_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+
+
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+                        }
+                    }
                 }
             } else {
 
