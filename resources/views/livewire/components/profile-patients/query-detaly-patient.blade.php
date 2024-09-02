@@ -1426,17 +1426,23 @@
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.inmunizaciones')</h6>
                                                                     <hr style="margin-top: 5px">
                                                                     <span style="font-size: 13px">
-                                                                        {{-- {{ $item->get_history->EM_DMR   === '1' ? '✔ Depresión mayor recurrente.' : null }}
-                                                                        {{ $item->get_history->EM_TB    === '1' ? '✔ Trastorno bipolar.' : null }}
-                                                                        {{ $item->get_history->EM_TAG   === '1' ? '✔ Trastorno de ansiedad generalizada (TAG).' : null }}
-                                                                        {{ $item->get_history->EM_TCO   === '1' ? '✔ Trastorno obsesivo-compulsivo (TOC).' : null }}
-                                                                        {{ $item->get_history->EM_TP    === '1' ? '✔ Trastorno de pánico.' : null }}
-                                                                        {{ $item->get_history->EM_TEPT  === '1' ? '✔ Trastorno de estrés postraumático (TEPT).' : null }}
-                                                                        {{ $item->get_history->EM_E     === '1' ? '✔ Esquizofrenia.' : null }}
-                                                                        {{ $item->get_history->EM_TLP   === '1' ? '✔ Trastorno de la personalidad límite (TLP).' : null }}
-                                                                        {{ $item->get_history->EM_TAAB  === '1' ? '✔ Trastorno de alimentación (anorexia bulimia).' : null }}
-                                                                        {{ $item->get_history->EM_TCS   === '1' ? '✔ Trastorno por consumo de sustancias.' : null }}
-                                                                        {{ $item->get_history->EM_NA    === '1' ? '✔ Niega.' : null }} --}}
+                                                                        {{ $item->get_history->IM_BCG     === '1' ? '✔ BCG (Bacillus Calmette-Guérin).' : null }}
+                                                                        {{ $item->get_history->IM_HB      === '1' ? '✔ Hepatitis B.' : null }}
+                                                                        {{ $item->get_history->IM_DTP     === '1' ? '✔ DTP (Difteria, Tétanos, Pertussis).' : null }}
+                                                                        {{ $item->get_history->IM_IPV_OPV === '1' ? '✔ Poliomielitis (IPV u OPV).' : null }}
+                                                                        {{ $item->get_history->IM_HIB     === '1' ? '✔ Hib (Haemophilus influenzae tipo B).' : null }}
+                                                                        {{ $item->get_history->IM_PCV     === '1' ? '✔ Neumococo (PCV).' : null }}
+                                                                        {{ $item->get_history->IM_R       === '1' ? '✔ Rotavirus.' : null }}
+                                                                        {{ $item->get_history->IM_MMR     === '1' ? '✔ Sarampión, Paperas y Rubéola (MMR).' : null }}
+                                                                        {{ $item->get_history->IM_V       === '1' ? '✔ Varicela.' : null }}
+                                                                        {{ $item->get_history->IM_I       === '1' ? '✔ Influenza.' : null }}
+                                                                        {{ $item->get_history->IM_HA      === '1' ? '✔ Hepatitis A.' : null }}
+                                                                        {{ $item->get_history->IM_M       === '1' ? '✔ Meningococo (MenACWY y MenB).' : null }}
+                                                                        {{ $item->get_history->IM_VPH     === '1' ? '✔ Virus del Papiloma Humano (VPH).' : null }}
+                                                                        {{ $item->get_history->IM_N       === '1' ? '✔ Neumococo (PCV13 y PPSV23).' : null }}
+                                                                        {{ $item->get_history->IM_HZ      === '1' ? '✔ Herpes Zóster (Shingrix).' : null }}
+                                                                        {{ $item->get_history->IM_O       === '1' ? '✔ Otros ('. $item->get_history->IM_V_input .')' : null }}
+                                                                        {{ $item->get_history->IM_NA      === '1' ? '✔ Niega.' : null }}
                                                                     </span>
                                                                         @if ($item->get_history->IMC19_covid === '1')
                                                                             <hr class="mt-1" style="margin-bottom: 0;">
@@ -1477,7 +1483,20 @@
                                                                 <div class="row">
                                                                     <h6 style="font-size: 18px">@lang('messages.acordion.dispositivos_medicos')</h6>
                                                                     <hr style="margin-top: 5px">
-                                                                    <div class="non_pathology_back"> </div>
+                                                                    <span style="font-size: 13px">
+                                                                        {{ $item->get_history->IM_BCG     === '1' ? '✔ BCG (Bacillus Calmette-Guérin).' : null }}
+                                                                        {{ $item->get_history->IM_HB      === '1' ? '✔ Hepatitis B.' : null }}
+                                                                        {{ $item->get_history->IM_DTP     === '1' ? '✔ DTP (Difteria, Tétanos, Pertussis).' : null }}
+                                                                        {{ $item->get_history->IM_IPV_OPV === '1' ? '✔ Poliomielitis (IPV u OPV).' : null }}
+                                                                        {{ $item->get_history->IM_HIB     === '1' ? '✔ Hib (Haemophilus influenzae tipo B).' : null }}
+                                                                        {{ $item->get_history->IM_PCV     === '1' ? '✔ Neumococo (PCV).' : null }}
+                                                                        {{ $item->get_history->IM_R       === '1' ? '✔ Rotavirus.' : null }}
+                                                                        {{ $item->get_history->IM_MMR     === '1' ? '✔ Sarampión, Paperas y Rubéola (MMR).' : null }}
+                                                                        {{ $item->get_history->IM_V       === '1' ? '✔ Varicela.' : null }}
+                                                                        {{ $item->get_history->IM_I       === '1' ? '✔ Influenza.' : null }}
+                                                                        {{ $item->get_history->IM_HA      === '1' ? '✔ Hepatitis A.' : null }}
+                                                                        {{ $item->get_history->IM_NA      === '1' ? '✔ Niega.' : null }}
+                                                                    </span>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <span class="text-justify mt-3">
                                                                             <strong>@lang('messages.label.observaciones'):</strong>

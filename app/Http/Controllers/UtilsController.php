@@ -428,6 +428,8 @@ class UtilsController extends Controller
 						'img'             => $val->get_patients->patient_img,
 						'data_app'        => $val->date_start,
 						'time_zone_start' => substr($val->hour_start, 12),
+                        'status'          => $val->get_status->description,
+						'status_class'    => $val->get_status->class,
 					],
 				];
 			}
@@ -436,93 +438,6 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.get_appointments()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
-		}
-	}
-
-	static function get_appointments_dashboard($id)
-	{
-		try {
-			$appointments = Appointment::where('user_id', $id)->where('date_start', date('Y-m-d'))->get();
-
-			$data = [];
-
-			foreach ($appointments as $key => $val) {
-                $hora = '';
-
-                if ($val->hour_start) {
-                    $hora = substr($val->hour_start, 6);
-                }
-
-                if (substr($val->hour_start, 6) == '13:00 pm') {
-                    $hora = '01:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '14:00 pm') {
-                    $hora = '02:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '15:00 pm') {
-                    $hora = '03:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '16:00 pm') {
-                    $hora = '04:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '17:00 pm') {
-                    $hora = '05:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '18:00 pm') {
-                    $hora = '06:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '19:00 pm') {
-                    $hora = '07:00 pm';
-                }
-
-                if (substr($val->hour_start, 6) == '20:00 pm') {
-                    $hora = '08:00 pm';
-                }
-
-				$data[$key] = [
-					'id'            => $val->id,
-					'title'         => $hora . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
-                    'start'         => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
-					'end'           => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
-					'rendering'     => 'background',
-					'color'         => $val->color,
-					'extendedProps' => [
-						'id'              => $val->id,
-						'price'           => $val->price,
-						'confirmation'    => $val->confirmation,
-						'phone'           => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_phone . '  (Rep)' : $val->get_patients->phone,
-						'name'            => $val->get_patients->name,
-						'last_name'       => $val->get_patients->last_name,
-						'ci'              => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_ci . '  (Rep)' : $val->get_patients->ci,
-						'email'           => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_email . '  (Rep)' : $val->get_patients->email,
-						'genere'          => $val->get_patients->genere,
-						'age'             => $val->get_patients->age,
-						'patient_id'      => $val->get_patients->id,
-						'center_id'       => $val->center_id,
-						'center'          => $val->get_center->description,
-						'data'            => substr($val->hour_start, 0, -3),
-						'img'             => $val->get_patients->patient_img,
-						'data_app'        => $val->date_start,
-						'time_zone_start' => substr($val->hour_start, 12),
-						'status'          => $val->get_status->description,
-						'status_class'    => $val->get_status->class,
-					],
-				];
-			}
-
-			return $data;
-			//code...
-		} catch (\Throwable $th) {
-			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_appointments_dashboard()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
 		}
