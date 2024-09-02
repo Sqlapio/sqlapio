@@ -2062,7 +2062,7 @@ class UtilsController extends Controller
 		try {
 
 			$doctor = User::where('id', $id)
-			->where('type_plane', 'corporate_medico')
+			->where('type_plane', 7)
 			->update([
 					'tipo_status' => '1'
 				]);
@@ -2090,11 +2090,11 @@ class UtilsController extends Controller
 
 	static function deshabilitar_doctor_corporate($id)
 	{
+
 		try {
 
-
 			$doctor = User::where('id', $id)
-				->where('type_plane', 'corporate_medico')
+				->where('type_plane', 7)
 				->update([
 					'tipo_status' => '2'
 				]);
