@@ -399,44 +399,44 @@
 
                                 window.location.href = "{{ route('Patients') }}";
 
-                                $("#bnt-cons").show();
-                                $("#bnt-cons").find('a').remove();
-                                url = url.replace(':id', response[0].id);
-                                if(user.role == 'secretary') {
-                                }
-                                if(user.role == 'medico') {
-                                    $("#bnt-cons").append(
-                                        `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
-                                    );
-                                }
+                                // $("#bnt-cons").show();
+                                // $("#bnt-cons").find('a').remove();
+                                // url = url.replace(':id', response[0].id);
+                                // if(user.role == 'secretary') {
+                                // }
+                                // if(user.role == 'medico') {
+                                //     $("#bnt-cons").append(
+                                //         `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
+                                //     );
+                                // }
 
-                                $('#file').attr('disabled', true);
-                                $("#name").attr('readonly', true);
-                                $("#last_name").attr('readonly', true);
-                                $("#birthdate").attr('readonly', true);
-                                $('#genere').attr('disabled', true);
-                                $('#js_number-prefix').attr('readonly', true);
-                                $('#phone').attr('disabled', true);
-                                $("#ci").attr('readonly', true);
-                                $("#address").attr('readonly', true);
-                                $("#zip_code").attr('readonly', true);
-                                $("#email").attr('readonly', true);
-                                $("#profession").attr('disabled', true);
-                                $("#center_id").attr('disabled', true);
-                                $("#re_name").attr('readonly', true);
-                                $("#re_last_name").attr('readonly', true);
-                                $("#re_ci").attr('readonly', true);
-                                $("#re_phone").attr('readonly', true);
-                                $("#re_email").attr('readonly', true);
+                                // $('#file').attr('disabled', true);
+                                // $("#name").attr('readonly', true);
+                                // $("#last_name").attr('readonly', true);
+                                // $("#birthdate").attr('readonly', true);
+                                // $('#genere').attr('disabled', true);
+                                // $('#js_number-prefix').attr('readonly', true);
+                                // $('#phone').attr('disabled', true);
+                                // $("#ci").attr('readonly', true);
+                                // $("#address").attr('readonly', true);
+                                // $("#zip_code").attr('readonly', true);
+                                // $("#email").attr('readonly', true);
+                                // $("#profession").attr('disabled', true);
+                                // $("#center_id").attr('disabled', true);
+                                // $("#re_name").attr('readonly', true);
+                                // $("#re_last_name").attr('readonly', true);
+                                // $("#re_ci").attr('readonly', true);
+                                // $("#re_phone").attr('readonly', true);
+                                // $("#re_email").attr('readonly', true);
 
-                                $("#blood_type").attr('readonly', true);
-                                $("#ce_name").attr('readonly', true);
-                                $("#ce_last_name").attr('readonly', true);
-                                $("#ce_phone").attr('readonly', true);
-                                $("#relationship").attr('readonly', true);
-                                $("#company").attr('readonly', true);
-                                $('#validity').attr('disabled', true);
-                                $("#contact").attr('readonly', true);
+                                // $("#blood_type").attr('readonly', true);
+                                // $("#ce_name").attr('readonly', true);
+                                // $("#ce_last_name").attr('readonly', true);
+                                // $("#ce_phone").attr('readonly', true);
+                                // $("#relationship").attr('readonly', true);
+                                // $("#company").attr('readonly', true);
+                                // $('#validity').attr('disabled', true);
+                                // $("#contact").attr('readonly', true);
 
 
 
@@ -466,11 +466,6 @@
 
         function handlerAge(e) {
             if (Number($("#age").val()) >= 18) {
-                // $("#ci").rules('add', {
-                //     required: true,
-                //     minlength: 5,
-                //     onlyNumber: true
-                // });
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
@@ -483,12 +478,6 @@
                 $("#ci-div").hide();
                 $("#email-div").hide();
                 $("#div-phone").hide();
-
-                // validar si el nino tiene menos de 8 anos
-                // if (Number($("#age").val()) > 8) {
-                //     $("#ci-div").show();
-                //     $("#ci").rules('remove');
-                // }
 
                 $('#data-rep').show();
                 $('#is_minor').val(true);
