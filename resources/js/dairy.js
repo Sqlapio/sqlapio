@@ -390,7 +390,6 @@ function setValue(data, info) {
 
     let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
 
-
     if (info.event.extendedProps.img === null) {
         if (info.event.extendedProps.genere == "femenino") {
             img_url = `${avatar_imge}/avatar mujer.png`;
@@ -405,7 +404,7 @@ function setValue(data, info) {
     url = url.replace(":id", info.event.extendedProps.patient_id);
     let item = JSON.stringify(info);
 
-    if (info.event.extendedProps.age) {
+    if (info.event.extendedProps.ci) {
         $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
     } else {
         urlPaciente = urlPaciente.replace(":id_patient", info.event.extendedProps.patient_id);
@@ -421,12 +420,12 @@ function setValue(data, info) {
     $("#email").text(info.event.extendedProps.email);
     $("#phone").text(info.event.extendedProps.phone);
     if (info.event.extendedProps.ci && user.contrie == '81') {
-        $("#ci").text(info.event.extendedProps.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3'));
+        $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') : '****');
     } else {
-        $("#ci").text(info.event.extendedProps.ci);
+        $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci : '****');
     }
     $("#hour_start").val(info.event.extendedProps.data).change().attr("disabled", true);
-    $("#genere").text(info.event.extendedProps.genere);
+    $("#genere").text(info.event.extendedProps.genere ? info.event.extendedProps.genere : '****');
     $("#age").text(info.event.extendedProps.age);
     $("#patient_id").val(info.event.extendedProps.patient_id);
     $("#date_start").val(new Date(info.event._instance.range.start).toISOString().split("T")[0]);
@@ -483,6 +482,13 @@ function setValue(data, info) {
     $("#hour").text(hora + " " + info.event.extendedProps.time_zone_start);
     $("#center").text(info.event.extendedProps.center);
 
+    let status_cita = info.event.extendedProps.status;
+    let status_color = info.event.extendedProps.status_class;
+
+    console.log(info.event.extendedProps)
+
+    $("#status").html(`<span class="badge rounded-pill bg-${status_color}"><span style="font-size: 13px">${status_cita}</span></span>`);
+
     $("#date-lb").hide();
     $("#FC").hide();
     $("#TH").hide();
@@ -509,9 +515,9 @@ function searchPatients(res) {
         $("#patient_id").val(res.id);
     } else {
         $("#name").text(res.name + " " + res.last_name);
-        $("#email").text('***');
-        $("#phone").text('***');
-        $("#ci").text('***') ;
+        $("#email").text('****');
+        $("#phone").text('****');
+        $("#ci").text('****') ;
         $("#genere").text(res.genere);
         $("#age").text(res.age);
         $("#patient_id").val(res.id);
@@ -615,7 +621,7 @@ function cancelled_appointments(id, url, active = null, status) {
                     success: function (res) {
                         $("#spinner").hide();
                         Swal.fire({
-                            icon: "error",
+                            icon: "success",
                             title: langJson.alert.cita_cancelada,
                             allowOutsideClick: false,
                             confirmButtonColor: "#42ABE2",

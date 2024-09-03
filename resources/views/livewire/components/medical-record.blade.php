@@ -2187,8 +2187,8 @@
                                                 <strong>@lang('messages.tabla.tipo_sangre'):</strong>
                                                 <span> {{ $Patient->blood_type }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
-                                                <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <strong>@lang('messages.ficha_paciente.ci'):</strong>
+                                                <span> {{ $Patient->is_minor === 'true' ? '****' : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
                                                 <span class="text-capitalize"> {{ $Patient->genere }}</span>
@@ -3011,7 +3011,7 @@
                                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.medicamento')
                                                                     </label>
-                                                                    <input autocomplete="off" class="form-control mask-text"
+                                                                    <input autocomplete="off" class="form-control mask-only-text"
                                                                         id="medicines-other" name="medicines-other"
                                                                         type="text" value="">
                                                                     <i data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -3435,8 +3435,8 @@
                                     <br>
                                     <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
                                     <br>
-                                    <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
-                                    <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                    <strong>@lang('messages.ficha_paciente.ci'):</strong>
+                                    <span> {{ $Patient->is_minor === 'true' ? '****' : $Patient->ci }}</span>
                                 </div>
                             </div>
 
