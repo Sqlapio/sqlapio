@@ -361,8 +361,8 @@ class UtilsController extends Controller
 	{
 
         try {
-			$appointments = Appointment::where('user_id', $id)
-				->WhereBetween('status', [1, 2, 3, 4, 5])->get();
+			$appointments = Appointment::where('user_id', $id)->get();
+
 			$data = [];
 
 			foreach ($appointments as $key => $val) {
