@@ -19,7 +19,7 @@ class DashboardComponent extends Component
         // $count_medical_recordr =  EstadisticaController::total_medical_record($id);
         $count_history_register =  EstadisticaController::total_history_register($id);
         $count_patient_genero =  EstadisticaController::total_patient_genero();
-        $appointments = UtilsController::get_appointments($id);
+        $appointments = UtilsController::get_appointments_dashboard($id);
         $elderly = UtilsController::get_patient_elderly($id);
         $boy_girl = UtilsController::get_patient_boy_girl($id);
         $teen = UtilsController::get_patient_teen($id);

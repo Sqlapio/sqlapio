@@ -283,6 +283,8 @@
                                         <strong>@lang('messages.modal.tabla.hora'): </strong><span id="hour"></span>
                                         <br>
                                         <strong>@lang('messages.modal.tabla.centro'): </strong><span id="center"></span>
+                                        <br>
+                                        <div style="margin-top: 5px" id="status"></div>
                                     </div>
                                 </div>
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

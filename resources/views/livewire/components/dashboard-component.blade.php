@@ -199,7 +199,7 @@
                 });
             } else {
                 console.log(ci)
-                if(ci === '----') {
+                if(ci === '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
@@ -346,7 +346,6 @@
                                                                 <tbody>
 
                                                                     @foreach (collect($appointments)->sortBy('start') as $item)
-
                                                                         <tr>
                                                                             <td class="text-center td-pad"> {{ substr($item['start'], 11) }} </td>
                                                                             <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
@@ -373,6 +372,7 @@
                                                                                             @php
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
                                                                                                 $ci =  $item['extendedProps']['ci'];
+                                                                                                $pp =  $item['extendedProps'];
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"

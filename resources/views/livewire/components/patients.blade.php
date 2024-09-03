@@ -399,47 +399,6 @@
 
                                 window.location.href = "{{ route('Patients') }}";
 
-                                // $("#bnt-cons").show();
-                                // $("#bnt-cons").find('a').remove();
-                                // url = url.replace(':id', response[0].id);
-                                // if(user.role == 'secretary') {
-                                // }
-                                // if(user.role == 'medico') {
-                                //     $("#bnt-cons").append(
-                                //         `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
-                                //     );
-                                // }
-
-                                // $('#file').attr('disabled', true);
-                                // $("#name").attr('readonly', true);
-                                // $("#last_name").attr('readonly', true);
-                                // $("#birthdate").attr('readonly', true);
-                                // $('#genere').attr('disabled', true);
-                                // $('#js_number-prefix').attr('readonly', true);
-                                // $('#phone').attr('disabled', true);
-                                // $("#ci").attr('readonly', true);
-                                // $("#address").attr('readonly', true);
-                                // $("#zip_code").attr('readonly', true);
-                                // $("#email").attr('readonly', true);
-                                // $("#profession").attr('disabled', true);
-                                // $("#center_id").attr('disabled', true);
-                                // $("#re_name").attr('readonly', true);
-                                // $("#re_last_name").attr('readonly', true);
-                                // $("#re_ci").attr('readonly', true);
-                                // $("#re_phone").attr('readonly', true);
-                                // $("#re_email").attr('readonly', true);
-
-                                // $("#blood_type").attr('readonly', true);
-                                // $("#ce_name").attr('readonly', true);
-                                // $("#ce_last_name").attr('readonly', true);
-                                // $("#ce_phone").attr('readonly', true);
-                                // $("#relationship").attr('readonly', true);
-                                // $("#company").attr('readonly', true);
-                                // $('#validity').attr('disabled', true);
-                                // $("#contact").attr('readonly', true);
-
-
-
                                 switch_type_plane(user.type_plane, response[1]);
                             });
                         },
@@ -523,9 +482,20 @@
 
             $('#btn-save').attr('disabled', false);
             $(".holder").show();
-            if (item.is_minor === 'true') {
+            if (item.patient_img === null) {
+                let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
 
-                $("#re_name").val(item.get_reprensetative.re_name);
+                $(".holder").find('img').attr('src', ulrImge);
+            } else {
+                let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
+
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(item.patient_img);
+            }
+            if (item.is_minor === 'true') {
+                console.log(item.get_reprensetative)
+
+                $("#re_name").val(item.get_reprensetative.re_name ? item.get_reprensetative.re_name : '');
                 $("#re_last_name").val(item.get_reprensetative.re_last_name);
                 if (user.contrie == '81') {
                     let ci_dom_re = item.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
@@ -536,16 +506,6 @@
                 }
                 $("#re_email").val(item.get_reprensetative.re_email);
                 $("#re_phone").val(item.get_reprensetative.re_phone);
-            }
-            if (item.patient_img === null) {
-                let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
-
-                $(".holder").find('img').attr('src', ulrImge);
-            } else {
-                let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
-
-                $(".holder").find('img').attr('src', ulrImge);
-                $("#img").val(item.patient_img);
             }
 
             // setiar valores componente telefono
@@ -1414,7 +1374,6 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($patients->sortByDesc('created_at') as $item)
-
                                                             <tr>
                                                                 <td class="table-avatar">
                                                                     <img class="avatar"
@@ -1448,12 +1407,12 @@
                                                                             <span>-----</span>
                                                                         @endif
                                                                 </td>
-                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
+                                                                <td class="text-center"> {{ $item->get_center->description }} {{ @json_encode($item->get_reprensetative->re_ci) }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
-                                                                                onclick="editPatien({{ json_encode($item) }},true);"
+                                                                                onclick="editPatien({{ $item }}, true);"
                                                                                 type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.editar')">

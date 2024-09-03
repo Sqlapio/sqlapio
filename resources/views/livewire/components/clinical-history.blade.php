@@ -982,11 +982,11 @@
                                                 <span> {{ $Patient->blood_type }}</span>
                                                 <br>
                                                 @if (Auth::user()->contrie == '81')
-                                                    <strong>@lang('messages.form.CIE') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                    <strong>@lang('messages.form.CIE'):</strong>
                                                 @else
-                                                    <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                    <strong>@lang('messages.ficha_paciente.ci'):</strong>
                                                 @endif
-                                                <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <span> {{ $Patient->is_minor === 'true' ? '****' : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
                                                 <span class="text-capitalize"> {{ $Patient->genere }}</span>
