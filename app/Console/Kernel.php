@@ -16,17 +16,17 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:appointment-reminder')
         ->weekdays()
         ->dailyAt('7:00')
-        ->emailOutputTo('gusta.acp@gmail.com');
+        ->emailOutputTo(env('EMAIL_LOG_SYS'));
 
         $schedule->command('app:treatment-reminder')
         ->weekdays()
         ->twiceDaily(6, 18)
-        ->emailOutputTo('gusta.acp@gmail.com');
+        ->emailOutputTo(env('EMAIL_LOG_SYS'));
 
         $schedule->command('app:update-status-dairy')
         ->weekdays()
-        ->dailyAt('16:05')
-        ->emailOutputTo('gusta.acp@gmail.com');
+        ->dailyAt('17:00')
+        ->emailOutputTo(env('EMAIL_LOG_SYS'));
     }
 
     /**
