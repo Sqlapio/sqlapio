@@ -426,8 +426,6 @@
 
 
         function showModal(item) {
-            console.log(item)
-
             count = 0;
             $('#count').val('');
             $('.holder').hide();

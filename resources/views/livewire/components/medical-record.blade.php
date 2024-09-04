@@ -2141,7 +2141,6 @@
         }
 
         const handleSpeciality = (e) => {
-            console.log(e.target.value)
             if (e.target.value === "Otros") {
                 $('#div-medicina').hide();
                 $('#div-otros').show();

@@ -175,7 +175,7 @@
         });
 
 
-        const alertInfoPaciente = (id_patient, ci, status) => {
+        const alertInfoPaciente = (id_patient, ci, re_ci, status) => {
             if (status === 'Cancelada') {
                 Swal.fire({
                             icon: 'error',
@@ -198,8 +198,7 @@
 
                 });
             } else {
-                console.log(ci)
-                if(ci === '') {
+                if(ci === '' || re_ci === '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
@@ -372,11 +371,11 @@
                                                                                             @php
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
                                                                                                 $ci =  $item['extendedProps']['ci'];
-                                                                                                $pp =  $item['extendedProps'];
+                                                                                                $re_ci =  $item['extendedProps']['re_ci'];
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
-                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}', '{{ $status2 }}')">
+                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}','{{ $re_ci }}' '{{ $status2 }}')">
                                                                                             <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>
                                                                                         </div>
