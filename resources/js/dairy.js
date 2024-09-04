@@ -403,25 +403,24 @@ function setValue(data, info) {
     $("#btn-cancell").find("button").remove();
     url = url.replace(":id", info.event.extendedProps.patient_id);
     let item = JSON.stringify(info);
+    if(info.event.extendedProps.status !== 'Cancelada') {
+        if (info.event.extendedProps.is_minor === 'true' && info.event.extendedProps.re_ci !== '') {
+            $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
+            $("#ci").text(info.event.extendedProps.re_ci + ' (Rep)');
+        } else if (info.event.extendedProps.is_minor === 'false' && info.event.extendedProps.ci !== '') {
+            $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
+            $("#ci").text(info.event.extendedProps.ci);
+        }
+        else {
+            urlPaciente = urlPaciente.replace(":id_patient", info.event.extendedProps.patient_id);
 
-    console.log(info.event.extendedProps)
+            $("#btn-con").append(`<a href='${urlPaciente}'><button type="button" class="btn btnPrimary">${langJson.botton.actualizar_datos}</button></a>`);
+            $("#ci").text('****');
 
-    if (info.event.extendedProps.is_minor === 'true' && info.event.extendedProps.re_ci !== '') {
-        $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
-        $("#ci").text(info.event.extendedProps.re_ci + ' (Rep)');
-    } else if (info.event.extendedProps.is_minor === 'false' && info.event.extendedProps.ci !== '') {
-        $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
-        $("#ci").text(info.event.extendedProps.ci);
+        }
+        $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">${langJson.botton.cancelar_cita}</button>`);
     }
-    else {
-        urlPaciente = urlPaciente.replace(":id_patient", info.event.extendedProps.patient_id);
 
-        $("#btn-con").append(`<a href='${urlPaciente}'><button type="button" class="btn btnPrimary">${langJson.botton.actualizar_datos}</button></a>`);
-        $("#ci").text('****');
-
-    }
-
-    $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">${langJson.botton.cancelar_cita}</button>`);
     $("#search-patients-show").hide();
     $("#center_id").val(info.event.extendedProps.center_id).change().attr("disabled", true);
     $("#timeIni").val(info.event.extendedProps.time_zone_start).change().attr("disabled", true);
@@ -490,6 +489,7 @@ function setValue(data, info) {
     $("#fecha").text(new Date(info.event._instance.range.start).toISOString().split("T")[0]);
     $("#hour").text(hora + " " + info.event.extendedProps.time_zone_start);
     $("#center").text(info.event.extendedProps.center);
+    $("#price").text(info.event.extendedProps.price ? info.event.extendedProps.price+'$' : '----');
 
     let status_cita = info.event.extendedProps.status;
     let status_color = info.event.extendedProps.status_class;
@@ -522,9 +522,9 @@ function searchPatients(res) {
         $("#patient_id").val(res.id);
     } else {
         $("#name").text(res.name + " " + res.last_name);
-        $("#email").text('****');
-        $("#phone").text('****');
-        $("#ci").text('****') ;
+        $("#email").text(res.email);
+        $("#phone").text(res.phone);
+        $("#ci").text(res.is_minor === 'true' ? res.re_ci + ' (Rep)' : res.ci);
         $("#genere").text(res.genere);
         $("#age").text(res.age);
         $("#patient_id").val(res.id);
