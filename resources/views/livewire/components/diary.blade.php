@@ -253,7 +253,7 @@
                                                 <img id="img-pat" src="" width="125" height="125" alt="Imagen del paciente">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-8 modal-text" style="font-size: 13px;">
                                             <div>
                                                 <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
@@ -283,6 +283,8 @@
                                         <strong>@lang('messages.modal.tabla.hora'): </strong><span id="hour"></span>
                                         <br>
                                         <strong>@lang('messages.modal.tabla.centro'): </strong><span id="center"></span>
+                                        <br>
+                                        <strong>@lang('messages.modal.form.precio'): </strong><span id="price"></span>
                                         <br>
                                         <div style="margin-top: 5px" id="status"></div>
                                     </div>
@@ -351,7 +353,7 @@
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
+                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')($)</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price"
                                                     name="price" id="searchPatients" value="">

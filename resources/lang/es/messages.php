@@ -273,7 +273,7 @@ return [
             'tiempo_horario'       => 'Tiempo Horario',
             'horarios_cita'        => 'Horarios de Cita',
             'centro_salud'         => 'Centro de Salud',
-            'precio'               => 'Precio de Cita',
+            'precio'               => 'Precio de la Consulta',
             'seleccionar_centro'   => 'Seleccione su Centro',
             'direccion'            => 'Dirección',
             'edificio'             => 'Edificio/Casa',
