@@ -176,6 +176,7 @@
 
 
         const alertInfoPaciente = (id_patient, ci, re_ci, status) => {
+            console.log(id_patient)
             if (status === 'Cancelada') {
                 Swal.fire({
                             icon: 'error',
@@ -198,7 +199,7 @@
 
                 });
             } else {
-                if(ci === '' || re_ci === '') {
+                if(ci === '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
@@ -375,7 +376,7 @@
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
-                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}','{{ $re_ci }}' '{{ $status2 }}')">
+                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}','{{ $re_ci }}', '{{ $status2 }}')">
                                                                                             <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>
                                                                                         </div>
