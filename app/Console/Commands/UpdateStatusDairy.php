@@ -39,6 +39,7 @@ class UpdateStatusDairy extends Command
             if($item->status == 1 || $item->status == 2){
 
                 $item->status = 5;
+                $item->color = '#0d6efd';
                 $item->save();
 
                 $numero_mes = now()->format('m');

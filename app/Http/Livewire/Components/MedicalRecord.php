@@ -136,6 +136,7 @@ class MedicalRecord extends Component
             {
                 $cita_patient->update([
                     'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
+                    'color' => '#198754'
                 ]);
                 EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
             }
