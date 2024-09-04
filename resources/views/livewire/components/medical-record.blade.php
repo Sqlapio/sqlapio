@@ -844,6 +844,8 @@
 
     const patient_history = (response) => {
 
+        console.log(patient)
+
         if (patient.get_history != null) {
 
             // Antecedentes Personales y Familiares
@@ -2187,7 +2189,7 @@
                                                 <span> {{ $Patient->blood_type }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.ci'):</strong>
-                                                <span> {{ $Patient->is_minor === 'true' ? '****' : $Patient->ci }}</span>
+                                                <span> {{ $Patient->is_minor === 'true' ? $Patient->re_ci.' (Rep)' : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
                                                 <span class="text-capitalize"> {{ $Patient->genere }}</span>

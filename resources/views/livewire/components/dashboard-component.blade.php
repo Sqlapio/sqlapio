@@ -175,7 +175,7 @@
         });
 
 
-        const alertInfoPaciente = (id_patient, ci, re_ci, status) => {
+        const alertInfoPaciente = (id_patient, ci, re_ci, is_minor, status) => {
             if (status === 'Cancelada') {
                 Swal.fire({
                             icon: 'error',
@@ -198,7 +198,7 @@
 
                 });
             } else {
-                if(ci === '' || re_ci === '') {
+                if(is_minor === true && re_ci === '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '@lang('messages.alert.actualizar_paciente')',
@@ -213,6 +213,21 @@
 
                         window.location.href = url;
                     });
+                } else if (is_minor === false && ci === '') {
+                    Swal.fire({
+                            icon: 'warning',
+                            title: '@lang('messages.alert.actualizar_paciente')',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
+                        }).then((result) => {
+
+                            let url = "{{ route('Patients', ':id_patient') }}";
+
+                            url = url.replace(':id_patient', id_patient);
+
+                            window.location.href = url;
+                        });
                 } else {
 
                     let url = "{{ route('MedicalRecord', ':id_patient') }}";
@@ -348,11 +363,11 @@
                                                                         <tr>
                                                                             <td class="text-center td-pad"> {{ substr($item['start'], 11) }} </td>
                                                                             <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
-                                                                            @if ($item['extendedProps']['ci'])
+                                                                            @if ($item['extendedProps']['ci'] || $item['extendedProps']['re_ci'])
                                                                                 @if (Auth::user()->contrie == '81')
                                                                                     <td class="text-center td-pad"> {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }} </td>
                                                                                 @else
-                                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['is_minor'] === 'true' ? $item['extendedProps']['re_ci'].' (Rep)' :  $item['extendedProps']['ci'] }}</td>
                                                                                 @endif
                                                                             @else
                                                                                 <td class="text-center td-pad"> <span>-----</span></td>
@@ -372,10 +387,11 @@
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
                                                                                                 $ci =  $item['extendedProps']['ci'];
                                                                                                 $re_ci =  $item['extendedProps']['re_ci'];
+                                                                                                $is_minor =  $item['extendedProps']['is_minor'];
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
-                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}','{{ $re_ci }}' '{{ $status2 }}')">
+                                                                                            onclick="alertInfoPaciente('{{ $id_patient }}','{{ $ci }}','{{ $re_ci }}', {{ $is_minor }}, '{{ $status2 }}')">
                                                                                             <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>
                                                                                         </div>
