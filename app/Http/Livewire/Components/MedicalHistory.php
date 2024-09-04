@@ -23,7 +23,6 @@ class MedicalHistory extends Component
             $user_id = Auth::user()->id;
             $data = json_decode($request->data);
             $patient = Patient::where('id',$data->id)->first();
-
             $patient_ci = $patient->ci;
 
                 if($patient_ci == null){
