@@ -32,37 +32,42 @@ class UpdateStatusDairy extends Command
     {
         $hoy = now()->format('Y-m-d');
 
-        $dairy = Appointment::whereBetween('status', [1, 2])->where('date_start', $hoy )->get();
+        $dairy = Appointment::where('date_start', $hoy )->get();
+
         foreach($dairy as $item)
         {
-            $item->status = 5;
-            $item->save();
+            if($item->status == 1 || $item->status == 2){
 
-            $numero_mes = now()->format('m');
-            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+                $item->status = 5;
+                $item->save();
 
-            $user_affected = User::where('id', $dairy->user_id)->first();
+                $numero_mes = now()->format('m');
+                $mes = Mes::where('numero', $numero_mes)->first()->mes;
 
-            if($user_affected->type_plane == 7){
-                $accumulated = new GeneralStatistic();
-                $accumulated->user_id = $item->user_id;
-                $accumulated->type_plane = 7;
-                $accumulated->center = $item->center_id;
-                $accumulated->dairy_no_atendida = 1;
-                $accumulated->mes = $mes;
-                $accumulated->numero_mes = $numero_mes;
-                $accumulated->date = date('d-m-Y');
-                $accumulated->save();
-            }else{
-                $accumulated = new GeneralStatistic();
-                $accumulated->user_id = $item->user_id;
-                $accumulated->center = $item->center_id;
-                $accumulated->dairy_no_atendida = 1;
-                $accumulated->mes = $mes;
-                $accumulated->numero_mes = $numero_mes;
-                $accumulated->date = date('d-m-Y');
-                $accumulated->save();
+                $user_affected = User::where('id', $item->user_id)->first();
+
+                if($user_affected->type_plane == 7){
+                    $accumulated = new GeneralStatistic();
+                    $accumulated->user_id = $user_affected->user_id;
+                    $accumulated->type_plane = 7;
+                    $accumulated->center = $user_affected->center_id;
+                    $accumulated->dairy_no_atendida = 1;
+                    $accumulated->mes = $mes;
+                    $accumulated->numero_mes = $numero_mes;
+                    $accumulated->date = date('d-m-Y');
+                    $accumulated->save();
+                }else{
+                    $accumulated = new GeneralStatistic();
+                    $accumulated->user_id = $item->user_id;
+                    $accumulated->center = $item->center_id;
+                    $accumulated->dairy_no_atendida = 1;
+                    $accumulated->mes = $mes;
+                    $accumulated->numero_mes = $numero_mes;
+                    $accumulated->date = date('d-m-Y');
+                    $accumulated->save();
+                }
             }
+ 
         }
 
     }
