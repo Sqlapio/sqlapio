@@ -78,8 +78,6 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *Confirmar cita:* {$data['link']}
-            *Cancelar cita:* {$data['link_cancel']}
             *{$precio}:*  {$data['price']}
 
             *{$ubicacion}:* {$data['ubication']}
