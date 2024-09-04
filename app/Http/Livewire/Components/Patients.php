@@ -180,6 +180,9 @@ class Patients extends Component
                 {
                     $action = '34';
                     ActivityLogController::store_log($action);
+
+                    /**Contador de pacientes*/
+                    UtilsController::update_patient_counter($user_id);
                 }
 
                 if($request->id == null){
