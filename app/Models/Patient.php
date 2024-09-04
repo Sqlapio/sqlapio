@@ -56,6 +56,9 @@ class Patient extends Model
  'validity',
  'contact',
  'seguro',
+ 're_name',
+ 're_last_name',
+ 're_ci'
 
  ];
 

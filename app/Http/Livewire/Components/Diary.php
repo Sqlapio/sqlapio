@@ -21,33 +21,33 @@ use Illuminate\Support\Str;
 class Diary extends Component
 {
 
-    public function search_patients($patient_code)
-    {
-        try {
-            $patient = Patient::where('patient_code', $patient_code)->first();
-            if ($patient->is_minor == 'false') {
-                return $patient;
-            } else {
-                $patient_re = [
-                    "re_name"      => $patient->get_reprensetative->re_name,
-                    "re_last_name" => $patient->get_reprensetative->re_last_name,
-                    "re_email"     => $patient->get_reprensetative->re_email,
-                    "re_phone"     => $patient->get_reprensetative->re_phone,
-                    "re_ci"        => $patient->get_reprensetative->re_ci,
-                    "genere"       => $patient->genere,
-                    "age"          => $patient->age,
-                    "id"           => $patient->id,
-                    "patient_img"  => $patient->patient_img,
-                ];
-                return $patient_re;
-            }
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => 'false',
-                'errors'  => $th->getMessage()
-            ], 500);
-        }
-    }
+    // public function search_patients($patient_code)
+    // {
+    //     try {
+    //         $patient = Patient::where('patient_code', $patient_code)->first();
+    //         if ($patient->is_minor == 'false') {
+    //             return $patient;
+    //         } else {
+    //             $patient_re = [
+    //                 "re_name"      => $patient->get_reprensetative->re_name,
+    //                 "re_last_name" => $patient->get_reprensetative->re_last_name,
+    //                 "re_email"     => $patient->get_reprensetative->re_email,
+    //                 "re_phone"     => $patient->get_reprensetative->re_phone,
+    //                 "re_ci"        => $patient->get_reprensetative->re_ci,
+    //                 "genere"       => $patient->genere,
+    //                 "age"          => $patient->age,
+    //                 "id"           => $patient->id,
+    //                 "patient_img"  => $patient->patient_img,
+    //             ];
+    //             return $patient_re;
+    //         }
+    //     } catch (\Throwable $th) {
+    //         return response()->json([
+    //             'success' => 'false',
+    //             'errors'  => $th->getMessage()
+    //         ], 500);
+    //     }
+    // }
 
     public function store(Request $request)
     {
@@ -111,7 +111,6 @@ class Diary extends Component
                         $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
                         $patient->name              = $request->name_patient;
                         $patient->last_name         = $request->last_name_patient;
-
                         $patient->is_minor          = $request->is_minor;
                         $patient->birthdate         = $request->birthdate_patient;
                         $patient->age               = $request->age_patient;
@@ -119,23 +118,20 @@ class Diary extends Component
                         $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
                         $patient->contrie_doc       = auth()->user()->contrie;
                         $patient->verification_code = Str::random(30);
+                        $patient->email             = $request->email_patient;
+                        $patient->phone          = $request->phonenumber_prefix . "-" . $request->phone;
                         $patient->save();
 
-                        $representative = new Representative();
-                        $representative->re_email     = $request->email_patient;
-                        $representative->re_phone     = $request->phonenumber_prefix . "-" . $request->phone;
-                        $representative->patient_id   = $patient->id;
-                        $representative->save();
 
                         $appointment = new Appointment();
-                        $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
-                        $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                        $appointment->patient_id    = $patient->id;
-                        $appointment->date_start    = $request->date_start;
-                        $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
-                        $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                        $appointment->price         = $request->price;
-                        $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
+                        $appointment->code        = 'SQ-D-' . random_int(11111111, 99999999);
+                        $appointment->user_id     = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                        $appointment->patient_id  = $patient->id;
+                        $appointment->date_start  = $request->date_start;
+                        $appointment->hour_start  = $hour . '-' . $minute . " " . $request->timeIni;
+                        $appointment->center_id   = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                        $appointment->price       = $request->price;
+                        $appointment->color       = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
                         $appointment->save();
 
                         $action = '23';
@@ -178,7 +174,7 @@ class Diary extends Component
                                 'dr_email'      => $user->email,
                                 'patient_name'  => $patient->name . ' ' . $patient->last_name,
                                 'cod_patient'   => $patient->patient_code,
-                                'patient_email' => $patient->email,
+                                'patient_email' => $request->email_patient,
                                 'fecha'         => $appointment->date_start,
                                 'horario'       => $date[0] . ' ' . $request->timeIni,
                                 'centro'        => $appointment->get_center->description,
@@ -190,7 +186,7 @@ class Diary extends Component
                             ];
 
                             /**Notificacion por whatsapp */
-                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient['phone'], $ubication, $mailData);
                         } else {
 
                             $type = 'appointment';
@@ -200,7 +196,7 @@ class Diary extends Component
                                 'dr_email'      => $user->email,
                                 'patient_name'  => $patient->name . ' ' . $patient->last_name,
                                 'cod_patient'   => $patient->patient_code,
-                                'patient_email' => $patient->email,
+                                'patient_email' => $request->email_patient,
                                 'fecha'         => $request->date_start,
                                 'horario'       => $date[0] . ' ' . $request->timeIni,
                                 'centro'        => $appointment->get_center->description,
@@ -213,11 +209,12 @@ class Diary extends Component
 
 
                             /**Notificacion por whatsapp */
-                            ApiServicesController::whatsapp_welcome_pre_registro($patient->phone, $ubication, $mailData);
+                            ApiServicesController::whatsapp_welcome_pre_registro($patient['phone'], $ubication, $mailData);
                         }
                     }
 
                     if ($request->is_minor == 'false') {
+
                         $patient = new Patient();
                         $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
                         $patient->name              = $request->name_patient;
@@ -356,11 +353,8 @@ class Diary extends Component
                     /**preguntamos si es menor de edad o mayor */
                     $info_patient = Patient::where('id', $request->patient_id)->first();
 
-                    if ($info_patient->is_minor == 'true') {
-                        $patient_email = Representative::where('patient_id', $info_patient->id)->first()->re_email;
-                    } else {
-                        $patient_email = $info_patient->email;
-                    }
+                    /*Email para notificaciones*/
+                    $patient_email = $info_patient->email;
 
                     /**Logica para tomar la ubicacion del centro y enviar el url de GoogleMaps en la notificacion por email */
                     if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {

@@ -27,7 +27,7 @@ class MedicalHistory extends Component
             $patient_ci = $patient->ci;
 
                 if($patient_ci == null){
-                    $cod_patient = $patient->get_reprensetative->re_ci;
+                    $cod_patient = $patient->re_ci;
                 }else{
                     $cod_patient = $patient_ci;
                 }

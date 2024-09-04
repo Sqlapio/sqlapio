@@ -487,7 +487,6 @@
                                     confirmButtonText: '@lang('messages.botton.enviar')',
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {
-                                        console.log(value.length);
                                         if (value === '') {
                                             return "@lang('messages.alert.campo_obligatorio')"
                                         } else if (value.length > 6) {

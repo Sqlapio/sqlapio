@@ -168,9 +168,9 @@
                                                         </td>
                                                         <td class="text-center">{{ $item->patient_code }}</td>
                                                         <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
-                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td>
+                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->re_ci . '  (Rep)' : $item->ci }} </td>
                                                         <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
+                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->phone . '  (Rep)' : $item->phone }} </td>
                                                         <td class="text-center"> {{ $item->get_center->description }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">

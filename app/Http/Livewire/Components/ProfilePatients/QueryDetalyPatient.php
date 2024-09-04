@@ -19,12 +19,12 @@ class QueryDetalyPatient extends Component
 		$medicard_record = [];
 
 
-		$tablePat =  Patient::where('id', $patient_id);
+		$patient =  Patient::where('id', $patient_id);
 
-		$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
-			$q->where('patient_id', $patient_id);
-		});
-		$patient = $tablePat->union($tableRep)->first();
+		// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
+		// 	$q->where('patient_id', $patient_id);
+		// });
+		// $patient = $tablePat->union($tableRep)->first();
 
 		if ($patient) {
 
@@ -61,12 +61,12 @@ class QueryDetalyPatient extends Component
 
 	public function search_detaly_all($patient_id)
 	{
-		$tablePat =  Patient::where('ci', $patient_id);
+		$patient =  Patient::where('ci', $patient_id);
 
-		$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
-			$q->where('re_ci', $patient_id);
-		});
-		$patient = $tablePat->union($tableRep)->get();
+		// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
+		// 	$q->where('re_ci', $patient_id);
+		// });
+		// $patient = $tablePat->union($tableRep)->get();
 
 		return $patient;
 	}

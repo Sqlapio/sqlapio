@@ -34,7 +34,7 @@ class Examen extends Component
                 ->where('user_id', Auth::user()->id)
                 ->skip($skip)         // punto de partida
                 ->take($pageLength)   // limite de resgistro
-                ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+                ->with(['get_laboratory', 'get_patients'])->get();
 
             $res = [
                 "data" => $data,
@@ -64,7 +64,7 @@ class Examen extends Component
                 ->where('patient_id', $id)
                 ->skip(0)         // punto de partida
                 ->take(10)   // limite de resgistro
-                ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+                ->with(['get_laboratory', 'get_patients'])->get();
 
             $res = [
                 "data" => $data,
@@ -102,7 +102,7 @@ class Examen extends Component
             $data =  Reference::where('user_id',  Auth::user()->id)
                 ->skip($skip)         // punto de partida
                 ->take($pageLength)   // limite de resgistro
-                ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                ->with(['get_patient', 'get_examne_stutus_uno'])
                 ->get();
 
             $res = [
@@ -132,7 +132,7 @@ class Examen extends Component
             $data =  Reference::where('patient_id',  $id)
                 ->skip(0)         // punto de partida
                 ->take(10)   // limite de resgistro
-                ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                ->with(['get_patient', 'get_examne_stutus_uno'])
                 ->get();
 
             $res = [
