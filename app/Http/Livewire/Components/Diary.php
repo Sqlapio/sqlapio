@@ -346,7 +346,7 @@ class Diary extends Component
                         UtilsController::notification_mail($mailData, $type);
 
                         /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome($info_patient->phone, $ubication, $mailData);
+                        ApiServicesController::whatsapp_welcome_pre_registro($info_patient->phone, $ubication, $mailData);
                     } else {
                         $type = 'appointment';
                         $mailData = [
@@ -363,8 +363,6 @@ class Diary extends Component
                             'telefono'      => $data_center->phone_consulting_room,
                             'price'         => $appointment->price,
                             'ubication'     => $ubication,
-                            'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
-                            'link_cancel'   => 'https://system.sqlapio.com/cancel/dairy/' . $appointment->code,
                         ];
 
                         /**Notificacion por email */
