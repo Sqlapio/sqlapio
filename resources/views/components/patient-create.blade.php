@@ -39,14 +39,14 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mt-3">
-            <x-phone_component :phone="null"/>
-            {{-- <div class="form-group">
+            {{-- <x-phone_component :phone="null"/> --}}
+            <div class="form-group">
                 <div class="Icon-inside">
                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                     <input autocomplete="off" placeholder="" class="form-control phone" id="phone" name="phone" type="text" value="">
                     <i class="bi bi-telephone-forward st-icon"></i>
                 </div>
-            </div> --}}
+            </div>
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">

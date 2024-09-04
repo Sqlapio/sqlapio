@@ -423,7 +423,10 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
-                                $('#div-seal-content').hide();
+                                window.location.href = (user.role ==
+                                        "corporativo") ?
+                                    "{{ route('Dashboard-corporate') }}" :
+                                    "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
@@ -730,8 +733,8 @@
                                                     </div>
                                                     {{-- telefono --}}
                                                     <div class="col-sm-6 col-md-6 col-lg-5 col-xl-4 col-xxl-4 mt-2">
-                                                        <x-phone_component :phone="$user->phone" />
-                                                        {{-- <div class="form-group">
+                                                        {{-- <x-phone_component :phone="$user->phone" /> --}}
+                                                        <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -741,7 +744,7 @@
                                                                     value="{!! !empty($user) ? $user->phone : '' !!}">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
-                                                        </diV> --}}
+                                                        </diV>
                                                     </div>
                                                     {{-- especialidad --}}
                                                     <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
@@ -990,8 +993,8 @@
                                                     </div>
                                                     {{-- telefono --}}
                                                     <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                        <x-phone_component :phone="$user->get_laboratorio->phone_1" />
-                                                        {{-- <div class="form-group">
+                                                        {{-- <x-phone_component :phone="$user->get_laboratorio->phone_1" /> --}}
+                                                        <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -1001,7 +1004,7 @@
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
-                                                        </diV> --}}
+                                                        </diV>
                                                     </div>
                                                     {{-- direccion --}}
                                                     <div

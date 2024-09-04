@@ -706,7 +706,7 @@
                 $("#bnt-cons").append(`<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
             }
             let elemData = JSON.stringify(data);
-            
+
             $("#bnt-dairy").append(`<button onclick='agendarCita(${elemData});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`);
             $("#bnt-hist").append(`<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`);
             editPatien(data, false);
@@ -1016,9 +1016,9 @@
                                                         </div>
                                                         {{-- telefono --}}
                                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-phone">
-                                                            <x-phone_component :phone="null"/>
+                                                            {{-- <x-phone_component :phone="null"/> --}}
 
-                                                            {{-- <div class="form-group">
+                                                            <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label"
                                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -1028,7 +1028,7 @@
                                                                         value="">
                                                                     <i class="bi bi-telephone-forward st-icon"></i>
                                                                 </div>
-                                                            </div> --}}
+                                                            </div>
                                                         </div>
                                                         {{-- correo --}}
                                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="email-div">

@@ -1810,6 +1810,17 @@
         return false;
     }
 
+    const showAlertNotTreatment = () => {
+        Swal.fire({
+            icon: 'warning',
+            title: '@lang('messages.alert.no_orden_tratamiento')',
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: '@lang('messages.botton.aceptar')'
+        });
+        return false;
+    }
+
     const handlerIA = () => {
 
         if ($("#floatingInput").val() !== "" || symptom_array.length>0 ) {
@@ -3250,20 +3261,31 @@
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item->id) }}">
-                                                                            <button type="button">
-                                                                                <img width="50" height="auto"
-                                                                                    src="{{ asset('/img/icons/pdf-recipe.png') }}"
-                                                                                    alt="avatar"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true"
-                                                                                    title="@lang('messages.tooltips.ver_orden_medica')">
+                                                                    @if ($item->medications_supplements !== '[]')
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a target="_blank" href="{{ route('pdf_medical_prescription', $item->id) }}">
+                                                                                <button type="button">
+                                                                                    <img width="50" height="auto"
+                                                                                        src="{{ asset('/img/icons/pdf-recipe.png') }}"
+                                                                                        alt="avatar"
+                                                                                        data-bs-toggle="tooltip"
+                                                                                        data-bs-placement="bottom"
+                                                                                        data-bs-custom-class="custom-tooltip"
+                                                                                        data-html="true"
+                                                                                        title="@lang('messages.tooltips.ver_orden_medica')">
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <button type="button" onclick="showAlertNotTreatment();">
+                                                                                <img width="55" height="auto"
+                                                                                    src="{{ asset('/img/icons/not-file-icon.png') }}"
+                                                                                    alt="avatar">
                                                                             </button>
-                                                                        </a>
-                                                                    </div>
+                                                                        </div>
+                                                                    @endif
+
                                                                 </div>
                                                             </td>
                                                             <td class="text-center td-pad">

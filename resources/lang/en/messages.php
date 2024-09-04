@@ -591,6 +591,7 @@ return [
         'no_orden_examenes'         => 'There is no order of exams for this patient',
         'no_estudios'               => 'No Studies loaded',
         'no_orden_estudios'         => 'There is no order of studies for this patient',
+        'no_orden_tratamiento'      => 'There is no prescription for this patient',
         'error'                     => 'An error has occurred!',
         'paciente_registrado'       => 'Successfully Registered Patient!',
         'actualizar_paciente'       => 'You must update patient information!',
