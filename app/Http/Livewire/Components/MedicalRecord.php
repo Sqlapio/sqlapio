@@ -62,9 +62,8 @@ class MedicalRecord extends Component
              * Paciente menor de edad
              */
             if($is_minor === "true"){
-                $patient_minor = Representative::where('patient_id', $data->id)->first();
-                $patient_email = $patient_minor->email_re;
-                $ci = $patient_minor->re_ci;
+                $patient_email = $patient->email;
+                $ci = $patient->re_ci;
             }
 
             $rules = [

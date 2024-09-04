@@ -61,14 +61,9 @@ class Reference extends Component
              */
             $type = 'reference';
             $patient = Patient::where('id', $reference->patient_id)->first();
-            /**
-             * Si es menor de edad
-             */
-            if ($patient->is_minor == 'true') {
-                $patient_email = Representative::where('patient_id', $reference->patient_id)->first()->re_email;
-            } else {
-                $patient_email = $patient->email;
-            }
+
+            /*Email para notificaciones*/
+            $patient_email = $patient->email;
 
             /**
              * Logica para cargar los examenes
@@ -165,11 +160,7 @@ class Reference extends Component
                  * indicando en codigo de referencia de los examenes
                  * y/o estudio solicitados por el medico
                  */
-                if ($patient->is_minor == 'true') {
-                    $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
-                } else {
-                    $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
-                }
+                $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
 
                 ApiServicesController::whatsapp_location_lab($data_exams, $data_studies, $mailData, $patient_phone);
             }

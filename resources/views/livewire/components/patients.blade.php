@@ -493,19 +493,19 @@
                 $("#img").val(item.patient_img);
             }
             if (item.is_minor === 'true') {
-                console.log(item.get_reprensetative)
 
-                $("#re_name").val(item.get_reprensetative.re_name ? item.get_reprensetative.re_name : '');
-                $("#re_last_name").val(item.get_reprensetative.re_last_name);
+
+                $("#re_name").val(item.re_name ? item.re_name : '');
+                $("#re_last_name").val(item.re_last_name);
                 if (user.contrie == '81') {
-                    let ci_dom_re = item.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                    let ci_dom_re = item.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
 
                     $("#re_ci").val(ci_dom_re);
                 } else {
-                    $("#re_ci").val(item.get_reprensetative.re_ci);
+                    $("#re_ci").val(item.re_ci);
                 }
-                $("#re_email").val(item.get_reprensetative.re_email);
-                $("#re_phone").val(item.get_reprensetative.re_phone);
+                $("#re_email").val(item.email);
+                $("#re_phone").val(item.phone);
             }
 
             // setiar valores componente telefono
@@ -617,9 +617,9 @@
                                 elem.name_full = `${elem.name} ${elem.last_name}`;
 
                                 if (user.contrie === '81') {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' : elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                                    elem.ci = (elem.is_minor == "true") ? elem.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' : elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
                                 } else {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci + ' ' + '(Rep)' : elem.ci;
+                                    elem.ci = (elem.is_minor == "true") ? elem.re_ci + ' ' + '(Rep)' : elem.ci;
                                 }
 
                                 let elemData = JSON.stringify(elem);
@@ -706,22 +706,22 @@
                 $("#bnt-cons").append(`<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
             }
             let elemData = JSON.stringify(data);
-            let elemRep = JSON.stringify(data.get_reprensetative);
-            $("#bnt-dairy").append(`<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`);
+            
+            $("#bnt-dairy").append(`<button onclick='agendarCita(${elemData});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`);
             $("#bnt-hist").append(`<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`);
             editPatien(data, false);
         }
 
-        function agendarCita(item, info) {
+        function agendarCita(item) {
             $('#exampleModal').modal('show');
             if (item.is_minor == 'true') {
                 $("#name-pat").text(item.name + ' ' + item.last_name);
-                $("#email-pat").text(`${info.re_email} (Rep)`);
-                $("#phone-pat").text(`${info.re_phone} (Rep)`);
+                $("#email-pat").text(`${item.email} (Rep)`);
+                $("#phone-pat").text(`${item.phone} (Rep)`);
                 if (user.contrie == '81') {
-                    $("#ci-pat").text(`${info.re_ci} (Rep)`).mask('000-0000000-0');
+                    $("#ci-pat").text(`${item.re_ci} (Rep)`).mask('000-0000000-0');
                 } else {
-                    $("#ci-pat").text(`${info.re_ci} (Rep)`);
+                    $("#ci-pat").text(`${item.re_ci} (Rep)`);
                 }
                 $("#genere-pat").text(item.genere);
                 $("#age-pat").text(item.age);
@@ -1382,7 +1382,7 @@
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <button
-                                                                        onclick="agendarCita({{ $item }},{{ $item->get_reprensetative }})"
+                                                                        onclick="agendarCita({{ $item }})"
                                                                         type="button" class="btn btnSecond"
                                                                         data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
@@ -1407,7 +1407,7 @@
                                                                             <span>-----</span>
                                                                         @endif
                                                                 </td>
-                                                                <td class="text-center"> {{ $item->get_center->description }} {{ @json_encode($item->get_reprensetative->re_ci) }} </td>
+                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">

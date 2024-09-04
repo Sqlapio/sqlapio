@@ -545,45 +545,45 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function get_patients_pag()
-	{
-		try {
-			$patients = [];
-			$patients_pagination = MedicalRecord::all()->unique('patient_id');
-			foreach ($patients_pagination as $key => $val) {
-				$patients[$key] = [
-					'id' 			     => $val->get_patient->id,
-					'name' 			     => $val->get_patient->name . ' ' . $val->get_patient->last_name,
-					// 'last_name' 	     => $val->get_patient->last_name,
-					'patient_code' 	     => $val->get_patient->patient_code,
-					'ci' 			     => $val->get_patient->ci,
-					'ci_table' 		     => ($val->get_patient->is_minor == "true") ? $val->get_patient->get_reprensetative->re_ci . '  (Rep)' : $val->get_patient->ci,
-					'birthdate' 	     => $val->get_patient->birthdate,
-					'genere' 		     => $val->get_patient->genere,
-					'phone_table' 	     => ($val->get_patient->is_minor === 'true') ? $val->get_patient->get_reprensetative->re_phone . '  (Rep)' : $val->get_patient->phone,
-					'phone' 		     => $val->get_patient->phone,
-					'email_table' 	     => ($val->get_patient->is_minor === 'true') ? $val->get_patient->get_reprensetative->re_email . '  (Rep)' : $val->get_patient->email,
-					'email' 		     => $val->get_patient->email,
-					'address' 		     => $val->get_patient->address,
-					'patient_img' 	     => $val->get_patient->patient_img,
-					'is_minor'		     => $val->get_patient->is_minor,
-					'state'			     => $val->get_patient->state,
-					'city'			     => $val->get_patient->city,
-					'profession'	     => $val->get_patient->profession,
-					'center_id' 	     => $val->get_patient->center_id,
-					'zip_code' 		     => $val->get_patient->zip_code,
-					'get_reprensetative' => $val->get_patient->get_reprensetative,
-				];
-			}
-			return $patients;
-			//code...
-		} catch (\Throwable $th) {
-			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_patients_pag()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
-		}
-	}
+	// static function get_patients_pag()
+	// {
+	// 	try {
+	// 		$patients = [];
+	// 		$patients_pagination = MedicalRecord::all()->unique('patient_id');
+	// 		foreach ($patients_pagination as $key => $val) {
+	// 			$patients[$key] = [
+	// 				'id' 			     => $val->get_patient->id,
+	// 				'name' 			     => $val->get_patient->name . ' ' . $val->get_patient->last_name,
+	// 				// 'last_name' 	     => $val->get_patient->last_name,
+	// 				'patient_code' 	     => $val->get_patient->patient_code,
+	// 				'ci' 			     => $val->get_patient->ci,
+	// 				'ci_table' 		     => ($val->get_patient->is_minor == "true") ? $val->get_patient->get_reprensetative->re_ci . '  (Rep)' : $val->get_patient->ci,
+	// 				'birthdate' 	     => $val->get_patient->birthdate,
+	// 				'genere' 		     => $val->get_patient->genere,
+	// 				'phone_table' 	     => ($val->get_patient->is_minor === 'true') ? $val->get_patient->get_reprensetative->re_phone . '  (Rep)' : $val->get_patient->phone,
+	// 				'phone' 		     => $val->get_patient->phone,
+	// 				'email_table' 	     => ($val->get_patient->is_minor === 'true') ? $val->get_patient->get_reprensetative->re_email . '  (Rep)' : $val->get_patient->email,
+	// 				'email' 		     => $val->get_patient->email,
+	// 				'address' 		     => $val->get_patient->address,
+	// 				'patient_img' 	     => $val->get_patient->patient_img,
+	// 				'is_minor'		     => $val->get_patient->is_minor,
+	// 				'state'			     => $val->get_patient->state,
+	// 				'city'			     => $val->get_patient->city,
+	// 				'profession'	     => $val->get_patient->profession,
+	// 				'center_id' 	     => $val->get_patient->center_id,
+	// 				'zip_code' 		     => $val->get_patient->zip_code,
+	// 				'get_reprensetative' => $val->get_patient->get_reprensetative,
+	// 			];
+	// 		}
+	// 		return $patients;
+	// 		//code...
+	// 	} catch (\Throwable $th) {
+	// 		$error_log = $th->getMessage();
+    //         $modulo = 'UtilsController.get_patients_pag()';
+    //         ErrorController::error_log($modulo, $error_log);
+    //         return view('error404');
+	// 	}
+	// }
 
 	static function get_doctor_centers_pag()
 	{
@@ -1689,191 +1689,191 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function search_person($value, $row)
-	{
-        try {
+	// static function search_person($value, $row)
+	// {
+    //     try {
 
-            $data = [];
+    //         $data = [];
 
-            if ($row != 'cod_ref') {
+    //         if ($row != 'cod_ref') {
 
-                $pat = Patient::where("ci", $value)
-                    ->orwhereHas('get_reprensetative', function ($q) use ($value) {
-                        $q->where('re_ci', $value);
-                    })->get();
+    //             $pat = Patient::where("ci", $value)
+    //                 ->orwhereHas('get_reprensetative', function ($q) use ($value) {
+    //                     $q->where('re_ci', $value);
+    //                 })->get();
 
-                $tablePat =  ExamPatient::where('status', 2)
-                    ->whereHas('get_patients', function ($q) use ($value) {
-                        $q->where('ci', $value);
-                    });
+    //             $tablePat =  ExamPatient::where('status', 2)
+    //                 ->whereHas('get_patients', function ($q) use ($value) {
+    //                     $q->where('ci', $value);
+    //                 });
 
-                $tableRep =  ExamPatient::where('status', 2)
-                    ->whereHas('get_patients', function ($q) use ($value) {
-                        $q->whereHas('get_reprensetative', function ($q) use ($value) {
-                            $q->where('re_ci', $value);
-                        });
-                    });
+    //             $tableRep =  ExamPatient::where('status', 2)
+    //                 ->whereHas('get_patients', function ($q) use ($value) {
+    //                     $q->whereHas('get_reprensetative', function ($q) use ($value) {
+    //                         $q->where('re_ci', $value);
+    //                     });
+    //                 });
 
-                $data = $tablePat->union($tableRep)
-                    ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
-                    ->skip(0)     // punto de partida
-                    ->take(10)   // limite de resgistro
-                    ->get();
+    //             $data = $tablePat->union($tableRep)
+    //                 ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
+    //                 ->skip(0)     // punto de partida
+    //                 ->take(10)   // limite de resgistro
+    //                 ->get();
 
-                $count =  $tablePat->union($tableRep)->get();
+    //             $count =  $tablePat->union($tableRep)->get();
 
-                $data = [
-                    "data"  => $data,
-                    "count" => count($count),
-                    "skip"  => 0,
-                    "limit" => 10,
-                ];
+    //             $data = [
+    //                 "data"  => $data,
+    //                 "count" => count($count),
+    //                 "skip"  => 0,
+    //                 "limit" => 10,
+    //             ];
 
-                ///buscar las referencias sin resultados cargados
+    //             ///buscar las referencias sin resultados cargados
 
-                $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->where('ci', $value);
-                });
+    //             $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->where('ci', $value);
+    //             });
 
-                $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
-                        $q->where('re_ci', $value);
-                    });
-                });
+    //             $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->whereHas('get_reprensetative', function ($q) use ($value) {
+    //                     $q->where('re_ci', $value);
+    //                 });
+    //             });
 
 
 
-                $reference = $Reference_pat->union($Reference_reo)
-                    ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
-                    ->skip(0)     // punto de partida
-                    ->take(10)   // limite de resgistro
-                    ->get();
+    //             $reference = $Reference_pat->union($Reference_reo)
+    //                 ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+    //                 ->skip(0)     // punto de partida
+    //                 ->take(10)   // limite de resgistro
+    //                 ->get();
 
-                $countDos = $Reference_pat->union($Reference_reo)->get();
+    //             $countDos = $Reference_pat->union($Reference_reo)->get();
 
-                $reference = [
-                    "data"  => $reference,
-                    "count" => count($countDos),
-                    "skip"  => 0,
-                    "limit" => 10,
-                ];
+    //             $reference = [
+    //                 "data"  => $reference,
+    //                 "count" => count($countDos),
+    //                 "skip"  => 0,
+    //                 "limit" => 10,
+    //             ];
 
-                return ["data" => $data, "reference" => $reference, "pat" => $pat];
-            } else {
+    //             return ["data" => $data, "reference" => $reference, "pat" => $pat];
+    //         } else {
 
-                $tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->where('ci', $value);
-                });
+    //             $tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->where('ci', $value);
+    //             });
 
-                $tableRep =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
-                        $q->where('re_ci', $value);
-                    });
-                });
+    //             $tableRep =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->whereHas('get_reprensetative', function ($q) use ($value) {
+    //                     $q->where('re_ci', $value);
+    //                 });
+    //             });
 
-                $reference = $tablePat->union($tableRep)->get();
+    //             $reference = $tablePat->union($tableRep)->get();
 
-                foreach ($reference as $key => $val) {
-                    $data[$key] = [
-                        'id'                 => $val->id,
-                        'cod_ref'            => $val->cod_ref,
-                        'date'               => $val->date,
-                        'cod_medical_record' => $val->cod_medical_record,
-                        'get_exam'           => $val->get_exam,
-                        'get_studie'         => $val->get_studie,
-                        'get_patient'        => $val->get_patient,
-                    ];
-                }
+    //             foreach ($reference as $key => $val) {
+    //                 $data[$key] = [
+    //                     'id'                 => $val->id,
+    //                     'cod_ref'            => $val->cod_ref,
+    //                     'date'               => $val->date,
+    //                     'cod_medical_record' => $val->cod_medical_record,
+    //                     'get_exam'           => $val->get_exam,
+    //                     'get_studie'         => $val->get_studie,
+    //                     'get_patient'        => $val->get_patient,
+    //                 ];
+    //             }
 
-                return $data;
-            }
+    //             return $data;
+    //         }
 
-        } catch (\Throwable $th) {
-            $error_log = $th->getMessage();
-            $modulo = 'UtilsController.search_person()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
-        }
+    //     } catch (\Throwable $th) {
+    //         $error_log = $th->getMessage();
+    //         $modulo = 'UtilsController.search_person()';
+    //         ErrorController::error_log($modulo, $error_log);
+    //         return view('error404');
+    //     }
 
-	}
+	// }
 
-	static function search_studio($value, $row)
-	{
-        try {
+	// static function search_studio($value, $row)
+	// {
+    //     try {
 
-            $data = [];
-            if ($row != 'cod_ref') {
+    //         $data = [];
+    //         if ($row != 'cod_ref') {
 
-                $pat = Patient::where("ci", $value)
-                    ->orwhereHas('get_reprensetative', function ($q) use ($value) {
-                        $q->where('re_ci', $value);
-                    })->get();
+    //             $pat = Patient::where("ci", $value)
+    //                 ->orwhereHas('get_reprensetative', function ($q) use ($value) {
+    //                     $q->where('re_ci', $value);
+    //                 })->get();
 
-                $tablePat =  StudyPatient::where('status', 2)
-                    ->whereHas('get_patient', function ($q) use ($value) {
-                        $q->where('ci', $value);
-                    });
+    //             $tablePat =  StudyPatient::where('status', 2)
+    //                 ->whereHas('get_patient', function ($q) use ($value) {
+    //                     $q->where('ci', $value);
+    //                 });
 
-                $tableRep =  StudyPatient::where('status', 2)
-                    ->whereHas('get_patient', function ($q) use ($value) {
-                        $q->whereHas('get_reprensetative', function ($q) use ($value) {
-                            $q->where('re_ci', $value);
-                        });
-                    });
+    //             $tableRep =  StudyPatient::where('status', 2)
+    //                 ->whereHas('get_patient', function ($q) use ($value) {
+    //                     $q->whereHas('get_reprensetative', function ($q) use ($value) {
+    //                         $q->where('re_ci', $value);
+    //                     });
+    //                 });
 
-                $data = $tablePat->union($tableRep)
-                    ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
-                    ->skip(0)     // punto de partida
-                    ->take(10)   // limite de resgistro
-                    ->get();
+    //             $data = $tablePat->union($tableRep)
+    //                 ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
+    //                 ->skip(0)     // punto de partida
+    //                 ->take(10)   // limite de resgistro
+    //                 ->get();
 
-                $count = $data = $tablePat->union($tableRep)->get();
+    //             $count = $data = $tablePat->union($tableRep)->get();
 
-                $data = [
-                    "data"  => $data,
-                    "count" => count($count),
-                    "skip"  => 0,
-                    "limit" => 10,
-                ];
+    //             $data = [
+    //                 "data"  => $data,
+    //                 "count" => count($count),
+    //                 "skip"  => 0,
+    //                 "limit" => 10,
+    //             ];
 
-                //buscar las referencias sin resultados cargados
+    //             //buscar las referencias sin resultados cargados
 
-                $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->where('ci', $value);
-                });
+    //             $Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->where('ci', $value);
+    //             });
 
-                $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
-                    $q->whereHas('get_reprensetative', function ($q) use ($value) {
-                        $q->where('re_ci', $value);
-                    });
-                });
+    //             $Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
+    //                 $q->whereHas('get_reprensetative', function ($q) use ($value) {
+    //                     $q->where('re_ci', $value);
+    //                 });
+    //             });
 
-                $reference = $Reference_pat->union($Reference_reo)
-                    ->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
-                    ->skip(0)     // punto de partida
-                    ->take(10)   // limite de resgistro
-                    ->get();
+    //             $reference = $Reference_pat->union($Reference_reo)
+    //                 ->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
+    //                 ->skip(0)     // punto de partida
+    //                 ->take(10)   // limite de resgistro
+    //                 ->get();
 
-                $countDos = $Reference_pat->union($Reference_reo)->get();
+    //             $countDos = $Reference_pat->union($Reference_reo)->get();
 
-                $reference = [
-                    "data"  => $reference,
-                    "count" => count($countDos),
-                    "skip"  => 0,
-                    "limit" => 10,
-                ];
+    //             $reference = [
+    //                 "data"  => $reference,
+    //                 "count" => count($countDos),
+    //                 "skip"  => 0,
+    //                 "limit" => 10,
+    //             ];
 
-                return ["data" => $data, "reference" => $reference, "pat" => $pat];
-            }
-            //code...
-        } catch (\Throwable $th) {
-            $error_log = $th->getMessage();
-            $modulo = 'UtilsController.search_studio()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
-        }
+    //             return ["data" => $data, "reference" => $reference, "pat" => $pat];
+    //         }
+    //         //code...
+    //     } catch (\Throwable $th) {
+    //         $error_log = $th->getMessage();
+    //         $modulo = 'UtilsController.search_studio()';
+    //         ErrorController::error_log($modulo, $error_log);
+    //         return view('error404');
+    //     }
 
-	}
+	// }
 
 	static function responce_references()
 	{

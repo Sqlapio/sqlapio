@@ -61,6 +61,8 @@ use App\View\Components\VerifyplansComponent;
 use Illuminate\Support\Facades\DB;
 use App\Models\DoctorCenter;
 use App\Models\ExamPatient;
+use App\Models\GeneralStatistic;
+use App\Models\Mes;
 use Illuminate\Support\Facades\Auth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Spatie\LaravelPdf\Facades\Pdf;
@@ -457,9 +459,40 @@ Route::get('/prueba2', function () {
 
 
 Route::get('/t', function () {
-    $cita = Appointment::where('code','SQ-D-70370935')->first()->hour_start;
-    $hora = explode('-', $cita);
-    dd($hora[0]);
+    $hoy = now()->format('Y-m-d');
+
+        $dairy = Appointment::whereBetween('status', [1, 2])->where('date_start', $hoy )->get();
+        foreach($dairy as $item)
+        {
+            $item->status = 5;
+            $item->save();
+
+            $numero_mes = now()->format('m');
+            $mes = Mes::where('numero', $numero_mes)->first()->mes;
+
+            $user_affected = User::where('id', $dairy->user_id)->first();
+
+            if($user_affected->type_plane == 7){
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $item->user_id;
+                $accumulated->type_plane = 7;
+                $accumulated->center = $item->center_id;
+                $accumulated->dairy_no_atendida = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }else{
+                $accumulated = new GeneralStatistic();
+                $accumulated->user_id = $item->user_id;
+                $accumulated->center = $item->center_id;
+                $accumulated->dairy_no_atendida = 1;
+                $accumulated->mes = $mes;
+                $accumulated->numero_mes = $numero_mes;
+                $accumulated->date = date('d-m-Y');
+                $accumulated->save();
+            }
+        }
 });
 
 ///grupo de rutas pacientes modulo

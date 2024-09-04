@@ -19,7 +19,7 @@ class RecoveryPassword extends Component
 
             if ($user) {
 
-                $email = ($user->patients->is_minor == "true") ?  $user->patients->get_reprensetative->re_email : $user->patients->email;
+                $email = $user->patients->email;
                 $mailData = [
                     'email' => $email,
                     'password' =>  $user->pass_tem,

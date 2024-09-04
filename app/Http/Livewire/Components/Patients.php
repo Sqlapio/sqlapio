@@ -61,6 +61,10 @@ class Patients extends Component
                 $nameFile = $request->img;
             }
 
+            /**
+             * @param is_minor
+             * ESTE IF() ES PARA PREGUNTAR SI EL PACIENTE ES MENOR DE EDAD
+             */
             if ($request->is_minor == "true") {
 
                 $user_name = $request->re_ci;
@@ -153,7 +157,7 @@ class Patients extends Component
                         'age'               => $request->age,
                         'contrie_doc'       => auth()->user()->role == "secretary" ? $contrie_doc : auth()->user()->contrie,
                         'address'           => $request->address,
-                        // 'zip_code'          => $request->zip_code,
+                        'email'             => $request->re_email,
                         'blood_type'        => $request->blood_type,
                         'ce_phone'          => $request->ce_phone,
                         'ce_name'           => $request->ce_name,
@@ -165,39 +169,20 @@ class Patients extends Component
                         'user_id'           => auth()->user()->role == "secretary" ? $user_doc : $user_id,
                         'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                         'patient_img'       => $nameFile,
+                        're_name'           => $request->re_name,
+                        're_last_name'      => $request->re_last_name,
+                        're_ci'             => $request->re_ci,
                         'verification_code' => Str::random(30)
 
                     ]
                 );
-
-                /**
-                 * Buscamos el ultimo paciente registrado por el medico
-                 * @return $id
-                 */
-                $patient_id = Patient::where('user_id', auth()->user()->role == "secretary" ? $user_doc : $user_id)->get()->last()->id;
-                    $re_patient = Representative::updateOrCreate(
-                        ['patient_id' => $patient_id],
-                        [
-                            're_name'      => $request->re_name,
-                            're_last_name' => $request->re_last_name,
-                            're_ci'        => $ci,
-                            're_email'     => $request->re_email,
-                            're_phone'     => $request->re_phone,
-                            'patient_id'   => $patient_id,
-
-                        ]
-                    );
 
                 if($request->id != null)
                 {
                     $action = '34';
                     ActivityLogController::store_log($action);
                 }
-                if($re_patient)
-                {
-                    $action = '35';
-                    ActivityLogController::store_log($action);
-                }
+
                 if($request->id == null){
 
                     $action = '9';
@@ -220,8 +205,8 @@ class Patients extends Component
                         'dr_email'      => $user->email,
                         'patient_name'  => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'  => $patient['patient_code'],
-                        'patient_email' => $re_patient->re_email,
-                        'patient_phone' => $re_patient->re_phone,
+                        'patient_email' => $patient['re_email'],
+                        'patient_phone' => $patient['re_phone'],
                     ];
 
                     UtilsController::notification_mail($mailData, $type);
@@ -249,15 +234,15 @@ class Patients extends Component
                         'patient_email'          => $user->email,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
-                        'patient_email'          => $re_patient->re_email,
-                        'patient_phone'          => $re_patient->re_phone,
+                        'patient_email'          => $patient['re_email'],
+                        'patient_phone'          => $patient['re_phone'],
                     ];
 
                     /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
 
                     /**Notificacion por whatsapp */
-                    ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
+                    ApiServicesController::whatsapp_register_patient($patient['re_phone'], $mailData);
 
                 } else
                     /** Registro del medico con plan 1 2 o 3 */
@@ -312,15 +297,15 @@ class Patients extends Component
                             'patient_email'          => $user->email,
                             'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                             'patient_code'           => $patient['patient_code'],
-                            'patient_email'          => $re_patient->re_email,
-                            'patient_phone'          => $re_patient->re_phone,
+                            'patient_email'          => $patient['re_email'],
+                            'patient_phone'          => $patient['re_phone'],
                         ];
 
                         /**Envia de Email al paciente registrado */
                         UtilsController::notification_mail($mailData, $type);
 
                         /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
+                        ApiServicesController::whatsapp_register_patient($patient['re_phone'], $mailData);
                     }
 
             } else {
@@ -630,46 +615,11 @@ class Patients extends Component
         }
     }
 
-    public function search($ci)
-    {
-
-        $ci_maks = str_replace('-', '', $ci);
-
-
-        try {
-
-            $array = explode('-', $ci_maks);
-
-            $ci_maks = $array[0];
-
-            $tablePat =  Patient::where('ci', "=", $ci_maks);
-
-            $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($ci_maks) {
-                $q->where('re_ci', "=", $ci_maks);
-            });
-
-            $patient = $tablePat->union($tableRep)->with('get_reprensetative')->get();
-
-            if (count($patient) == 0) {
-                return response()->json([
-                    'success' => 'false',
-                    'errors'  => __('messages.alert.paciente_no_registrado')
-                ], 400);
-            }
-
-            return $patient;
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => 'false',
-                'errors'  => $th->getMessage()
-            ], 500);
-        }
-    }
-
     public function render($id = null)
     {
 
         $patient = ($id) ? Patient::where('id', $id)->first() : [];
+
         $patients = UtilsController::get_table_medical_record(auth()->user()->id);
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
