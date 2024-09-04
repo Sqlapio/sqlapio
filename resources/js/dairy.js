@@ -485,8 +485,6 @@ function setValue(data, info) {
     let status_cita = info.event.extendedProps.status;
     let status_color = info.event.extendedProps.status_class;
 
-    console.log(info.event.extendedProps)
-
     $("#status").html(`<span class="badge rounded-pill bg-${status_color}"><span style="font-size: 13px">${status_cita}</span></span>`);
 
     $("#date-lb").hide();

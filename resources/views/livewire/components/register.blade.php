@@ -311,8 +311,6 @@
 
             $("#form-register").validate();
             if ($("#form-register").valid()) {
-                console.log($("#form-register").valid())
-
                 Swal.fire({
                     title: 'Informacion',
                     text: '@lang('messages.alert.envio_codigo')',
@@ -323,7 +321,6 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
-                    console.log(result)
                     if (result.isConfirmed) {
 
                         $('#spinner').show();
