@@ -505,6 +505,7 @@ class UtilsController extends Controller
 						'name'            => $val->get_patients->name,
 						'last_name'       => $val->get_patients->last_name,
 						'ci'              => $val->get_patients->ci == null ? '' : $val->get_patients->ci,
+						're_ci'           => $val->get_patients->re_ci == null ? '' : $val->get_patients->re_ci,
 						'email'           => $val->get_patients->email == null ? '' : $val->get_patients->email,
 						'genere'          => $val->get_patients->genere == null ? '' : $val->get_patients->genere,
 						'age'             => $val->get_patients->age,
