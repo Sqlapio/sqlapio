@@ -124,6 +124,7 @@ Route::get('/confirmation/dairy/{code}', function ($code) {
                     ->where('code', $code)
                     ->update([
                         'status' => 2,
+                        'color' => '#ffc107'
                     ]);
 
         $dairy = Appointment::where('code', $code)->where('status', 2)->first();
@@ -144,6 +145,7 @@ Route::get('/cancel/dairy/{code}', function ($code) {
                     ->where('code', $code)
                     ->update([
                         'status' => 4,
+                        'color' => '#dc3545'
                     ]);
 
         $dairy = Appointment::where('code', $code)->where('status', 4)->first();
