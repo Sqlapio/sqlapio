@@ -986,7 +986,7 @@
                                                 @else
                                                     <strong>@lang('messages.ficha_paciente.ci'):</strong>
                                                 @endif
-                                                <span> {{ $Patient->is_minor === 'true' ? '****' : $Patient->ci }}</span>
+                                                <span> {{ $Patient->is_minor === 'true' ?  $Patient->re_ci.' (Rep)' : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
                                                 <span class="text-capitalize"> {{ $Patient->genere }}</span>

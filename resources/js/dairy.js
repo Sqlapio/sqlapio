@@ -404,12 +404,21 @@ function setValue(data, info) {
     url = url.replace(":id", info.event.extendedProps.patient_id);
     let item = JSON.stringify(info);
 
-    if (info.event.extendedProps.ci) {
+    console.log(info.event.extendedProps)
+
+    if (info.event.extendedProps.is_minor === 'true' && info.event.extendedProps.re_ci !== '') {
         $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
-    } else {
+        $("#ci").text(info.event.extendedProps.re_ci + ' (Rep)');
+    } else if (info.event.extendedProps.is_minor === 'false' && info.event.extendedProps.ci !== '') {
+        $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
+        $("#ci").text(info.event.extendedProps.ci);
+    }
+    else {
         urlPaciente = urlPaciente.replace(":id_patient", info.event.extendedProps.patient_id);
 
         $("#btn-con").append(`<a href='${urlPaciente}'><button type="button" class="btn btnPrimary">${langJson.botton.actualizar_datos}</button></a>`);
+        $("#ci").text('****');
+
     }
 
     $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">${langJson.botton.cancelar_cita}</button>`);
@@ -419,11 +428,11 @@ function setValue(data, info) {
     $("#name").text(info.event.extendedProps.name + " " + info.event.extendedProps.last_name);
     $("#email").text(info.event.extendedProps.email);
     $("#phone").text(info.event.extendedProps.phone);
-    if (info.event.extendedProps.ci && user.contrie == '81') {
-        $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') : '****');
-    } else {
-        $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci : '****');
-    }
+    // if (info.event.extendedProps.ci && user.contrie == '81') {
+    //     $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') : '****');
+    // } else {
+    //     $("#ci").text(info.event.extendedProps.ci ? info.event.extendedProps.ci : '****');
+    // }
     $("#hour_start").val(info.event.extendedProps.data).change().attr("disabled", true);
     $("#genere").text(info.event.extendedProps.genere ? info.event.extendedProps.genere : '****');
     $("#age").text(info.event.extendedProps.age);
