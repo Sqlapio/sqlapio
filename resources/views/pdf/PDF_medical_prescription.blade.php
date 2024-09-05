@@ -31,6 +31,7 @@
     .img-pat {
         padding: 10px;
         border-radius: 10px;
+        margin: auto;
     }
 
     .container-fluid {
@@ -118,7 +119,7 @@
                                     <strong>C.I:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->ci }}</span>
                                     <br>
                                     <strong>Género:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->genere }}</span>
-                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
+                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }} años</span>
                                     <br>
                                     <strong>Correo electrónico:</strong>
                                     <span>{{ $medical_prescription->get_paciente->email }}</span>
@@ -140,7 +141,7 @@
                                     <strong>C.I:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->ci }}</span>
                                     <br>
                                     <strong>Género:</strong> <span class="text-capitalize">{{ $medical_prescription->get_paciente->genere }}</span>
-                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
+                                    <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }} años</span>
                                     <br>
                                     <strong>Correo electrónico:</strong>
                                     <span>{{ $medical_prescription->get_paciente->email }}</span>
@@ -210,8 +211,8 @@
                 <tbody>
                     <tr>
                         <td class="table-border" style="width: 50%">
-                            <div>
-                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
+                            <div style="text-align: center;">
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover" src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
                                 <div style="margin-bottom: 5px; text-align: center;">
                                     <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
                                         <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}
@@ -221,8 +222,8 @@
                             </div>
                         </td>
                         <td class="table-border" style="width: 50%">
-                            <div>
-                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
+                            <div style="text-align: center;">
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover" src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
                                 <div style="margin-bottom: 5px; text-align: center;">
                                     <p>Direccion: {{ $direccion }}. Piso {{ $piso }}, Consultorio {{ $consultorio_num }}
                                         <br>Telefono: {{ $consultorio_tel }} / {{ $personal_tel }}

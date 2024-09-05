@@ -48,7 +48,7 @@ class Profile extends Component
                     'last_name'       => $request->last_name,
                     'ci'              => $request->ci,
                     'genere'          => $request->genere,
-                    'phone'           => $request->phonenumber_prefix . "-" . $request->phone,
+                    'phone'           => $request->phone,
                     'address'         => $request->address,
                     'status_register' => '2',
                     'center_id'       => $request->center_id,

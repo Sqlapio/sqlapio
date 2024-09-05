@@ -403,7 +403,7 @@ function setValue(data, info) {
     $("#btn-cancell").find("button").remove();
     url = url.replace(":id", info.event.extendedProps.patient_id);
     let item = JSON.stringify(info);
-    if(info.event.extendedProps.status !== 'Cancelada') {
+    if(info.event.extendedProps.status !== 'Cancelada' && info.event.extendedProps.status !== 'Finalizada') {
         if (info.event.extendedProps.is_minor === 'true' && info.event.extendedProps.re_ci !== '') {
             $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">${langJson.botton.consulta_medica}</button>`);
             $("#ci").text(info.event.extendedProps.re_ci + ' (Rep)');
