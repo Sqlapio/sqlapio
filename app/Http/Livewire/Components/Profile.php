@@ -27,7 +27,7 @@ class Profile extends Component
                     'state'           => $request->age,
                     'city'            => $request->phone,
                     'address'         => $request->address,
-                    'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone_1,
+                    'phone_1'         => $request->phone_1,
                     'type_laboratory' => $request->type_laboratory,
                     'responsible'     => $request->responsible,
                     'descripcion'     => $request->descripcion,
@@ -225,7 +225,7 @@ class Profile extends Component
             ->update([
                 'digital_cello'  => $nameFile,
             ]);
-    
+
             return true;
             //code...
         } catch (\Throwable $th) {
@@ -239,7 +239,7 @@ class Profile extends Component
     public function create_background_pdf(Request $request)
     {
         try {
-    
+
             DB::table('users')
             ->where('id', Auth::user()->id)
             ->update([

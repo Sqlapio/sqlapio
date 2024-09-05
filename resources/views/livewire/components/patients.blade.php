@@ -509,11 +509,11 @@
             }
 
             // setiar valores componente telefono
-            let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
-            let cont = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
-            $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
-            $('#pn-input__prefix').val(prefix);
-            $("#js_selected-flag").attr('src', cont.url_img);
+            // let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
+            // let cont = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
+            // $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
+            // $('#pn-input__prefix').val(prefix);
+            // $("#js_selected-flag").attr('src', cont.url_img);
 
 
             //end

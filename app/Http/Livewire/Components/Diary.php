@@ -143,7 +143,7 @@ class Diary extends Component
                         $patient->contrie_doc       = auth()->user()->contrie;
                         $patient->verification_code = Str::random(30);
                         $patient->email             = $request->email_patient;
-                        $patient->phone             = $request->phonenumber_prefix . "-" . $request->phone;
+                        $patient->phone             = $request->phone;
                         $patient->save();
 
 
@@ -169,7 +169,7 @@ class Diary extends Component
                         /**Buscamos la direccion del centro */
                         $dir = str_replace(' ', '%20', $appointment->get_center->description);
                         $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
-                        
+
                         $type = 'appointment';
 
                         $mailData = [
@@ -199,7 +199,7 @@ class Diary extends Component
                         $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
                         $patient->name              = $request->name_patient;
                         $patient->last_name         = $request->last_name_patient;
-                        $patient->phone             = $request->phonenumber_prefix . "-" . $request->phone;
+                        $patient->phone             = $request->phone;
                         $patient->email             = $request->email_patient;
                         $patient->is_minor          = $request->is_minor;
                         $patient->birthdate         = $request->birthdate_patient;
@@ -391,7 +391,10 @@ class Diary extends Component
 
             $cancelled = DB::table('appointments')
                 ->where('id', $id)
-                ->update(['status' => 4]);
+                ->update([
+                    'status' => 4,
+                    'color' => '#dc3545'
+                ]);
 
             $action = '12';
             ActivityLogController::store_log($action);

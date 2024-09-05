@@ -401,7 +401,7 @@ class Patients extends Component
                         'last_name'         => $request->last_name,
                         'ci'                => $ci,
                         'email'             => $request->email,
-                        'phone'             => $request->phonenumber_prefix."-".$request->phone,
+                        'phone'             => $request->phone,
                         'profession'        => $profession,
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,
