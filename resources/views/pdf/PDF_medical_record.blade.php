@@ -163,8 +163,8 @@
                 <strong>Diagnóstico:</strong>
                 @php
                     $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
-                    $description = str_replace( "\r\n", "<br/>" , $des);
-                    dd($description);
+                    $description = str_ireplace( "\r\n", "\n", $des);
+                    // dd($description);
                 @endphp
                     <pre style="font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $description }}</pre>
             <br>
