@@ -172,7 +172,7 @@
                                         <div style="padding-left: 62px; margin-rigth: 62px">
                                             <div style="display: flex; flex-direction: column; align-items: left;">
                                                 @foreach ($medicamentos as $item)
-                                                    <span class="text-capitalize" style="font-size: 10px;"><strong>-</strong> {{ $item->medicine }}</span><br><br>
+                                                    <span class="text-capitalize" style="font-size: 14px;"><strong>-</strong> {{ $item->medicine }}</span><br><br>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -191,9 +191,9 @@
                                             <div class="header">
                                                 <div style="display: flex; flex-direction: column; align-items: left;">
                                                         @foreach ($medicamentos as $item)
-                                                            <span class="text-capitalize" style="font-size: 10px;"><strong>- Medicamento: </strong> {{ $item->medicine }}</span>
-                                                            <span class="text-capitalize" style="font-size: 10px;"><strong> Indicaciones: </strong> {{ $item->indication }} cada {{ $item->hours }} horas.</span>
-                                                            <span class="text-capitalize" style="font-size: 10px;"> <strong> Duracion: </strong> {{ $item->treatmentDuration }}</span><br><br>
+                                                            <span class="text-capitalize" style="font-size: 14px;"><strong>- Medicamento: </strong> {{ $item->medicine }}</span>
+                                                            <span class="text-capitalize" style="font-size: 14px;"><strong> Indicaciones: </strong> {{ $item->indication }} cada {{ $item->hours }} horas.</span>
+                                                            <span class="text-capitalize" style="font-size: 14px;"> <strong> Duracion: </strong> {{ $item->treatmentDuration }}</span><br><br>
                                                         @endforeach
                                                     </div>
                                                 </div>
