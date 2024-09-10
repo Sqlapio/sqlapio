@@ -114,7 +114,7 @@
         <div>
             <hr style="color:#0000001a">
             <div class="row-data" style="display: flex; width: 100%">
-                <div style="flex: 50%; font-size: 15px">
+                <div style="flex: 50%; font-size: 15px; text-transform: capitalize">
                     {{-- Datos del paciente --}}
                     <div class="col-md-6">
                         <strong>Nombre:
@@ -163,40 +163,45 @@
                 <strong>Diagnóstico:</strong>
                 @php
                     $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
-                    $description = str_ireplace( "\r\n", PHP_EOL, $des);
-                    // dd($description);
+                    $description = str_ireplace( "\r\n", "&nbsp" , $des);
+
+                    // dd(count(json_decode($MedicalRecord->medications_supplements)));
                 @endphp
-                    <pre style="font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $description }}</pre>
-            <br>
-            @if(strlen($MedicalRecord->diagnosis)>600)
+                    <pre style="font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{$des}}</pre>
+            </div>
+            @if(strlen($MedicalRecord->diagnosis)>500)
                 <div style="page-break-after:always;"></div>
             @endif
             <div style="height: 3cm"> </div>
             <div class="row-data">
                 <strong>Sintomas:</strong>
-                <p style="font-size: 16px">{{ $MedicalRecord->sintomas }}</p>
-                <br>
+                <p style="font-size: 16px; text-transform: capitalize">{{ $MedicalRecord->sintomas }}</p>
                 @if ($MedicalRecord->status_exam === 1)
+                    <br>
                     <strong>Exámenes:</strong>
                     @foreach ($MedicalRecord->get_exam_medical as $item)
                     <p style="font-size: 16px">{{ $item->description }}</p>
                     @endforeach
+                    <br>
                 @endif
-                <br>
                 @if ($MedicalRecord->status_study === 1)
                     <strong>Estudios:</strong>
                     @foreach ($MedicalRecord->get_study_medical as $item)
                     <p style="font-size: 16px">{{ $item->description }}</p>
                     @endforeach
                 @endif
-                <br>
+            </div>
+            @if(count(json_decode($MedicalRecord->medications_supplements))>5)
+                <div style="page-break-after:always;"></div>
+                <div style="height: 3cm"> </div>
+            @endif
+            <div class="row-data">
                 @if ($MedicalRecord->medications_supplements !== '[]')
                     <strong>Tratamiento:</strong>
                     @foreach (json_decode($MedicalRecord->medications_supplements) as $item)
-                        <p style="font-size: 16px"><strong>Medicamento:</strong> {{ $item->medicine }}, <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
+                        <p style="font-size: 16px; page-break-inside: avoid;"><strong>Medicamento:</strong> {{ $item->medicine }}, <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
                     @endforeach
                 @endif
-                <br>
             </div>
         </div>
     </div>

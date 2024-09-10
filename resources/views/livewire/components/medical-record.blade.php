@@ -844,8 +844,6 @@
 
     const patient_history = (response) => {
 
-        console.log(patient)
-
         if (patient.get_history != null) {
 
             // Antecedentes Personales y Familiares
