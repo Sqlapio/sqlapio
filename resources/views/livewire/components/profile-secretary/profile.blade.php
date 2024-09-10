@@ -245,7 +245,18 @@
                                             </diV>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <x-phone_component :phone="auth()->user()->phone" />
+                                            {{-- <x-phone_component :phone="auth()->user()->phone" /> --}}
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                        <input autocomplete="off" placeholder=""
+                                                            class="form-control phone @error('phone') is-invalid @enderror"
+                                                            id="phone" name="phone" type="text"
+                                                            value="{!! !empty($user) ? auth()->user()->phone : '' !!}">
+                                                        <i class="bi bi-telephone-forward st-icon"></i>
+                                                    </div>
+                                                </diV>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mt-3">
                                             <div class="form-group">

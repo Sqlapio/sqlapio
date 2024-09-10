@@ -78,7 +78,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *{$precio}:*  {$data['price']}
+            *{$precio}:*  {$data['price']} $
 
             *{$ubicacion}:* {$data['ubication']}
             HTML;
@@ -186,7 +186,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *{$precio}:*  {$data['price']}
+            *{$precio}:*  {$data['price']} $
 
             *{$ubicacion}:* {$data['ubication']}
             HTML;
@@ -605,7 +605,7 @@ class ApiServicesController extends Controller
             *{$consultorio}:* {$doctor_center->number_consulting_room}
             *Confirmar cita:* {$confirmar}
             *Cancelar cita:*  {$cancelar}
-            *{$precio}:* {$cita->price}
+            *{$precio}:* {$cita->price} $
 
             *{$ubicacion}:* {$ubication}
 

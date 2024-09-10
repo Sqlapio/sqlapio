@@ -545,9 +545,9 @@
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
                                                             <td class="text-center text-capitalize"> {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }} </td>
                                                             @if (Auth::user()->contrie == '81')
-                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? '-----' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->ci) }} </td>
+                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->ci). ' (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->ci) }} </td>
                                                             @else
-                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? '-----' : $item->get_patients->ci }} </td>
+                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->re_ci. ' (Rep)' : $item->get_patients->ci }} </td>
                                                             @endif
                                                             <td class="text-center"> {{ $item->description }} </td>
                                                             <td class="text-center">

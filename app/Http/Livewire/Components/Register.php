@@ -428,7 +428,7 @@ class Register extends Component
                         'state'           => $request->state,
                         'city'            => $request->city,
                         // 'address'         => $request->address,
-                        'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone,
+                        'phone_1'         => $request->phone,
                         'license'         => $request->license,
                         'type_laboratory' => $request->type_laboratory,
                         'responsible'     => $request->responsible,

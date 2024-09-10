@@ -70,7 +70,7 @@ class AppointmentReminder extends Command
                 *{$centro}:* {$center->description}
                 *{$piso}:* {$doctor_center->number_floor}
                 *{$consultorio}:* {$doctor_center->number_consulting_room}
-                *{$precio}:* {$appointment->precio}
+                *{$precio}:* {$appointment->precio} $
 
                 *{$ubicacion}:* {$ubication}
                 HTML;
