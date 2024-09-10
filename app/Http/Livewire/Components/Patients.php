@@ -182,7 +182,7 @@ class Patients extends Component
                     ActivityLogController::store_log($action);
 
                     /**Contador de pacientes*/
-                    UtilsController::update_patient_counter($user_id);
+                    // UtilsController::update_patient_counter($user_id);
                 }
 
                 if($request->id == null){
