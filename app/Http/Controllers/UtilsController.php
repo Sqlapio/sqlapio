@@ -1980,32 +1980,6 @@ class UtilsController extends Controller
 		}
 	}
 
-	/**
-	 * Metodos para listar informacion
-	 * del plan corporativo.
-	 *
-	 * Esta informacion sera colocada en tablas
-	 * para ser vista en el dashboard del medico administrador
-	 */
-
-	static function get_patient_corporate()
-	{
-		try {
-
-			$user = Auth::user();
-
-			$lista_patient = Patient::where('center_id', $user->center_id)->get();
-
-			return $lista_patient;
-
-		} catch (\Throwable $th) {
-			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_patient_corporate()';
-            ErrorController::error_log($modulo, $error_log);
-            return view('error404');
-		}
-	}
-
 	static function get_medical_record_corporate()
 	{
 		try {

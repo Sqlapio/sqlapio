@@ -574,7 +574,7 @@ class Patients extends Component
             // registrar datos del pacientes en la table users_patients
 
             if (UserPatients::where("username", $user_name)->first() == null) {
-
+ 
                 $pass = UtilsController::generete_pass($user_name);
 
                 $UserPatients = new UserPatients();

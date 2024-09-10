@@ -461,6 +461,7 @@ Route::get('/prueba2', function () {
 
 
 Route::get('/t', function () {
+    dd(ModelsUser::where('center_id', 1)->where('master_corporate_id', 8)->get());
     $hoy = now()->format('Y-m-d');
 
         $dairy = Appointment::whereBetween('status', [1, 2])->where('date_start', $hoy )->get();

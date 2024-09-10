@@ -73,6 +73,16 @@ class Center extends Model
         return $this->hasMany(MedicalReport::class, 'center_id', 'id');
     }
 
+    /**
+     * Get all of the branchs for the Center
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function branchs(): HasMany
+    {
+        return $this->hasMany(Branch::class, 'id', 'center_id');
+    }
+
 
 
 }
