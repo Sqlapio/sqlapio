@@ -36,29 +36,13 @@
 
     .container-fluid-1 {
         width: 100%;
-        position: fixed;
-        top: 3cm;
-        /* margin-top: 150px; */
-        /* margin-bottom: 5cm !important; */
-    }
-
-    .container-fluid-2 {
-        width: 100%;
-        position: absolute;
-        top: 6cm;
-        /* height: 9.5cm; */
-        overflow: hidden;
+        margin-top: 3cm;
     }
 
     .row-data {
         margin-left: 60px;
         margin-right: 60px;
-        /* margin-top: 30px; */
     }
-
-    /* .row-barcode {
-        margin-top: 30px;
-    } */
 
     pre {
         white-space: pre-wrap;
@@ -209,7 +193,7 @@
                     </table>
                 </div>
                 <div class="row">
-                    <table style="width: 100%;">
+                    <table style="width: 100%; margin-top: 30px">
                         <tbody>
                             <tr>
                                 <td class="table-border" style="width: 50%">
@@ -265,10 +249,13 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- @if(count($arr[1])>=1) --}}
-                    {{-- <div style="height: 3cm"> </div>
+                @if(count($arr[0])> 5)
+                    <div style="page-break-after:always;"></div>
+                    <div style="height: 3cm"> </div>
+                @endif
+                @if (count($arr[0])> 5)
                     <div class="row">
-                        <table style="width: 100%;">
+                        <table style="width: 100%; margin-top: 30px">
                             <tbody>
                                 <tr>
                                     <td class="table-border" style="width: 50%">
@@ -281,6 +268,10 @@
                                                 <div style="margin-top: 30px; font-size: 14px; margin-rigth: 62px; width:90%">
                                                     <div style="padding-left: 62px; margin-rigth: 62px">
                                                         <div style="align-items: left;">
+                                                            @php
+                                                                $medicaments = collect($medicamentos);
+                                                                $arr = $medicaments->chunk(7);
+                                                            @endphp
                                                             @foreach ($arr[1] as $item)
                                                                 <span class="text-capitalize" style="font-size: 14px;"><strong>-</strong> {{ $item->medicine }}.</span><br><br>
                                                             @endforeach
@@ -315,10 +306,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div> --}}
-                    {{-- <div style="page-break-after:always;"></div>
-                     {{ $item->medicine }} --}}
-                {{-- @endif --}}
+                    </div>
+                @endif
             </div>
         </div>
     </body>
