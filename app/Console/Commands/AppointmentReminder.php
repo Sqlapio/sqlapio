@@ -53,6 +53,8 @@ class AppointmentReminder extends Command
                 $center = Center::where('id', $appointment->center_id)->first();
                 $patient = Patient::where('id', $appointment->patient_id)->first();
                 $doctor_center = DoctorCenter::where('user_id', $doctor->id)->where('center_id', $appointment->center_id)->first();
+                $confirmar = 'https://system.sqlapio.com/confirmation/dairy/'.$appointment->code;
+                $cancelar = 'https://system.sqlapio.com/cancel/dairy/'.$appointment->code;
 
                 /**Obtenego el nombre del centro para poder crear el url de googleMpas */
                 $dir = str_replace(' ', '%20', $center->description);
@@ -70,6 +72,8 @@ class AppointmentReminder extends Command
                 *{$centro}:* {$center->description}
                 *{$piso}:* {$doctor_center->number_floor}
                 *{$consultorio}:* {$doctor_center->number_consulting_room}
+                *Confirmar cita:* {$confirmar}
+                *Cancelar cita:*  {$cancelar}
                 *{$precio}:* {$appointment->precio} $
 
                 *{$ubicacion}:* {$ubication}
