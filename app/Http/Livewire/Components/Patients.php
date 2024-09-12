@@ -182,7 +182,7 @@ class Patients extends Component
                     ActivityLogController::store_log($action);
 
                     /**Contador de pacientes*/
-                    UtilsController::update_patient_counter($user_id);
+                    // UtilsController::update_patient_counter($user_id);
                 }
 
                 if($request->id == null){
@@ -574,7 +574,7 @@ class Patients extends Component
             // registrar datos del pacientes en la table users_patients
 
             if (UserPatients::where("username", $user_name)->first() == null) {
-
+ 
                 $pass = UtilsController::generete_pass($user_name);
 
                 $UserPatients = new UserPatients();

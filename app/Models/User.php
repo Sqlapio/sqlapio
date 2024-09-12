@@ -203,4 +203,14 @@ class User extends Authenticatable {
         return $this->hasMany(DoctorCenter::class, 'user_id', 'id');
     }
 
+    /**
+     * Get all of the branchs for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function branchs(): HasMany
+    {
+        return $this->hasMany(Branch::class, 'id', 'user_id');
+    }
+
 }
