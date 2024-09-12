@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="row-data">
-                <div style="margin-top: 30px">
+                <div style="margin-top: 15px">
                     <strong>Razón de la visita:</strong>
                     <pre style="white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $MedicalRecord->razon }}</pre>
                     <br>

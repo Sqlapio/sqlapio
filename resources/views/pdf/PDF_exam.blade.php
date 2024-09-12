@@ -126,6 +126,11 @@
                     </div> --}}
                 </div>
                 <div class="row-barcode">
+                    <div class="text-center" style="text-align: right; margin-top: 10px; font-size: 15px; margin-right: 60px;">
+                        <span><strong>Fecha:</strong> {{ $MedicalRecord->record_date }}</span>
+                    </div>
+                </div>
+                <div class="row-barcode">
                     <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
                         <strong>Solicitud de Examenes</strong>
                     </div>

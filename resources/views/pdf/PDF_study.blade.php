@@ -137,6 +137,11 @@
                         <strong>Solicitud de Estudios</strong>
                     </div>
                 </div>
+                <div class="row-barcode">
+                    <div class="text-center" style="text-align: right; margin-top: 10px; font-size: 15px; margin-right: 60px;">
+                        <span><strong>Fecha:</strong> {{ $MedicalRecord->record_date }}</span>
+                    </div>
+                </div>
                 <div class="row-data">
                     <div style="margin-top: 30px">
                         <strong style="margin-bottom: 15px">Detalle de la solicitud:</strong><br><br>
