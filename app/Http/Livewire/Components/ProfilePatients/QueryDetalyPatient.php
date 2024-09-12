@@ -6,11 +6,43 @@ use App\Http\Controllers\UtilsController;
 use App\Models\ExamPatient;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class QueryDetalyPatient extends Component
 {
+
+    /**
+     * @param $patient_id
+     * Esto recibe la cedula de la identidad
+     */
+    public function search_detaly_all($patient_id)
+	{
+		$tablePat =  Patient::where('ci', $patient_id);
+		$tableRep =  Patient::where('re_ci', $patient_id);
+
+		$patient = $tablePat->union($tableRep)->get();
+
+        if(count($patient) > 1)
+        {
+            return $patient;
+
+        }else{
+
+            $patients = $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
+            return $patient;
+
+            // dd('< 1');
+
+        }
+
+	}
+
+    /**
+     * @param $patient_id
+     * Esto recibe id de registro principal del paciente
+     */
 	public function search_detaly($patient_id)
 	{
 
@@ -18,11 +50,7 @@ class QueryDetalyPatient extends Component
 
 		$medicard_record = [];
 
-		$tablePat =  Patient::where('id', $patient_id);
-
-		$tableRep =  Patient::where('patient_id', $patient_id);
-
-		$patient = $tablePat->union($tableRep)->first();
+		$patient = Patient::where('id', $patient_id)->first();
 
 		if ($patient) {
 
@@ -57,17 +85,6 @@ class QueryDetalyPatient extends Component
 		}
 	}
 
-	public function search_detaly_all($patient_id)
-	{
-		$tablePat =  Patient::where('ci', $patient_id);
-
-		$tableRep =  Patient::where('re_ci', $patient_id);
-
-		$patient = $tablePat->union($tableRep)->get();
-
-		return $patient;
-	}
-
 	public function render()
 	{
 		return view(
@@ -77,9 +94,7 @@ class QueryDetalyPatient extends Component
 
 	public function toviewPatient()
 	{
-		$patients =  $this->search_detaly_all(auth()->guard("users_patients")->user()->username);
-
-		// $data = ($patients->count()>0)? []: $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
+        $patients =  $this->search_detaly_all(auth()->guard("users_patients")->user()->username);
 
 		$vital_sing = UtilsController::get_history_vital_sing();
 		$family_back = UtilsController::get_history_family_back();

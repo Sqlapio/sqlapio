@@ -213,6 +213,8 @@
             // end
 
             if (response.patient.get_history != null) {
+
+
                 $('#div-history').show();
                 $('#not-history').hide();
 
@@ -990,6 +992,7 @@
                 },
                 success: function(response) {
                     showData(response);
+
                     $('#spinner').hide();
 
                 }
@@ -1904,11 +1907,33 @@
                                                 </section>
                                                 <h3>@lang('messages.pacientes.examenes_fisico')</h3>
                                                 <section>
-                                                    {{-- {{ dd($item->get_physical_exams, $item) }} --}}
                                                     @if ($item->get_physical_exams)
+                                                        @foreach ($item->get_physical_exams->sortByDesc('created_at') as $item)
+                                                            @if (($key % 2) == 0)
+                                                                    <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['record_date'] }}</h5>
+                                                                            <br>
+                                                                        </div>
+                                                                        <div id="table-info-consulta">
+                                                                            <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.medico')</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['weight'] }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </li>
+
+                                                            @endif
+                                                        @endforeach
                                                         <div class="list-group div-overflow">
-                                                            @foreach ($item->get_physical_exams->sortByDesc('created_at') as $item)
-                                                            @endforeach
                                                         </div>
                                                     @else
                                                         <div id='not-examenes-fisicos' class="row justify-content-center mt-2">
