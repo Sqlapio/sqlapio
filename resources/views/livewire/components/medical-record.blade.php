@@ -465,15 +465,15 @@
             }
         });
 
-        tinymce.init({
-            selector: '#TextInforme',
-            skin: false,
-            content_css: false,
-            valid_elements: "p,a[href|target=_blank],div[style]",
-            height: 500,
-            menubar: false,
-            toolbar: 'undo redo | formatselect'
-        });
+        // tinymce.init({
+        //     selector: '#TextInforme',
+        //     skin: false,
+        //     content_css: false,
+        //     valid_elements: "p,a[href|target=_blank],div[style]",
+        //     height: 500,
+        //     menubar: false,
+        //     toolbar: 'undo redo | formatselect'
+        // });
 
         switch_type_plane(user);
 
@@ -1853,6 +1853,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
+
+                    console.log(response.data)
 
                     $('#modalIA').modal("show");
                     $("#p-ia").text(response.data);
@@ -3472,7 +3474,7 @@
                             @endif
 
                             <div class="mt-3">
-                                <textarea id="TextInforme" name="TextInforme"></textarea>
+                                <textarea id="TextInforme" name="TextInforme" class="form-control" rows="10"></textarea>
                             </div>
 
                             <div class="row mt-2 justify-content-md-end">

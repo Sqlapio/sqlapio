@@ -37,8 +37,6 @@
         white-space: -pre-line;
         white-space: -o-pre-line;
         word-wrap: break-word;
-        text-align: justify;
-        line-height: 1.4;
     }
 
     .container-fluid {
@@ -49,17 +47,17 @@
     .row-data {
         margin-left: 60px;
         margin-right: 60px;
-        margin-top: 30px;
+        margin-top: 10px;
     }
 
     .row-data-diag {
         margin-left: 60px;
         margin-right: 60px;
-        margin-top: 15px;
+        margin-top: 8px;
     }
 
     .row-barcode {
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     header {
@@ -145,14 +143,19 @@
                 </div> --}}
             </div>
             <div class="row-barcode">
-                <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                <div class="text-center" style="text-align: right; margin-top: 10px; font-size: 15px; margin-right: 60px;">
+                    <span><strong>Fecha:</strong> {{ $MedicalRecord->record_date }}</span>
+                </div>
+            </div>
+            <div class="row-barcode">
+                <div class="text-center" style="text-align: center; margin-top: 20px; font-size: 21px">
                     <strong> Informe Médico de Consulta</strong>
                 </div>
             </div>
             <div class="row-data">
                 <div style="margin-top: 30px">
                     <strong>Razón de la visita:</strong>
-                    <pre style="font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $MedicalRecord->razon }}</pre>
+                    <pre style="white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $MedicalRecord->razon }}</pre>
                     <br>
                 </div>
             </div>
@@ -163,31 +166,31 @@
                 <strong>Diagnóstico:</strong>
                 @php
                     $des = str_replace('Diagnóstico: ', '', $MedicalRecord->diagnosis);
-                    $description = str_ireplace( "\r\n", "&nbsp" , $des);
-
-                    // dd(count(json_decode($MedicalRecord->medications_supplements)));
                 @endphp
-                    <pre style="font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{$des}}</pre>
+                    <pre style="text-justify: distribute; white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{$des}}</pre>
             </div>
-            @if(strlen($MedicalRecord->diagnosis)>500)
+            @if(strlen($MedicalRecord->diagnosis)>5)
                 <div style="page-break-after:always;"></div>
             @endif
             <div style="height: 3cm"> </div>
             <div class="row-data">
                 <strong>Sintomas:</strong>
-                <p style="font-size: 16px; text-transform: capitalize">{{ $MedicalRecord->sintomas }}</p>
+                @php
+                    $des = str_replace(',', ', ', $MedicalRecord->sintomas);
+                @endphp
+                <p style="font-size: 16px; text-transform: capitalize">{{ $MedicalRecord->sintomas }}.</p>
                 @if ($MedicalRecord->status_exam === 1)
                     <br>
                     <strong>Exámenes:</strong>
                     @foreach ($MedicalRecord->get_exam_medical as $item)
-                    <p style="font-size: 16px">{{ $item->description }}</p>
+                    <p style="font-size: 16px">{{ $item->description }}.</p>
                     @endforeach
                     <br>
                 @endif
                 @if ($MedicalRecord->status_study === 1)
                     <strong>Estudios:</strong>
                     @foreach ($MedicalRecord->get_study_medical as $item)
-                    <p style="font-size: 16px">{{ $item->description }}</p>
+                    <p style="font-size: 16px">{{ $item->description }}.</p>
                     @endforeach
                 @endif
             </div>
@@ -195,14 +198,32 @@
                 <div style="page-break-after:always;"></div>
                 <div style="height: 3cm"> </div>
             @endif
-            <div class="row-data">
-                @if ($MedicalRecord->medications_supplements !== '[]')
+            @if ($MedicalRecord->medications_supplements !== '[]')
+                <div class="row-data">
                     <strong>Tratamiento:</strong>
-                    @foreach (json_decode($MedicalRecord->medications_supplements) as $item)
-                        <p style="font-size: 16px; page-break-inside: avoid;"><strong>Medicamento:</strong> {{ $item->medicine }}, <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
+                    @php
+                        $medicaments = json_decode($MedicalRecord->medications_supplements);
+                        $arr = collect($medicaments)->chunk(12);
+                    @endphp
+                    @foreach ($arr[0] as $item)
+                        <p style="font-size: 16px; page-break-inside: avoid;"><strong>- Medicamento:</strong> {{ $item->medicine }}.<br>
+                        <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
                     @endforeach
+                </div>
+                @if(isset($arr[1]))
+                    <div style="page-break-after:always;"></div>
+                    <div style="height: 3cm"> </div>
                 @endif
-            </div>
+                @if(isset($arr[1]))
+                    <div class="row-data">
+                        <strong>Tratamiento:</strong>
+                        @foreach ($arr[1] as $item)
+                            <p style="font-size: 16px; page-break-inside: avoid;"><strong>- Medicamento:</strong> {{ $item->medicine }}<br>
+                            <strong>Indicaciones:</strong> {{ $item->indication }}, <strong>Via:</strong> {{ $item->route }}, <strong>Duración:</strong> {{ $item->treatmentDuration}}, cada {{ $item->hours }} Horas.</p>
+                        @endforeach
+                    </div>
+                @endif
+            @endif
         </div>
     </div>
 </body>

@@ -37,9 +37,7 @@
         white-space: -pre-wrap;
         white-space: -o-pre-wrap;
         word-wrap: break-word;
-        text-align: justify;
         line-height: 1.4;
-        break-before: never
     }
 
     .container-fluid {
@@ -148,16 +146,7 @@
                         $des = str_replace('</p>', '', $MedicalReport->description);
                         $des = str_replace('<p>', '', $des);
                     @endphp
-                        <pre style="font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
-                    {{-- <table style="width: 100%; text-align: center; page-break-after: always; ">
-                        <tbody>
-                            <tr>
-                                <td class="table-border">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> --}}
-
+                        <pre style=" white-space: pre-line; font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
                 </div>
             </div>
             <br>
