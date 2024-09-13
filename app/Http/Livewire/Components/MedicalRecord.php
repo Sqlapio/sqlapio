@@ -181,7 +181,16 @@ class MedicalRecord extends Component
                 $medical_record_code = ModelsMedicalRecord::where('id', $data->medical_record_id)->first()->record_code;
                 $medical_code_ref = Reference::where('id', $data->medical_record_id)->first()->cod_ref;
 
-                // dd($medical_code_ref);
+            // NO TRAE EL CODE_REF CORRECTO SEGUN LA DATA EN LA TABLA
+
+                dump($medical_code_ref);
+
+            // NO TRAE EL REF_STUDY CORRECTO SEGUN LA DATA EN LA TABLA
+
+                $ref_study = StudyPatient::where('id', $data->medical_record_id)->first()->ref_id;
+
+                dd($ref_study);
+
 
                 $this->updateStudiesExams($data, $medical_record_code,$data->medical_record_id, $medical_code_ref);
 
