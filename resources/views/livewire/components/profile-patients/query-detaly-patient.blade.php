@@ -810,6 +810,9 @@
                         if (et) {
                             $('#not-studie')
                                 .hide();
+                        } else {
+                            $('#not-studie')
+                                .show();
                         }
                     });
 
@@ -860,6 +863,9 @@
                         if (ett) {
                             $('#not-exam')
                                 .hide();
+                        } else {
+                            $('#not-exam')
+                                .show();
                         }
                     });
                     // end
@@ -1892,6 +1898,35 @@
                                                     <div class="row p-3 div-overflow">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
                                                             <ul class="list-group ul-exmen list-group-flush overflow-auto"> </ul>
+                                                            {{ $item->get_study_medical }}
+
+                                                            {{-- @if ($item->get_study_medical)
+                                                                @php
+                                                                    $target = `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                                @endphp
+
+                                                            @endif
+                                                            if ((i % 2) == 0) {
+                                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                                        justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
+                                                                        <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
+                                                                            <button type="button"
+                                                                                class="refresf btn-idanger rounded-circle">
+                                                                                <i class="bi bi-filetype-pdf"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </li>`
+                                                            } else {
+                                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                                        justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
+                                                                        <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
+                                                                            <button type="button"
+                                                                                class="refresf btn-idanger rounded-circle">
+                                                                                <i class="bi bi-filetype-pdf"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </li>`
+                                                            } --}}
                                                             <div id='not-exam' class="row justify-content-center">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                                     <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
@@ -1908,32 +1943,90 @@
                                                 <h3>@lang('messages.pacientes.examenes_fisico')</h3>
                                                 <section>
                                                     @if ($item->get_physical_exams)
-                                                        @foreach ($item->get_physical_exams->sortByDesc('created_at') as $item)
-                                                            @if (($key % 2) == 0)
+                                                        <div class="list-group div-overflow">
+                                                            @foreach ($item->get_physical_exams->sortByDesc('created_at') as $key => $item)
+                                                                @if (($key % 2) == 0)
                                                                     <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                                         <div class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['record_date'] }}</h5>
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['date'] }}</h5>
                                                                             <br>
                                                                         </div>
                                                                         <div id="table-info-consulta">
                                                                             <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.medico')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
                                                                                         <td class="text-center text-capitalize"> {{ $item['weight'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['height'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['strain'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['temperature'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['breaths'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['pulse'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['saturation'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['condition'] }}</td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
+                                                                        <br>
+                                                                        <span class="text-justify"><strong>@lang('messages.label.observaciones')
+                                                                        <br>
+                                                                        </strong> {{ $item['observations'] }}</span>
+                                                                        <br>
                                                                     </li>
-
-                                                            @endif
-                                                        @endforeach
-                                                        <div class="list-group div-overflow">
+                                                                @else
+                                                                    <li class="list-group-item mb-3 {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['date'] }}</h5>
+                                                                            <br>
+                                                                        </div>
+                                                                        <div id="table-info-consulta">
+                                                                            <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
+                                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['weight'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['height'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['strain'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['temperature'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['breaths'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['pulse'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['saturation'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $item['condition'] }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <br>
+                                                                        <span class="text-justify"><strong>@lang('messages.label.observaciones')
+                                                                        <br>
+                                                                        </strong> {{ $item['observations'] }}</span>
+                                                                        <br>
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
                                                         </div>
                                                     @else
                                                         <div id='not-examenes-fisicos' class="row justify-content-center mt-2">
