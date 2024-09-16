@@ -821,23 +821,6 @@
                 });
             }
         });
-        /////
-
-        // const autoTextarea = (id) => {
-        //     document.getElementById(id).addEventListener('keyup', function() {
-        //         this.style.overflow = 'hidden';
-        //         this.style.height = 0;
-        //         this.style.height = this.scrollHeight + 'px';
-        //     }, false);
-        // }
-
-        // // autoTextarea('background');
-        // autoTextarea('sintomas');
-        // autoTextarea('razon');
-        // autoTextarea('diagnosis');
-        // autoTextarea('text_area_exman');
-        // autoTextarea('text_area_studies');
-        // autoTextarea('observations');
 
     });
 
@@ -1228,8 +1211,8 @@
                 $("#sintomas").show();
                 $("#sintomas-text").hide();
                 $("#label_sintomas").hide();
-                $("#label_exam").hide();
-                $("#label_study").hide();
+                // $("#label_exam").hide();
+                // $("#label_study").hide();
                 $("#text_area_exman").show();
                 $("#exman-text").hide();
                 $("#text_area_studies").show();
@@ -1271,28 +1254,29 @@
         // $("#indication").hide();
         // $("#treatmentDuration").hide();
         $(".addMedacition").hide();
-        $('.send').attr('disabled', true);
-        $('.btn-check').attr('disabled', true);
+        $('.send');
+        $('.btn-check');
         $('.send-ai').hide();
         $('#table-medicamento > tbody').empty();
         $('#exam_filter > ul').empty();
         $('#study_filter > ul').empty();
         exam_filter = [];
         study_filter = [];
-        $('#exam').hide();
-        $('#studie').hide();
-        $('#exam_filter').show();
-        $('#study_filter').show();
+        // $('#exam').hide();
+        // $('#studie').hide();
+        // $('#exam_filter').show();
+        // $('#study_filter').show();
         $('#symptoms_filter').show();
-        $('#search_studie').hide();
-        $('#search_exam').hide();
+        // $('#search_studie').hide();
+        // $('#search_exam').hide();
         $('#diagnosis_div').hide();
-        $('.btn-search-s').hide();
-        $('#search_studie_p').show();
-        $('#search_exam_p').show();
+        // $('.btn-search-s').hide();
+        $('.btn-search-sy').hide();
+        // $('#search_studie_p').show();
+        // $('#search_exam_p').show();
         $("#div_spinner").hide();
-        $("#exam-text-area").hide();
-        $("#study-text-area").hide();
+        // $("#exam-text-area").hide();
+        // $("#study-text-area").hide();
         $("#symptoms_card1").addClass("symptoms_style");
         $("#symptoms_card2").addClass("symptoms_style");
         $("#symptoms_card3").addClass("symptoms_mt-0");
@@ -1301,17 +1285,17 @@
         $("#diagnosis-text").show().text(item.diagnosis);
         // $("#background").hide();
         // $("#background-text").show().text(item.background);
-        $("#razon").hide();
-        $("#razon-text").show().text(item.razon);
+        // $("#razon").hide();
+        // $("#razon-text").show().text(item.razon);
         $("#sintomas").hide();
         $("#label_sintomas").show();
-        $("#label_exam").show();
-        $("#label_study").show();
+        // $("#label_exam").show();
+        // $("#label_study").show();
         $("#sintomas-text").show().text(item.sintomas);
-        $("#text_area_exman").hide();
-        $("#exman-text").show().text(item.sintomas);
-        $("#text_area_studies").hide();
-        $("#studies-text").show().text(item.sintomas);
+        // $("#text_area_exman").hide();
+        // $("#exman-text").show().text(item.sintomas);
+        // $("#text_area_studies").hide();
+        // $("#studies-text").show().text(item.sintomas);
 
         //setiar estudios
         item.get_studies.map((elem, key) => {
@@ -2817,7 +2801,7 @@
 
                                                 <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div id='symptoms_card2' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                        <div class="btn-search-s col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="display: flex">
+                                                        <div class="btn-search-sy col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="display: flex">
                                                             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
                                                                 <div class="form-group" >
                                                                     <div class="Icon-inside" style="display: flex; align-items: center; margin-right: 14px;">
@@ -2902,7 +2886,7 @@
                                                                     </div>
                                                                     <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2" style="display: flex; align-items: stretch;">
                                                                         <button type="button" onclick="setExams(event)"
-                                                                            class="btn btnSecond addMedacition btnExam" id="btnExam"
+                                                                            class="btn btnSecond btnExam" id="btnExam"
                                                                             style="padding: 7px; font-size: 12px; width:100%">
                                                                             <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
                                                                         </button>
@@ -2923,10 +2907,7 @@
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                     <div class="form-group">
                                                                         {{-- <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label> --}}
-                                                                        {{-- <textarea id="text_area_exman" rows='2' name="text_area_exman" class="form-control"></textarea> --}}
-                                                                        <ul id="text-exams" class="exam"
-                                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
-                                                                        </ul>
+                                                                        <ul id="text-exams" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                                         <pre class="pre-textarea"
                                                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
                                                                             id="exman-text"></pre>
@@ -2953,28 +2934,26 @@
                                                                     </div>
                                                                     <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2" style="display: flex; align-items: stretch;">
                                                                         <button type="button" onclick="setStudy(event)"
-                                                                            class="btn btnSecond addMedacition" id="btnStudy"
+                                                                            class="btn btnSecond" id="btnStudy"
                                                                             style="padding: 7px; font-size: 12px; width:100%">
                                                                             <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
                                                                         </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios') </label>
+                                                            {{-- <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px;">@lang('messages.form.estudios') </label> --}}
                                                             <div class="mt-2 card-study overflow-auto" style="max-width: 100%; min-height: 40px;">
                                                                 <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
-                                                            <div id='not-studie'>
-                                                                <img width="60" height="auto"
-                                                                src="{{ asset('/img/icons/no-file.png') }}"
-                                                                alt="avatar">
-                                                                <span>@lang('messages.label.info_4')</span>
-                                                            </div>
-                                                            <ul id="studie" class="studie list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                                <div id='not-studie'>
+                                                                    <img width="60" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                                    <span>@lang('messages.label.info_4')</span>
+                                                                </div>
+                                                                <ul id="studie" class="studie list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                             </div>
                                                             <div id="study-text-area">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="study-text-area" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                     <div class="form-group">
-                                                                        <label id="label_study" for="study" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
+                                                                        <label id="label_study" for="study" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
                                                                         <ul id="text-study" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                                         <pre class="pre-textarea"
                                                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"

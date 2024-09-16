@@ -48,11 +48,11 @@
     .row-data {
         margin-left: 60px;
         margin-right: 60px;
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     .row-barcode {
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     header {
@@ -136,15 +136,22 @@
                 </div> --}}
             </div>
             <div class="row-barcode">
-                <div class="text-center" style="text-align: center; margin-top: 30px; font-size: 21px">
+                <div class="text-center" style="text-align: right; margin-top: 10px; font-size: 15px; margin-right: 60px;">
+                    <span><strong>Fecha:</strong> {{ $MedicalReport->date }}</span>
+                </div>
+            </div>
+            <div class="row-barcode">
+                <div class="text-center" style="text-align: center; margin-top: 15px; font-size: 21px">
                     <strong>Informe Médico</strong>
                 </div>
             </div>
             <div class="row-data">
-                <div style="margin-top: 30px">
+                <div style="margin-top: 15px">
                     @php
                         $des = str_replace('</p>', '', $MedicalReport->description);
                         $des = str_replace('<p>', '', $des);
+                        // $pp = explode('.', $des);
+                        // dd($pp);
                     @endphp
                         <pre style=" white-space: pre-line; font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
                 </div>

@@ -32,144 +32,166 @@ class MedicalRecord extends Component
 
     public function store(Request $request)
     {
-
         try {
 
             $data = json_decode($request->data);
 
-            $symptom_array = json_decode($data->symptom_array,true);
-
-            $symptom_strig ='';
-
-            foreach ( $symptom_array as $valor){
-
-                $symptom_strig = ($symptom_strig=='')? $valor["description"] : $symptom_strig.",".$valor["description"];
-
-            }
-
-            // $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
-
-            $user = Auth::user()->id;
-
-            /**
-             * Paciente mayor de edad
-             */
-            $patient = Patient::where('id', $data->id)->first();
-            $is_minor = $patient->is_minor;
-            $ci = $patient->ci;
-
-            /**
-             * Paciente menor de edad
-             */
-            if($is_minor === "true"){
-                $patient_email = $patient->email;
-                $ci = $patient->re_ci;
-            }
-
-            $rules = [
-                'razon'                   => 'required',
-                'diagnosis'               => 'required',
-                'medications_supplements' => 'required',
-            ];
-
-            $msj = [
-                'razon'                   => __('messages.alert.razon_obligatorio'),
-                'diagnosis'               => __('messages.alert.diagnostico_obligatorio'),
-                'medications_supplements' => __('messages.alert.tratamiento_obligatorio'),
-            ];
-
-            /** Validacion para cargar el centro correcto cuando el medico
-             * esta asociado al plan corporativo
-             */
-            if (Auth::user()->center_id != null) {
-                $center_id_corporativo = Auth::user()->center_id;
-            }
-
-            /**Funcion para actualizar si existe y si no existe se crea el registro en la base de datos */
-            $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
-            [
-                /**
-                 * @method store()
-                 *
-                 * Este metodo recibe como llaves principales el id del medico, id del paciente y el
-                 * id del centro.
-                 */
-                'user_id'                 => Auth::user()->id,
-                'patient_id'              => $data->id,
-                'center_id'               => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
-                'record_code'             => 'SQ-C-'.random_int(11111111, 99999999),
-                'record_date'             => date('d-m-Y'),
-                // 'background'              => $data->background,
-                'razon'                   => $data->razon,
-                'diagnosis'               => $data->diagnosis,
-                'sintomas'                => strtolower($symptom_strig),
-                'medications_supplements' => $data->medications_supplements,
-            ]);
-
-            /**Logica para recorrer los tratamiento asignados y cargar la tabla*/
-            $data_treatment = json_decode($data->medications_supplements, true);
-
-            for ($i=0; $i < count($data_treatment) ; $i++) {
-                Treatment::create([
-                    'user_id'           => Auth::user()->id,
-                    'patient_id'        => $data->id,
-                    'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
-                    'record_code'       => $medical_record['record_code'],
-                    'record_date'       => $medical_record['record_date'],
-                    'date_treatments'   => date('d-m-Y'),
-                    'medicine'          => $data_treatment[$i]['medicine'],
-                    'indication'        => $data_treatment[$i]['indication'],
-                    'treatmentDuration' => $data_treatment[$i]['treatmentDuration'],
-                    'hours'             => $data_treatment[$i]['hours'],
-                    'route'             => $data_treatment[$i]['route'],
-                    ]);
-            }
-
-            /**
-             * Logica para Finalizar la cita en la agenda y mostrar el
-             * status de finsalizada en la tabla del dashboard
-             */
-            /********************************************************************************************************/
-
-            $cita_patient = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->whereBetween('status', [1, 2])->first();
-            if(isset($cita_patient))
+            //Este codigo se ejecutara cuando estoy creando una NUVEA CONSULTA
+            if($data->medical_record_id == '')
             {
-                $cita_patient->update([
-                    'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
-                    'color' => '#198754'
+
+                $symptom_array = json_decode($data->symptom_array,true);
+
+                $symptom_strig ='';
+
+                foreach ( $symptom_array as $valor){
+
+                    $symptom_strig = ($symptom_strig=='')? $valor["description"] : $symptom_strig.",".$valor["description"];
+
+                }
+
+                // $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
+
+                $user = Auth::user()->id;
+
+                /**
+                 * Paciente mayor de edad
+                 */
+                $patient = Patient::where('id', $data->id)->first();
+                $is_minor = $patient->is_minor;
+                $ci = $patient->ci;
+
+                /**
+                 * Paciente menor de edad
+                 */
+                if($is_minor === "true"){
+                    $patient_email = $patient->email;
+                    $ci = $patient->re_ci;
+                }
+
+                $rules = [
+                    'razon'                   => 'required',
+                    'diagnosis'               => 'required',
+                    'medications_supplements' => 'required',
+                ];
+
+                $msj = [
+                    'razon'                   => __('messages.alert.razon_obligatorio'),
+                    'diagnosis'               => __('messages.alert.diagnostico_obligatorio'),
+                    'medications_supplements' => __('messages.alert.tratamiento_obligatorio'),
+                ];
+
+                /** Validacion para cargar el centro correcto cuando el medico
+                 * esta asociado al plan corporativo
+                 */
+                if (Auth::user()->center_id != null) {
+                    $center_id_corporativo = Auth::user()->center_id;
+                }
+
+                /**Funcion para actualizar si existe y si no existe se crea el registro en la base de datos */
+                $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
+                [
+                    /**
+                     * @method store()
+                     *
+                     * Este metodo recibe como llaves principales el id del medico, id del paciente y el
+                     * id del centro.
+                     */
+                    'user_id'                 => Auth::user()->id,
+                    'patient_id'              => $data->id,
+                    'center_id'               => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
+                    'record_code'             => 'SQ-C-'.random_int(11111111, 99999999),
+                    'record_date'             => date('d-m-Y'),
+                    // 'background'              => $data->background,
+                    'razon'                   => $data->razon,
+                    'diagnosis'               => $data->diagnosis,
+                    'sintomas'                => strtolower($symptom_strig),
+                    'medications_supplements' => $data->medications_supplements,
                 ]);
-                EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
+
+                /**Logica para recorrer los tratamiento asignados y cargar la tabla*/
+                $data_treatment = json_decode($data->medications_supplements, true);
+
+                for ($i=0; $i < count($data_treatment) ; $i++) {
+                    Treatment::create([
+                        'user_id'           => Auth::user()->id,
+                        'patient_id'        => $data->id,
+                        'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
+                        'record_code'       => $medical_record['record_code'],
+                        'record_date'       => $medical_record['record_date'],
+                        'date_treatments'   => date('d-m-Y'),
+                        'medicine'          => $data_treatment[$i]['medicine'],
+                        'indication'        => $data_treatment[$i]['indication'],
+                        'treatmentDuration' => $data_treatment[$i]['treatmentDuration'],
+                        'hours'             => $data_treatment[$i]['hours'],
+                        'route'             => $data_treatment[$i]['route'],
+                        ]);
+                }
+
+                /**
+                 * Logica para Finalizar la cita en la agenda y mostrar el
+                 * status de finsalizada en la tabla del dashboard
+                 */
+                /********************************************************************************************************/
+
+                $cita_patient = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->whereBetween('status', [1, 2])->first();
+                if(isset($cita_patient))
+                {
+                    $cita_patient->update([
+                        'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
+                        'color' => '#198754'
+                    ]);
+                    EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
+                }
+
+                /********************************************************************************************************/
+
+                $action = '11';
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Logica para aumentar el contador de las consulta guardadas por el medico
+                 *
+                 * Esta logica se aplica al tema de los planes
+                 */
+                UtilsController::update_mr_counter($user);
+
+                /**
+                 * Logica para guardar los examenes y estudios
+                 * solicitados por el medico y generar la
+                 * referencia
+                 */
+                $medical_record_code = $medical_record['record_code'];
+                ComponentsReference::store($data, $medical_record_code,$medical_record);
+
+                /**
+                 * Metodo para escribir en la estadistica de las consultas
+                 */
+                EstadisticaController::total_medical_record();
+
+                $action = '15';
+                ActivityLogController::store_log($action);
+
+                return true;
+
+            }
+            else
+            {
+                $data = json_decode($request->data);
+                $medical_record_code = ModelsMedicalRecord::where('id', $data->medical_record_id)->first()->record_code;
+
+
+                $medical_code_ref = Reference::where('cod_medical_record', $medical_record_code)->first()->cod_ref;
+
+                $ref_id = Reference::where('cod_medical_record', $medical_record_code)->first()->id;
+
+                $this->updateStudiesExams($data, $medical_record_code,$data->medical_record_id, $medical_code_ref, $ref_id);
+
+                return true;
+
             }
 
-            /********************************************************************************************************/
 
-            $action = '11';
-            ActivityLogController::store_log($action);
-
-            /**
-             * Logica para aumentar el contador de las consulta guardadas por el medico
-             *
-             * Esta logica se aplica al tema de los planes
-             */
-            UtilsController::update_mr_counter($user);
-
-            /**
-             * Logica para guardar los examenes y estudios
-             * solicitados por el medico y generar la
-             * referencia
-             */
-            $medical_record_code = $medical_record['record_code'];
-            ComponentsReference::store($data, $medical_record_code,$medical_record);
-
-            /**
-             * Metodo para escribir en la estadistica de las consultas
-             */
-            EstadisticaController::total_medical_record();
-
-            $action = '15';
-            ActivityLogController::store_log($action);
-
-            return true;
 
         } catch (\Throwable $th) {
             return response()->json([
@@ -255,6 +277,71 @@ class MedicalRecord extends Component
         }
     }
 
+    public function updateStudiesExams($data, $medical_record_code, $medical_record, $medical_code_ref, $ref_id)
+    {
+        try {
+            if (isset($data->exams_array)) {
+
+                $data_exams = json_decode($data->exams_array);
+                for ($i = 0; $i < count($data_exams); $i++) {
+                    $exams_patient = new ExamPatient();
+                    $exams_patient->record_code = $medical_record_code;
+                    $exams_patient->cod_ref = $medical_code_ref;
+                    $exams_patient->cod_exam = (isset($data_exams[$i]->code_exams)) ? $data_exams[$i]->code_exams : 'SQ-EX-' . random_int(11111111, 99999999);
+                    $exams_patient->description = isset($data_exams[$i]->code_exams) ? UtilsController::get_description_exam($data_exams[$i]->code_exams) : $data_exams[$i]->description;
+                    $exams_patient->ref_id = $ref_id;
+                    $exams_patient->user_id = Auth::user()->id;
+                    $exams_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
+                    $exams_patient->patient_id = $data->id;
+                    $exams_patient->medical_record_id = $medical_record;
+                    $exams_patient->date = date('d-m-Y');
+                    $exams_patient->save();
+                }
+
+                if (count($data_exams) > 0) {
+                    ModelsMedicalRecord::where('record_code', $medical_record_code)->update([
+                        'status_exam' => 1
+                    ]);
+                }
+            }
+
+            /**
+             * Logica para cargar los estudios
+             * cargados en la referencia.
+             */
+            if (isset($data->studies_array)) {
+
+                $data_studies = json_decode($data->studies_array);
+                // dump($data_studies);
+                for ($i = 0; $i < count($data_studies); $i++) {
+                    $studies_patient = new StudyPatient();
+                    $studies_patient->record_code = $medical_record_code;
+                    $studies_patient->cod_ref = $medical_code_ref;
+                    $studies_patient->cod_study = (isset($data_studies[$i]->code_studies)) ? $data_studies[$i]->code_studies : 'SQ-ST-' . random_int(11111111, 99999999);
+                    $studies_patient->description = isset($data_studies[$i]->code_studies) ? UtilsController::get_description_study($data_studies[$i]->code_studies) : $data_studies[$i]->description;
+                    $studies_patient->ref_id = $ref_id;
+                    $studies_patient->user_id = Auth::user()->id;
+                    $studies_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
+                    $studies_patient->patient_id = $data->id;
+                    $studies_patient->medical_record_id = $medical_record;
+                    $studies_patient->date = date('d-m-Y');
+                    $studies_patient->save();
+                }
+
+                if (count($data_studies) > 0) {
+                    ModelsMedicalRecord::where('record_code', $medical_record_code)->update([
+                        'status_study' => 1
+                    ]);
+                }
+            }
+            //code...
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+
+    }
+
+
     public function informe_medico (Request $request)
     {
         try {
@@ -262,27 +349,27 @@ class MedicalRecord extends Component
             $rules = [
                 'TextInforme'  => 'required',
             ];
-    
+
             $msj = [
                 'TextInforme'  => __('messages.alert.text_informe_requerido'),
             ];
-    
+
             $validator = Validator::make($request->all(), $rules, $msj);
-    
+
             if ($validator->fails()) {
                 return response()->json([
                     'success' => 'false',
                     'errors'  => $validator->errors()->all()
                 ], 400);
             }
-    
+
             /** Validacion para cargar el centro correcto cuando el medico
              * esta asociado al plan corporativo
              */
             if (Auth::user()->center_id != null) {
                 $center_id_corporativo = Auth::user()->center_id;
             }
-    
+
            MedicalReport::updateOrCreate(
                 ['id' => $request->medical_report_id],
                 [
@@ -294,11 +381,11 @@ class MedicalRecord extends Component
                     'description'   => $request->TextInforme,
                 ]
             );
-    
-    
+
+
             $medical_report = UtilsController::get_medical_report($request->patient_id);
-    
-    
+
+
             return $medical_report ;
             //code...
         } catch (\Throwable $th) {
