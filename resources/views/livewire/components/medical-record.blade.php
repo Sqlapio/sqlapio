@@ -821,23 +821,6 @@
                 });
             }
         });
-        /////
-
-        // const autoTextarea = (id) => {
-        //     document.getElementById(id).addEventListener('keyup', function() {
-        //         this.style.overflow = 'hidden';
-        //         this.style.height = 0;
-        //         this.style.height = this.scrollHeight + 'px';
-        //     }, false);
-        // }
-
-        // // autoTextarea('background');
-        // autoTextarea('sintomas');
-        // autoTextarea('razon');
-        // autoTextarea('diagnosis');
-        // autoTextarea('text_area_exman');
-        // autoTextarea('text_area_studies');
-        // autoTextarea('observations');
 
     });
 
@@ -1228,8 +1211,8 @@
                 $("#sintomas").show();
                 $("#sintomas-text").hide();
                 $("#label_sintomas").hide();
-                $("#label_exam").hide();
-                $("#label_study").hide();
+                // $("#label_exam").hide();
+                // $("#label_study").hide();
                 $("#text_area_exman").show();
                 $("#exman-text").hide();
                 $("#text_area_studies").show();
@@ -2923,7 +2906,7 @@
                                                             <div id="exam-text-area">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                     <div class="form-group">
-                                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
+                                                                        {{-- <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label> --}}
                                                                         <ul id="text-exams" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                                         <pre class="pre-textarea"
                                                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"

@@ -179,20 +179,13 @@ class MedicalRecord extends Component
             {
                 $data = json_decode($request->data);
                 $medical_record_code = ModelsMedicalRecord::where('id', $data->medical_record_id)->first()->record_code;
-                $medical_code_ref = Reference::where('id', $data->medical_record_id)->first()->cod_ref;
-
-            // NO TRAE EL CODE_REF CORRECTO SEGUN LA DATA EN LA TABLA
-
-                dump($medical_code_ref);
-
-            // NO TRAE EL REF_STUDY CORRECTO SEGUN LA DATA EN LA TABLA
-
-                $ref_study = StudyPatient::where('id', $data->medical_record_id)->first()->ref_id;
-
-                dd($ref_study);
 
 
-                $this->updateStudiesExams($data, $medical_record_code,$data->medical_record_id, $medical_code_ref);
+                $medical_code_ref = Reference::where('cod_medical_record', $medical_record_code)->first()->cod_ref;
+
+                $ref_id = Reference::where('cod_medical_record', $medical_record_code)->first()->id;
+
+                $this->updateStudiesExams($data, $medical_record_code,$data->medical_record_id, $medical_code_ref, $ref_id);
 
                 return true;
 
@@ -284,7 +277,7 @@ class MedicalRecord extends Component
         }
     }
 
-    public function updateStudiesExams($data, $medical_record_code, $medical_record, $medical_code_ref)
+    public function updateStudiesExams($data, $medical_record_code, $medical_record, $medical_code_ref, $ref_id)
     {
         try {
             if (isset($data->exams_array)) {
@@ -296,7 +289,7 @@ class MedicalRecord extends Component
                     $exams_patient->cod_ref = $medical_code_ref;
                     $exams_patient->cod_exam = (isset($data_exams[$i]->code_exams)) ? $data_exams[$i]->code_exams : 'SQ-EX-' . random_int(11111111, 99999999);
                     $exams_patient->description = isset($data_exams[$i]->code_exams) ? UtilsController::get_description_exam($data_exams[$i]->code_exams) : $data_exams[$i]->description;
-                    $exams_patient->ref_id = 12;
+                    $exams_patient->ref_id = $ref_id;
                     $exams_patient->user_id = Auth::user()->id;
                     $exams_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
                     $exams_patient->patient_id = $data->id;
@@ -326,7 +319,7 @@ class MedicalRecord extends Component
                     $studies_patient->cod_ref = $medical_code_ref;
                     $studies_patient->cod_study = (isset($data_studies[$i]->code_studies)) ? $data_studies[$i]->code_studies : 'SQ-ST-' . random_int(11111111, 99999999);
                     $studies_patient->description = isset($data_studies[$i]->code_studies) ? UtilsController::get_description_study($data_studies[$i]->code_studies) : $data_studies[$i]->description;
-                    $studies_patient->ref_id = 12;
+                    $studies_patient->ref_id = $ref_id;
                     $studies_patient->user_id = Auth::user()->id;
                     $studies_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
                     $studies_patient->patient_id = $data->id;
