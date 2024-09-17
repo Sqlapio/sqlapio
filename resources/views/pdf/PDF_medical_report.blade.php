@@ -2,6 +2,7 @@
 @section('title', 'Medical Report')
 <style>
     @page { margin:0px; }
+
     body {
         font-family: 'Creato Display', sans-serif;
         margin-top: 0cm;
@@ -145,18 +146,37 @@
                     <strong>Informe Médico</strong>
                 </div>
             </div>
-            <div class="row-data">
+            <div id="prueba" class="row-data">
                 <div style="margin-top: 15px">
                     @php
-                        $des = str_replace('</p>', '', $MedicalReport->description);
-                        $des = str_replace('<p>', '', $des);
-                        // $pp = explode('.', $des);
-                        // dd($pp);
+
+                        // $des = str_replace("\r\n\r\n", "\r\n", $MedicalReport->description);
+
+                        // dump($des);
+
+                        // $des = explode("\r\n", $des);
                     @endphp
-                        <pre style=" white-space: pre-line; font-size: 17px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des }}</pre>
+                    <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $MedicalReport->description }}</pre>
+                    {{-- @if (isset($des[1]))
+                        <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des[1] }}</pre>
+                    @endif
+                    @if (isset($des[2]))
+                        <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des[2] }}</pre>
+                    @endif
+                    @if (isset($des[3]))
+                        <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des[3] }}</pre>
+                    @endif
+                    @if (isset($des[4]))
+                        <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des[4] }}</pre>
+                    @endif
+                    @if (isset($des[5]))
+                        <pre style=" white-space: pre-line; font-size: 16px ; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">{{ $des[5] }}</pre>
+                    @endif --}}
+
                 </div>
             </div>
             <br>
+
         </div>
     </div>
 </body>
