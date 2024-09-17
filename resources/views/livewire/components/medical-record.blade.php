@@ -216,7 +216,11 @@
         padding-right: 0px !important;
     }
 
-
+    #the-count {
+        float: right;
+        padding: 0.1rem 0 0 0;
+        font-size: 0.875rem;
+    }
 
     @media only screen and (max-width: 768px) {
         .s-IA {
@@ -1881,7 +1885,6 @@
 
         try {
             await navigator.clipboard.writeText(response_data);
-            // $("#icon-copy").css("background", "#04AA6D");
 
             $('#copied').show();
             $("#copied").text('@lang('messages.alert.copiado')');
@@ -2126,23 +2129,37 @@
                 ],
             });
 
+    }
+
+    const refresh = () => {
+
+        $('#medicines-other').val('').change();
+        $('#div-medicina').show();
+        $('#div-otros').hide();
+        $('#medicines-other').val('')
+
+    }
+
+    const handleSpeciality = (e) => {
+        if (e.target.value === "Otros") {
+            $('#div-medicina').hide();
+            $('#div-otros').show();
         }
+    }
 
-        const refresh = () => {
+    const countTextarea = () => {
 
-            $('#medicines-other').val('').change();
-            $('#div-medicina').show();
-            $('#div-otros').hide();
-            $('#medicines-other').val('')
+        let textArea = document.getElementById("TextInforme");
+        let characterCounter = document.getElementById("maximum");
+        const maxNumOfChars = 1600;
 
-        }
+        let numOfEnteredChars = textArea.value.length;
+        let counter = maxNumOfChars - numOfEnteredChars;
+        characterCounter.textContent = counter + " / 1600";
 
-        const handleSpeciality = (e) => {
-            if (e.target.value === "Otros") {
-                $('#div-medicina').hide();
-                $('#div-otros').show();
-            }
-        }
+    }
+
+
 </script>
 @endpush
 @section('content')
@@ -3453,12 +3470,15 @@
                             @endif
 
                             <div class="mt-3">
-                                <textarea id="TextInforme" name="TextInforme" class="form-control" rows="10"></textarea>
+                                <textarea  onkeyup="countTextarea()" id="TextInforme" name="TextInforme" class="form-control" rows="10" maxlength="1600"></textarea>
+                                <div id="the-count">
+                                    <span id="maximum">1600 / 1600</span>
+                                </div>
                             </div>
 
-                            <div class="row mt-2 justify-content-md-end">
+                            <div class="row mt-5 justify-content-md-end">
                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
-                                    style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                    style="display: flex; justify-content: flex-end; padding-right: 13px;">
                                     <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" />
                                 </div>
                             </div>
