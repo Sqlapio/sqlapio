@@ -31,9 +31,11 @@ class QueryDetalyPatient extends Component
         }else{
 
             $patients = $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
+
+            // dd($patients);
             return $patient;
 
-            // dd('< 1');
+
 
         }
 
@@ -62,8 +64,8 @@ class QueryDetalyPatient extends Component
 					"record_date" => $record->record_date,
 					"doctor" => $record->get_doctor->name . " " . $record->get_doctor->last_name,
 					"specialty" => $record->get_doctor->specialty,
-					"study_medical" =>	$record->get_study_medical_status_two,
-					"exam_medical" =>	$record->get_exam_medical_status_two,
+					"study_medical" =>	$record->get_study_medical,
+					"exam_medical" =>	$record->get_exam_medical,
 					"razon" => $record->razon,
 					"diagnosis" => $record->diagnosis,
 				];
@@ -78,6 +80,7 @@ class QueryDetalyPatient extends Component
 				"medications_supplements" => ($patient->get_history) ? json_decode($patient->get_history->medications_supplements, true) : null,
 				'medicard_record' =>  $medicard_record,
 			];
+
 			return $data;
 		} else {
 
@@ -104,6 +107,7 @@ class QueryDetalyPatient extends Component
         $mental_healths = UtilsController::get_mental_healths();
         $inmunizations = UtilsController::get_inmunizations();
 		$medical_devices = UtilsController::get_medical_device();
+
 
 		return view(
 			'livewire.components.profile-patients.query-detaly-patient',
