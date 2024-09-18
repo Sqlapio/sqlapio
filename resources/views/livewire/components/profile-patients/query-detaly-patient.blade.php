@@ -138,8 +138,6 @@
 
         const showData = (response) => {
 
-            console.log(response)
-
             let family_back = @json($family_back);
             let get_condition = @json($get_condition);
             let non_pathology_back = @json($non_pathology_back);
@@ -463,7 +461,7 @@
 
                     if (response.patient.genere === 'femenino') {
 
-                        let gine = `<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                        let gine = `<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                             <div class="row">
                                 <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_gine')</h6>
                                 <hr style="margin-top: 5px">
@@ -701,7 +699,16 @@
             $('.ul-exmen').empty();
             $('.ul-study').empty();
             if (response.medicard_record.length > 0) {
-                response.medicard_record.map((e, key) => {
+
+                let pp = Object.keys(response.medicard_record).sort(function(a,b){return b-a})
+
+                const arr = [];
+
+                for (let i=0; i<pp.length;i++) {
+                    arr.push(response.medicard_record[pp[i]]);
+                }
+
+                arr.map((e, key) => {
                     let element = '';
                     if ((key % 2) == 0) {
                         element =
@@ -776,33 +783,77 @@
                     }
                     $('.list-con').append(element);
 
-
                     // data estudios
-                    e.study_medical.map((item, i) => {
+                    let study_order = Object.keys(e.study_medical).sort(function(a,b){return b-a})
+                    const arr_study = [];
+
+                    for (let i=0; i<study_order.length;i++) {
+                        arr_study.push(e.study_medical[study_order[i]]);
+                    }
+
+                    arr_study.map((item, i) => {
 
                         let et = '';
                         let target =
                             `{{ URL::asset('/imgs/${item.file}') }}`;
                         if ((i % 2) == 0) {
-                            et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                    justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
-                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
+                            if(item.file !== null) {
+                                et = `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ${item.date_result}
+                                    </span>
+                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 28px;">
                                         <button type="button"
                                             class="refresf btn-idanger rounded-circle">
                                             <i class="bi bi-filetype-pdf"></i>
                                         </button>
                                     </a>
                                 </li>`
+                            } else {
+                                et = `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ----
+                                    </span>
+                                    <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                </li>`
+                            }
                         } else {
-                            et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                    justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
-                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
+                            if(item.file !== null) {
+                                et = `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ${item.date_result}
+                                    </span>
+                                    <a target="_blank" href="${target}" style="color: #6c757d; text-decoration: none; font-size: 28px;">
                                         <button type="button"
                                             class="refresf btn-idanger rounded-circle">
                                             <i class="bi bi-filetype-pdf"></i>
                                         </button>
                                     </a>
                                 </li>`
+                            } else {
+                                et = `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ----
+                                    </span>
+                                    <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                </li>`
+                            }
                         }
                         $('.ul-study').append(
                             et);
@@ -819,43 +870,81 @@
                     // end
 
                     // data examenes
-                    e.exam_medical.map((item, e) => {
+
+                    let exam_order = Object.keys(e.exam_medical).sort(function(a,b){return b-a})
+                    const arr_exam = [];
+
+                    for (let i=0; i<exam_order.length;i++) {
+                        arr_exam.push(e.exam_medical[exam_order[i]]);
+                    }
+
+                    arr_exam.map((item, e) => {
 
                         let ett = '';
                         let target =
                             `{{ URL::asset('/imgs/${item.file}') }}`;
                         if ((e % 2) == 0) {
-                            ett =
-                                `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                    justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
-                                    <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
+                            if(item.file !== null) {
+                                ett =
+                                `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ${item.date_result}
+                                    </span>
+                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 28px;">
                                         <button type="button"
-                                            class="refresf btn-idanger rounded-circle"
-                                            data-bs-container="body"
-                                            data-bs-toggle="popover"
-                                            data-bs-custom-class="custom-popover"
-                                            data-bs-placement="bottom"
-                                            data-bs-content="@lang('messages.alert.no_examenes')">
+                                            class="refresf btn-idanger rounded-circle">
                                             <i class="bi bi-filetype-pdf"></i>
                                         </button>
                                     </a>
                                 </li>`
+                            } else {
+                                ett =
+                                `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ----
+                                    </span>
+                                    <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                </li>`
+                            }
                         } else {
-                            ett =
-                                `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                    justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
-                                    <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
+                            if(item.file !== null) {
+                                ett =
+                                `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ${item.date_result}
+                                    </span>
+                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 28px;">
                                         <button type="button"
-                                            class="refresf btn-idanger rounded-circle"
-                                            data-bs-container="body"
-                                            data-bs-toggle="popover"
-                                            data-bs-custom-class="custom-popover"
-                                            data-bs-placement="bottom"
-                                            data-bs-content="@lang('messages.alert.no_estudios')">
+                                            class="refresf btn-idanger rounded-circle">
                                             <i class="bi bi-filetype-pdf"></i>
                                         </button>
                                     </a>
+                                </li`
+                            } else {
+                                ett =
+                                `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="text-justify">
+                                        <strong>
+                                            ${item.description}
+                                        </strong>
+                                            <br>
+                                            Fecha Solicitud: ${item.date} / Fecha Resultado: ----
+                                    </span>
+                                    <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
                                 </li>`
+                            }
                         }
                         $('.ul-exmen').append(
                             ett);
@@ -878,106 +967,114 @@
             // end
 
             // mostrar examnes fisicos
-            $('.list-examenes-fisicos').empty();
-            $("#not-examenes-fisicos").hide();
-            if (response.get_physical_exams.length > 0) {
+                $('.list-examenes-fisicos').empty();
+                $("#not-examenes-fisicos").hide();
 
-                response.get_physical_exams.map((e, key) => {
-                    let element = '';
-                    if ((key % 2) == 0) {
-                        element =
-                            `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
-                                    <br>
-                                </div>
-                                <div id="table-info-consulta">
-                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center text-capitalize"> ${e.weight}</td>
-                                                <td class="text-center text-capitalize"> ${e.height}</td>
-                                                <td class="text-center text-capitalize"> ${e.strain}</td>
-                                                <td class="text-center text-capitalize"> ${e.temperature}</td>
-                                                <td class="text-center text-capitalize"> ${e.breaths}</td>
-                                                <td class="text-center text-capitalize"> ${e.pulse}</td>
-                                                <td class="text-center text-capitalize"> ${e.saturation}</td>
-                                                <td class="text-center text-capitalize"> ${e.condition}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br>
-                                <span class="text-justify">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${e.observations}
-                                </span>
-                            </li>`
-                    } else {
-                        element =
-                            `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
-                                    <br>
-                                </div>
-                                <div id="table-info-consulta">
-                                    <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
-                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center text-capitalize"> ${e.weight}</td>
-                                                <td class="text-center text-capitalize"> ${e.height}</td>
-                                                <td class="text-center text-capitalize"> ${e.strain}</td>
-                                                <td class="text-center text-capitalize"> ${e.temperature}</td>
-                                                <td class="text-center text-capitalize"> ${e.breaths}</td>
-                                                <td class="text-center text-capitalize"> ${e.pulse}</td>
-                                                <td class="text-center text-capitalize"> ${e.saturation}</td>
-                                                <td class="text-center text-capitalize"> ${e.condition}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <br>
-                                <span class="text-justify">
-                                    <strong>@lang('messages.label.observaciones'):</strong>
-                                    <br>
-                                    ${e.observations}
-                                </span>
-                            </li`
+                if (response.get_physical_exams.length > 0) {
+
+                    let physical_exams_order = Object.keys(response.get_physical_exams).sort(function(a,b){return b-a})
+                    const arr_physical_exams = [];
+
+                    for (let i=0; i<physical_exams_order.length;i++) {
+                        arr_physical_exams.push(response.get_physical_exams[physical_exams_order[i]]);
                     }
-                    $('.list-examenes-fisicos').append(
-                        element);
+
+                    arr_physical_exams.map((e, key) => {
+                        let element = '';
+                        if ((key % 2) == 0) {
+                            element =
+                                `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
+                                        <br>
+                                    </div>
+                                    <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${e.weight}</td>
+                                                    <td class="text-center text-capitalize"> ${e.height}</td>
+                                                    <td class="text-center text-capitalize"> ${e.strain}</td>
+                                                    <td class="text-center text-capitalize"> ${e.temperature}</td>
+                                                    <td class="text-center text-capitalize"> ${e.breaths}</td>
+                                                    <td class="text-center text-capitalize"> ${e.pulse}</td>
+                                                    <td class="text-center text-capitalize"> ${e.saturation}</td>
+                                                    <td class="text-center text-capitalize"> ${e.condition}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <span class="text-justify">
+                                        <strong>@lang('messages.label.observaciones'):</strong>
+                                        <br>
+                                        ${e.observations}
+                                    </span>
+                                </li>`
+                        } else {
+                            element =
+                                `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
+                                        <br>
+                                    </div>
+                                    <div id="table-info-consulta">
+                                        <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.peso_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.altura_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.presion_arterial_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.temperatura_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.respiraciones_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.pulso_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.saturacion_1')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.condicion')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center text-capitalize"> ${e.weight}</td>
+                                                    <td class="text-center text-capitalize"> ${e.height}</td>
+                                                    <td class="text-center text-capitalize"> ${e.strain}</td>
+                                                    <td class="text-center text-capitalize"> ${e.temperature}</td>
+                                                    <td class="text-center text-capitalize"> ${e.breaths}</td>
+                                                    <td class="text-center text-capitalize"> ${e.pulse}</td>
+                                                    <td class="text-center text-capitalize"> ${e.saturation}</td>
+                                                    <td class="text-center text-capitalize"> ${e.condition}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <span class="text-justify">
+                                        <strong>@lang('messages.label.observaciones'):</strong>
+                                        <br>
+                                        ${e.observations}
+                                    </span>
+                                </li`
+                        }
+                        $('.list-examenes-fisicos').append(
+                            element);
 
 
-                    // end
-                });
-            } else {
-                $("#not-examenes-fisicos").show();
-            }
+                        // end
+                    });
+                } else {
+                    $("#not-examenes-fisicos").show();
+                }
 
             // end
             $('#div-content').show();
@@ -1031,7 +1128,7 @@
                                     </button>
                                 </div>
                             </div>
-
+                            {{-- Varios Pacientes --}}
                             @if (count($patients) > 1)
                                 <div class="row justify-content-center mt-3" id="content-table-patient-portal">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 table-responsive">
@@ -1078,6 +1175,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
                                         <div id="wizard">
+                                            {{-- Hitoria Clinica --}}
                                             <h3>@lang('messages.pacientes.historia_clinica')</h3>
                                             <section>
                                                 <div style="display: none" id='not-history' class="row justify-content-center mt-2">
@@ -1203,6 +1301,7 @@
                                                     </div>
                                                 </div>
                                             </section>
+                                            {{-- consulta medica --}}
                                             <h3>@lang('messages.pacientes.consulta_medica')</h3>
                                             <section>
                                                 <div style="display: none" id='not-medical-record' class="row justify-content-center mt-2">
@@ -1217,6 +1316,22 @@
                                                 </div>
                                                 <div class="list-group list-con div-overflow"> </div>
                                             </section>
+                                            {{-- Examenes Fisicos --}}
+                                            <h3>@lang('messages.pacientes.examenes_fisico')</h3>
+                                            <section>
+                                                <div style="display: none" id='not-examenes-fisicos' class="row justify-content-center mt-2">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <h5 class="card-title" style="text-align: center;">
+                                                            @lang('messages.pacientes.no_examenes')
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
+                                                        <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                    </div>
+                                                </div>
+                                                <div class="list-group list-examenes-fisicos div-overflow"> </div>
+                                            </section>
+                                            {{-- Estudios --}}
                                             <h3>@lang('messages.pacientes.estudios_realizado')</h3>
                                             <section>
                                                 <div class="row p-3 div-overflow">
@@ -1236,6 +1351,7 @@
                                                     </div>
                                                 </div>
                                             </section>
+                                            {{-- Examenes --}}
                                             <h3>@lang('messages.pacientes.examenes_realizado')</h3>
                                             <section>
                                                 <div class="row p-3 div-overflow">
@@ -1254,27 +1370,15 @@
                                                     </div>
                                                 </div>
                                             </section>
-                                            <h3>@lang('messages.pacientes.examenes_fisico')</h3>
-                                            <section>
-                                                <div style="display: none" id='not-examenes-fisicos' class="row justify-content-center mt-2">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <h5 class="card-title" style="text-align: center;">
-                                                            @lang('messages.pacientes.no_examenes')
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
-                                                        <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                    </div>
-                                                </div>
-                                                <div class="list-group list-examenes-fisicos div-overflow"> </div>
-                                            </section>
+
                                         </div>
                                     </div>
                                 </div>
 
                             @else
+                                {{-- 1 solo Paciente --}}
                                 @foreach ($patients as $item)
-                                    {{-- {{ dd($patients, count($item->get_physical_exams)) }} --}}
+
                                     <div class="row mt-5" id="div-content">
                                         <hr>
                                         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -1300,6 +1404,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
                                             <div id="wizard">
+                                                {{-- Hitoria Clinica --}}
                                                 <h3>@lang('messages.pacientes.historia_clinica')</h3>
                                                 <section>
                                                     @if ($item->get_history !== null)
@@ -1780,18 +1885,18 @@
                                                             </div>
                                                         </div>
                                                     @endif
-
                                                 </section>
+                                                {{-- Consulta medica --}}
                                                 <h3>@lang('messages.pacientes.consulta_medica')</h3>
                                                 <section>
 
                                                     @if ($item->get_medicard_record != [])
                                                         <div class="list-group div-overflow">
-                                                            @foreach ($item->get_medicard_record->sortByDesc('created_at') as $key => $item)
+                                                            @foreach ($item->get_medicard_record->sortByDesc('created_at') as $key => $record)
                                                                 @if (($key % 2) == 0)
                                                                     <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                                         <div class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['record_date'] }}</h5>
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $record['record_date'] }}</h5>
                                                                             <br>
                                                                         </div>
                                                                         <div id="table-info-consulta">
@@ -1805,9 +1910,13 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['doctor'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['specialty'] }} </td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['record_code'] }}</td>
+                                                                                        <td class="text-center text-capitalize">
+                                                                                            {{-- {{ $item->get_doctor['name'] }} {{ $item->get_doctor['last_name'] }} --}}
+                                                                                        </td>
+                                                                                        <td class="text-center text-capitalize">
+                                                                                            {{-- {{ $item->get_doctor['specialty'] }}  --}}
+                                                                                        </td>
+                                                                                        <td class="text-center text-capitalize"> {{ $record['record_code'] }}</td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -1815,17 +1924,17 @@
                                                                         <br>
                                                                         <span class="text-justify"><strong>@lang('messages.form.razon_consulta')
                                                                         <br>
-                                                                        </strong> {{ $item['razon'] }}</span>
+                                                                        </strong> {{ $record['razon'] }}</span>
                                                                         <br>
                                                                         <hr style="margin-top: 16px">
                                                                         <span class="text-justify"><strong>@lang('messages.form.diagnostico')
                                                                         <br>
-                                                                        </strong> {{ $item['diagnosis'] }}</span>
+                                                                        </strong> {{ $record['diagnosis'] }}</span>
                                                                     </li>
                                                                 @else
                                                                     <li class="list-group-item mb-3 {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                                         <div class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['record_date'] }}</h5>
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $record['record_date'] }}</h5>
                                                                             <br>
                                                                         </div>
                                                                         <div id="table-info-consulta">
@@ -1839,9 +1948,13 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['doctor'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['specialty'] }} </td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['record_code'] }}</td>
+                                                                                        <td class="text-center text-capitalize">
+                                                                                            {{-- {{ $item->get_doctor['name'] }} {{ $item->get_doctor['last_name'] }} --}}
+                                                                                        </td>
+                                                                                        <td class="text-center text-capitalize">
+                                                                                            {{-- {{ $item->get_doctor['specialty'] }} --}}
+                                                                                        </td>
+                                                                                        <td class="text-center text-capitalize"> {{ $record['record_code'] }}</td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -1849,12 +1962,12 @@
                                                                         <br>
                                                                         <span class="text-justify"><strong>@lang('messages.form.razon_consulta')
                                                                         <br>
-                                                                        </strong> {{ $item['razon'] }}</span>
+                                                                        </strong> {{ $record['razon'] }}</span>
                                                                         <br>
                                                                         <hr style="margin-top: 16px">
                                                                         <span class="text-justify"><strong>@lang('messages.form.diagnostico')
                                                                         <br>
-                                                                        </strong> {{ $item['diagnosis'] }}</span>
+                                                                        </strong> {{ $record['diagnosis'] }}</span>
                                                                     </li>
                                                                 @endif
                                                             @endforeach
@@ -1873,82 +1986,17 @@
                                                     @endif
 
                                                 </section>
-                                                <h3>@lang('messages.pacientes.estudios_realizado')</h3>
-                                                <section>
-                                                    <div class="row p-3 div-overflow">
-
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
-                                                            <ul class="list-group ul-study list-group-flush overflow-auto">
-                                                            </ul>
-                                                            <div id='not-studie' class="row justify-content-center">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                        @lang('messages.pacientes.no_estudios')
-                                                                    </h5>
-                                                                </div>
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                                <h3>@lang('messages.pacientes.examenes_realizado')</h3>
-                                                <section>
-                                                    <div class="row p-3 div-overflow">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
-                                                            <ul class="list-group ul-exmen list-group-flush overflow-auto"> </ul>
-                                                            {{ $item->get_study_medical }}
-
-                                                            {{-- @if ($item->get_study_medical)
-                                                                @php
-                                                                    $target = `{{ URL::asset('/imgs/${item.file}') }}`;
-                                                                @endphp
-
-                                                            @endif
-                                                            if ((i % 2) == 0) {
-                                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                                                        justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
-                                                                        <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
-                                                                            <button type="button"
-                                                                                class="refresf btn-idanger rounded-circle">
-                                                                                <i class="bi bi-filetype-pdf"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </li>`
-                                                            } else {
-                                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                                                        justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
-                                                                        <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
-                                                                            <button type="button"
-                                                                                class="refresf btn-idanger rounded-circle">
-                                                                                <i class="bi bi-filetype-pdf"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </li>`
-                                                            } --}}
-                                                            <div id='not-exam' class="row justify-content-center">
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                        @lang('messages.pacientes.no_examenes')
-                                                                    </h5>
-                                                                </div>
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
+                                                {{-- Examenes Fisicos --}}
                                                 <h3>@lang('messages.pacientes.examenes_fisico')</h3>
                                                 <section>
-                                                    @if ($item->get_physical_exams)
+
+                                                    @if ($item->get_physical_exams !== [])
                                                         <div class="list-group div-overflow">
-                                                            @foreach ($item->get_physical_exams->sortByDesc('created_at') as $key => $item)
+                                                            @foreach ($item->get_physical_exams->sortByDesc('created_at') as $key => $physical_exams)
                                                                 @if (($key % 2) == 0)
                                                                     <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                                         <div class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['date'] }}</h5>
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $physical_exams['date'] }}</h5>
                                                                             <br>
                                                                         </div>
                                                                         <div id="table-info-consulta">
@@ -1967,14 +2015,14 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['weight'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['height'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['strain'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['temperature'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['breaths'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['pulse'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['saturation'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['condition'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['weight'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['height'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['strain'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['temperature'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['breaths'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['pulse'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['saturation'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['condition'] }}</td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -1982,13 +2030,13 @@
                                                                         <br>
                                                                         <span class="text-justify"><strong>@lang('messages.label.observaciones')
                                                                         <br>
-                                                                        </strong> {{ $item['observations'] }}</span>
+                                                                        </strong> {{ $physical_exams['observations'] }}</span>
                                                                         <br>
                                                                     </li>
                                                                 @else
                                                                     <li class="list-group-item mb-3 {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                                         <div class="d-flex w-100 justify-content-between">
-                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $item['date'] }}</h5>
+                                                                            <h5 class="text-capitalize">@lang('messages.form.fecha_consulta'): {{ $physical_exams['date'] }}</h5>
                                                                             <br>
                                                                         </div>
                                                                         <div id="table-info-consulta">
@@ -2007,14 +2055,14 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['weight'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['height'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['strain'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['temperature'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['breaths'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['pulse'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['saturation'] }}</td>
-                                                                                        <td class="text-center text-capitalize"> {{ $item['condition'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['weight'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['height'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['strain'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['temperature'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['breaths'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['pulse'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['saturation'] }}</td>
+                                                                                        <td class="text-center text-capitalize"> {{ $physical_exams['condition'] }}</td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -2040,19 +2088,149 @@
                                                             </div>
                                                         </div>
                                                     @endif
+
+                                                </section>
+                                                {{-- Estudios --}}
+                                                <h3>@lang('messages.pacientes.estudios_realizado')</h3>
+                                                <section>
+                                                    <div class="list-group div-overflow">
+                                                        @if ($item->get_studies !== [])
+                                                            @foreach ($item->get_studies->sortByDesc('created_at') as $key => $studies)
+                                                                @php
+                                                                    $target = URL::asset('/imgs/' . $studies['file']);
+                                                                @endphp
+                                                                @if (($key % 2) == 0)
+
+                                                                    <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                                                        <span class="text-justify">
+                                                                            <strong>
+                                                                                {{ $studies['description'] }}
+                                                                            </strong>
+                                                                                <br>
+                                                                                Fecha Solicitud: {{ $studies['date'] }} / Fecha Resultado: {{ $studies['date_result']  ? $studies['date_result'] : '-----'}}
+                                                                        </span>
+                                                                        @if ($studies['file'] !== null)
+                                                                            <a target="_blank" href="{{ $target }}" style="color: white; text-decoration: none; font-size: 28px;">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle">
+                                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        @else
+                                                                            <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                                                        @endif
+                                                                    </li>
+                                                                @else
+                                                                    <li class="list-group-item mb-3 {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                                                        <span class="text-justify">
+                                                                            <strong>
+                                                                                {{ $studies['description'] }}
+                                                                            </strong>
+                                                                                <br>
+                                                                                Fecha Solicitud: {{ $studies['date'] }} / Fecha Resultado: {{ $studies['date_result']  ? $studies['date_result'] : '-----'}}
+                                                                        </span>
+                                                                        @if ($studies['file'] !== null)
+                                                                            <a target="_blank" href="{{ $target }}" style="color: #6c757d; text-decoration: none; font-size: 28px;">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle">
+                                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        @else
+                                                                            <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                                                        @endif
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+
+                                                        @else
+                                                            <div id='not-studie' class="row justify-content-center">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
+                                                                        @lang('messages.pacientes.no_estudios')
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
+                                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </section>
+                                                {{-- Examenes --}}
+                                                <h3>@lang('messages.pacientes.examenes_realizado')</h3>
+                                                <section>
+                                                    <div class="list-group div-overflow">
+                                                        @if ($item->get_exams !== [])
+                                                            @foreach ($item->get_exams->sortByDesc('created_at') as $key => $exams)
+                                                                @php
+                                                                    $target = URL::asset('/imgs/' . $exams['file']);
+                                                                @endphp
+                                                                @if (($key % 2) == 0)
+                                                                    <li class="list-group-item mb-3 active {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                                                        <span class="text-justify">
+                                                                            <strong>
+                                                                                {{ $exams['description'] }}
+                                                                            </strong>
+                                                                                <br>
+                                                                                Fecha Solicitud: {{ $exams['date'] }} / Fecha Resultado: {{ $exams['date_result']  ? $exams['date_result'] : '-----'}}
+                                                                        </span>
+                                                                        @if ($exams['file'] !== null)
+                                                                            <a target="_blank" href="{{ $target }}" style="color: white; text-decoration: none; font-size: 28px;">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle">
+                                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        @else
+                                                                            <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                                                        @endif
+                                                                    </li>
+                                                                @else
+                                                                    <li class="list-group-item mb-3 {{ $key }}" aria-current="true" style="border-radius: 8px; z-index: 0; padding: 23px; display: flex; justify-content: space-between; align-items: center;">
+                                                                        <span class="text-justify">
+                                                                            <strong>
+                                                                                {{ $exams['description'] }}
+                                                                            </strong>
+                                                                                <br>
+                                                                                Fecha Solicitud: {{ $exams['date'] }} / Fecha Resultado: {{ $exams['date_result']  ? $exams['date_result'] : '-----'}}
+                                                                        </span>
+                                                                        @if ($exams['file'] !== null)
+                                                                            <a target="_blank" href="{{ $target }}" style="color: #6c757d; text-decoration: none; font-size: 28px;">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle">
+                                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        @else
+                                                                            <span style="text-decoration: none; font-size: 14px;"> Sin Resultados </span>
+                                                                        @endif
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            <div id='not-exam' class="row justify-content-center">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
+                                                                        @lang('messages.pacientes.no_examenes')
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
+                                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </section>
                                             </div>
                                         </div>
                                     </div>
-
                                 @endforeach
-
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
