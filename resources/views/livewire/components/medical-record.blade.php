@@ -634,6 +634,10 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
+                            let url =
+                                "{{ route('MedicalRecord', ':id') }}";
+                            url = url.replace(':id', id);
+                            window.location.href = url;
                             $("#form-informe-medico").trigger("reset");
                             $('#modalInformeMedico').modal('toggle');
                             setDatatable(response);
@@ -828,7 +832,7 @@
 
     });
 
-
+    // Datos Historia medica de Paciente
     const patient_history = (response) => {
 
         if (patient.get_history != null) {
@@ -1145,6 +1149,7 @@
         }
     }
 
+    // Limpiar Formulario
     const resetForm = () => {
         Swal.fire({
             icon: 'warning',
@@ -1233,6 +1238,7 @@
 
     }
 
+    // editar Paciente
     const showDataEdit = (item, active = true) => {
 
         if (active) {
@@ -1770,6 +1776,7 @@
         }
     }
 
+    // sweet alert No hay examenes
     const showAlertNotExam = () => {
         Swal.fire({
             icon: 'warning',
@@ -1779,12 +1786,13 @@
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')',
             // customClass: {
-            //     icon: 'no-border'
-            // }
-        });
-        return false;
+                //     icon: 'no-border'
+                // }
+            });
+            return false;
     }
 
+    // sweet alert No hay estudios
     const showAlertNotStudy = () => {
         Swal.fire({
             icon: 'warning',
@@ -3342,18 +3350,20 @@
                                             <table id="table-medical-report" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
+                                                        <th class="text-center w-30" scope="col" data-orderable="false">@lang('messages.tabla.centro_salud')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
-                                                        <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
+                                                        <th data-orderable="false" class="text-center w-5" scope="col"> @lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_report->sortByDesc('created_at') as $item)
                                                         <tr>
-                                                            <td class="text-center text-capitalize"> {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->get_center->description }}</td>
                                                             <td class="text-center">  {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
                                                             <td class="text-center"> {{ date('d-m-Y', strtotime($item->date)) }} </td>
+                                                            <td class="text-center text-capitalize"> {{ $item->cod_medical_report }}</td>
                                                             <td class="text-center">
                                                                 <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
                                                                     <button type="button">
