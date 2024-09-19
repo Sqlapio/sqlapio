@@ -138,7 +138,7 @@ class MedicalRecord extends Component
                     'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
                     'color' => '#198754'
                 ]);
-                EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
+                EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id, $data->id);
             }
 
             /********************************************************************************************************/
@@ -148,7 +148,6 @@ class MedicalRecord extends Component
 
             /**
              * Logica para aumentar el contador de las consulta guardadas por el medico
-             *
              * Esta logica se aplica al tema de los planes
              */
             UtilsController::update_mr_counter($user);
@@ -164,7 +163,7 @@ class MedicalRecord extends Component
             /**
              * Metodo para escribir en la estadistica de las consultas
              */
-            EstadisticaController::total_medical_record();
+            EstadisticaController::total_medical_record($medical_record['center_id'], $medical_record['patient_id']);
 
             $action = '15';
             ActivityLogController::store_log($action);
@@ -262,27 +261,27 @@ class MedicalRecord extends Component
             $rules = [
                 'TextInforme'  => 'required',
             ];
-    
+
             $msj = [
                 'TextInforme'  => __('messages.alert.text_informe_requerido'),
             ];
-    
+
             $validator = Validator::make($request->all(), $rules, $msj);
-    
+
             if ($validator->fails()) {
                 return response()->json([
                     'success' => 'false',
                     'errors'  => $validator->errors()->all()
                 ], 400);
             }
-    
+
             /** Validacion para cargar el centro correcto cuando el medico
              * esta asociado al plan corporativo
              */
             if (Auth::user()->center_id != null) {
                 $center_id_corporativo = Auth::user()->center_id;
             }
-    
+
            MedicalReport::updateOrCreate(
                 ['id' => $request->medical_report_id],
                 [
@@ -294,11 +293,11 @@ class MedicalRecord extends Component
                     'description'   => $request->TextInforme,
                 ]
             );
-    
-    
+
+
             $medical_report = UtilsController::get_medical_report($request->patient_id);
-    
-    
+
+
             return $medical_report ;
             //code...
         } catch (\Throwable $th) {

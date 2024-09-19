@@ -132,7 +132,7 @@ class EstadisticaController extends Controller
     /**
      * Acumulado para citas finalizadas por los pacientes
      */
-    static function accumulated_dairy_finalizada($user_id, $center_id)
+    static function accumulated_dairy_finalizada($user_id, $center_id, $patient_id)
     {
         try {
 
@@ -143,6 +143,8 @@ class EstadisticaController extends Controller
             if($user_connect->type_plane == 7){
                 $accumulated = new GeneralStatistic();
                 $accumulated->user_id = $user_id;
+                $accumulated->center = $center_id;
+                $accumulated->patient = $patient_id;
                 $accumulated->type_plane = $user_connect->type_plane;
                 $accumulated->center = $user_connect->center_id;
                 $accumulated->dairy_finalizada = 1;
@@ -155,6 +157,7 @@ class EstadisticaController extends Controller
                 $accumulated->user_id = $user_id;
                 $accumulated->type_plane = $user_connect->type_plane;
                 $accumulated->center = $center_id;
+                $accumulated->patient = $patient_id;
                 $accumulated->dairy_finalizada = 1;
                 $accumulated->mes = $mes;
                 $accumulated->numero_mes = $numero_mes;
@@ -368,18 +371,23 @@ class EstadisticaController extends Controller
      * asociadas al medico
      * @param id
      */
-    static function total_medical_record()
+    static function total_medical_record($center_id = null, $patient_id = null)
     {
         try {
 
             $numero_mes = now()->format('m');
             $mes = Mes::where('numero', $numero_mes)->first()->mes;
 
+            $user = User::where('id', Auth::user()->id)->first();
+
             $mov_medical_record = new GeneralStatistic();
             $mov_medical_record->user_id = Auth::user()->id;
+            $mov_medical_record->center = $center_id;
+            $mov_medical_record->patient = $patient_id;
             $mov_medical_record->medical_record = 1;
             $mov_medical_record->mes = $mes;
             $mov_medical_record->numero_mes = $numero_mes;
+            $mov_medical_record->type_plane = $user->type_plane;
             $mov_medical_record->date = now()->format('d-m-Y');
             $mov_medical_record->save();
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Medical Report')
 <style>
-    @page { margin:0px; }
+        @page { margin:0px;}
     body {
         font-family: 'Creato Display', sans-serif;
         margin-top: 0cm;
@@ -10,10 +10,10 @@
         margin-bottom: 0cm;
 
         -webkit-background-size: contain;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        background-size: contain !important;
-        background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            background-size: contain !important;
+            background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
     }
 
     .imagen {
@@ -140,7 +140,7 @@
                     <strong>Informe Médico</strong>
                 </div>
             </div>
-            <div class="row-data">
+            <div class="row-data" style="height: 6cm">
                 <div style="margin-top: 30px">
                     @php
                         $des = str_replace('</p>', '', $MedicalReport->description);
