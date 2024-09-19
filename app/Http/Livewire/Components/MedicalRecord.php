@@ -179,10 +179,7 @@ class MedicalRecord extends Component
             {
                 $data = json_decode($request->data);
                 $medical_record_code = ModelsMedicalRecord::where('id', $data->medical_record_id)->first()->record_code;
-
-
                 $medical_code_ref = Reference::where('cod_medical_record', $medical_record_code)->first()->cod_ref;
-
                 $ref_id = Reference::where('cod_medical_record', $medical_record_code)->first()->id;
 
                 $this->updateStudiesExams($data, $medical_record_code,$data->medical_record_id, $medical_code_ref, $ref_id);

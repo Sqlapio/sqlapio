@@ -11,10 +11,10 @@
         margin-bottom: 0cm;
 
         -webkit-background-size: contain;
-        -moz-background-size: contain;
-        -o-background-size: contain;
-        background-size: contain !important;
-        background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            background-size: contain !important;
+            background: url({{ asset('img/bg_pdf/'.$bg.'.png') }}) no-repeat top fixed;
     }
 
     .imagen {
@@ -146,8 +146,8 @@
                     <strong>Informe Médico</strong>
                 </div>
             </div>
-            <div id="prueba" class="row-data">
-                <div style="margin-top: 15px">
+            <div class="row-data" style="height: 6cm">
+                <div style="margin-top: 30px">
                     @php
 
                         // $des = str_replace("\r\n\r\n", "\r\n", $MedicalReport->description);
