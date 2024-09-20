@@ -118,8 +118,7 @@ class Patients extends Component
                  * esta asociado al plan corporativo
                  */
                 if ( $request->center_id == null) {
-                    $center_id_corporativo =  auth()->user()->master_corporate_id;
-
+                    $center_id_corporativo =  auth()->user()->center_id;
                 }
 
                 // Guardamos la informacion del paciente menor de edad
@@ -221,6 +220,8 @@ class Patients extends Component
                  */
 
                 if (isset($center_id_corporativo)) {
+
+
                     /** Registro del medico con plan corporativo */
                     $type = 'patient_minor';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
@@ -229,10 +230,10 @@ class Patients extends Component
                         'dr_name'                => $user->name . ' ' . $user->last_name,
                         'specialty'              => $user->specialty,
                         'center'                 => $center_info->description,
-                        'center_piso'            => $center_data->number_floor,
-                        'center_consulting_room' => $center_data->number_consulting_room,
-                        'center_phone'           => $center_data->phone_consulting_room,
-                        'center_address'         => $center_data->address,
+                        'center_piso'            => auth()->user()->number_floor,
+                        'center_consulting_room' => auth()->user()->number_consulting_room,
+                        'center_phone'           => auth()->user()->number_consulting_phone,
+                        'center_address'         => $center_info->address,
                         'patient_email'          => $user->email,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
@@ -482,9 +483,9 @@ class Patients extends Component
                         'dr_name'                => $user->name . ' ' . $user->last_name,
                         'specialty'              => $user->specialty,
                         'center'                 => $center_info->description,
-                        'center_piso'            => $center_info->number_floor,
-                        'center_consulting_room' => $center_info->number_consulting_room,
-                        'center_phone'           => $center_info->phone_consulting_room,
+                        'center_piso'            => auth()->user()->number_floor,
+                        'center_consulting_room' => auth()->user()->number_consulting_room,
+                        'center_phone'           => auth()->user()->number_consulting_phone,
                         'center_address'         => $center_info->address,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
@@ -574,7 +575,7 @@ class Patients extends Component
             // registrar datos del pacientes en la table users_patients
 
             if (UserPatients::where("username", $user_name)->first() == null) {
- 
+
                 $pass = UtilsController::generete_pass($user_name);
 
                 $UserPatients = new UserPatients();

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class ApiServicesController extends Controller
 {
+    //** whatsapp Registro de cita */
     static public function whatsapp_welcome($phone, $ubicacion, array $data)
     {
         // dd($data);
@@ -224,6 +225,8 @@ class ApiServicesController extends Controller
         }
     }
 
+
+    /** Whatsapp para registro de nuevo doctor */
     static public function whatsapp_register_doctor(array $data)
     {
 
@@ -276,6 +279,7 @@ class ApiServicesController extends Controller
         }
     }
 
+    /** Whatsapp para cuando un doctor registra un nuevo paciente */
     static public function whatsapp_register_patient_doctor($phone, array $data)
     {
 
@@ -334,6 +338,7 @@ class ApiServicesController extends Controller
         }
     }
 
+    /** Whatsapp para un nuevo paciente */
     static public function whatsapp_register_patient($phone, array $data)
     {
         try {

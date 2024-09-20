@@ -47,8 +47,6 @@ class DashboardComponent extends Component
         $all_patient_elderly = UtilsController::get_all_patient_elderly($id);
         $all_patient_gender = UtilsController::get_all_patient_gender($id);
 
-
-
         return view(
             'livewire.components.dashboard-component',
             compact(

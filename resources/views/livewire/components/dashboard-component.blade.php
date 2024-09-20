@@ -424,34 +424,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="row" style="justify-content: flex-end;">
-                                    <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
-                                                <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
-                                                background-color: #eee;
-                                                border: var(--bs-border-width) solid #9d9fa1;">
-                                                    <option value="">@lang('messages.graficas.mes')</option>
-                                                    <option value="01">@lang('messages.graficas.enero')</option>
-                                                    <option value="02">@lang('messages.graficas.febrero')</option>
-                                                    <option value="03">@lang('messages.graficas.marzo')</option>
-                                                    <option value="04">@lang('messages.graficas.abril')</option>
-                                                    <option value="05">@lang('messages.graficas.mayo')</option>
-                                                    <option value="06">@lang('messages.graficas.junio')</option>
-                                                    <option value="07">@lang('messages.graficas.julio')</option>
-                                                    <option value="08">@lang('messages.graficas.agosto')</option>
-                                                    <option value="09">@lang('messages.graficas.septiembre')</option>
-                                                    <option value="10">@lang('messages.graficas.octubre')</option>
-                                                    <option value="11">@lang('messages.graficas.noviembre')</option>
-                                                    <option value="12">@lang('messages.graficas.diciembre')</option>
-                                                </select>
-                                                <i class="bi bi-caret-down st-icon"></i>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
@@ -647,34 +619,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="row" style="justify-content: flex-end;">
-                                    <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
-                                                <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
-                                                background-color: #eee;
-                                                border: var(--bs-border-width) solid #9d9fa1;">
-                                                    <option value="">@lang('messages.graficas.mes')</option>
-                                                    <option value="01">@lang('messages.graficas.enero')</option>
-                                                    <option value="02">@lang('messages.graficas.febrero')</option>
-                                                    <option value="03">@lang('messages.graficas.marzo')</option>
-                                                    <option value="04">@lang('messages.graficas.abril')</option>
-                                                    <option value="05">@lang('messages.graficas.mayo')</option>
-                                                    <option value="06">@lang('messages.graficas.junio')</option>
-                                                    <option value="07">@lang('messages.graficas.julio')</option>
-                                                    <option value="08">@lang('messages.graficas.agosto')</option>
-                                                    <option value="09">@lang('messages.graficas.septiembre')</option>
-                                                    <option value="10">@lang('messages.graficas.octubre')</option>
-                                                    <option value="11">@lang('messages.graficas.noviembre')</option>
-                                                    <option value="12">@lang('messages.graficas.diciembre')</option>
-                                                </select>
-                                                <i class="bi bi-caret-down st-icon"></i>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">

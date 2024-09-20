@@ -141,7 +141,7 @@ class MedicalRecord extends Component
                         'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
                         'color' => '#198754'
                     ]);
-                    EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
+                    EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id, $cita_patient->patient_id);
                 }
 
                 /********************************************************************************************************/

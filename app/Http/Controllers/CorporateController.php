@@ -21,7 +21,7 @@ class CorporateController extends Controller
 
         } catch (\Throwable $th) {
             $error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_history()';
+            $modulo = 'UtilsController.user_asociate()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
         }
@@ -68,7 +68,7 @@ class CorporateController extends Controller
             $valores = [];
 
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('center_id', Auth::user()->center_id)->sum('dairy_finalizada');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('center', Auth::user()->center_id)->sum('dairy_finalizada');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
@@ -79,33 +79,49 @@ class CorporateController extends Controller
 
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_appointments_attended()';
+            $modulo = 'UtilsController.get_patient_attended_corporate';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
 		}
 	}
 
+    static function specialty()
+    {
+        try {
+
+            $specialty = Specialty::all()->select('description')->pluck('description');
+            return $specialty;
+
+        } catch (\Throwable $th) {
+            $error_log = $th->getMessage();
+            $modulo = 'UtilsController.meses()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
+        }
+    }
+
     static function get_doctor_speciality ()
 	{
 		try {
 
-			$labels = Specialty::all();
+			$labels = Specialty::all()->select('description')->pluck('description');
 
             $valores = [];
 
             for($i=0; $i < count($labels); $i++){
-                $valor = User::where('specialty', $labels[$i])->count();
+                $valor = User::where('specialty', $labels[$i])
+                ->where('master_corporate_id', Auth::user()->id)
+                ->count();
 
                 if(isset($valor)){
                     array_push($valores, $valor);
                 }
             }
-
             return $valores;
 
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
-            $modulo = 'UtilsController.get_appointments_attended()';
+            $modulo = 'UtilsController.get_doctor_speciality()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
 		}

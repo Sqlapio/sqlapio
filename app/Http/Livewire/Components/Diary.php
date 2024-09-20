@@ -51,16 +51,15 @@ class Diary extends Component
 
     public function store(Request $request)
     {
-
+        // dump(Auth::user()->center_id);
         try {
 
             $user = Auth::user();
-
             /**Logica para identificar si el registro lo hace una secretaria coorporativa */
-            if(isset($user->master_corporate_id) && $user->type_plane == 7){
+            if(isset($user->master_corporate_id) && $user->type_plane == 7 && $user->role === 'secretaria'){
 
                 $info_doctor_center = DoctorCenter::where('center_id', $user->center_id)->first();
-                $info_center = Center::where('id', $info_doctor_center->center_id)->first();
+                $info_center = Center::where('id', $user->center_id)->first();
 
             }
 
@@ -195,6 +194,7 @@ class Diary extends Component
                     /**MAYOR DE EDAD */
                     if ($request->is_minor == 'false') {
 
+
                         $patient = new Patient();
                         $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
                         $patient->name              = $request->name_patient;
@@ -264,7 +264,7 @@ class Diary extends Component
                         'errors'  => __('messages.alert.cita_otro_paciente')
                     ], 400);
                 } else {
-
+                    $info_center = Center::where('id', Auth::user()->center_id)->first();
 
                     $appointment = new Appointment();
                     $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);

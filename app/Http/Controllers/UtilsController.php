@@ -2284,7 +2284,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null)
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2299,7 +2299,6 @@ class UtilsController extends Controller
                     array_push($valores, $valor);
                 }
             }
-
             return $valores;
 
 		} catch (\Throwable $th) {
@@ -2322,7 +2321,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null)
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2360,7 +2359,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null)
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2402,14 +2401,13 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null)
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
                 $search_id = Auth::user()->id;
             }
             /************************************************************/
-
             for($i=0; $i < count($labels); $i++){
                 $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('dairy_sin_confirmar');
 
@@ -2441,13 +2439,12 @@ class UtilsController extends Controller
             $valores = [];
 
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('type_plane', 7)->count();
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('type_plane', 7)->sum('dairy_sin_confirmar');
 
                 if(isset($valor)){
                     array_push($valores, $valor);
                 }
             }
-
             return $valores;
 
 		} catch (\Throwable $th) {

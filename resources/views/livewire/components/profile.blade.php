@@ -1135,7 +1135,7 @@
                                             <button type="button" class="btn btnPrimary"
                                                 style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                         </a>
-                                        <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                        <button type="button" id="icon-copy" class="btn"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="@lang('messages.botton.copiar_enlace')"
                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');"

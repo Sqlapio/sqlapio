@@ -24,7 +24,7 @@ let chart_queries_month;
 let chart_general_appointments;
 let chart_general_appointments2;
 let chart_recorded_appointments;
-let chart_inactive_doctors;
+let patient_attended_corporate;
 
 /**
  *
@@ -995,7 +995,9 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
  *
  * Grafica de rol corporativo
  *
- *//**
+ */
+
+/**
  *
  * Grafica de citas agendadas acumuladas x mes corporativo
  *
@@ -1054,6 +1056,13 @@ function get_recorded_appointments(appointments_unconfirmed, meses) {
   });
 }
 
+
+/**
+ *
+ * Grafica de citas agendadas acumuladas x mes corporativo
+ *
+ */
+
 function get_doctors(doctors_active, doctors_inactive) {
   const data = {
     labels: [langJson.graficas.doctores_activos, langJson.graficas.doctores_inactivos],
@@ -1067,7 +1076,7 @@ function get_doctors(doctors_active, doctors_inactive) {
     ]
   };
 
-  chart_doctors = new Chart($("#doctors"), {
+    new Chart($("#doctors"), {
     type: "bar",
     data: data,
     options: {
@@ -1111,6 +1120,114 @@ function get_doctors(doctors_active, doctors_inactive) {
   });
 }
 
+/**
+ *
+ * Grafica de pacientes atendidos x mes corporativo
+ *
+ */
+
+function get_patient_attended_corporate(patient_attended_corporate, meses) {
+    const data = {
+      labels: meses,
+      datasets: [
+        {
+          label: langJson.graficas.total,
+          data: patient_attended_corporate,
+          borderColor: "#198754",
+        }
+      ]
+    };
+
+    new Chart($("#patient_attended_corporate"), {
+      type: "line",
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          },
+          x: {
+            ticks: { color: "#b3b3b3", beginAtZero: true }
+          }
+        },
+        plugins: {
+          legend: {
+            position: "bottom",
+            align: "start",
+            labels: {
+              color: "#b3b3b3"
+            }
+          },
+        }
+      }
+    });
+}
+
+/**
+ *
+ * Grafica de Medicos por especialidad
+ *
+ */
+
+function get_doctor_speciality(doctor_speciality, specialty) {
+
+    const data = {
+      labels: specialty,
+      datasets: [
+          {
+              label: 'Total',
+              data: doctor_speciality,
+              borderColor: "#00b0eb",
+              backgroundColor: "#00b0eb"
+          },
+      ]
+    };
+
+    new Chart($("#doctor_speciality"), {
+      type: "bar",
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+          },
+          x: {
+            ticks: { color: "#596167", beginAtZero: true }
+          }
+        },
+        plugins: {
+          datalabels: {
+              anchor: 'end',
+              align: 'end',
+              labels: {
+                  title: {
+                      color: "#596167",
+                      font: {
+                          weight: "bold",
+                          size: 11
+                      }
+                  }
+              },
+              formatter: function(value) {
+                  return value == 0 ? '' : value;
+              }
+          },
+          legend: {
+            position: "bottom",
+            align: "start",
+            labels: {
+              color: "#596167"
+            }
+          },
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+
+
 // window.get_patient_register = get_patient_register;
 // window.get_medical_record = get_medical_record;
 // window.get_history_register = get_history_register;
@@ -1134,3 +1251,5 @@ window.get_appointments_not_attended_scheduled = get_appointments_not_attended_s
 window.get_appointments_general = get_appointments_general;
 window.get_age = get_age;
 window.get_gender = get_gender;
+window.get_patient_attended_corporate = get_patient_attended_corporate;
+window.get_doctor_speciality = get_doctor_speciality;
