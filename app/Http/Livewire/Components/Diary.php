@@ -194,7 +194,6 @@ class Diary extends Component
                     /**MAYOR DE EDAD */
                     if ($request->is_minor == 'false') {
 
-
                         $patient = new Patient();
                         $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
                         $patient->name              = $request->name_patient;
@@ -264,7 +263,11 @@ class Diary extends Component
                         'errors'  => __('messages.alert.cita_otro_paciente')
                     ], 400);
                 } else {
-                    $info_center = Center::where('id', Auth::user()->center_id)->first();
+
+                    dump($request);
+
+                    $info_doctor_center = DoctorCenter::where('center_id', $request->center_id)->first();
+                    $info_center = Center::where('id', $info_doctor_center->center_id)->first();
 
                     $appointment = new Appointment();
                     $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
