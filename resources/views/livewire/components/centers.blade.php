@@ -386,9 +386,7 @@
 
                                     <div id="div-new-center" style="display: none">
 
-                                        <div style="display:flex">
-                                            <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 pl-1"/>
-                                        </div>
+                                        <x-ubigeo_contries class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"/>
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
