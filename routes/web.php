@@ -172,6 +172,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
+
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
             Route::post('/dash/notifications/{code}', [ApiServicesController::class, 'whatsapp_send_dash'])->name('dash-notifications');
             Route::post('/register-new-centers', [Centers::class, 'regiter_center'])->name('register-new-centers');
@@ -224,6 +225,13 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
          * lista de centros por medico
          */
         Route::get('/get_patient_history/{id}', [UtilsController::class, 'get_patient_history'])->name('get_patient_history');
+
+        /**
+         * direccion de centro
+         *
+         */
+
+         Route::get('/addressCenters/{id}',[UtilsController::class, 'get_address_center'])->name('get_address_center');
 
         /**
          * @method EndPoint

@@ -706,6 +706,21 @@ class UtilsController extends Controller
 		}
 	}
 
+    static function get_address_center($id)
+	{
+		try {
+
+			$address_centers = Center::where('id', $id)->first()->address;
+			return $address_centers;
+			//code...
+		} catch (\Throwable $th) {
+			$error_log = $th->getMessage();
+            $modulo = 'UtilsController.get_centers_state()';
+            ErrorController::error_log($modulo, $error_log);
+            return view('error404');
+		}
+	}
+
 	static function notification_register_mail($verification_code, $email, $name, $type)
 	{
 
@@ -939,6 +954,8 @@ class UtilsController extends Controller
             return view('error404');
 		}
 	}
+
+
 
 	static function get_history_family_back()
 	{

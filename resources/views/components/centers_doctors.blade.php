@@ -4,11 +4,12 @@
     use App\Models\Center;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
+    use App\Models\DoctorCenter;
 
     $user_state_id = Auth::user()->state;
     $state = State::where('id', $user_state_id)->first();
     $centers = Center::where('state', $state->description)->get();
-    
+
 @endphp
 
 <div class="{{ $class }}">
