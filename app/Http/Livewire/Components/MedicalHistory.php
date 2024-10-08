@@ -64,7 +64,7 @@ class MedicalHistory extends Component
                 'PB_A'       => (isset($data->PB_A) ? $data->PB_A : null),
                 'PB_EPOC'    => (isset($data->PB_EPOC) ? $data->PB_EPOC : null),
                 'PB_ADS'     => (isset($data->PB_ADS) ? $data->PB_ADS : null),
-                'PB_D'       => (isset($data-> PB_D) ? $data-> PB_D : null),
+                'PB_D'       => (isset($data->PB_D) ? $data->PB_D : null),
                 'PB_H'       => (isset($data->PB_H) ? $data->PB_H : null),
                 'PB_C'       => (isset($data->PB_C) ? $data->PB_C : null),
                 'PB_C_input' => (isset($data->PB_C_input) ? $data->PB_C_input : null),
