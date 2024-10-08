@@ -118,6 +118,14 @@
             margin: 4px 20px 0 0;
         }
     }
+
+    #table-info_info {
+        display: none;
+    }
+
+    #table-info_paginate {
+        display: none;
+    }
 </style>
 @php
     $lang = session()->get('locale');
@@ -326,32 +334,34 @@
                 cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
                 $('#spinner').show();
-                let route = '{{ route('delete_file_exam', [':id']) }}';
-                    route = route.replace(':id', id);
-                    $.ajax({
-                        url: route,
-                        type: 'POST',
-                        dataType: "json",
-                        data: {
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        success: function(response) {
-                            $('#spinner').hide();
+                if (result.isConfirmed) {
+                    let route = '{{ route('delete_file_exam', [':id']) }}';
+                        route = route.replace(':id', id);
+                        $.ajax({
+                            url: route,
+                            type: 'POST',
+                            dataType: "json",
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                $('#spinner').hide();
 
-                            Swal.fire({
-                                icon: 'success',
-                                title: '@lang('messages.alert.operacion_exitosa')',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: '@lang('messages.botton.aceptar')'
-                            }).then((result) => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '@lang('messages.alert.operacion_exitosa')',
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                }).then((result) => {
 
-                                let url = "{{ route('Examen') }}";
-                                    window.location.href = url;
+                                    let url = "{{ route('Examen') }}";
+                                        window.location.href = url;
 
-                            });
-                        },
-                    });
+                                });
+                            },
+                        });
+                }
 
             });
         }
