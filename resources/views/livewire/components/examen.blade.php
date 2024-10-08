@@ -333,8 +333,8 @@
                 showCancelButton: true,
                 cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
-                $('#spinner').show();
                 if (result.isConfirmed) {
+                    $('#spinner').show();
                     let route = '{{ route('delete_file_exam', [':id']) }}';
                         route = route.replace(':id', id);
                         $.ajax({
