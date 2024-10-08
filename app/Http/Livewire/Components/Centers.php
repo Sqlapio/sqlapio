@@ -52,19 +52,20 @@ class Centers extends Component
 
             if ($request->center_id == "0") { //nuevo centro
 
-                $state = State::where('id', $request->state_contrie)->first();
+                $state = State::where('id', $request->state_contrie_center)->first();
 
                 $new_centers = new Center();
                 $new_centers->address = $request->address;
                 $new_centers->description = $request->full_name;
                 $new_centers->state = $state->description;
-                $new_centers->state_id = $request->state_contrie;
+                $new_centers->state_id = $request->state_contrie_center;
                 $new_centers->country = Auth::user()->contrie;
                 $new_centers->user_id = Auth::user()->id;
-                $new_centers->city_contrie = $request->city_contrie;
+                $new_centers->city_contrie = $request->city_contrie_center;
                 $new_centers->building_house = $request->building_house;
                 $new_centers->color = UtilsController::color_dairy();
                 $new_centers->save();
+
 
 
                 $doctor_centers = new DoctorCenter();
@@ -200,6 +201,9 @@ class Centers extends Component
 
     public function regiter_center(Request $request)
     {
+
+        dd($request);
+
         try {
 
             $rules = [
@@ -252,6 +256,7 @@ class Centers extends Component
 
             return true;
         } catch (\Throwable $th) {
+            dd($th);
             return response()->json([
                 'success' => 'false',
                 'errors'  => $th->getMessage()
@@ -265,6 +270,7 @@ class Centers extends Component
         $user_state = Auth::user()->state;
         $doctor_centers = UtilsController::get_doctor_centers();
         $centers = UtilsController::get_centers($user_state);
+
         return view('livewire.components.centers', compact('doctor_centers', 'centers'));
     }
 }

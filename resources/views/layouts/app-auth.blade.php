@@ -20,6 +20,7 @@
 <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
 {{-- llamado de js jquery.mask --}}
 <script src="{{ asset('jQuery-Mask-Plugin-master/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 {{-- llamado de js locales datepicker --}}
 <script src="{{ asset('assets/locales/bootstrap-datepicker.es.min.js') }}"></script>
 {{-- llamado de js locales validation --}}

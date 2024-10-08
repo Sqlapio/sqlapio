@@ -44,6 +44,7 @@
     </style>
     @php
         $lang = session()->get('locale');
+
         if ($lang == 'en') {
             $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
         } else{
@@ -51,6 +52,7 @@
         }
     @endphp
     @push('scripts')
+
         @vite(['resources/js/centers.js'])
         <script>
             let user = @json(Auth::user());
@@ -93,7 +95,7 @@
                     },
                     messages: {
                         center_id: {
-                            required: '@lang('messages.alert.centro_obligatorio')',
+                            required: "@lang('messages.alert.centro_obligatorio')",
                         },
                         address: {
                             required: "@lang('messages.alert.direccion_obligatoria')",
@@ -102,7 +104,6 @@
                         number_floor: {
                             required: "@lang('messages.alert.num_piso_obligatorio')",
                         },
-
                         number_consulting_room: {
                             required: "@lang('messages.alert.num_cons_obligatorio')",
                         },
@@ -253,12 +254,12 @@
                                 {
                                     data: 'address',
                                     title: '@lang('messages.tabla.direccion')',
-                                    className: "text-center w-50",
+                                    className: "text-center w-30",
                                 },
                                 {
                                     data: 'building_house',
                                     title: '@lang('messages.tabla.edificio')',
-                                    className: "text-center w-5",
+                                    className: "text-center w-10",
                                 },
                                 {
                                     data: 'number_floor',
@@ -308,16 +309,34 @@
             const handlerCenterSelect = (e) => {
 
                 if(Number(e.target.value)=== 0){
-
                     $('#div-new-center').show();
+                    $('#address').val('');
 
                 }else{
 
+                    handleAddressCenter(e.target.value)
                     $('#div-new-center').hide();
 
                 }
-
             }
+
+            const handleAddressCenter = (id) => {
+                let url = "{{ route('get_address_center', ':id') }}";
+
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#address').val(response);
+                        }
+                    });
+            }
+
+
         </script>
     @endpush
     <div>
@@ -383,11 +402,9 @@
                                     @if (Auth::user()->status_register != 1)
                                         <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
                                     @endif
-
+                                    {{-- Div para nuevo centro --}}
                                     <div id="div-new-center" style="display: none">
-
-                                        <x-ubigeo_contries class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"/>
-
+                                        <x-ubigeo-contries-center class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"/>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -402,11 +419,10 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
+                                                <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
                                                 <i class="bi bi-geo st-icon"></i>
                                             </div>

@@ -1037,10 +1037,10 @@ function get_recorded_appointments(appointments_unconfirmed, meses) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -1048,12 +1048,13 @@ function get_recorded_appointments(appointments_unconfirmed, meses) {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
       }
     }
   });
+
 }
 
 
@@ -1084,10 +1085,10 @@ function get_doctors(doctors_active, doctors_inactive) {
       barThickness: 70,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }, grace: 1
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -1145,10 +1146,10 @@ function get_patient_attended_corporate(patient_attended_corporate, meses) {
         responsive: true,
         scales: {
           y: {
-            ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+            ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
           },
           x: {
-            ticks: { color: "#b3b3b3", beginAtZero: true }
+            ticks: { color: "#596167", beginAtZero: true }
           }
         },
         plugins: {
@@ -1156,7 +1157,7 @@ function get_patient_attended_corporate(patient_attended_corporate, meses) {
             position: "bottom",
             align: "start",
             labels: {
-              color: "#b3b3b3"
+              color: "#596167"
             }
           },
         }

@@ -12,6 +12,7 @@ class AdminPatients extends Component
     {
         //list de pacinetes
         $patients = CorporateController::get_patient_corporate();
+        
         return view('livewire.components.profile_corporate.admin-patients',compact('patients'));
     }
 }
