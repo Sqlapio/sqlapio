@@ -32,7 +32,7 @@ class CorporateController extends Controller
 	{
 		try {
 
-			$lista_patient = Patient::where('center_id', Auth::user()->center_id)->get();
+			$lista_patient = Patient::where('center_id', Auth::user()->center_id)->with(['get_medicard_record'])->get();
 			return $lista_patient;
 
 		} catch (\Throwable $th) {

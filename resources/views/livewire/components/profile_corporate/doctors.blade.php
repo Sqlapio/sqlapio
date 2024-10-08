@@ -41,7 +41,6 @@
 @push('scripts')
     <script>
         const handlerDoctor = async (e) => {
-            console.log(e.target)
             if (e.target.checked === false) {
                 Swal.fire({
                     icon: 'warning',
@@ -53,7 +52,7 @@
                     handlerStatus("{{ route('disabled-doctor', ':id') }}", e.target.value);
                     $('#spinner').show();
                 });
-            } 
+            }
             if (e.target.checked === true){
                 Swal.fire({
                     icon: 'warning',
@@ -102,8 +101,7 @@
             let classC = ''
 
             res.map((elem) => {
-                if (elem.tipo_status ==
-                    "1") {
+                if (elem.tipo_status == "1") {
                     checked = "checked";
                     classC = "form-check-input"
 
@@ -117,22 +115,28 @@
                         <input onchange="handlerDoctor(event);" style="width: 5em"
                             class="${classC}" type="checkbox" role="switch"
                             id="flexSwitchCheckChecked" value="${elem.id}"
-                        ${checked}>
+                            ${checked}>
                     </div>`;
 
 
 
-                let imagen = `{{ URL::asset('/img/avatar/avatar.png') }}`;
+                    let imagen = `{{ URL::asset('/img/avatar/avatar.png') }}`;
 
-                if (elem.user_img) {
-                    imagen = `{{ URL::asset('/imgs/${elem.user_img}') }}`;
-                }
+                    if (elem.user_img) {
+                        imagen = `{{ URL::asset('/imgs/${elem.user_img}') }}`;
+                    }
+
 
                 elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
                 elem.name = `${elem.name} ${elem.last_name}`
 
+                elem.floor = `${elem.number_floor} / ${elem.number_consulting_room}`
+
+                elem.description = `${elem.get_center.description}`
+
                 data.push(elem);
+
             });
             new DataTable('#table-patients-corp', {
                 language: {
@@ -150,29 +154,33 @@
                         className: "text-center w-image",
                     },
                     {
+                        data: 'specialty',
+                        title: '@lang('messages.form.especialidad')',
+                        className: "text-center text-capitalize w-17",
+                    },
+                    {
                         data: 'name',
                         title: '@lang('messages.tabla.nombre_apellido')',
                         className: "text-center text-capitalize w-17",
                     },
                     {
-                        data: 'ci',
-                        title: '@lang('messages.form.cedula')',
+                        data: 'description',
+                        title: '@lang('messages.form.centro_salud')',
+                        className: "text-center w-10",
+                    },
+                    {
+                        data: 'floor',
+                        title: '@lang('messages.tabla.piso') / @lang('messages.tabla.consultorio')',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'phone',
+                        title: '@lang('messages.tabla.telefono')',
                         className: "text-center w-10",
                     },
                     {
                         data: 'email',
                         title: '@lang('messages.form.email')',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'specialty',
-                        title: '@lang('messages.form.especialidad')',
-                        className: "text-center w-10",
-                    },
-
-                    {
-                        data: 'phone',
-                        title: '@lang('messages.tabla.telefono')',
                         className: "text-center w-10",
                     },
                     {
@@ -212,11 +220,12 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                <th class="text-center w-17">@lang('messages.tabla.nombre_apellido')</th>
-                                                <th class="text-center w-10">@lang('messages.form.cedula')</th>
-                                                <th class="text-center" data-orderable="false">@lang('messages.form.email')</th>
-                                                <th class="text-center w-10">@lang('messages.form.especialidad')</th>
-                                                <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.especialidad')</th>
+                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                <th class="text-center w-30" scope="col" data-orderable="false">@lang('messages.tabla.centro_salud') </th>
+                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.piso') / @lang('messages.tabla.consultorio')</th>
+                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
                                                 <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                             </tr>
                                         </thead>
@@ -226,11 +235,12 @@
                                                     <td class="table-avatar">
                                                         <img class="avatar" src=" {{ $item->user_img ? asset('/imgs/' .$item->user_img) : asset('/img/avatar/avatar.png') }}" alt="Imagen del paciente">
                                                     </td>
-                                                    <td class="text-center text-capitalize">{{ $item->name . ' ' . $item->last_name }}</td>
-                                                    <td class="text-center">{{ $item->ci }}</td>
-                                                    <td class="text-center">{{ $item->email }}</td>
                                                     <td class="text-center">{{ $item->specialty }}</td>
+                                                    <td class="text-center text-capitalize">{{ $item->name . ' ' . $item->last_name }}</td>
+                                                    <td class="text-center text-capitalize"> Dr. {{ $item->get_center->description }} </td>
+                                                    <td class="text-center">{{ $item->number_floor }} / {{ $item->number_consulting_room }}</td>
                                                     <td class="text-center">{{ $item->phone }}</td>
+                                                    <td class="text-center">{{ $item->email }}</td>
                                                     <td class="text-center table-check w-5">
                                                         <div class="form-check form-switch" style="display: flex; justify-content: center;">
                                                             <input onchange="handlerDoctor(event);" style="width: 5em"

@@ -115,7 +115,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                         <div class="card" style="background-color: #eee;">
                                             <div class="card-body p-4">
-                                                <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                <div class="row" id="table-patients">
                                                     <h5 style="color: #596167"><i class="bi bi-people"></i> @lang('messages.menu.pacientes')</h5>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                         <table id="table-patient" class="table table-striped table-bordered" style="width:100%;">
@@ -156,7 +156,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                         <div class="card" style="background-color: #eee;">
                                             <div class="card-body p-4">
-                                                <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                <div class="row" id="table-patients">
                                                     <h5 style="color: #596167"><i class="bi bi-people"></i> Médicos</h5>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                         <table id="table-patient" class="table table-striped table-bordered" style="width:100%;">

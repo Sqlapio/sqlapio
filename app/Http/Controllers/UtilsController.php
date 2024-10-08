@@ -621,18 +621,17 @@ class UtilsController extends Controller
 	{
 		try {
             $medical_record_user = [];
-            //Sin drogas....
-            $medical_user = MedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->get();
+
+            $medical_user = MedicalRecord::where('patient_id', $id)->with(['get_paciente', 'get_doctor', 'get_center'])->orderBy('created_at', 'desc')->get();
 
             return $medical_user;
+
         } catch (\Throwable $th) {
             $error_log = $th->getMessage();
             $modulo = 'UtilsController.get_medical_record_user()';
             ErrorController::error_log($modulo, $error_log);
             return view('error404');
         }
-
-
 	}
 
 	static function get_doctor_centers()
@@ -2017,7 +2016,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_doctor = User::where('master_corporate_id', $user->id)->where('role', 'medico')->get();
+			$lista_doctor = User::where('master_corporate_id', $user->id)->where('role', 'medico')->with(['get_center'])->get();
 			return $lista_doctor;
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
@@ -2068,6 +2067,7 @@ class UtilsController extends Controller
 			$doctor_update = UtilsController::get_doctor_corporate();
 
 			$info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+            $center_doctor = Center::where('id', $info_doctor->center_id)->first()->description;
 			$type = 'enable_doc';
 			$mailData = [
 				'dr_name'  => $info_doctor->name . ' ' . $info_doctor->last_name,
@@ -2078,6 +2078,7 @@ class UtilsController extends Controller
 			UtilsController::notification_mail($mailData, $type);
 
 			return $doctor_update;
+
 		} catch (\Throwable $th) {
 			$error_log = $th->getMessage();
             $modulo = 'UtilsController.habilitar_doctor_corporate()';
@@ -2256,8 +2257,19 @@ class UtilsController extends Controller
 
             $valores = [];
 
+             /**
+             * Este if() se utiliza para diferenciar cuando
+             * el usuario que esta logeado es un medico o su secretaria
+             */
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
+            {
+                $search_id = Auth::user()->master_corporate_id;
+            }else{
+                $search_id = Auth::user()->id;
+            }
+
             for($i=0; $i < count($labels); $i++){
-                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', Auth::user()->id)->sum('medical_record');
+                $valor = GeneralStatistic::where('mes', $labels[$i])->where('user_id', $search_id)->sum('medical_record');
                 if(isset($valor)){
                     array_push($valores, $valor);
                 }
@@ -2301,7 +2313,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2338,7 +2350,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2376,7 +2388,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2418,7 +2430,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretaria')
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{
@@ -2484,7 +2496,7 @@ class UtilsController extends Controller
              * Este if() se utiliza para diferenciar cuando
              * el usuario que esta logeado es un medico o su secretaria
              */
-            if(Auth::user()->master_corporate_id != null)
+            if(Auth::user()->master_corporate_id != null && Auth::user()->role == 'secretary')
             {
                 $search_id = Auth::user()->master_corporate_id;
             }else{

@@ -338,7 +338,6 @@ class MedicalRecord extends Component
 
     }
 
-
     public function informe_medico (Request $request)
     {
         try {

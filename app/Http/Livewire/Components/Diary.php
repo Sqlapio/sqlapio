@@ -51,29 +51,27 @@ class Diary extends Component
 
     public function store(Request $request)
     {
-        // dump(Auth::user()->center_id);
         try {
 
             $user = Auth::user();
             /**Logica para identificar si el registro lo hace una secretaria coorporativa */
-            if(isset($user->master_corporate_id) && $user->type_plane == 7 && $user->role === 'secretaria'){
+            if(isset($user->master_corporate_id) && $user->role === 'secretary'){
 
-                $info_doctor_center = DoctorCenter::where('center_id', $user->center_id)->first();
+                // $info_doctor_center = DoctorCenter::where('center_id', $user->center_id)->first();
                 $info_center = Center::where('id', $user->center_id)->first();
 
             }
 
             /**Logica para identificar si el registro lo hace una secretaria de un Medico Normal */
-            if(isset($user->master_corporate_id) && $user->type_plane != 7){
+            // if(isset($user->master_corporate_id) && $user->type_plane != 7){
 
-                $info_doctor_center = DoctorCenter::where('center_id', $user->center_id)->first();
-                $info_center = Center::where('id', $info_doctor_center->center_id)->first();
+            //     $info_doctor_center = DoctorCenter::where('center_id', $user->center_id)->first();
+            //     $info_center = Center::where('id', $info_doctor_center->center_id)->first();
 
-            }
+            // }
 
             /**Logica para identificar si el registro lo hace una secretaria de un Medico Normal */
             if(!isset($user->master_corporate_id)){
-
                 $info_doctor_center = DoctorCenter::where('center_id', $request->center_id)->first();
                 $info_center = Center::where('id', $info_doctor_center->center_id)->first();
 
@@ -264,10 +262,7 @@ class Diary extends Component
                     ], 400);
                 } else {
 
-                    dump($request);
-
-                    $info_doctor_center = DoctorCenter::where('center_id', $request->center_id)->first();
-                    $info_center = Center::where('id', $info_doctor_center->center_id)->first();
+                    $dataCenter = auth()->user()->get_center;
 
                     $appointment = new Appointment();
                     $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
@@ -277,7 +272,7 @@ class Diary extends Component
                     $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
                     $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
                     $appointment->price         = $request->price;
-                    $appointment->color         = $info_center->color;
+                    $appointment->color         = $dataCenter->color;
                     $appointment->save();
 
                     /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
@@ -361,9 +356,9 @@ class Diary extends Component
                             'fecha'         => $request->date_start,
                             'horario'       => $date[0] . ' ' . $request->timeIni,
                             'centro'        => $appointment->get_center->description,
-                            'piso'          => $data_center->number_floor,
-                            'consultorio'   => $data_center->number_consulting_room,
-                            'telefono'      => $data_center->phone_consulting_room,
+                            'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                            'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                            'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
                             'price'         => $appointment->price,
                             'ubication'     => $ubication,
                         ];

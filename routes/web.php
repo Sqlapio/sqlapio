@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiServicesController;
+use App\Http\Controllers\CorporateController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\MultilanguajeController;

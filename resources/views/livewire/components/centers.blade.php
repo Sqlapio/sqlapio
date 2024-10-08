@@ -95,7 +95,7 @@
                     },
                     messages: {
                         center_id: {
-                            required: '@lang('messages.alert.centro_obligatorio')',
+                            required: "@lang('messages.alert.centro_obligatorio')",
                         },
                         address: {
                             required: "@lang('messages.alert.direccion_obligatoria')",
@@ -104,7 +104,6 @@
                         number_floor: {
                             required: "@lang('messages.alert.num_piso_obligatorio')",
                         },
-
                         number_consulting_room: {
                             required: "@lang('messages.alert.num_cons_obligatorio')",
                         },

@@ -66,10 +66,12 @@
 </style>
 @push('scripts')
     <script>
-        const hendlerModal = async (id) => {
+
+        const showModal = async (item) => {
+
             let url = "{{ route('get_medical_record_user', ':id') }}";
-            url = url.replace(':id', id);
-            // ajax para refrescar la tabla s
+            url = url.replace(':id', item.id);
+
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -79,50 +81,57 @@
                         'content')
                 },
                 success: function(res) {
-                    $('.list-group').empty();
-                    if (res.length > 0) {
-                        res.map((e, key) => {
-                            let element = '';
-                            if ((key % 2) == 0) {
-                                element =
-                                        `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb- text-capitalize">@lang('messages.form.medico'): ${e.full_name_doc} </h5>
-                                                <br>
-                                            </div>
-                                            <small>@lang('messages.form.codigo_consulta'):</small> <strong>${e.data.record_code}</strong>
-                                            <br>
-                                            <small>@lang('messages.form.fecha_consulta'):</small> <strong>${e.date}</strong>
-                                        </li>`
-                            } else {
-                                element =
-                                        `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1 text-capitalize">@lang('messages.form.medico'): ${e.full_name_doc} </h5><br>
-                                            </div>
-                                            <small>@lang('messages.form.codigo_consulta'):</small> <strong>${e.data.record_code}</strong>
-                                            <br>
-                                            <small>@lang('messages.form.fecha_consulta'):</small> <strong>${e.date}</strong>
-                                        </li>`
-                            }
-                            $('.list-group').append(element);
-                        })
 
-                        $('#modalDetaly').modal('show');
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: '@lang('messages.pacientes.paciente_sin_cons')',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        });
-                    }
+                    let data = [];
+
+                    res.map((elem) => {
+
+                        elem.name_full = `${elem.get_doctor.name} ${elem.get_doctor.last_name}`;
+
+                        let elemData = JSON.stringify(elem);
+
+                        data.push(elem);
+                    })
+
+                    $('.table-corpo').dataTable( {
+                        "aaData": data,
+                        ordering: false,
+                        bDestroy: true,
+                        destroy: true,
+                        "bLengthChange": false,
+                        "columns": [
+                            {
+                                "data": "name_full",
+                                title: '@lang('messages.tabla.medico_tratante')',
+                                className: "text-center text-capitalize",
+                            },
+                            {
+                                "data": "get_doctor.phone",
+                                title: '@lang('messages.tabla.telefono')',
+                                className: "text-center",
+                            },
+                            {
+                                "data": "record_date",
+                                title: '@lang('messages.form.fecha_consulta')',
+                                className: "text-center",
+                            },
+                        ]
+                    })
                 }
             });
 
 
+            $('#modalDetaly').modal('show');
+            $("#email").text(item.email);
+            $("#blood_type").text(item.blood_type);
+            $("#age").text(item.age);
+            $("#genere").text(item.genere);
+            $("#name").text(item.name + ' ' + item.last_name);
+            $("#phone").text(item.phone);
+            $("#fecha_nac").text(item.birthdate);
+
         }
+
     </script>
 @endpush
 @section('content')
@@ -147,25 +156,18 @@
                                         <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col">@lang('messages.tabla.foto')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.codigo_paciente')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.fecha_nacimiento')</th>
                                                     <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                    <th class="text-center w-30" scope="col" data-orderable="false">@lang('messages.tabla.centro_salud') </th>
                                                     <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($patients as $item)
                                                     <tr>
-                                                        <td class="table-avatar">
-                                                            <img class="avatar"
-                                                                src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                alt="Imagen del paciente">
-                                                        </td>
                                                         <td class="text-center">{{ $item->patient_code }}</td>
                                                         <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
                                                         <td class="text-center"> {{ $item->is_minor === 'true' ? $item->re_ci . '  (Rep)' : $item->ci }} </td>
@@ -175,13 +177,7 @@
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                                    <button type="button"
-                                                                        onclick="hendlerModal({{ $item->id }})"
-                                                                        class="btn btn-iPrimary rounded-circle"
-                                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Detalles del paciente" style="margin-right: 0px;">
-                                                                        <i class="bi bi-info-circle-fill"></i>
-                                                                    </button>
+                                                                    <button type="button" class="btn btn-iPrimary rounded-circle" onclick="showModal({{ $item }})"><i class="bi bi-info-circle-fill"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -201,19 +197,35 @@
     <!-- Modal -->
     <div class="modal fade" id="modalDetaly" tabindex="-1" aria-labelledby="modalDetalyLabel" aria-hidden="true"
         id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header title">
-                        <i class="bi bi-calendar-week"></i>
-                        <span style="padding-left: 5px">@lang('messages.label.consultas_medicas')</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="font-size: 12px;"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
-                                <div class="list-group"></div>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header title">
+                    <i class="bi bi-calendar-week"></i>
+                    <span style="padding-left: 5px">@lang('messages.label.consultas_medicas')</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-size: 12px;"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="font-size: 14px">
+                            <strong>@lang('messages.tabla.nombre_apellido'): </strong><span id="name"></span>
+                            <br>
+                            <strong>@lang('messages.tabla.tipo_sangre'): </strong><span id="blood_type"></span>
+                            <br>
+                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere"></span>
+                            <br>
+                            <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> @lang('messages.ficha_paciente.años')
+                            <br>
+                            <strong>@lang('messages.tabla.telefono'): </strong><span id="phone"></span>
+                            <br>
+                            <strong>@lang('messages.tabla.fecha_nacimiento'): </strong><span id="fecha_nac"></span>
+                            <br>
+                            <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email"></span>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;" id="table-patient-corp">
+                                <table id="table-patient-corp" class="table table-striped table-bordered table-corpo" style="width:100%; ">
+                                </table>
                             </div>
                         </div>
                     </div>
