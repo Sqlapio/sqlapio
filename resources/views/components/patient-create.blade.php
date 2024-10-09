@@ -2,7 +2,7 @@
     <div class="row form-patient-register" style="display: none">
 
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-            <small class="text-warning">Si el paciente es menor de edad debe colocar el correo del representante.!</small>
+            <small class="text-warning">NOTA: Si el paciente es menor de edad debe colocar el correo del representante.!</small>
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">

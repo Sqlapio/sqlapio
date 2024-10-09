@@ -51,6 +51,7 @@ class Diary extends Component
 
     public function store(Request $request)
     {
+
         try {
 
             $user = Auth::user();
@@ -110,270 +111,283 @@ class Diary extends Component
             $hour = $date[0];
             $minute = $date[1];
 
-            if ($request->patient_new == "true") {
+            $date_start = $request->date_start;
 
-                $validate_dairy = Appointment::where('date_start', $request->date_start)
-                    ->where('hour_start', $hour . '-' . $minute . " " . $request->timeIni)
-                    ->where('status', 1)
-                    ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
-                    ->first();
 
-                if (isset($validate_dairy)) {
-                    return response()->json([
-                        'success' => 'false',
-                        'errors'  => __('messages.alert.cita_otro_paciente')
-                    ], 400);
+            if($date_start === date("Y-m-d") && $hour <= date("H:i") === true ) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => __('messages.alert.hora_ant')
+                ], 400);
+
+            } else {
+
+                if ($request->patient_new == "true") {
+
+                    $validate_dairy = Appointment::where('date_start', $request->date_start)
+                        ->where('hour_start', $hour . '-' . $minute . " " . $request->timeIni)
+                        ->where('status', 1)
+                        ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
+                        ->first();
+
+                    if (isset($validate_dairy)) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => __('messages.alert.cita_otro_paciente')
+                        ], 400);
+                    } else {
+
+                        /**MENOR DE EDAD */
+                        if ($request->is_minor == 'true') {
+
+                            $patient = new Patient();
+                            $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
+                            $patient->name              = $request->name_patient;
+                            $patient->last_name         = $request->last_name_patient;
+                            $patient->is_minor          = $request->is_minor;
+                            $patient->birthdate         = $request->birthdate_patient;
+                            $patient->age               = $request->age_patient;
+                            $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                            $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                            $patient->contrie_doc       = auth()->user()->contrie;
+                            $patient->verification_code = Str::random(30);
+                            $patient->email             = $request->email_patient;
+                            $patient->phone             = $request->phone;
+                            $patient->save();
+
+
+                            $appointment = new Appointment();
+                            $appointment->code        = 'SQ-D-' . random_int(11111111, 99999999);
+                            $appointment->user_id     = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                            $appointment->patient_id  = $patient->id;
+                            $appointment->date_start  = $request->date_start;
+                            $appointment->hour_start  = $hour . '-' . $minute . " " . $request->timeIni;
+                            $appointment->center_id   = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                            $appointment->price       = $request->price;
+                            $appointment->color       = $info_center->color;
+                            $appointment->save();
+
+                            $action = '23';
+                            ActivityLogController::store_log($action);
+
+                            /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+                            EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+
+                            /**Envio de notificaciones */
+
+                            /**Buscamos la direccion del centro */
+                            $dir = str_replace(' ', '%20', $appointment->get_center->description);
+                            $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+                            $type = 'appointment';
+
+                            $mailData = [
+                                'dr_name'       => $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $request->email_patient,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $info_center->description,
+                                'piso'          => $info_doctor_center->number_floor,
+                                'consultorio'   => $info_doctor_center->number_consulting_room,
+                                'telefono'      => $info_doctor_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($request->phone, $ubication, $mailData);
+                        }
+
+                        /**MAYOR DE EDAD */
+                        if ($request->is_minor == 'false') {
+
+                            $patient = new Patient();
+                            $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
+                            $patient->name              = $request->name_patient;
+                            $patient->last_name         = $request->last_name_patient;
+                            $patient->phone             = $request->phone;
+                            $patient->email             = $request->email_patient;
+                            $patient->is_minor          = $request->is_minor;
+                            $patient->birthdate         = $request->birthdate_patient;
+                            $patient->age               = $request->age_patient;
+                            $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                            $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                            $patient->contrie_doc       = auth()->user()->contrie;
+                            $patient->verification_code = Str::random(30);
+                            $patient->save();
+
+                            $appointment = new Appointment();
+                            $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
+                            $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+                            $appointment->patient_id    = $patient->id;
+                            $appointment->date_start    = $request->date_start;
+                            $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
+                            $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
+                            $appointment->price         = $request->price;
+                            $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
+                            $appointment->save();
+
+                            $action = '23';
+                            ActivityLogController::store_log($action);
+
+                            /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+                            EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
+
+                            /**Envio de notificaciones */
+
+                            /**Buscamos la direccion del centro */
+                            $dir = str_replace(' ', '%20', $appointment->get_center->description);
+                            $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+                            $mailData = [
+                                'dr_name'       => $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $patient->name . ' ' . $patient->last_name,
+                                'cod_patient'   => $patient->patient_code,
+                                'patient_email' => $request->email_patient,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $info_center->description,
+                                'piso'          => $info_doctor_center->number_floor,
+                                'consultorio'   => $info_doctor_center->number_consulting_room,
+                                'telefono'      => $info_doctor_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
+                        }
+                    }
                 } else {
 
-                    /**MENOR DE EDAD */
-                    if ($request->is_minor == 'true') {
+                    $validate_dairy = Appointment::where('date_start', $request->date_start)
+                        ->where('hour_start',  $hour . '-' . $minute . " " . $request->timeIni)
+                        ->where('status', 1)
+                        ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
+                        ->first();
 
-                        $patient = new Patient();
-                        $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
-                        $patient->name              = $request->name_patient;
-                        $patient->last_name         = $request->last_name_patient;
-                        $patient->is_minor          = $request->is_minor;
-                        $patient->birthdate         = $request->birthdate_patient;
-                        $patient->age               = $request->age_patient;
-                        $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                        $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                        $patient->contrie_doc       = auth()->user()->contrie;
-                        $patient->verification_code = Str::random(30);
-                        $patient->email             = $request->email_patient;
-                        $patient->phone             = $request->phone;
-                        $patient->save();
+                    if (isset($validate_dairy)) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => __('messages.alert.cita_otro_paciente')
+                        ], 400);
+                    } else {
 
-
-                        $appointment = new Appointment();
-                        $appointment->code        = 'SQ-D-' . random_int(11111111, 99999999);
-                        $appointment->user_id     = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                        $appointment->patient_id  = $patient->id;
-                        $appointment->date_start  = $request->date_start;
-                        $appointment->hour_start  = $hour . '-' . $minute . " " . $request->timeIni;
-                        $appointment->center_id   = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                        $appointment->price       = $request->price;
-                        $appointment->color       = $info_center->color;
-                        $appointment->save();
-
-                        $action = '23';
-                        ActivityLogController::store_log($action);
-
-                        /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
-                        EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
-
-                        /**Envio de notificaciones */
-
-                        /**Buscamos la direccion del centro */
-                        $dir = str_replace(' ', '%20', $appointment->get_center->description);
-                        $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
-
-                        $type = 'appointment';
-
-                        $mailData = [
-                            'dr_name'       => $user->name . ' ' . $user->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $patient->name . ' ' . $patient->last_name,
-                            'cod_patient'   => $patient->patient_code,
-                            'patient_email' => $request->email_patient,
-                            'fecha'         => $request->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $info_center->description,
-                            'piso'          => $info_doctor_center->number_floor,
-                            'consultorio'   => $info_doctor_center->number_consulting_room,
-                            'telefono'      => $info_doctor_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                        ];
-
-                        /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome_pre_registro($request->phone, $ubication, $mailData);
-                    }
-
-                    /**MAYOR DE EDAD */
-                    if ($request->is_minor == 'false') {
-
-                        $patient = new Patient();
-                        $patient->patient_code      = UtilsController::get_patient_code($request->ci_patient);
-                        $patient->name              = $request->name_patient;
-                        $patient->last_name         = $request->last_name_patient;
-                        $patient->phone             = $request->phone;
-                        $patient->email             = $request->email_patient;
-                        $patient->is_minor          = $request->is_minor;
-                        $patient->birthdate         = $request->birthdate_patient;
-                        $patient->age               = $request->age_patient;
-                        $patient->center_id         = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                        $patient->user_id           = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                        $patient->contrie_doc       = auth()->user()->contrie;
-                        $patient->verification_code = Str::random(30);
-                        $patient->save();
+                        $dataCenter = Center::where('id', $info_doctor_center->center_id)->first();
 
                         $appointment = new Appointment();
                         $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
                         $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                        $appointment->patient_id    = $patient->id;
+                        $appointment->patient_id    = $request->patient_id;
                         $appointment->date_start    = $request->date_start;
                         $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
                         $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
                         $appointment->price         = $request->price;
-                        $appointment->color         = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : Center::where('id', $request->center_id)->first()->color;
+                        $appointment->color         = $dataCenter->color;
                         $appointment->save();
-
-                        $action = '23';
-                        ActivityLogController::store_log($action);
 
                         /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
                         EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
 
-                        /**Envio de notificaciones */
+                        /**Notificacion por correo cuando el paciente existe */
+                        /**preguntamos si es menor de edad o mayor */
+                        $info_patient = Patient::where('id', $request->patient_id)->first();
 
-                        /**Buscamos la direccion del centro */
+                        /*Email para notificaciones*/
+                        $patient_email = $info_patient->email;
+
+                        /**Logica para tomar la ubicacion del centro y enviar el url de GoogleMaps en la notificacion por email */
+                        if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
+
+                            $data_center = auth()->user();
+
+
+                            /** cuando es una secretaria de un medico corporativo */
+                        } elseif (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+                            $dataCenter = auth()->user()->get_data_corporate_master;
+                            $numberFloor = $dataCenter->number_floor;
+                            $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                            $numberConsultingRoom = $dataCenter->number_consulting_room;
+                            $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+
+                            /** cuando es una secretaria de un medico natural */
+                        } elseif (auth()->user()->role == "secretary") {
+
+                            $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+
+                            foreach ($dataCenter as $item) {
+                                $nameDoctor = $item->name . ' ' . $item->last_name;
+                                $numberFloor = $item->number_floor;
+                                $numberConsultingRoom = $item->number_consulting_room;
+                                $phoneConsultingRoom = $item->phone_consulting_room;
+                            }
+                        } else {
+
+                            $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+                        }
+
                         $dir = str_replace(' ', '%20', $appointment->get_center->description);
                         $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
-                        $mailData = [
-                            'dr_name'       => $user->name . ' ' . $user->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $patient->name . ' ' . $patient->last_name,
-                            'cod_patient'   => $patient->patient_code,
-                            'patient_email' => $request->email_patient,
-                            'fecha'         => $request->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $info_center->description,
-                            'piso'          => $info_doctor_center->number_floor,
-                            'consultorio'   => $info_doctor_center->number_consulting_room,
-                            'telefono'      => $info_doctor_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                        ];
-                    }
-                }
-            } else {
 
-                $validate_dairy = Appointment::where('date_start', $request->date_start)
-                    ->where('hour_start',  $hour . '-' . $minute . " " . $request->timeIni)
-                    ->where('status', 1)
-                    ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
-                    ->first();
+                        /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
+                        if (isset($center_id_corporativo)) {
+                            $type = 'appointment';
+                            $mailData = [
+                                'dr_name'       => auth()->user()->role == "secretary" ? $nameDoctor : $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $info_patient->name . ' ' . $info_patient->last_name,
+                                'cod_patient'   => $info_patient->patient_code,
+                                'patient_email' => $patient_email,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                                'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                                'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                                'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
+                                'link_cancel'   => 'https://system.sqlapio.com/cancel/dairy/' . $appointment->code,
+                            ];
 
-                if (isset($validate_dairy)) {
-                    return response()->json([
-                        'success' => 'false',
-                        'errors'  => __('messages.alert.cita_otro_paciente')
-                    ], 400);
-                } else {
+                            /**Notificacion por email */
+                            UtilsController::notification_mail($mailData, $type);
 
-                    $dataCenter = Center::where('id', $info_doctor_center->center_id)->first();
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome_pre_registro($info_patient->phone, $ubication, $mailData);
+                        } else {
+                            $type = 'appointment';
+                            $mailData = [
+                                'dr_name'       => $user->name . ' ' . $user->last_name,
+                                'dr_email'      => $user->email,
+                                'patient_name'  => $info_patient->name . ' ' . $info_patient->last_name,
+                                'cod_patient'   => $info_patient->patient_code,
+                                'patient_email' => $patient_email,
+                                'fecha'         => $request->date_start,
+                                'horario'       => $date[0] . ' ' . $request->timeIni,
+                                'centro'        => $appointment->get_center->description,
+                                'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                                'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                                'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
+                                'price'         => $appointment->price,
+                                'ubication'     => $ubication,
+                            ];
 
-                    $appointment = new Appointment();
-                    $appointment->code          = 'SQ-D-' . random_int(11111111, 99999999);
-                    $appointment->user_id       = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-                    $appointment->patient_id    = $request->patient_id;
-                    $appointment->date_start    = $request->date_start;
-                    $appointment->hour_start    = $hour . '-' . $minute . " " . $request->timeIni;
-                    $appointment->center_id     = (Auth::user()->center_id != null) ? Auth::user()->center_id : $request->center_id;
-                    $appointment->price         = $request->price;
-                    $appointment->color         = $dataCenter->color;
-                    $appointment->save();
+                            /**Notificacion por email */
+                            UtilsController::notification_mail($mailData, $type);
 
-                    /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
-                    EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
-
-                    /**Notificacion por correo cuando el paciente existe */
-                    /**preguntamos si es menor de edad o mayor */
-                    $info_patient = Patient::where('id', $request->patient_id)->first();
-
-                    /*Email para notificaciones*/
-                    $patient_email = $info_patient->email;
-
-                    /**Logica para tomar la ubicacion del centro y enviar el url de GoogleMaps en la notificacion por email */
-                    if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
-
-                        $data_center = auth()->user();
-
-
-                        /** cuando es una secretaria de un medico corporativo */
-                    } elseif (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
-                        $dataCenter = auth()->user()->get_data_corporate_master;
-                        $numberFloor = $dataCenter->number_floor;
-                        $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
-                        $numberConsultingRoom = $dataCenter->number_consulting_room;
-                        $phoneConsultingRoom = $dataCenter->phone_consulting_room;
-
-                        /** cuando es una secretaria de un medico natural */
-                    } elseif (auth()->user()->role == "secretary") {
-
-                        $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
-
-                        foreach ($dataCenter as $item) {
-                            $nameDoctor = $item->name . ' ' . $item->last_name;
-                            $numberFloor = $item->number_floor;
-                            $numberConsultingRoom = $item->number_consulting_room;
-                            $phoneConsultingRoom = $item->phone_consulting_room;
+                            /**Notificacion por whatsapp */
+                            ApiServicesController::whatsapp_welcome($info_patient->phone, $ubication, $mailData);
                         }
-                    } else {
-
-                        $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
-                    }
-
-                    $dir = str_replace(' ', '%20', $appointment->get_center->description);
-                    $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
-
-
-                    /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
-                    if (isset($center_id_corporativo)) {
-                        $type = 'appointment';
-                        $mailData = [
-                            'dr_name'       => auth()->user()->role == "secretary" ? $nameDoctor : $user->name . ' ' . $user->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $info_patient->name . ' ' . $info_patient->last_name,
-                            'cod_patient'   => $info_patient->patient_code,
-                            'patient_email' => $patient_email,
-                            'fecha'         => $request->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $appointment->get_center->description,
-                            'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
-                            'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
-                            'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                            'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
-                            'link_cancel'   => 'https://system.sqlapio.com/cancel/dairy/' . $appointment->code,
-                        ];
-
-                        /**Notificacion por email */
-                        UtilsController::notification_mail($mailData, $type);
-
-                        /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome_pre_registro($info_patient->phone, $ubication, $mailData);
-                    } else {
-                        $type = 'appointment';
-                        $mailData = [
-                            'dr_name'       => $user->name . ' ' . $user->last_name,
-                            'dr_email'      => $user->email,
-                            'patient_name'  => $info_patient->name . ' ' . $info_patient->last_name,
-                            'cod_patient'   => $info_patient->patient_code,
-                            'patient_email' => $patient_email,
-                            'fecha'         => $request->date_start,
-                            'horario'       => $date[0] . ' ' . $request->timeIni,
-                            'centro'        => $appointment->get_center->description,
-                            'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
-                            'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
-                            'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
-                            'price'         => $appointment->price,
-                            'ubication'     => $ubication,
-                        ];
-
-                        /**Notificacion por email */
-                        UtilsController::notification_mail($mailData, $type);
-
-                        /**Notificacion por whatsapp */
-                        ApiServicesController::whatsapp_welcome($info_patient->phone, $ubication, $mailData);
                     }
                 }
+                /** Fin de la funcion */
             }
-            /** Fin de la funcion */
-
             return true;
+
+
         } catch (\Throwable $th) {
             dd($th);
             return response()->json([

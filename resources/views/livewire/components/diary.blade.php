@@ -148,8 +148,6 @@
             let user = @json(Auth::user());
             let centers = @json($centers);
 
-
-
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
             getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente, user);
@@ -180,6 +178,19 @@
 
         });
 
+        const clearModal = () => {
+            $("#flexSwitchCheckChecked").prop('checked',false);
+            $("#name_patient").val('');
+            $("#last_name_patient").val('');
+            $("#phone").val('');
+            $("#email_patient").val('');
+            $("#birthdate_patient").val('');
+            $("#patient_new").val(false);
+            $("#search-patients-show").show();
+            $(".form-patient-register").hide();
+
+        }
+
         const handlerPetientRegister = (e) => {
 
             if ($(`#${e.target.id}`).is(':checked')) {
@@ -193,15 +204,16 @@
 
                 $("#name_patient").val('');
                 $("#last_name_patient").val('');
-                $("#phone_patient").val('');
+                $("#phone").val('');
                 $("#email_patient").val('');
-                // $("#birthdate_patient").val('');
+                $("#birthdate_patient").val('');
                 $("#patient_new").val(false);
                 $("#search-patients-show").show();
                 $(".form-patient-register").hide();
 
             }
         }
+
     </script>
 @endpush
 @section('content')
@@ -226,7 +238,7 @@
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
                             <span style="padding-left: 5px" id="title-modal"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="clearModal()" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="date-lb">
@@ -344,16 +356,16 @@
                                     @endif
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center" id="check-price">
-                                        <div class="form-check form-switch">
-                                            <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px" for="showPrice">@lang('messages.modal.form.precio')</label>
+                                        <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                            <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="" style="margin-bottom: 4px;">
+                                            <label style="font-size: 13px" for="showPrice">@lang('messages.modal.form.precio')</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')($)</label>
+                                                <label for="searchPatients" class="form-label" style="font-size: 13px; ">@lang('messages.modal.form.precio')($)</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price"
                                                     name="price" id="searchPatients" value="">

@@ -662,6 +662,8 @@ return [
         'habilitar_medico'          => 'Are you sure you want to enable this doctor?',
         'deshabilitar_medico'       => 'Are you sure you want to disable this doctor?',
         'recordatorio_enviado'      => 'Reminder sent successfully!!',
+        'nom_edf_obligatorio'       => 'Building/House is required',
+        'hora_ant'                  => 'You are selecting a time earlier than the current time',
     ],
 
     'graficas' => [
@@ -859,6 +861,7 @@ return [
         'link'                => 'PATIENT PORTAL LINK',
         'recordatorio_cita'   => 'RECORDATORIO DE CITA MÉDICA',
         'text_cita'           => 'We inform you that you have a medical appointment scheduled for today',
+        'precio'              => 'Consultation Price'
     ],
 
 ];
