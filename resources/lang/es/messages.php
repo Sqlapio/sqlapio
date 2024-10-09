@@ -215,7 +215,6 @@ return [
         'gestion_medicos'       => 'Gestión Médicos',
         'dispositivos_medicos'  => 'Dispositivos Médicos',
         'historia_medica'       => 'Historia Médica',
-
     ],
 
     'tooltips' => [
@@ -663,8 +662,8 @@ return [
         'habilitar_medico'          => '¿Está seguro que desea habilitar este medico?',
         'deshabilitar_medico'       => '¿Está seguro que desea deshabilitar este medico?',
         'recordatorio_enviado'      => 'Recordatorio enviado satisfactoriamente!!',
-
         'nom_edf_obligatorio'       => 'Edificio/Casa es obligatorio',
+        'hora_ant'                  => 'Está seleccionando una hora anterior a la actual',
     ],
 
     'graficas' => [
@@ -862,7 +861,6 @@ return [
         'link'                => 'LINK PORTAL DEL PACIENTE',
         'recordatorio_cita'   => 'RECORDATORIO DE CITA MÉDICA',
         'text_cita'           => 'Le informamos que para el día de hoy tiene una cita médica agendada',
-
         'precio'              => 'Precio de la Consulta'
     ],
 
