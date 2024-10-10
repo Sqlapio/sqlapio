@@ -640,7 +640,7 @@
                             window.location.href = url;
                             $("#form-informe-medico").trigger("reset");
                             $('#modalInformeMedico').modal('toggle');
-                            setDatatable(response);
+                            // setDatatable(response);
                         });
                     },
                     error: function(error) {
@@ -1930,6 +1930,8 @@
                 `;
 
             elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
+
+            console.log(elem)
             row.push(elem);
         });
         new DataTable(
@@ -1938,10 +1940,11 @@
                 data: row,
                 "searching": false,
                 "bLengthChange": false,
-                columns: [{
-                        data: 'cod_medical_report',
-                        title: '@lang('messages.tabla.codigo_informe')',
-                        className: "text-center",
+                columns: [
+                    {
+                        data: 'get_center.description',
+                        title: '@lang('messages.tabla.centro_salud')',
+                        className: "text-center td-pad w-30",
                     },
                     {
                         data: 'name',
@@ -1954,9 +1957,14 @@
                         className: "text-center w-10",
                     },
                     {
+                        data: 'cod_medical_report',
+                        title: '@lang('messages.tabla.codigo_informe')',
+                        className: "text-center",
+                    },
+                    {
                         data: 'btn',
                         title: '@lang('messages.tabla.acciones')',
-                        className: "text-center",
+                        className: "text-center w-5",
                     }
                 ],
             });
