@@ -162,7 +162,10 @@ class Reference extends Component
                  */
                 $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
 
-                ApiServicesController::whatsapp_location_lab($data_exams, $data_studies, $mailData, $patient_phone);
+                if ($data_studies != [] && $data_exams != [] || $data_studies != [] || $data_exams != []) {
+
+                    ApiServicesController::whatsapp_location_lab($data_exams, $data_studies, $mailData, $patient_phone);
+                };
             }
             //code...
         } catch (\Throwable $th) {

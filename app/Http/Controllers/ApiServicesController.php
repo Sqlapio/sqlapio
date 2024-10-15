@@ -67,6 +67,8 @@ class ApiServicesController extends Controller
             $ubicacion = __('messages.whatsapp.ubicacion');
             $precio = __('messages.whatsapp.precio');
 
+            $price = $data['price'] === null ? '---' : $data['price'] . ' $';
+
             $body = <<<HTML
             *{$cita_medica}:*
 
@@ -79,7 +81,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *{$precio}:*  {$data['price']} $
+            *{$precio}:* {$price}
 
             *{$ubicacion}:* {$data['ubication']}
             HTML;
@@ -175,6 +177,8 @@ class ApiServicesController extends Controller
             $ubicacion = __('messages.whatsapp.ubicacion');
             $precio = __('messages.whatsapp.precio');
 
+            $price = $data['price'] === null ? '---' : $data['price'] . ' $';
+
             $body = <<<HTML
             *{$cita_medica}:*
 
@@ -187,7 +191,7 @@ class ApiServicesController extends Controller
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
             *{$consultorio}:* {$data['consultorio']}
-            *{$precio}:*  {$data['price']} $
+            *{$precio}:* {$price}
 
             *{$ubicacion}:* {$data['ubication']}
             HTML;
@@ -418,8 +422,8 @@ class ApiServicesController extends Controller
             array_push($array_es, $es);# code...
         }
 
-        $list_ex = join(', ', $array_ex);
-        $list_es = join(', ', $array_es);
+        $list_ex = $array_ex != [] ? join(', ', $array_ex) : 'Sin exámenes';
+        $list_es = $array_es != [] ? join(', ', $array_es) : 'Sin estudios';
         $examenes = __('messages.whatsapp.examenes');
         $estudios = __('messages.whatsapp.estudios');
         $sr = __('messages.whatsapp.sr');
@@ -596,6 +600,8 @@ class ApiServicesController extends Controller
             $ubicacion = __('messages.whatsapp.ubicacion');
             $precio = __('messages.whatsapp.precio');
 
+            $price = $cita->price === null ? '---' : $cita->price . ' $';
+
             $body = <<<HTML
             *{$cita_medica}:*
 
@@ -610,7 +616,7 @@ class ApiServicesController extends Controller
             *{$consultorio}:* {$doctor_center->number_consulting_room}
             *Confirmar cita:* {$confirmar}
             *Cancelar cita:*  {$cancelar}
-            *{$precio}:* {$cita->price} $
+            *{$precio}:* {$price}
 
             *{$ubicacion}:* {$ubication}
 

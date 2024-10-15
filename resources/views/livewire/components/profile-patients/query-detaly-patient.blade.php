@@ -557,14 +557,12 @@
                                                     <tr>
                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
-                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-center text-capitalize"> ${ response.patient.get_history.ACTSEX_activo === '1' ? "Activo" : "Inactivo"}</td>
+                                                        <td class="text-center text-capitalize"> ${ response.patient.get_history.ACTSEX_activo ? response.patient.get_history.ACTSEX_activo === '1' ? "Activo" : "Inactivo" : "-----"}</td>
                                                         <td class="text-center text-capitalize"> ${ response.patient.get_history.ACTSEX_enfermedades_ts}</td>
-                                                        <td class="text-center text-capitalize"> ${ response.patient.get_history.MENOSPA_tratamiento}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1718,14 +1716,12 @@
                                                                                             <tr>
                                                                                                 <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
                                                                                                 <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
-                                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody>
                                                                                             <tr>
-                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo"}}</td>
+                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->ACTSEX_activo ? $item->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo" : "-----"}}</td>
                                                                                                 <td class="text-center text-capitalize"> {{ $item->get_history->ACTSEX_enfermedades_ts}}</td>
-                                                                                                <td class="text-center text-capitalize"> {{ $item->get_history->MENOSPA_tratamiento}}</td>
                                                                                             </tr>
                                                                                         </tbody>
                                                                                     </table>
