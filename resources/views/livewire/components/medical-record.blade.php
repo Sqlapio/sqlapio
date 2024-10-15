@@ -838,313 +838,315 @@
         if (patient.get_history != null) {
 
             // Antecedentes Personales y Familiares
-            family_back.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                family_back.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
+                        if (key == value.name) {
 
-                        if (val != null) {
-                            $('.family_back')
-                                .append(
-                                    `<small>${value.name === 'FB_C' ? '<strong> ✔ </strong>'+value.text+ ' ( ' +patient.get_history.FB_C_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
+                            if (val != null) {
+                                $('.family_back')
+                                    .append(
+                                        `<small>${value.name === 'FB_C' ? '<strong> ✔ </strong>'+value.text+ ' ( ' +patient.get_history.FB_C_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
 
-                                );
-                        }
-                    };
+                                    );
+                            }
+                        };
+                    }
+                });
+                if (patient.get_history.observations_back_family) {
+                    $('.ob_family_back').append(
+                        `<div class="d-flex w-100 justify-content-between">
+                            <span class="text-justify mt-3">
+                                <h6 class="mb-0 text-capitalize">
+                                    @lang('messages.label.observaciones'):
+                                </h6>
+                                <small>${patient.get_history.observations_back_family}</small>
+                            </span>
+                        </div>`
+                    );
                 }
-            });
-            if (patient.get_history.observations_back_family) {
-                $('.ob_family_back').append(
-                    `<div class="d-flex w-100 justify-content-between">
-                        <span class="text-justify mt-3">
-                            <h6 class="mb-0 text-capitalize">
-                                @lang('messages.label.observaciones'):
-                            </h6>
-                            <small>${patient.get_history.observations_back_family}</small>
-                        </span>
-                    </div>`
-                );
-            }
             // end
 
             // Antecedentes personales patológicos
 
-            pathology_back.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                pathology_back.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
-                        if (val != null) {
+                        if (key == value.name) {
+                            if (val != null) {
 
-                            $('.pathology_back')
-                                .append(
-                                    `<small><strong> ✔ </strong>${value.text}. </small>`
-                                );
-                        }
+                                $('.pathology_back')
+                                    .append(
+                                        `<small><strong> ✔ </strong>${value.text}. </small>`
+                                    );
+                            }
 
-                    };
+                        };
+                    }
+                });
+
+                if (patient.get_history.observations_diagnosis) {
+                    $('.ob_pathology_back').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${patient.get_history.observations_diagnosis}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
                 }
-            });
-
-            if (patient.get_history.observations_diagnosis) {
-                $('.ob_pathology_back').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${patient.get_history.observations_diagnosis}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
             // end
 
             // historia Antecedentes personales no patológicos
 
-            non_pathology_back.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                non_pathology_back.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
-                        if (val != null) {
-                            $('.non_pathology_back')
-                                .append(
-                                    `<small><strong> ✔ </strong>${value.name === 'NPB_NA' ? value.text : value.text+ ': SI'}.</small>`
-                                );
-                        }
-                    };
+                        if (key == value.name) {
+                            if (val != null) {
+                                $('.non_pathology_back')
+                                    .append(
+                                        `<small><strong> ✔ </strong>${value.name === 'NPB_NA' ? value.text : value.text+ ': SI'}.</small>`
+                                    );
+                            }
+                        };
+                    }
+                });
+
+                if (patient.get_history.observations_not_pathological) {
+                    $('.ob_non_pathology_back').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${patient.get_history.observations_not_pathological}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
                 }
-            });
-
-            if (patient.get_history.observations_not_pathological) {
-                $('.ob_non_pathology_back').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${patient.get_history.observations_not_pathological}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
 
             // end
 
             // historia Salud mental
 
-            mental_healths.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                mental_healths.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
-                        if (val != null) {
-                            $('.mental_healths')
-                                .append(
-                                    `<small><strong> ✔ </strong>${value.text}.</small>`
-                                );
-                        }
-                    };
+                        if (key == value.name) {
+                            if (val != null) {
+                                $('.mental_healths')
+                                    .append(
+                                        `<small><strong> ✔ </strong>${value.text}.</small>`
+                                    );
+                            }
+                        };
+                    }
+                });
+
+                if (patient.get_history.observations_mental_healths) {
+                    $('.ob_mental_healths').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${patient.get_history.observations_mental_healths}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
                 }
-            });
-
-            if (patient.get_history.observations_mental_healths) {
-                $('.ob_mental_healths').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${patient.get_history.observations_mental_healths}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
 
             // end
 
             // historia Inmunizacion
 
-            inmunizations.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                inmunizations.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
-                        if (val != null) {
-                            $('.inmunizations')
-                                .append(
-                                    `<small>${value.name === 'IM_O' ? '<strong> ✔ </strong>' +value.text+ ' ( ' +patient.get_history.IM_V_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
-                                );
-                        }
-                    };
+                        if (key == value.name) {
+                            if (val != null) {
+                                $('.inmunizations')
+                                    .append(
+                                        `<small>${value.name === 'IM_O' ? '<strong> ✔ </strong>' +value.text+ ' ( ' +patient.get_history.IM_V_input+ ' )' : '<strong> ✔ </strong>'+value.text}.</small>`
+                                    );
+                            }
+                        };
+                    }
+                });
+
+                if (patient.get_history.observations_inmunization) {
+                    $('.ob_inmunizations').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${patient.get_history.observations_inmunization}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
                 }
-            });
-
-            if (patient.get_history.observations_inmunization) {
-                $('.ob_inmunizations').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${patient.get_history.observations_inmunization}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
 
             // end
 
             // historia dispositivos medicos
 
-            medical_devices.map((value, keyy) => {
-                for (const [key, val] of Object
-                    .entries(
-                        patient.get_history
-                    )) {
+                medical_devices.map((value, keyy) => {
+                    for (const [key, val] of Object
+                        .entries(
+                            patient.get_history
+                        )) {
 
-                    if (key == value.name) {
-                        if (val != null) {
-                            $('.medical_device')
-                                .append(
-                                    `<small><strong> ✔ </strong>${value.description}. </small>`
-                                );
-                        }
-                    };
+                        if (key == value.name) {
+                            if (val != null) {
+                                $('.medical_device')
+                                    .append(
+                                        `<small><strong> ✔ </strong>${value.description}. </small>`
+                                    );
+                            }
+                        };
+                    }
+                });
+                if (patient.get_history.observations_medical_devices) {
+                    $('.ob_medical_devices').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${patient.get_history.observations_medical_devices}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
                 }
-            });
-            if (patient.get_history.observations_medical_devices) {
-                $('.ob_medical_devices').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${patient.get_history.observations_medical_devices}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
 
             // end
 
-           // alegias
+            // alegias
 
-            if (response.allergies.length != 0) {
-                $('#div_allergies').show();
-                response.allergies.map((e, key) => {
+                if (response.allergies.length != 0) {
+                    $('#div_allergies').show();
+                    response.allergies.map((e, key) => {
 
-                    let row = `
-                    <tr>
-                        <td class="text-center">${e.type_alergia}</td>
-                        <td class="text-center"> ${e.detalle_alergia}</td>
-                    </tr>`;
+                        let row = `
+                        <tr>
+                            <td class="text-center">${e.type_alergia}</td>
+                            <td class="text-center"> ${e.detalle_alergia}</td>
+                        </tr>`;
 
-                    $('#table-info-allergies').find('tbody').append(row);
+                        $('#table-info-allergies').find('tbody').append(row);
 
-                });
-            }
-            if (response.patient.get_history.observations_allergies) {
-                $('.ob-alergias').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${ response.patient.get_history.observations_allergies}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
+                    });
+                }
+                if (response.patient.get_history.observations_allergies) {
+                    $('.ob-alergias').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${ response.patient.get_history.observations_allergies}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
+                }
             // end
 
             // histoia quirurgica
-            if (response.history_surgical.length != 0) {
-                $('#div_cirugias').show();
-                response.history_surgical.map((e, key) => {
+                if (response.history_surgical.length != 0) {
+                    $('#div_cirugias').show();
+                    response.history_surgical.map((e, key) => {
 
-                    let row = `
-                    <tr>
-                        <td class="text-center">${e.cirugia}</td>
-                        <td class="text-center"> ${e.datecirugia}</td>
-                    </tr>`;
+                        let row = `
+                        <tr>
+                            <td class="text-center">${e.cirugia}</td>
+                            <td class="text-center"> ${e.datecirugia}</td>
+                        </tr>`;
 
-                    $('#table-info-cirugias').find('tbody').append(row);
+                        $('#table-info-cirugias').find('tbody').append(row);
 
-                });
-            }
-            if (response.patient.get_history.observations_quirurgicas) {
-                $('.ob-cirugias').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${response.patient.get_history.observations_quirurgicas}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
+                    });
+                }
+                if (response.patient.get_history.observations_quirurgicas) {
+                    $('.ob-cirugias').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${response.patient.get_history.observations_quirurgicas}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
+                }
             // end
 
-             // medicamentos
-            if (response.medications_supplements.length != 0) {
-                $('#div_medicamentos').show();
-                response.medications_supplements.map((e, key) => {
+            // medicamentos
+                if (response.medications_supplements.length != 0) {
+                    $('#div_medicamentos').show();
+                    response.medications_supplements.map((e, key) => {
 
-                let row = `
-                    <tr>
-                    <td class="text-center">${e.medicine}</td>
-                    <td class="text-center"> ${e.dose}</td>
-                    <td class="text-center">${e.patologi}</td>
-                    <td class="text-center">${e.effectiveness}</td>
-                    <td class="text-center"> ${e.treatmentDuration}</td>
-                    </tr>`;
+                    let row = `
+                        <tr>
+                        <td class="text-center">${e.medicine}</td>
+                        <td class="text-center"> ${e.dose}</td>
+                        <td class="text-center">${e.patologi}</td>
+                        <td class="text-center">${e.effectiveness}</td>
+                        <td class="text-center"> ${e.treatmentDuration}</td>
+                        </tr>`;
 
-                    $('#table-info-medicines').find('tbody').append(row);
+                        $('#table-info-medicines').find('tbody').append(row);
 
-                });
-            }
-            if (response.patient.get_history.observations_medication) {
-                $('.ob-medicamentos').append(
-                    `<li class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
-                            <span class="text-justify mt-3">
-                                <h6 class="mb-0 text-capitalize">
-                                    @lang('messages.label.observaciones'):
-                                </h6>
-                                <small>${response.patient.get_history.observations_medication}</small>
-                            </span>
-                        </div>
-                    </li>`
-                );
-            }
+                    });
+                }
+                if (response.patient.get_history.observations_medication) {
+                    $('.ob-medicamentos').append(
+                        `<li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="text-justify mt-3">
+                                    <h6 class="mb-0 text-capitalize">
+                                        @lang('messages.label.observaciones'):
+                                    </h6>
+                                    <small>${response.patient.get_history.observations_medication}</small>
+                                </span>
+                            </div>
+                        </li>`
+                    );
+                }
+
+            // end
 
         }
     }
@@ -2346,12 +2348,12 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_menarquia}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_fecha_ultimo_pe}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_duracion}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_infecciones}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_ex_gine_previos}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_metodo_anti}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_menarquia ? $Patient->get_history->GINE_menarquia : '-----' }}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_fecha_ultimo_pe ? $Patient->get_history->GINE_fecha_ultimo_pe : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_duracion ? $Patient->get_history->GINE_duracion : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_infecciones ? $Patient->get_history->GINE_infecciones : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_ex_gine_previos ? $Patient->get_history->GINE_ex_gine_previos : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->GINE_metodo_anti ? $Patient->get_history->GINE_metodo_anti : '-----'}}</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -2374,10 +2376,10 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_gravides}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_partos}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_cesareas}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_abortos}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_gravides ? $Patient->get_history->OBSTE_gravides : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_partos ? $Patient->get_history->OBSTE_partos : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_cesareas ? $Patient->get_history->OBSTE_cesareas : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->OBSTE_abortos ? $Patient->get_history->OBSTE_abortos : '-----'}}</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -2399,9 +2401,9 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_fecha_ini}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_sintomas}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_fecha_ini ? $Patient->get_history->MENOSPA_fecha_ini : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_sintomas ? $Patient->get_history->MENOSPA_sintomas : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento ? $Patient->get_history->MENOSPA_tratamiento : '-----'}}</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -2418,15 +2420,12 @@
                                                                             <tr>
                                                                                 <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_activo')</th>
                                                                                 <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.ACTSEX_enfermedades_ts')</th>
-                                                                                <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.MENOSPA_tratamiento')</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo"}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_enfermedades_ts}}</td>
-                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->MENOSPA_tratamiento}}</td>
-                                                                            </tr>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_activo ? $Patient->get_history->ACTSEX_activo === '1' ? "Activo" : "Inactivo" : '-----'}}</td>
+                                                                                <td class="text-center text-capitalize"> {{ $Patient->get_history->ACTSEX_enfermedades_ts ? $Patient->get_history->ACTSEX_enfermedades_ts : '-----'}}</td>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
